@@ -1,13 +1,19 @@
 <template>
-  <div class="palette">
-    <div class="hsl-h">
+  <div id="palette" class="palette">
+    <div id="hsl-h" class="hsl-h">
       <i class="sector" v-for="(item, index) in arr" :key="item" :style="{'transform': `rotate(${index * 360 / arr.length}deg)`, 'color' : `hsl(${index * 360 / arr.length}, 100%, 50%)`}"></i>
     </div>
-    <i id="dot" class="dot">O</i>
+    <i id="dot" class="dot el-icon-close"></i>
   </div>
 </template>
 
 <script>
+let _width = 400;
+let _height = 400;
+let _radius = _width / 2;
+
+import { getCoords, _d_, _dd_ } from "./util";
+
 export default {
   data() {
     return {
@@ -16,35 +22,22 @@ export default {
   },
   mounted() {
     let _dot = document.getElementById("dot");
+    let _palette = document.getElementById("palette");
+    let _hsl = document.getElementById("hsl-h");
     let _app = document.getElementById("app");
     let _container = _app.parentNode;
 
-    /**
-     * 获取直线和圆的交点
-     * y = kx + b
-     * (x + c)^2 + (y + d)^2 = r^2
-     */
-    function getCoord(k = 1, b = 0, c = 0, d = 0, r = 1) {
-      function _d_(x) {
-        return Math.pow(x, 2);
-      }
-      function _dd_(x) {
-        return Math.sqrt(x)
-      }
-      let X1 = -(_dd_((_d_(k) + 1) * _d_(r) - _d_(c) * _d_(k) + (2 * c * d + 2 * b * c) * k - _d_(d) - 2 * b * d - _d_(b)) + (d + b) * k + c) / (_d_(k) + 1);
-      let Y1 = -(k * (_dd_(_d_(k) * _d_(r) + _d_(r) - _d_(c) * _d_(k) + 2 * c * d * k + 2 * b * c * k - _d_(d) - 2 * b * d - _d_(b) + c )) + d * _d_(k) - b) / (_d_(k) + 1);
-
-      let X2 = (_dd_((_d_(k) + 1) * _d_(r) - _d_(c) * _d_(k) + (2 * c * d + 2 * b * c) * k - _d_(d) - 2 * b * d - _d_(b)) + (-d - b) * k - c) / (_d_(k) + 1);
-      let Y2 = -(k * (c - _dd_(_d_(k) * _d_(r) + _d_(r) - _d_(c) * _d_(k) + 2 * c * d * k + 2 * b * c * k - _d_(d) - 2 * b * d - _d_(b))) + d * _d_(k) - b) / (_d_(k) + 1);
-
-      return[[X1, Y1], [X2, Y2]]
-    }
-
-    _dot.onmousedown = function(e) {
+    _hsl.onmousedown = function(e) {
       e = e || window.event;
       // 鼠标点击下去的位置距离浏览器左边的距离 - 物体相对他的最近的元素（拥有 position 属性）的左边的距离 = 点击的位置和 物体相对的那个拥有定位的属性的最近的祖元素的左边的距离
-      let diffX = e.clientX - _dot.offsetLeft;
-      let diffY = e.clientY - _dot.offsetTop;
+      let left = e.clientX - _palette.offsetLeft;
+      let top = e.clientY - _palette.offsetTop;
+
+      _dot.style.top = top + "px";
+      _dot.style.left = left + "px";
+
+      let diffX = e.clientX - left;
+      let diffY = e.clientY - top;
 
       let _div = document.createElement("div");
       _div.id = "dotDrawing";
@@ -55,16 +48,32 @@ export default {
       _container.appendChild(_div);
 
       _div.onmousemove = function(e) {
+        e = e || window.event;
         let left = e.clientX - diffX;
         let top = e.clientY - diffY;
 
-        if ((200 - left) * (200 - left) + (200 - top) * (200 - top) > 200 * 200){
-          console.log(getCoord(-1, 400, -200, -200, 200));
+        // 边界处理
+        if (_d_(_radius - left, 2) + _d_(_radius - top, 2) > _d_(_radius, 2)) {
+          let k = (top - _radius) / (left - _radius);
+          let b = _radius - _radius * k;
+          let coords = getCoords(k, b, -_radius, -_radius, _radius);
+
+          left > _radius
+            ? ((top = coords[1][1]), (left = coords[1][0]))
+            : ((top = coords[0][1]), (left = coords[0][0]));
         }
-          
 
         _dot.style.top = top + "px";
         _dot.style.left = left + "px";
+
+        function getAngle(x0, y0, x, y) {
+          let a = x0 - x;
+          let b = y0 - y;
+          let result = Math.atan2(a, b) / Math.PI * 180;
+          return result > 0 ? 360 - result : Math.abs(result);
+        }
+        let angle = getAngle(_radius, _radius, left, top);
+        _palette.style.backgroundColor = `hsl(${angle}, 100%, 50%)`;
       };
 
       _div.onmouseup = function(e) {
@@ -158,14 +167,15 @@ $paletteHeight: 400px;
   height: $paletteHeight;
   top: 50%;
   left: 50%;
-  background-color: #eee;
+  // background-color: #eee;
   margin: (-($paletteWidth / 2)) (-($paletteHeight / 2));
   overflow: hidden;
+  cursor: pointer;
   .hsl-h {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    transform: rotate(-(360 / 12 * 5)deg);
+    transform: rotate(-(360 / 12 * 5) deg);
   }
   .sector {
     width: $paletteWidth;
@@ -190,6 +200,8 @@ $paletteHeight: 400px;
     color: black;
     top: 200px;
     left: 200px;
+    cursor: pointer;
+    font-weight: bolder;
   }
 }
 </style>
