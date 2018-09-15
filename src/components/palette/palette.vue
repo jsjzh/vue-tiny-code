@@ -2,7 +2,7 @@
   <div class="palette">
     <div ref="dish" class="dish">
       <i class="sector" v-for="(item, index) in arr" :key="item" :style="{'transform': `rotate(${index * 360 / arr.length}deg)`, 'color' : `hsl(${index * 360 / arr.length}, 100%, 50%)`}"></i>
-      <i class="dot" :style="{top: `${dotTop}px`, left: `${dotLeft}px`}">&#x2716;</i>
+      <span class="dot" :style="{top: `${dotTop}px`, left: `${dotLeft}px`}">&#x2716;</span>
     </div>
   </div>
 </template>
@@ -112,8 +112,6 @@ $paletteHeight: 400px;
     top: 200px;
     left: 200px;
     cursor: pointer;
-    font-weight: bolder;
-    font-style: inherit;
   }
 }
 </style>
