@@ -1,8 +1,8 @@
-export function _d_(x) {
+function _d_(x) {
   return Math.pow(x, 2);
 }
 
-export function _dd_(x) {
+function _dd_(x) {
   return Math.sqrt(x)
 }
 /**

@@ -1,8 +1,11 @@
 <template>
   <div class="palette">
     <div ref="dish" class="dish">
-      <i class="sector" v-for="(item, index) in arr" :key="item" :style="{'transform': `rotate(${index * 360 / arr.length}deg)`, 'color' : `hsl(${index * 360 / arr.length}, 100%, 50%)`}"></i>
-      <span class="dot" :style="{top: `${dotTop}px`, left: `${dotLeft}px`}">&#x2716;</span>
+      <i class="sector" v-for="item in count" :key="item" :style="{'transform': `rotate(${item * 360 / count}deg)`, 'color' : `hsl(${item * 360 / count}, 100%, 50%)`}"></i>
+      <i class="dot" :style="{top: `${dotTop}px`, left: `${dotLeft}px`}">&#x2716;</i>
+    </div>
+    <div style="display: flex;justify-content: center;align-items: center; margin-top: 20px">
+      <div v-for="(item, index) in colorArr" :key="index" style="width: 50px;height: 50px" :style="{'background-color': item}"></div>
     </div>
   </div>
 </template>
@@ -12,9 +15,9 @@ let _width = 400;
 let _height = 400;
 let _radius = _width / 2;
 
-import { getCoords, _d_, _dd_, isInside } from "./util";
-import Color from "./color";
+import { getCoords, isInside } from "./util";
 
+import Color from "./color";
 import drag from "./drag";
 
 export default {
@@ -25,16 +28,23 @@ export default {
 
   data() {
     const color = new Color({
-      format: this.colorFormat
+      format: this.colorFormat,
+      count: 12 * 5
     });
     return {
-      arr: new Array(12 * 5),
+      count: color.get("count"),
       color,
       dotTop: _width / 2,
-      dotLeft: _width / 2
+      dotLeft: _width / 2,
+      colorArr: []
     };
   },
   methods: {
+    update() {
+      const hue = this.color.get("hue");
+      const saturation = this.color.get("saturation");
+      const value = this.color.get("value");
+    },
     handleDreg(event) {
       let gbcr = this.$refs["dish"].getBoundingClientRect();
 
@@ -54,17 +64,49 @@ export default {
 
       this.dotTop = top;
       this.dotLeft = left;
+
+      function getAngle(x0, y0, x, y) {
+        let a = x0 - x;
+        let b = y0 - y;
+        let result = Math.atan2(a, b) / Math.PI * 180;
+        return result > 0 ? 360 - result : Math.abs(result);
+      }
+      let angle = getAngle(_radius, _radius, left, top);
+      this.color.set("hue", angle);
+
+      // debounce函数用来包裹我们的事件
+      // const debounce = (fn, delay) => {
+      //   let timer = null;
+      //   return function() {
+      //     let ctx = this;
+      //     let args = arguments;
+      //     clearTimeout(timer);
+      //     timer = setTimeout(function() {
+      //       fn.apply(ctx, args);
+      //     }, delay);
+      //   };
+      // };
+
+      // reverse
+      // similar
+      // triangle
+      // complement
+      // doubleComplement
+      // square
+      this.colorArr = this.color.blendent("similar", 3);
     }
   },
   mounted() {
-    const value = this.value;
-    value && this.color.fromString(value);
+    // const value = this.value;
+    // value && this.color.fromString(value);
 
     drag(this.$refs["dish"], {
       start: event => this.handleDreg(event),
       move: event => this.handleDreg(event),
       end: event => this.handleDreg(event)
     });
+
+    this.update();
   }
 };
 </script>
@@ -80,7 +122,7 @@ $paletteHeight: 400px;
   top: 50%;
   left: 50%;
   margin: (-($paletteWidth / 2)) (-($paletteHeight / 2));
-  overflow: hidden;
+  // overflow: hidden;
   cursor: pointer;
   .dish {
     width: 100%;
@@ -112,6 +154,8 @@ $paletteHeight: 400px;
     top: 200px;
     left: 200px;
     cursor: pointer;
+    font-weight: bolder;
+    font-style: inherit;
   }
 }
 </style>
