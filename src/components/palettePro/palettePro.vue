@@ -13,12 +13,12 @@
         <div class="trans-bar"></div>
       </div>
     </div>
-    <!-- <div class="current-color-text-stage">
+    <div class="current-color-text-stage">
       <div class="input-stage">
         <input type="text" class="current-color-text">
         <div class="color-type-toggle"></div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -75,8 +75,7 @@ export default {};
 .controller-stage {
   position: absolute;
   width: 100%;
-  top: 200px;
-  margin-top: 20px;
+  top: 220px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -119,6 +118,7 @@ export default {};
 /* current-color-text-stage */
 .current-color-text-stage {
   position: absolute;
+  top: 290px;
 }
 /* current-color-text-stage */
 </style>
