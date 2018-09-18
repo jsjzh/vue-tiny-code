@@ -223,7 +223,8 @@ export default class Color {
   }
 
   set(prop, value) {
-    this[`_${prop}`] = value
+    this[`_${prop}`] = value;
+    this._onChange();
   }
 
   get(prop) {
@@ -255,7 +256,11 @@ export default class Color {
         this._alpha = 100;
       }
       if (parts.length >= 3) {
-        const { h, s, v } = hsl2hsv(parts[0], parts[1], parts[2]);
+        const {
+          h,
+          s,
+          v
+        } = hsl2hsv(parts[0], parts[1], parts[2]);
         fromHSV(h, s, v);
       }
     }
@@ -318,7 +323,12 @@ export default class Color {
 
   // 当颜色改变的时候，最终生成颜色的函数
   _onChange() {
-    const { _hue, _saturation, _value, format } = this;
+    const {
+      _hue,
+      _saturation,
+      _value,
+      format
+    } = this;
     switch (format) {
       case "hsl":
         const hsl = hsv2hsl(_hue, _saturation / 100, _value / 100);

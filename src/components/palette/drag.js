@@ -5,16 +5,18 @@ let isDrag = false;
  * @param {Object} options 
  */
 export default function (elem, options) {
+
   const moveFn = function (event) {
-    options.move && options.move(event || window.event);
+    options.move && options.move(event || window.event, elem);
   }
+
   const endFn = function (event) {
     document.removeEventListener("mousemove", moveFn);
     document.removeEventListener("mouseup", endFn);
     document.onselectstart = null;
     document.ondragstart = null;
     isDrag = false;
-    options.end && options.end(event || window.event);
+    options.end && options.end(event || window.event, elem);
   }
 
   elem.addEventListener("mousedown", function (event) {
@@ -24,6 +26,6 @@ export default function (elem, options) {
     document.addEventListener("mousemove", moveFn);
     document.addEventListener("mouseup", endFn);
     isDrag = true;
-    options.start && options.start(event || window.event);
+    options.start && options.start(event || window.event, elem);
   })
 }
