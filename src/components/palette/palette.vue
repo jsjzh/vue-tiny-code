@@ -177,6 +177,7 @@ $paletteHeight: 200px;
   align-items: center;
 }
 .text-stage {
+  color: white;
   position: absolute;
   bottom: -30px;
   width: 100%;

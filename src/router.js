@@ -20,6 +20,12 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () =>
         import( /* webpackChunkName: "about" */ './views/Palette.vue')
+    },
+    {
+      path: '/palettePro',
+      name: 'palettePro',
+      component: () =>
+        import( /* webpackChunkName: "about" */ './views/PalettePro.vue')
     }
   ]
 })
