@@ -52,12 +52,12 @@ export default {
     const color = new Color({});
     return {
       color,
-      dotLeft: 50,
-      dotTop: 50,
-      hueLeft: 50,
-      transLeft: 50,
-      pureColor: "",
-      currentColor: "",
+      dotLeft: 100,
+      dotTop: 0,
+      hueLeft: 100,
+      transLeft: 100,
+      pureColor: undefined,
+      currentColor: undefined,
       showColors: new Array(10).fill("#eee"),
       recomColors: color.get("recomColor")
     };
@@ -81,33 +81,26 @@ export default {
       this.currentColor = this.color.get("_value");
       this.pureColor = this.color.get("_pure");
     },
-    handleDot(event, elem) {
-      const dot = this.$refs["dot"];
+    handleDrag(event, elem) {
+      const { hue, trans, dot } = this.$refs;
+      const _className = elem.className;
+
       const { width, height, left, top } = elem.getBoundingClientRect();
+
       let _left = event.clientX - left;
       let _top = event.clientY - top;
 
       _left = _left > 0 ? Math.min(width, _left) : 0;
       _top = _top > 0 ? Math.min(height, _top) : 0;
 
-      this.dotLeft = _left / width * 100;
-      this.dotTop = _top / height * 100;
-
-      this.update();
-    },
-    handleBar(event, elem) {
-      const { hue, trans } = this.$refs;
-      const _className = elem.className;
-      const { width, left } = elem.getBoundingClientRect();
-      let _left = event.clientX - left;
-
-      _left = _left > 0 ? Math.min(width, _left) : 0;
-
-      if (_className.indexOf("hue") !== -1) {
-        this.hueLeft = _left / width * 100;
-      } else if (_className.indexOf("trans") !== -1) {
-        this.transLeft = _left / width * 100;
-      }
+      _className.indexOf("hue") !== -1
+        ? (this.hueLeft = _left / width * 100)
+        : _className.indexOf("trans") !== -1
+          ? (this.transLeft = _left / width * 100)
+          : _className.indexOf("color") !== -1
+            ? ((this.dotLeft = _left / width * 100),
+              (this.dotTop = _top / height * 100))
+            : "";
 
       this.update();
     }
@@ -116,21 +109,21 @@ export default {
     const { dotStage, hueStage, transStage } = this.$refs;
 
     drag(dotStage, {
-      start: (event, elem) => this.handleDot(event, elem),
-      move: (event, elem) => this.handleDot(event, elem),
-      end: (event, elem) => this.handleDot(event, elem)
+      start: (event, elem) => this.handleDrag(event, elem),
+      move: (event, elem) => this.handleDrag(event, elem),
+      end: (event, elem) => this.handleDrag(event, elem)
     });
 
     drag(hueStage, {
-      start: (event, elem) => this.handleBar(event, elem),
-      move: (event, elem) => this.handleBar(event, elem),
-      end: (event, elem) => this.handleBar(event, elem)
+      start: (event, elem) => this.handleDrag(event, elem),
+      move: (event, elem) => this.handleDrag(event, elem),
+      end: (event, elem) => this.handleDrag(event, elem)
     });
 
     drag(transStage, {
-      start: (event, elem) => this.handleBar(event, elem),
-      move: (event, elem) => this.handleBar(event, elem),
-      end: (event, elem) => this.handleBar(event, elem)
+      start: (event, elem) => this.handleDrag(event, elem),
+      move: (event, elem) => this.handleDrag(event, elem),
+      end: (event, elem) => this.handleDrag(event, elem)
     });
 
     this.update();
@@ -146,6 +139,7 @@ export default {
   background-color: #fff;
   box-shadow: 1px 1px 5px #949494;
   box-sizing: border-box;
+  font-size: 14px;
 }
 /* color-stage */
 .color-stage {
