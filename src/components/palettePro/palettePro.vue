@@ -1,19 +1,19 @@
 <template>
   <div class="palette-pro-container">
     <div ref="dotStage" class="color-stage">
-      <div class="bgd current-bgd"></div>
+      <div class="bgd current-bgd" :style="{'backgroundColor': pureColor}"></div>
       <div class="bgd white-bgd"></div>
       <div class="bgd black-bgd"></div>
-      <div ref="dot" class="color-dot"></div>
+      <div ref="dot" class="color-dot" :style="{'left': `${dotLeft}%`, 'top': `${dotTop}%`}"></div>
     </div>
     <div class="controller-stage">
-      <div class="current-color"></div>
+      <div class="current-color" :style="{'backgroundColor': currentColor}" @click="handleCopyColor"></div>
       <div class="controller-bars">
         <div ref="hueStage" class="bar hue-bar">
-          <div ref="hue" class="slider hue"></div>
+          <div ref="hue" class="slider hue" :style="{'left': `${hueLeft}%`}"></div>
         </div>
-        <div ref="transStage" class="bar trans-bar">
-          <div ref="trans" class="slider trans"></div>
+        <div ref="transStage" class="bar trans-bar" :style="{'backgroundImage': `linear-gradient(to right, rgba(255, 255, 255, 0), ${pureColor})`}">
+          <div ref="trans" class="slider trans" :style="{'left': `${transLeft}%`}"></div>
         </div>
       </div>
     </div>
@@ -35,10 +35,30 @@ export default {
   name: "palettePro",
   data() {
     const color = new Color({});
-    return { color };
+    return {
+      color,
+      dotLeft: 50,
+      dotTop: 50,
+      hueLeft: 50,
+      transLeft: 50,
+      pureColor: "",
+      currentColor: ""
+    };
   },
   methods: {
-    update() {},
+    handleCopyColor() {
+      console.log("TODO click copy color", this.currentColor);
+    },
+    update() {
+      this.color.rate2hsl(
+        this.dotLeft,
+        this.dotTop,
+        this.hueLeft,
+        this.transLeft
+      );
+      this.currentColor = this.color.get("_value");
+      this.pureColor = this.color.get("_pure");
+    },
     handleDot(event, elem) {
       const dot = this.$refs["dot"];
       const { width, height, left, top } = elem.getBoundingClientRect();
@@ -48,8 +68,10 @@ export default {
       _left = _left > 0 ? Math.min(width, _left) : 0;
       _top = _top > 0 ? Math.min(height, _top) : 0;
 
-      dot.style.left = _left / width * 100 + "%";
-      dot.style.top = _top / height * 100 + "%";
+      this.dotLeft = _left / width * 100;
+      this.dotTop = _top / height * 100;
+
+      this.update();
     },
     handleBar(event, elem) {
       const { hue, trans } = this.$refs;
@@ -60,10 +82,12 @@ export default {
       _left = _left > 0 ? Math.min(width, _left) : 0;
 
       if (_className.indexOf("hue") !== -1) {
-        hue.style.left = _left / width * 100 + "%";
+        this.hueLeft = _left / width * 100;
       } else if (_className.indexOf("trans") !== -1) {
-        trans.style.left = _left / width * 100 + "%";
+        this.transLeft = _left / width * 100;
       }
+
+      this.update();
     }
   },
   mounted() {
@@ -74,16 +98,20 @@ export default {
       move: (event, elem) => this.handleDot(event, elem),
       end: (event, elem) => this.handleDot(event, elem)
     });
+
     drag(hueStage, {
       start: (event, elem) => this.handleBar(event, elem),
       move: (event, elem) => this.handleBar(event, elem),
       end: (event, elem) => this.handleBar(event, elem)
     });
+
     drag(transStage, {
       start: (event, elem) => this.handleBar(event, elem),
       move: (event, elem) => this.handleBar(event, elem),
       end: (event, elem) => this.handleBar(event, elem)
     });
+
+    this.update();
   }
 };
 </script>
@@ -127,8 +155,6 @@ export default {
   border-radius: 50%;
   border: 1px solid #fff;
   box-shadow: 1px 1px 1px #949494;
-  top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
 }
 /* color-stage */
@@ -174,9 +200,6 @@ export default {
     #ff0 83%,
     red
   );
-}
-.trans-bar {
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0), red);
 }
 .slider {
   position: absolute;
