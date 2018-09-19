@@ -7,13 +7,19 @@
       <div ref="dot" class="color-dot" :style="{'left': `${dotLeft}%`, 'top': `${dotTop}%`}"></div>
     </div>
     <div class="controller-stage">
-      <div class="current-color" :style="{'backgroundColor': currentColor}" @click="handleCopyColor"></div>
+      <div class="current-color-stage" @click="handleCopyColor">
+        <div class="lucency"></div>
+        <div class="current-color" :style="{'backgroundColor': currentColor}"></div>
+      </div>
       <div class="controller-bars">
-        <div ref="hueStage" class="bar hue-bar">
-          <div ref="hue" class="slider hue" :style="{'left': `${hueLeft}%`}"></div>
+        <div ref="hueStage" class="bar hue-stage">
+          <div class="hue-bar"></div>
+          <div ref="hue" class="slider" :style="{'left': `${hueLeft}%`}"></div>
         </div>
-        <div ref="transStage" class="bar trans-bar" :style="{'backgroundImage': `linear-gradient(to right, rgba(255, 255, 255, 0), ${pureColor})`}">
-          <div ref="trans" class="slider trans" :style="{'left': `${transLeft}%`}"></div>
+        <div ref="transStage" class="bar trans-stage">
+          <div class="lucency"></div>
+          <div class="trans-bar" :style="{'backgroundImage': `linear-gradient(to right, rgba(255, 255, 255, 0), ${pureColor})`}"></div>
+          <div ref="trans" class="slider" :style="{'left': `${transLeft}%`}"></div>
         </div>
       </div>
     </div>
@@ -167,12 +173,19 @@ export default {
   justify-content: space-around;
   align-items: center;
 }
-.current-color {
+.current-color-stage {
+  position: relative;
   width: 40px;
   height: 40px;
-  background-color: red;
   border-radius: 50%;
   cursor: cell;
+  box-shadow: 1px 1px 1px #949494;
+  overflow: hidden;
+}
+.current-color {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 .controller-bars {
   width: 65%;
@@ -188,8 +201,12 @@ export default {
   height: 15px;
   border-radius: 3px;
   cursor: e-resize;
+  box-shadow: 1px 1px 1px #949494;
 }
 .hue-bar {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   background-image: linear-gradient(
     to right,
     red 0,
@@ -210,6 +227,20 @@ export default {
   transform: translateX(-50%);
   background-color: #fff;
   box-shadow: 1px 1px 5px#949494;
+}
+.trans-bar {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.lucency {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("./lucency.png");
+  background-repeat: repeat;
+  background-size: 10px;
+  background-position: 0 0;
 }
 /* controller-stage */
 /* current-color-text-stage */
