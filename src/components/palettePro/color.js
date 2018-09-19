@@ -30,7 +30,7 @@ export default class Color {
   }
 
   rate2hsl(sat, light, hue, trans) {
-    this._hue = hue / 100 * 360;
+    this._hue = Math.abs(hue / 100 * 360 - 360);
     this._saturation = sat;
     this._lightness = Math.abs(light / 2 - 50);
     this._trans = trans / 100;
