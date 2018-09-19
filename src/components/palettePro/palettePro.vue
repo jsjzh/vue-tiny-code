@@ -1,34 +1,43 @@
 <template>
   <div class="palette-pro-container">
-    <div ref="dotStage" class="color-stage">
+
+    <div ref="dotStage" class="color-stage" title="拖动调节饱和度和明度">
       <div class="bgd current-bgd" :style="{'backgroundColor': pureColor}"></div>
       <div class="bgd white-bgd"></div>
       <div class="bgd black-bgd"></div>
       <div ref="dot" class="color-dot" :style="{'left': `${dotLeft}%`, 'top': `${dotTop}%`}"></div>
     </div>
+
     <div class="controller-stage">
-      <div class="current-color-stage" @click="handleCopyColor">
+      <div class="current-color-stage" title="点击复制" @click="handleCopyColor">
         <div class="lucency"></div>
         <div class="current-color" :style="{'backgroundColor': currentColor}"></div>
       </div>
       <div class="controller-bars">
-        <div ref="hueStage" class="bar hue-stage">
+        <div ref="hueStage" class="bar hue-stage" title="拖动调节色相">
           <div class="hue-bar"></div>
           <div ref="hue" class="slider" :style="{'left': `${hueLeft}%`}"></div>
         </div>
-        <div ref="transStage" class="bar trans-stage">
+        <div ref="transStage" class="bar trans-stage" title="拖动调节透明度">
           <div class="lucency"></div>
           <div class="trans-bar" :style="{'backgroundImage': `linear-gradient(to right, rgba(255, 255, 255, 0), ${pureColor})`}"></div>
           <div ref="trans" class="slider" :style="{'left': `${transLeft}%`}"></div>
         </div>
       </div>
-    </div>
-    <!-- <div class="current-color-text-stage">
-      <div class="input-stage">
-        <input type="text" class="current-color-text">
-        <div class="color-type-toggle"></div>
+      <div class="current-color-text-stage">
+        <input id="current-color-text" type="text" class="current-color-input" v-model="_currentColor">
+        <label for="current-color-text" class="current-color-label">HSLA</label>
       </div>
-    </div> -->
+    </div>
+
+    <div class="show-stage">
+      <div class="show-color-item" title="点击复制" v-for="(color, index) in showColors" :key="index" :style="{'backgroundColor': color}"></div>
+    </div>
+
+    <div class="recom-stage">
+      <div class="recom-color-item" v-for="(color, index) in recomColors" :key="index" :style="{'backgroundColor': color}"></div>
+    </div>
+
   </div>
 </template>
 
@@ -48,8 +57,15 @@ export default {
       hueLeft: 50,
       transLeft: 50,
       pureColor: "",
-      currentColor: ""
+      currentColor: "",
+      showColors: new Array(10).fill("#eee"),
+      recomColors: color.get("recomColor")
     };
+  },
+  computed: {
+    _currentColor() {
+      return this.currentColor;
+    }
   },
   methods: {
     handleCopyColor() {
@@ -125,16 +141,15 @@ export default {
 
 <style scoped>
 .palette-pro-container {
-  position: relative;
   width: 300px;
-  height: 500px;
   margin: 50px auto;
   background-color: #fff;
   box-shadow: 1px 1px 5px #949494;
+  box-sizing: border-box;
 }
 /* color-stage */
 .color-stage {
-  position: absolute;
+  position: relative;
   width: 100%;
   height: 200px;
   overflow: hidden;
@@ -166,12 +181,13 @@ export default {
 /* color-stage */
 /* controller-stage */
 .controller-stage {
-  position: absolute;
+  position: relative;
   width: 100%;
-  top: 220px;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex-wrap: wrap;
+  padding: 20px 0;
 }
 .current-color-stage {
   position: relative;
@@ -245,8 +261,53 @@ export default {
 /* controller-stage */
 /* current-color-text-stage */
 .current-color-text-stage {
-  position: absolute;
-  top: 290px;
+  margin-top: 20px;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.current-color-input {
+  border: 1px solid #949494;
+  width: 70%;
+  height: 10px;
+  border-radius: 3px;
+  padding: 8px;
 }
 /* current-color-text-stage */
+/* show-stage */
+.show-stage {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px 10px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+.show-color-item {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px #949494;
+  cursor: cell;
+  margin: 5px;
+}
+/* show-stage */
+/* recom-stage */
+.recom-stage {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px 10px;
+}
+.recom-color-item {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px #949494;
+  margin: 5px;
+}
+/* recom-stage */
 </style>
