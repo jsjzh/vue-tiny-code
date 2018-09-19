@@ -1,9 +1,9 @@
 <template>
   <div class="palette-pro-container">
     <div ref="dotStage" class="color-stage">
-      <div class="current-bgd"></div>
-      <div class="white-bgd"></div>
-      <div class="black-bgd"></div>
+      <div class="bgd current-bgd"></div>
+      <div class="bgd white-bgd"></div>
+      <div class="bgd black-bgd"></div>
       <div ref="dot" class="color-dot"></div>
     </div>
     <div class="controller-stage">
@@ -28,17 +28,19 @@
 
 
 <script>
-import drag from "./drag.js";
+import drag from "./drag";
+import Color from "./color";
 
 export default {
   name: "palettePro",
   data() {
-    return {};
+    const color = new Color({});
+    return { color };
   },
   methods: {
+    update() {},
     handleDot(event, elem) {
       const dot = this.$refs["dot"];
-      // debugger;
       const { width, height, left, top } = elem.getBoundingClientRect();
       let _left = event.clientX - left;
       let _top = event.clientY - top;
@@ -52,11 +54,11 @@ export default {
     handleBar(event, elem) {
       const { hue, trans } = this.$refs;
       const _className = elem.className;
-      // debugger;
       const { width, left } = elem.getBoundingClientRect();
       let _left = event.clientX - left;
 
       _left = _left > 0 ? Math.min(width, _left) : 0;
+
       if (_className.indexOf("hue") !== -1) {
         hue.style.left = _left / width * 100 + "%";
       } else if (_className.indexOf("trans") !== -1) {
@@ -102,23 +104,20 @@ export default {
   width: 100%;
   height: 200px;
   overflow: hidden;
+  cursor: crosshair;
 }
-.white-bgd {
+.bgd {
   position: absolute;
   width: 100%;
   height: 100%;
+}
+.white-bgd {
   background: linear-gradient(to right, white, rgba(255, 255, 255, 0));
 }
 .black-bgd {
-  position: absolute;
-  width: 100%;
-  height: 100%;
   background: linear-gradient(to top, black, rgba(255, 255, 255, 0));
 }
 .current-bgd {
-  position: absolute;
-  width: 100%;
-  height: 100%;
   background-color: red;
 }
 .color-dot {
@@ -133,7 +132,6 @@ export default {
   transform: translate(-50%, -50%);
 }
 /* color-stage */
-
 /* controller-stage */
 .controller-stage {
   position: absolute;
@@ -148,6 +146,7 @@ export default {
   height: 40px;
   background-color: red;
   border-radius: 50%;
+  cursor: cell;
 }
 .controller-bars {
   width: 65%;
@@ -162,6 +161,7 @@ export default {
   width: 100%;
   height: 15px;
   border-radius: 3px;
+  cursor: e-resize;
 }
 .hue-bar {
   background-image: linear-gradient(
@@ -188,18 +188,6 @@ export default {
   background-color: #fff;
   box-shadow: 1px 1px 5px#949494;
 }
-/* .hue {
-  position: absolute;
-  width: 2px;
-  height: 100%;
-  background-color: #000;
-}
-.trans {
-  position: absolute;
-  width: 2px;
-  height: 100%;
-  background-color: #000;
-} */
 /* controller-stage */
 /* current-color-text-stage */
 .current-color-text-stage {
