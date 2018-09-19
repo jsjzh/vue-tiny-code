@@ -4,9 +4,10 @@ export default function (color) {
   input.value = color;
   input.style.opacity = 0;
   input.style.position = "fixed";
-  input.style.zIndex = -1;
+  input.style.top = "0";
+  input.style.left = "0";
   body.appendChild(input);
   input.select();
   document.execCommand("copy");
-  body.removeChild(input);
+  // body.removeChild(input);
 }

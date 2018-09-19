@@ -50,7 +50,9 @@ import Color from "./color";
 export default {
   name: "palettePro",
   data() {
-    const color = new Color({});
+    const color = new Color({
+      precision: 12 * 5
+    });
     return {
       color,
       dotLeft: 100,
@@ -59,7 +61,7 @@ export default {
       transLeft: 100,
       pureColor: undefined,
       currentColor: undefined,
-      showColors: new Array(10).fill("hsla(0, 0%, 93%, 1)"),
+      showColors: undefined,
       recomColors: color.get("recomColor")
     };
   },
@@ -79,8 +81,10 @@ export default {
         this.hueLeft,
         this.transLeft
       );
-      this.currentColor = this.color.get("_value");
-      this.pureColor = this.color.get("_pure");
+      this.showColors = this.color.blendent("similar", 2);
+      console.log(this.showColors);
+      this.currentColor = this.color.get("value");
+      this.pureColor = this.color.get("pure");
     },
     handleDrag(event, elem) {
       const { hue, trans, dot } = this.$refs;
