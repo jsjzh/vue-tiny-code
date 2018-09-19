@@ -100,8 +100,6 @@ export default {
     },
 
     handleCopyColor(color) {
-      // hsla(197, 100%, 50%, 1)
-      // console.log(color.split(/\(|\)|\,|\s/gi)[1]);
       paste(color);
     },
 
