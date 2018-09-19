@@ -51,7 +51,7 @@ export default class Color {
    * 获取近似色
    * @param {Number} number 需要获取几组近似色
    */
-  _similar(number = 1) {
+  _similar(number = 5) {
     let arr = [this._hue];
     while (number) {
       arr.push((this._hue + this._chunkAngle * number) > 360 ? this._hue + this._chunkAngle * number - 360 : this._hue + this._chunkAngle * number);

@@ -31,10 +31,16 @@
     </div>
 
     <div class="show-stage">
-      <div class="show-color-item" title="点击复制" @click="handleCopyColor(color)" v-for="(color, index) in showColors" :key="index" :style="{'backgroundColor': color}"></div>
+      <div class="show-toggle-stage flex-start-stage">
+        <button class="show-toggle-btn" @click="(blendent = item.value, update())" v-for="item in blendents" :key="item.label">{{item.label}}</button>
+      </div>
+      <div class="show-color-stage flex-start-stage">
+        <div class="show-color-item" title="点击复制" @click="handleCopyColor(color)" v-for="(color, index) in showColors" :key="index" :style="{'backgroundColor': color}"></div>
+      </div>
+
     </div>
 
-    <div class="recom-stage">
+    <div class="recom-stage flex-start-stage">
       <div class="recom-color-item" v-for="(color, index) in recomColors" :key="index" :style="{'backgroundColor': color}"></div>
     </div>
 
@@ -51,6 +57,7 @@ export default {
   name: "palettePro",
   data() {
     const color = new Color({
+      // 精度
       precision: 12 * 5
     });
     return {
@@ -62,7 +69,16 @@ export default {
       pureColor: undefined,
       currentColor: undefined,
       showColors: undefined,
-      recomColors: color.get("recomColor")
+      blendent: undefined,
+      recomColors: color.get("recomColor"),
+      blendents: [
+        { label: "互补色", value: "reverse" },
+        { label: "近似色", value: "similar" },
+        { label: "三角色", value: "triangle" },
+        { label: "四角色", value: "square" },
+        { label: "分裂互补色", value: "complement" },
+        { label: "双分裂互补色", value: "doubleComplement" }
+      ]
     };
   },
   computed: {
@@ -72,8 +88,11 @@ export default {
   },
   methods: {
     handleCopyColor(color) {
+      // hsla(197, 100%, 50%, 1)
+      console.log(color.split(/\(|\)|\,|\s/gi)[1]);
       paste(color);
     },
+
     update() {
       this.color.rate2hsl(
         this.dotLeft,
@@ -81,11 +100,11 @@ export default {
         this.hueLeft,
         this.transLeft
       );
-      this.showColors = this.color.blendent("similar", 2);
-      console.log(this.showColors);
+      this.showColors = this.color.blendent(this.blendent || "similar");
       this.currentColor = this.color.get("value");
       this.pureColor = this.color.get("pure");
     },
+
     handleDrag(event, elem) {
       const { hue, trans, dot } = this.$refs;
       const _className = elem.className;
@@ -113,22 +132,12 @@ export default {
   mounted() {
     const { dotStage, hueStage, transStage } = this.$refs;
 
-    drag(dotStage, {
-      start: (event, elem) => this.handleDrag(event, elem),
-      move: (event, elem) => this.handleDrag(event, elem),
-      end: (event, elem) => this.handleDrag(event, elem)
-    });
-
-    drag(hueStage, {
-      start: (event, elem) => this.handleDrag(event, elem),
-      move: (event, elem) => this.handleDrag(event, elem),
-      end: (event, elem) => this.handleDrag(event, elem)
-    });
-
-    drag(transStage, {
-      start: (event, elem) => this.handleDrag(event, elem),
-      move: (event, elem) => this.handleDrag(event, elem),
-      end: (event, elem) => this.handleDrag(event, elem)
+    [dotStage, hueStage, transStage].forEach(item => {
+      drag(item, {
+        start: (event, elem) => this.handleDrag(event, elem),
+        move: (event, elem) => this.handleDrag(event, elem),
+        end: (event, elem) => this.handleDrag(event, elem)
+      });
     });
 
     this.update();
@@ -275,13 +284,26 @@ export default {
 /* current-color-text-stage */
 /* show-stage */
 .show-stage {
+  padding: 10px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+.show-toggle-btn {
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 3px;
+  color: #fff;
+  border: 1px solid #409eff;
+  background-color: #409eff;
+}
+.flex-start-stage {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  padding: 10px;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
 }
 .show-color-item {
   width: 20px;
@@ -294,10 +316,6 @@ export default {
 /* show-stage */
 /* recom-stage */
 .recom-stage {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
   padding: 10px;
 }
 .recom-color-item {
