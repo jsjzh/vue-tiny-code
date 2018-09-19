@@ -1,7 +1,7 @@
-export default function (color) {
+export default function (text) {
   const body = document.querySelector("body");
   const input = document.createElement("input");
-  input.value = color;
+  input.value = text;
   input.style.opacity = 0;
   input.style.position = "fixed";
   input.style.top = "0";
@@ -9,5 +9,5 @@ export default function (color) {
   body.appendChild(input);
   input.select();
   document.execCommand("copy");
-  // body.removeChild(input);
+  body.removeChild(input);
 }
