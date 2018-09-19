@@ -6,7 +6,7 @@ export default class Color {
     this.value = options.value || "";
     this.format = options.format || "hsla";
 
-    this.recomColor = ["hsl(4, 90%, 58%)", "hsl(340, 82%, 52%)", "hsl(291, 64%, 42%)", "hsl(262, 52%, 47%)", "hsl(231, 48%, 48%)", "hsl(207, 90%, 54%)", "hsl(199, 98%, 48%)", "hsl(187, 100%, 42%)", "hsl(174, 100%, 29%)", "hsl(122, 39%, 49%)", "hsl(88, 50%, 53%)", "hsl(66, 70%, 54%)", "hsl(54, 100%, 62%)", "hsl(45, 100%, 51%)", "hsl(36, 100%, 50%)", "hsl(14, 100%, 57%)", "hsl(16, 25%, 38%)", "hsl(0, 0%, 62%)", "hsl(200, 18%, 46%)"];
+    this.recomColors = ["hsla(4, 90%, 58%, 1)", "hsla(340, 82%, 52%, 1)", "hsla(291, 64%, 42%, 1)", "hsla(262, 52%, 47%, 1)", "hsla(231, 48%, 48%, 1)", "hsla(207, 90%, 54%, 1)", "hsla(199, 98%, 48%, 1)", "hsla(187, 100%, 42%, 1)", "hsla(174, 100%, 29%, 1)", "hsla(122, 39%, 49%, 1)", "hsla(88, 50%, 53%, 1)", "hsla(66, 70%, 54%, 1)", "hsla(54, 100%, 62%, 1)", "hsla(45, 100%, 51%, 1)", "hsla(36, 100%, 50%, 1)", "hsla(14, 100%, 57%, 1)", "hsla(16, 25%, 38%, 1)", "hsla(0, 0%, 62%, 1)", "hsla(200, 18%, 46%)"];
 
     this._hue = 0;
     this._saturation = 100;
@@ -58,7 +58,7 @@ export default class Color {
       arr.unshift((this._hue - this._chunkAngle * number) < 0 ? this._hue - this._chunkAngle * number + 360 : this._hue - this._chunkAngle * number);
       number--;
     }
-    return arr
+    return arr;
   }
 
   // 获取三角色

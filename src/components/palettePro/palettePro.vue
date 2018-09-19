@@ -5,7 +5,7 @@
       <div class="bgd current-bgd" :style="{'backgroundColor': pureColor}"></div>
       <div class="bgd white-bgd"></div>
       <div class="bgd black-bgd"></div>
-      <div ref="dot" class="color-dot" :style="{'left': `${dotLeft}%`, 'top': `${dotTop}%`}"></div>
+      <div ref="dot" class="color-dot" :style="{'left': `${satLeft}%`, 'top': `${lightTop}%`}"></div>
     </div>
 
     <div class="controller-stage">
@@ -41,7 +41,7 @@
     </div>
 
     <div class="recom-stage flex-start-stage">
-      <div class="recom-color-item" v-for="(color, index) in recomColors" :key="index" :style="{'backgroundColor': color}"></div>
+      <div class="recom-color-item" @click="handleSetColor(color)" v-for="(color, index) in recomColors" :key="index" :style="{'backgroundColor': color}"></div>
     </div>
 
   </div>
@@ -62,15 +62,15 @@ export default {
     });
     return {
       color,
-      dotLeft: 100,
-      dotTop: 0,
+      satLeft: 100,
+      lightTop: 0,
       hueLeft: 100,
       transLeft: 100,
       pureColor: undefined,
       currentColor: undefined,
       showColors: undefined,
       blendent: undefined,
-      recomColors: color.get("recomColor"),
+      recomColors: color.get("recomColors"),
       blendents: [
         { label: "互补色", value: "reverse" },
         { label: "近似色", value: "similar" },
@@ -87,16 +87,28 @@ export default {
     }
   },
   methods: {
+    handleSetColor(color) {
+      // console.log(color);
+      // let arr = color.split(/hsla\(|\s|\,|\)|\%/gi).filter(item => !!item);
+      // this.hueLeft = Number(arr[0]) / 360 * 100;
+      // this.satLeft = Number(arr[1]);
+      // this.lightTop = Number(arr[2]);
+      // this.transLeft = Number(arr[3]) * 100;
+      // console.log(arr[1]);
+      // console.log(Number(arr[1]));
+      // this.update();
+    },
+
     handleCopyColor(color) {
       // hsla(197, 100%, 50%, 1)
-      console.log(color.split(/\(|\)|\,|\s/gi)[1]);
+      // console.log(color.split(/\(|\)|\,|\s/gi)[1]);
       paste(color);
     },
 
     update() {
       this.color.rate2hsl(
-        this.dotLeft,
-        this.dotTop,
+        this.satLeft,
+        this.lightTop,
         this.hueLeft,
         this.transLeft
       );
@@ -122,8 +134,8 @@ export default {
         : _className.indexOf("trans") !== -1
           ? (this.transLeft = _left / width * 100)
           : _className.indexOf("color") !== -1
-            ? ((this.dotLeft = _left / width * 100),
-              (this.dotTop = _top / height * 100))
+            ? ((this.satLeft = _left / width * 100),
+              (this.lightTop = _top / height * 100))
             : "";
 
       this.update();
