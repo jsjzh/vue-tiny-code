@@ -8,4 +8,8 @@
 </template>
 
 <style lang="scss">
+body,
+html {
+  font-size: 14px !important;
+}
 </style>

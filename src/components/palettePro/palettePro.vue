@@ -9,7 +9,7 @@
     </div>
 
     <div class="controller-stage">
-      <div class="current-color-stage" title="点击复制" @click="handleCopyColor">
+      <div class="current-color-stage" title="点击复制" @click="handleCopyColor(currentColor)">
         <div class="lucency"></div>
         <div class="current-color" :style="{'backgroundColor': currentColor}"></div>
       </div>
@@ -31,7 +31,7 @@
     </div>
 
     <div class="show-stage">
-      <div class="show-color-item" title="点击复制" v-for="(color, index) in showColors" :key="index" :style="{'backgroundColor': color}"></div>
+      <div class="show-color-item" title="点击复制" @click="handleCopyColor(color)" v-for="(color, index) in showColors" :key="index" :style="{'backgroundColor': color}"></div>
     </div>
 
     <div class="recom-stage">
@@ -44,6 +44,7 @@
 
 <script>
 import drag from "./drag";
+import paste from "./paste";
 import Color from "./color";
 
 export default {
@@ -58,7 +59,7 @@ export default {
       transLeft: 100,
       pureColor: undefined,
       currentColor: undefined,
-      showColors: new Array(10).fill("#eee"),
+      showColors: new Array(10).fill("hsla(0, 0%, 93%, 1)"),
       recomColors: color.get("recomColor")
     };
   },
@@ -68,8 +69,8 @@ export default {
     }
   },
   methods: {
-    handleCopyColor() {
-      console.log("TODO click copy color", this.currentColor);
+    handleCopyColor(color) {
+      paste(color);
     },
     update() {
       this.color.rate2hsl(
@@ -139,7 +140,7 @@ export default {
   background-color: #fff;
   box-shadow: 1px 1px 5px #949494;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 1rem;
 }
 /* color-stage */
 .color-stage {
@@ -176,12 +177,11 @@ export default {
 /* controller-stage */
 .controller-stage {
   position: relative;
-  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-  padding: 20px 0;
+  padding: 20px 10px;
 }
 .current-color-stage {
   position: relative;
@@ -275,7 +275,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  padding: 10px 10px;
+  padding: 10px;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
 }
@@ -294,7 +294,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  padding: 10px 10px;
+  padding: 10px;
 }
 .recom-color-item {
   width: 20px;
