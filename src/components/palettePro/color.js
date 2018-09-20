@@ -29,11 +29,10 @@ export default class Color {
   }
 
   rate2hsla(sat, light, hue, trans) {
-    debugger
-    this._hue = Math.abs(hue / 100 * 360 - 360);
-    this._saturation = sat;
-    // this._lightness = (1 - sat / 200) * (100 - light);
-    this._lightness = (50 - light / 2) * (1 + (100 - sat) / 100);
+    this._hue = Math.round(Math.abs(hue / 100 * 360 - 360));
+    this._saturation = Math.round(sat);
+    // this._lightness = Math.round((1 - sat / 200) * (100 - light));
+    this._lightness = Math.round((50 - light / 2) * (1 + (100 - sat) / 100));
     this._trans = Math.floor(trans / 100 * 100) / 100;
     this._handleChange();
   }
