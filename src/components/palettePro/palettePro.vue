@@ -62,8 +62,8 @@ export default {
     });
     return {
       color,
-      satLeft: 100,
-      lightTop: 0,
+      satLeft: 50,
+      lightTop: 50,
       hueLeft: 100,
       transLeft: 100,
       pureColor: undefined,
@@ -88,20 +88,16 @@ export default {
   },
   methods: {
     handleSetColor(color) {
-      // let arr = color
-      //   .split(/hsla\(|\s|\,|\)|\%/gi)
-      //   .reduce((sum, item) => (item ? [...sum, +item] : sum), []);
-      // this.hueLeft = (1 - arr[0] / 360) * 100;
-      // this.satLeft = arr[1];
-      // this.lightTop = Math.abs(50 - arr[2] / (1 + Math.abs(arr[1] - 100) / 100)) * 2;
-      // this.transLeft = arr[3] * 100;
+      let arr = color
+        .split(/hsla\(|\s|\,|\)|\%/gi)
+        .reduce((sum, item) => (item ? [...sum, +item] : sum), []);
 
-      // console.log(this.lightTop);
-      // console.log(Math.abs(50 - arr[2] / (1 + Math.abs(arr[1] - 100) / 100)) * 2);
-
-      // this.update();
-
-      // console.log(color);
+      this.hueLeft = (1 - arr[0] / 360) * 100;
+      this.satLeft = arr[1];
+      // this.lightTop = 100 - arr[2] / (1 - arr[1] / 200);
+      this.lightTop = (50 - arr[2] / (1 + (100 - arr[1]) / 100)) * 2;
+      this.transLeft = arr[3] * 100;
+      this.update();
     },
 
     handleCopyColor(color) {
