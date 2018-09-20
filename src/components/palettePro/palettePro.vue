@@ -5,7 +5,7 @@
       <div class="bgd current-bgd" :style="{'backgroundColor': pureColor}"></div>
       <div class="bgd white-bgd"></div>
       <div class="bgd black-bgd"></div>
-      <div ref="dot" class="color-dot" :style="{'left': `${satLeft}%`, 'top': `${lightTop}%`}"></div>
+      <div ref="dot" class="color-dot" :style="{'left': `${satLeft}%`, 'top': `${valueTop}%`}"></div>
     </div>
 
     <div class="controller-stage">
@@ -26,23 +26,22 @@
       </div>
       <div class="current-color-text-stage">
         <input id="current-color-text" type="text" class="current-color-input" v-model="_currentColor">
-        <label for="current-color-text" class="current-color-label">HSLA</label>
+        <label for="current-color-text" class="current-color-label">HSVA</label>
       </div>
     </div>
 
-    <div class="show-stage">
+    <!-- <div class="show-stage">
       <div class="show-toggle-stage flex-start-stage">
         <button class="show-toggle-btn" @click="(blendent = item.value, update())" v-for="item in blendents" :key="item.label">{{item.label}}</button>
       </div>
       <div class="show-color-stage flex-start-stage">
         <div class="show-color-item" title="点击复制" @click="handleCopyColor(color)" v-for="(color, index) in showColors" :key="index" :style="{'backgroundColor': color}"></div>
       </div>
+    </div> -->
 
-    </div>
-
-    <div class="recom-stage flex-start-stage">
+    <!-- <div class="recom-stage flex-start-stage">
       <div class="recom-color-item" @click="handleSetColor(color)" v-for="(color, index) in recomColors" :key="index" :style="{'backgroundColor': color}"></div>
-    </div>
+    </div> -->
 
   </div>
 </template>
@@ -62,8 +61,8 @@ export default {
     });
     return {
       color,
-      satLeft: 50,
-      lightTop: 50,
+      satLeft: 100,
+      valueTop: 100,
       hueLeft: 100,
       transLeft: 100,
       pureColor: undefined,
@@ -87,32 +86,32 @@ export default {
     }
   },
   methods: {
-    handleSetColor(color) {
-      let arr = color
-        .split(/hsla\(|\s|\,|\)|\%/gi)
-        .reduce((sum, item) => (item ? [...sum, +item] : sum), []);
+    // handleSetColor(color) {
+    //   let arr = color
+    //     .split(/hsla\(|\s|\,|\)|\%/gi)
+    //     .reduce((sum, item) => (item ? [...sum, +item] : sum), []);
 
-      this.hueLeft = (1 - arr[0] / 360) * 100;
-      this.satLeft = arr[1];
-      // this.lightTop = 100 - arr[2] / (1 - arr[1] / 200);
-      this.lightTop = (50 - arr[2] / (1 + (100 - arr[1]) / 100)) * 2;
-      this.transLeft = arr[3] * 100;
-      this.update();
-    },
+    //   this.hueLeft = (1 - arr[0] / 360) * 100;
+    //   this.satLeft = arr[1];
+    //   // this.lightTop = 100 - arr[2] / (1 - arr[1] / 200);
+    //   this.lightTop = (50 - arr[2] / (1 + (100 - arr[1]) / 100)) * 2;
+    //   this.transLeft = arr[3] * 100;
+    //   this.update();
+    // },
 
     handleCopyColor(color) {
       paste(color);
     },
 
     update() {
-      this.color.rate2hsla(
+      this.color.rate2hsva(
         this.satLeft,
-        this.lightTop,
+        this.valueTop,
         this.hueLeft,
         this.transLeft
       );
-      this.showColors = this.color.blendent(this.blendent || "similar");
-      this.currentColor = this.color.get("value");
+      // this.showColors = this.color.blendent(this.blendent || "similar");
+      this.currentColor = this.color.get("$value");
       this.pureColor = this.color.get("pure");
     },
 
@@ -134,7 +133,7 @@ export default {
           ? (this.transLeft = _left / width * 100)
           : _className.indexOf("color") !== -1
             ? ((this.satLeft = _left / width * 100),
-              (this.lightTop = _top / height * 100))
+              (this.valueTop = _top / height * 100))
             : "";
 
       this.update();
