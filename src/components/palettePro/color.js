@@ -1,7 +1,10 @@
 import {
   hsv2rgb,
   hsv2hsl,
-  rgb2hsv
+  rgb2hsv,
+  hsl2hsv,
+  toHex,
+  parseHex
 } from "./convert";
 
 // 内部使用颜色之前 默认需要转换成 HSVA 模式
@@ -49,8 +52,12 @@ export default class Color {
   // 传入颜色字符串
   string2rate(str) {
     let arr = str.split(/rgba\(|\s|\,|\)|\%/gi).reduce((sum, item) => (item ? [...sum, +item] : sum), []);
-    const { h, s, v } = rgb2hsv.apply(null, arr);
-    
+    const {
+      h,
+      s,
+      v
+    } = rgb2hsv.apply(null, arr);
+
     return {
       satLeft: s / 100 * 100,
       valueTop: 100 - v / 100 * 100,

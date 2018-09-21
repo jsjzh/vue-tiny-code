@@ -91,3 +91,67 @@ export function rgb2hsv(r, g, b) {
     v: v * 100
   };
 }
+
+export function hsl2hsv(h, s, l) {
+  s = s / 100;
+  l = l / 100;
+  let smin = s;
+  const lmin = Math.max(l, 0.01);
+  let sv;
+  let v;
+
+  l *= 2;
+  s *= (l <= 1) ? l : 2 - l;
+  smin *= lmin <= 1 ? lmin : 2 - lmin;
+  v = (l + s) / 2;
+  sv = l === 0 ? (2 * smin) / (lmin + smin) : (2 * s) / (l + s);
+
+  return {
+    h: h,
+    s: sv * 100,
+    v: v * 100
+  };
+}
+
+const INT_HEX_MAP = {
+  10: 'A',
+  11: 'B',
+  12: 'C',
+  13: 'D',
+  14: 'E',
+  15: 'F'
+};
+
+export function toHex({
+  r,
+  g,
+  b
+}) {
+  const hexOne = function (value) {
+    value = Math.min(Math.round(value), 255);
+    const high = Math.floor(value / 16);
+    const low = value % 16;
+    return '' + (INT_HEX_MAP[high] || high) + (INT_HEX_MAP[low] || low);
+  };
+
+  if (isNaN(r) || isNaN(g) || isNaN(b)) return '';
+
+  return '#' + hexOne(r) + hexOne(g) + hexOne(b);
+};
+
+const HEX_INT_MAP = {
+  A: 10,
+  B: 11,
+  C: 12,
+  D: 13,
+  E: 14,
+  F: 15
+};
+
+export function parseHex(hex) {
+  if (hex.length === 2) {
+    return (HEX_INT_MAP[hex[0].toUpperCase()] || +hex[0]) * 16 + (HEX_INT_MAP[hex[1].toUpperCase()] || +hex[1]);
+  }
+
+  return HEX_INT_MAP[hex[1].toUpperCase()] || +hex[1];
+};
