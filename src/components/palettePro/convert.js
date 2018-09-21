@@ -122,11 +122,7 @@ const INT_HEX_MAP = {
   15: 'F'
 };
 
-export function toHex({
-  r,
-  g,
-  b
-}) {
+export function toHex(r, g, b) {
   const hexOne = function (value) {
     value = Math.min(Math.round(value), 255);
     const high = Math.floor(value / 16);
