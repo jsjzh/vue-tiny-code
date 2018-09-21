@@ -26,22 +26,22 @@
       </div>
       <div class="current-color-text-stage">
         <input id="current-color-text" type="text" class="current-color-input" v-model="_currentColor">
-        <label for="current-color-text" class="current-color-label">HSVA</label>
+        <label for="current-color-text" class="current-color-label">切换</label>
       </div>
     </div>
 
-    <!-- <div class="show-stage">
+    <div class="show-stage">
       <div class="show-toggle-stage flex-start-stage">
         <button class="show-toggle-btn" @click="(blendent = item.value, update())" v-for="item in blendents" :key="item.label">{{item.label}}</button>
       </div>
       <div class="show-color-stage flex-start-stage">
         <div class="show-color-item" title="点击复制" @click="handleCopyColor(color)" v-for="(color, index) in showColors" :key="index" :style="{'backgroundColor': color}"></div>
       </div>
-    </div> -->
+    </div>
 
-    <!-- <div class="recom-stage flex-start-stage">
+    <div class="recom-stage flex-start-stage">
       <div class="recom-color-item" @click="handleSetColor(color)" v-for="(color, index) in recomColors" :key="index" :style="{'backgroundColor': color}"></div>
-    </div> -->
+    </div>
 
   </div>
 </template>
@@ -61,10 +61,10 @@ export default {
     });
     return {
       color,
-      satLeft: 100,
-      valueTop: 100,
-      hueLeft: 100,
-      transLeft: 100,
+      satLeft: 50,
+      valueTop: 50,
+      hueLeft: 50,
+      transLeft: 50,
       pureColor: undefined,
       currentColor: undefined,
       showColors: undefined,
@@ -104,14 +104,14 @@ export default {
     },
 
     update() {
-      this.color.rate2hsva(
+      this.color.update(
         this.satLeft,
         this.valueTop,
         this.hueLeft,
         this.transLeft
       );
-      // this.showColors = this.color.blendent(this.blendent || "similar");
-      this.currentColor = this.color.get("$value");
+      this.showColors = this.color.blendent(this.blendent || "similar");
+      this.currentColor = this.color.get("output");
       this.pureColor = this.color.get("pure");
     },
 
