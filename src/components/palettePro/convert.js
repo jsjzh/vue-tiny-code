@@ -135,19 +135,19 @@ export function toHex(r, g, b) {
   return '#' + hexOne(r) + hexOne(g) + hexOne(b);
 };
 
-const HEX_INT_MAP = {
-  A: 10,
-  B: 11,
-  C: 12,
-  D: 13,
-  E: 14,
-  F: 15
-};
+// const HEX_INT_MAP = {
+//   A: 10,
+//   B: 11,
+//   C: 12,
+//   D: 13,
+//   E: 14,
+//   F: 15
+// };
 
-export function parseHex(hex) {
-  if (hex.length === 2) {
-    return (HEX_INT_MAP[hex[0].toUpperCase()] || +hex[0]) * 16 + (HEX_INT_MAP[hex[1].toUpperCase()] || +hex[1]);
-  }
+// export function parseHex(hex) {
+//   if (hex.length === 2) {
+//     return (HEX_INT_MAP[hex[0].toUpperCase()] || +hex[0]) * 16 + (HEX_INT_MAP[hex[1].toUpperCase()] || +hex[1]);
+//   }
 
-  return HEX_INT_MAP[hex[1].toUpperCase()] || +hex[1];
-};
+//   return HEX_INT_MAP[hex[1].toUpperCase()] || +hex[1];
+// };

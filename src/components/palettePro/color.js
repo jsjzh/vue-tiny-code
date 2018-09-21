@@ -10,12 +10,10 @@ import {
 // 内部使用颜色之前 默认需要转换成 HSVA 模式
 export default class Color {
   constructor(options) {
-
-    this.count = options.precision || 12 * 5;
     this.pure = options.pure || "";
     this.value = options.value || "";
     this.format = options.format || "hsva";
-    this._chunkAngle = 360 / this.count;
+    this._chunkAngle = 360 / (options.precision || 12 * 5);
 
     this.recomColors = ["rgba(244, 67, 54, 1)", "rgba(233, 30, 99, 1)", "rgba(156, 39, 176, 1)", "rgba(103, 58, 183, 1)", "rgba(63, 81, 181, 1)", "rgba(33, 150, 243, 1)", "rgba(3, 169, 244, 1)", "rgba(0, 188, 212, 1)", "rgba(0, 150, 136, 1)", "rgba(76, 175, 80, 1)", "rgba(139, 195, 74, 1)", "rgba(205, 220, 57, 1)", "rgba(255, 235, 59, 1)", "rgba(255, 193, 7, 1)", "rgba(255, 152, 0, 1)", "rgba(255, 87, 34, 1)", "rgba(121, 85, 72, 1)", "rgba(158, 158, 158, 1)", "rgba(96, 125, 13, 19)"];
 
@@ -24,15 +22,8 @@ export default class Color {
     this._value = 100;
     this._trans = 1;
 
-    this.$value = "";
-
     this.output = "";
 
-    this._handleChange();
-  }
-
-  set(prop, value) {
-    this[`_${prop}`] = value;
     this._handleChange();
   }
 
@@ -68,7 +59,7 @@ export default class Color {
 
   blendent(type = "similar", options) {
     const arr = this["_" + type].call(this, options);
-    return arr.reduce((sum, hue) => ([...sum, hsv2rgb.call(null, hue, this._saturation, this._value)]), []).map(item => (`rgba(${item.r}, ${item.g}, ${item.b}, ${this._trans})`))
+    return arr.reduce((sum, hue) => ([...sum, hsv2rgb.call(null, hue, this._saturation, this._value)]), []).map(item => (Number(this._trans) === 1 ? `rgb(${item.r}, ${item.g}, ${item.b})` : `rgba(${item.r}, ${item.g}, ${item.b}, ${this._trans})`))
   }
 
   // 获取互补色
@@ -134,7 +125,7 @@ export default class Color {
 
     this.pure = `hsla(${hue}, 100%, 50%, 1)`;
 
-    console.log(this.output);
+    // console.log(this.output);
   }
 
 }

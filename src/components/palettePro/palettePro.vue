@@ -108,7 +108,7 @@ export default {
         this.hueLeft,
         this.transLeft
       );
-      this.showColors = this.color.blendent(this.blendent || "similar");
+      this.showColors = this.color.blendent(this.blendent);
       this.currentColor = this.color.get("output");
       this.pureColor = this.color.get("pure");
     },
