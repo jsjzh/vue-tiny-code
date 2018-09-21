@@ -86,18 +86,16 @@ export default {
     }
   },
   methods: {
-    // handleSetColor(color) {
-    //   let arr = color
-    //     .split(/hsla\(|\s|\,|\)|\%/gi)
-    //     .reduce((sum, item) => (item ? [...sum, +item] : sum), []);
-
-    //   this.hueLeft = (1 - arr[0] / 360) * 100;
-    //   this.satLeft = arr[1];
-    //   // this.lightTop = 100 - arr[2] / (1 - arr[1] / 200);
-    //   this.lightTop = (50 - arr[2] / (1 + (100 - arr[1]) / 100)) * 2;
-    //   this.transLeft = arr[3] * 100;
-    //   this.update();
-    // },
+    handleSetColor(color) {
+      const { satLeft, valueTop, hueLeft, transLeft } = this.color.string2rate(
+        color
+      );
+      this.satLeft = satLeft;
+      this.valueTop = valueTop;
+      this.hueLeft = hueLeft;
+      this.transLeft = transLeft;
+      this.update();
+    },
 
     handleCopyColor(color) {
       paste(color);

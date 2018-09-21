@@ -1,8 +1,8 @@
 import {
   hsv2rgb,
-  hsv2hsl
+  hsv2hsl,
+  rgb2hsv
 } from "./convert";
-
 
 // 内部使用颜色之前 默认需要转换成 HSVA 模式
 export default class Color {
@@ -44,6 +44,19 @@ export default class Color {
     this._value = 100 - (value / 100 * 100);
     this._trans = trans / 100 * 1;
     this._handleChange();
+  }
+
+  // 传入颜色字符串
+  string2rate(str) {
+    let arr = str.split(/rgba\(|\s|\,|\)|\%/gi).reduce((sum, item) => (item ? [...sum, +item] : sum), []);
+    const { h, s, v } = rgb2hsv.apply(null, arr);
+    
+    return {
+      satLeft: s / 100 * 100,
+      valueTop: 100 - v / 100 * 100,
+      hueLeft: 100 - (h / 360 * 100),
+      transLeft: 100
+    }
   }
 
   blendent(type = "similar", options) {
@@ -104,7 +117,6 @@ export default class Color {
       _value: value,
       _trans: trans
     } = this;
-
     const {
       r,
       g,
