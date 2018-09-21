@@ -39,10 +39,10 @@ export default class Color {
 
   // 传入皆为 0-100 之间的整数
   update(sat, value, hue, trans) {
-    this._hue = 360 - (hue / 100 * 360);
-    this._saturation = sat / 100 * 100;
-    this._value = 100 - (value / 100 * 100);
-    this._trans = trans / 100 * 1;
+    this._hue = Math.round(360 - (hue / 100 * 360));
+    this._saturation = Math.round(sat / 100 * 100);
+    this._value = Math.round(100 - (value / 100 * 100));
+    this._trans = (trans / 100 * 1).toFixed(2);
     this._handleChange();
   }
 
@@ -123,7 +123,7 @@ export default class Color {
       b
     } = hsv2rgb(hue, saturation, value);
 
-    this.output = trans === 1 ? `rgb(${r}, ${g}, ${b})` : `rgba(${r}, ${g}, ${b}, ${trans})`;
+    this.output = Number(trans) === 1 ? `rgb(${r}, ${g}, ${b})` : `rgba(${r}, ${g}, ${b}, ${trans})`;
 
     this.pure = `hsla(${hue}, 100%, 50%, 1)`;
 
