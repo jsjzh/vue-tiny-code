@@ -6,8 +6,8 @@
 
 <script>
 // @ is an alias to /src
-// import Clickoutside from "@/util/clickoutside";
-import Clickoutside from "@/util/self_clickoutside";
+import Clickoutside from "@/util/clickoutside";
+// import Clickoutside from "@/util/self_clickoutside";
 
 export default {
   name: "home",

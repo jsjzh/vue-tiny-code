@@ -1,21 +1,24 @@
 import Vue from 'vue';
-import { on } from './dom';
+import {
+  on,
+  off
+} from './dom';
 
 const nodeList = [];
 const ctx = '@@clickoutsideContext';
 
-setInterval(() => {
-  console.log(nodeList);
-}, 2000)
-
 let startClick;
 let seed = 0;
+let i = 0;
 
-!Vue.prototype.$isServer && on(document, 'mousedown', e => (startClick = e));
+function handleStart(e) {
+  console.log(123);
+  startClick = e
+}
 
-!Vue.prototype.$isServer && on(document, 'mouseup', e => {
-  nodeList.forEach(node => node[ctx].documentHandler(e, startClick));
-});
+function handleEnd(e) {
+  nodeList.forEach(node => node[ctx].documentHandler(e, startClick))
+}
 
 function createDocumentHandler(el, binding, vnode) {
   return function (mouseup = {}, mousedown = {}) {
@@ -50,6 +53,12 @@ function createDocumentHandler(el, binding, vnode) {
  */
 export default {
   bind(el, binding, vnode) {
+    if (i === 0) {
+      !Vue.prototype.$isServer && on(document, 'mousedown', handleStart);
+      !Vue.prototype.$isServer && on(document, 'mouseup', handleEnd);
+      i++;
+    }
+
     nodeList.push(el);
     const id = seed++;
     el[ctx] = {
@@ -76,5 +85,11 @@ export default {
       }
     }
     delete el[ctx];
+
+    if (nodeList.length === 0) {
+      !Vue.prototype.$isServer && off(document, 'mousedown', handleStart);
+      !Vue.prototype.$isServer && off(document, 'mouseup', handleEnd);
+      i = 0;
+    }
   }
 };
