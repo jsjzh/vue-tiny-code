@@ -1,8 +1,16 @@
+let list = []
+
+EventTarget.prototype._addEventListener = function () {
+  list.push(arguments)
+  // return this.addEventListener.apply(this, arguments)
+  return EventTarget.prototype.addEventListener.apply(this, arguments)
+};
+
 export const on = (function () {
-  if (document.addEventListener) {
+  if (document._addEventListener) {
     return function (element, event, handler) {
       if (element && event && handler) {
-        element.addEventListener(event, handler, false);
+        element._addEventListener(event, handler, false);
       }
     };
   } else {

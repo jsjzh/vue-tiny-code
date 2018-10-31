@@ -9,10 +9,9 @@ const ctx = '@@clickoutsideContext';
 
 let startClick;
 let seed = 0;
-let i = 0;
+let mark = 0;
 
 function handleStart(e) {
-  console.log(123);
   startClick = e
 }
 
@@ -53,10 +52,10 @@ function createDocumentHandler(el, binding, vnode) {
  */
 export default {
   bind(el, binding, vnode) {
-    if (i === 0) {
+    if (mark === 0) {
       !Vue.prototype.$isServer && on(document, 'mousedown', handleStart);
       !Vue.prototype.$isServer && on(document, 'mouseup', handleEnd);
-      i++;
+      mark++;
     }
 
     nodeList.push(el);
@@ -89,7 +88,16 @@ export default {
     if (nodeList.length === 0) {
       !Vue.prototype.$isServer && off(document, 'mousedown', handleStart);
       !Vue.prototype.$isServer && off(document, 'mouseup', handleEnd);
-      i = 0;
+      mark = 0;
     }
   }
 };
+
+
+
+Array.prototype._concat = function () {
+  console.log("_concat");
+  return Array.prototype.concat.apply(this, arguments);
+}
+
+console.log([123]._concat([312]));
