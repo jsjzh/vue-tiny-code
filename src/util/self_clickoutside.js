@@ -4,7 +4,7 @@ import {
 } from './dom';
 
 const nodeList = [];
-const context = "@@clickoutsizeContext";
+const context = "@@clickoutsideContext";
 
 let startClick;
 let mark = 0;
