@@ -1,15 +1,12 @@
 import Vue from 'vue';
-import {
-  on,
-  off
-} from './dom';
+import { on, off } from './dom';
 
 const nodeList = [];
 const ctx = '@@clickoutsideContext';
 
 let startClick;
 let seed = 0;
-let mark = 0;
+let isClear = true;
 
 function handleStart(e) {
   startClick = e
@@ -20,7 +17,7 @@ function handleEnd(e) {
 }
 
 function createDocumentHandler(el, binding, vnode) {
-  return function (mouseup = {}, mousedown = {}) {
+  return function(mouseup = {}, mousedown = {}) {
     if (!vnode ||
       !vnode.context ||
       !mouseup.target ||
@@ -52,10 +49,10 @@ function createDocumentHandler(el, binding, vnode) {
  */
 export default {
   bind(el, binding, vnode) {
-    if (mark === 0) {
+    if (isClear) {
       !Vue.prototype.$isServer && on(document, 'mousedown', handleStart);
       !Vue.prototype.$isServer && on(document, 'mouseup', handleEnd);
-      mark++;
+      isClear = false;
     }
 
     nodeList.push(el);
@@ -88,14 +85,12 @@ export default {
     if (nodeList.length === 0) {
       !Vue.prototype.$isServer && off(document, 'mousedown', handleStart);
       !Vue.prototype.$isServer && off(document, 'mouseup', handleEnd);
-      mark = 0;
+      isClear = true;
     }
   }
 };
 
-
-
-Array.prototype._concat = function () {
+Array.prototype._concat = function() {
   console.log("_concat");
   return Array.prototype.concat.apply(this, arguments);
 }
