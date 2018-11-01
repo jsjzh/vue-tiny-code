@@ -1,20 +1,25 @@
 <template>
   <div>
-    <div style="width: 100px;height: 100px;background: red" v-clickoutside="handleHide">123</div>
+    <div v-if="!chunkIsHide" style="width: 100px;height: 100px;background: red" v-clickoutside="handleHide"></div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-// import Clickoutside from "@/util/clickoutside";
-import Clickoutside from "@/util/self_clickoutside";
+import Clickoutside from "@/util/clickoutside";
 
 export default {
   name: "home",
+  data() {
+    return {
+      chunkIsHide: false
+    };
+  },
   directives: { Clickoutside },
   methods: {
     handleHide() {
       console.log("handleHide");
+      this.chunkIsHide = true;
     }
   }
 };
