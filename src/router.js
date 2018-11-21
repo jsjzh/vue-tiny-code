@@ -26,6 +26,12 @@ export default new Router({
       name: 'palettePro',
       component: () =>
         import( /* webpackChunkName: "about" */ './views/PalettePro.vue')
-    }
+    },
+    {
+      path: '/Resize',
+      name: 'Resize',
+      component: () =>
+        import( /* webpackChunkName: "about" */ './views/Resize.vue')
+    },
   ]
 })
