@@ -6,7 +6,7 @@
 
 
 <script>
-import { addResizeListener, removeResizeListener } from "@/util/resize";
+import { addResizeListener, removeResizeListener } from "@/util/resize-event";
 
 export default {
   name: "resize",
