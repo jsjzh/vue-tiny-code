@@ -1,35 +1,40 @@
+/*
+ * @Author: jsjzh
+ * @Email: kimimi_king@163.com
+ * @Date: 2018-11-22 10:12:19
+ * @LastEditors: jsjzh
+ * @LastEditTime: 2018-11-22 11:07:53
+ * @Description: resize 窗口函数调用
+ * @use
+ *  addResizeListener(element, fn)
+ *  removeResizeListener(element, fn)
+ */
 import ResizeObserver from 'resize-observer-polyfill';
 
 const isServer = typeof window === 'undefined';
 
-/* istanbul ignore next */
-const resizeHandler = function(entries) {
+const listenerCtx = "$$resizeListener";
+const observerCtx = "$$resizeObserver";
+
+function resizeHandler(entries) {
   for (let entry of entries) {
-    const listeners = entry.target.__resizeListeners__ || [];
-    if (listeners.length) {
-      listeners.forEach(fn => {
-        fn();
-      });
-    }
+    const listeners = entry.target[listenerCtx] || [];
+    listeners.length && listeners.forEach(fn => fn());
   }
-};
+}
 
-/* istanbul ignore next */
-export const addResizeListener = function(element, fn) {
-  if (isServer) return;
-  if (!element.__resizeListeners__) {
-    element.__resizeListeners__ = [];
-    element.__ro__ = new ResizeObserver(resizeHandler);
-    element.__ro__.observe(element);
+export function addResizeListener(element, fn) {
+  if (isServer || (!element && fn)) return;
+  if (!element[listenerCtx]) {
+    element[listenerCtx] = [];
+    element[observerCtx] = new ResizeObserver(resizeHandler);
+    element[observerCtx].observe(element);
   }
-  element.__resizeListeners__.push(fn);
-};
+  element[listenerCtx].push(fn);
+}
 
-/* istanbul ignore next */
-export const removeResizeListener = function(element, fn) {
-  if (!element || !element.__resizeListeners__) return;
-  element.__resizeListeners__.splice(element.__resizeListeners__.indexOf(fn), 1);
-  if (!element.__resizeListeners__.length) {
-    element.__ro__.disconnect();
-  }
-};
+export function removeResizeListener(element, fn) {
+  if (!isServer || !element || !element[listenerCtx]) return;
+  element[listenerCtx].splice(element[listenerCtx].indexOf(fn), 1);
+  !element[listenerCtx].length && element[observerCtx].disconnect()
+}

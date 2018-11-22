@@ -1,3 +1,15 @@
+/*
+ * @Author: jsjzh
+ * @Email: kimimi_king@163.com
+ * @Date: 2018-10-30 16:30:49
+ * @LastEditors: jsjzh
+ * @LastEditTime: 2018-11-22 11:02:01
+ * @Description: 判断鼠标点击是否在被绑定的元素上
+ * @use
+ *  import Clickoutside from "util/clickoutside"
+ *  directives: { Clickoutside }
+ *  <div v-clickoutside="handleClickutside" />
+ */
 import { on, off } from './dom';
 
 const nodeList = [];
