@@ -40,7 +40,7 @@ const mutationMethods = [
 
 let arrayMethods = Object.create(Array.prototype);
 let arrayProto = Array.prototype;
-let arr = [1];
+let arr = [];
 
 mutationMethods.forEach(method => {
 
@@ -68,8 +68,22 @@ mutationMethods.forEach(method => {
     configurable: true,
     value: arrayMethods[method]
   })
+
+  // 无法使用 __proto__ 的浏览器实现数组方法
+  // arr[method] = arrayMethods[method]
 })
 
+arr.push(1);
 arr.push(2);
 arr.push(3);
+
 console.log(arr);
+
+// for in 不会遍历不可枚举属性
+for (const key in arr) {
+  console.log(key);
+}
+
+// 获取所有的属性
+let keys = Object.getOwnPropertyNames(arr);
+console.log(keys);
