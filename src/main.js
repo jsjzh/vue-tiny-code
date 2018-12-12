@@ -14,7 +14,7 @@ Vue.config.productionTip = false
 
 const vm = new Vue({
   el: '#app',
-  template: '<div>{{a}}</div>',
+  template: '<div>{{arr}}</div>',
   methods: {
     getData() {
       console.log("getData");
@@ -23,7 +23,8 @@ const vm = new Vue({
   data() {
     return {
       test: 1,
-      a: "king"
+      a: "king",
+      arr: [{ a: 1 }]
     }
   }
 })
@@ -49,7 +50,7 @@ mutationMethods.forEach(method => {
     enumerable: false,
     writable: true,
     configurable: true,
-    value: function (...args) {
+    value: function(...args) {
       console.log(`${method} is change`);
       return arrayProto[method].apply(this, args);
     }
@@ -87,3 +88,18 @@ for (const key in arr) {
 // 获取所有的属性
 let keys = Object.getOwnPropertyNames(arr);
 console.log(keys);
+
+// 一个有点意思的函数 cached 的玩意儿，cached 的参数要求必须是纯函数，纯函数：输入 aaa-bbb 永远都会得到 aaaBbb 类似，即输入确定，输出也是确定的。
+// cached 不改变原函数的行为
+function cached(fn) {
+  let cache = Object.create(null);
+  return (function cachedFn(str) {
+    let hit = cache[str];
+    return hit || (cache[str] = fn(str))
+  })
+}
+
+let demo = cached(function(id) {
+  let el = "test"
+  return el
+});
