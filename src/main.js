@@ -22,7 +22,7 @@ const vm = new Vue({
   },
   mounted() {
     // console.log(this.$options);
-    this.$watch("foo", function() {
+    this.$watch("foo", function () {
       // console.log(arguments);
     })
   },
@@ -112,7 +112,7 @@ vm.foo = 123;
 //   return el
 // });
 
-setTimeout(function() {
+setTimeout(function () {
   console.log('8 setTimeout')
 }, 0)
 
@@ -129,10 +129,10 @@ async function async2() {
 console.log('1 script start')
 
 
-new Promise(function(resolve) {
+new Promise(function (resolve) {
   console.log('2 promise1')
   resolve();
-}).then(function() {
+}).then(function () {
   console.log('6 promise2')
 })
 
@@ -141,11 +141,19 @@ async1();
 console.log('5 script end')
 
 console.log(1);
-setTimeout(function() {
+setTimeout(function () {
   console.log(2);
 }, 0);
-Promise.resolve().then(function() {
+Promise.resolve().then(function () {
   console.log(3);
-}).then(function() {
+}).then(function () {
   console.log(4);
 });
+
+const channel = new MessageChannel()
+const port = channel.port2
+channel.port1.onmessage = function () {
+  console.log(arguments);
+  console.log("channel.port1.onmessage");
+}
+port.postMessage("web Workers")
