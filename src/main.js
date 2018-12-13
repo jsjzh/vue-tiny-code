@@ -112,29 +112,40 @@ vm.foo = 123;
 //   return el
 // });
 
-async function async1() {
-  console.log('2 async1 start')
-  await async2()
-  console.log('6 async1 end')
-}
-
-async function async2() {
-  console.log('3 async2')
-}
-
-console.log('1 script start')
-
 setTimeout(function() {
   console.log('8 setTimeout')
 }, 0)
 
-async1();
+async function async1() {
+  console.log('3 async1 start')
+  await async2()
+  console.log('7 async1 end')
+}
+
+async function async2() {
+  console.log('4 async2')
+}
+
+console.log('1 script start')
+
 
 new Promise(function(resolve) {
-  console.log('4 promise1')
+  console.log('2 promise1')
   resolve();
 }).then(function() {
-  console.log('7 promise2')
+  console.log('6 promise2')
 })
 
+async1();
+
 console.log('5 script end')
+
+console.log(1);
+setTimeout(function() {
+  console.log(2);
+}, 0);
+Promise.resolve().then(function() {
+  console.log(3);
+}).then(function() {
+  console.log(4);
+});
