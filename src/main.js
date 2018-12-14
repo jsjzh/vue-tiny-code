@@ -14,28 +14,45 @@ Vue.config.productionTip = false
 
 const vm = new Vue({
   el: '#app',
-  template: ('<div id="bar"><div>{{foo}}{{foo}}{{foo}}{{foo}}</div></div>'),
+  template: ('<div id="app"><div>{{name}}{{name}}{{name}}{{name}}{{someValue}}</div></div>'),
+  computed: {
+    someValue() {
+      return this.foo + this.bar
+    }
+  },
   methods: {
     getData() {
       console.log("getData");
     }
   },
   mounted() {
-    // console.log(this.$options);
-    this.$watch("foo", function () {
-      // console.log(arguments);
+    let i = 0;
+    let demo = this.$watch("name", () => {
+      console.log("change");
     })
+    console.log(demo);
+    setInterval(() => {
+      this.name = i++;
+    }, 1000);
+    setTimeout(() => {
+      demo()
+    }, 5000);
+  },
+  created() {
+    // this.$nextTick(() => {
+    //   console.log('第一个 $nextTick')
+    //   this.$nextTick(() => { console.log('第二个 $nextTick') })
+    // })
   },
   data() {
     return {
+      name: null,
       foo: "foo",
       bar: "bar",
       arr: [{ a: 1 }]
     }
   }
 })
-
-vm.foo = 123;
 
 // const mutationMethods = [
 //   'push',
@@ -112,48 +129,48 @@ vm.foo = 123;
 //   return el
 // });
 
-setTimeout(function () {
-  console.log('8 setTimeout')
-}, 0)
+// setTimeout(function() {
+//   console.log('8 setTimeout')
+// }, 0)
 
-async function async1() {
-  console.log('3 async1 start')
-  await async2()
-  console.log('7 async1 end')
-}
+// async function async1() {
+//   console.log('3 async1 start')
+//   await async2()
+//   console.log('7 async1 end')
+// }
 
-async function async2() {
-  console.log('4 async2')
-}
+// async function async2() {
+//   console.log('4 async2')
+// }
 
-console.log('1 script start')
+// console.log('1 script start')
 
 
-new Promise(function (resolve) {
-  console.log('2 promise1')
-  resolve();
-}).then(function () {
-  console.log('6 promise2')
-})
+// new Promise(function(resolve) {
+//   console.log('2 promise1')
+//   resolve();
+// }).then(function() {
+//   console.log('6 promise2')
+// })
 
-async1();
+// async1();
 
-console.log('5 script end')
+// console.log('5 script end')
 
-console.log(1);
-setTimeout(function () {
-  console.log(2);
-}, 0);
-Promise.resolve().then(function () {
-  console.log(3);
-}).then(function () {
-  console.log(4);
-});
+// console.log(1);
+// setTimeout(function() {
+//   console.log(2);
+// }, 0);
+// Promise.resolve().then(function() {
+//   console.log(3);
+// }).then(function() {
+//   console.log(4);
+// });
 
-const channel = new MessageChannel()
-const port = channel.port2
-channel.port1.onmessage = function () {
-  console.log(arguments);
-  console.log("channel.port1.onmessage");
-}
-port.postMessage("web Workers")
+// const channel = new MessageChannel()
+// const port = channel.port2
+// channel.port1.onmessage = function() {
+//   console.log(arguments);
+//   console.log("channel.port1.onmessage");
+// }
+// port.postMessage("web Workers")
