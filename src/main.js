@@ -26,17 +26,17 @@ const vm = new Vue({
     }
   },
   mounted() {
-    let i = 0;
-    let demo = this.$watch("name", () => {
-      console.log("change");
-    })
-    console.log(demo);
-    setInterval(() => {
-      this.name = i++;
-    }, 1000);
-    setTimeout(() => {
-      demo()
-    }, 5000);
+    // let i = 0;
+    // let demo = this.$watch("name", () => {
+    //   console.log("change");
+    // })
+    // console.log(demo);
+    // setInterval(() => {
+    //   this.name = i++;
+    // }, 1000);
+    // setTimeout(() => {
+    //   demo()
+    // }, 5000);
   },
   created() {
     // this.$nextTick(() => {
@@ -174,3 +174,23 @@ const vm = new Vue({
 //   console.log("channel.port1.onmessage");
 // }
 // port.postMessage("web Workers")
+
+// Array.prototype.method = function() {
+//   console.log(this.length);
+// }
+// var myArray = [1, 2, 4, 5, 6, 7]
+// myArray.name = "数组"
+// for (var index in myArray) {
+//   console.log(myArray[index]);
+// }
+// function flushCallbacks() {
+//   console.log("yeah");
+// }
+
+// const p = Promise.resolve()
+// p.then(flushCallbacks)
+
+// let t = Date.now()
+// for (let i = 0; i < 100000000; i++) {}
+
+// console.log(Date.now() - t);
