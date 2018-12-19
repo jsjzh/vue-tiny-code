@@ -282,23 +282,24 @@ let curryAdd = curry(add);
 console.log(curryAdd(1, 2));
 console.log(curryAdd(1)(2));
 
+function addPro (...args) {
+  return args.reduce((pre, cur) => pre + cur, 0)
+}
 
-// function infiniteCurry (fn) {
-//   let args = [];
-//   return function judgeCurry (...args1) {
-//     if (args1.length === 0) {
-//       return fn.apply(null, args)
-//     } else {
-//       return function (...args2) {
-//         args = args1.concat(args2);
-//         return judgeCurry.apply(null, args2)
-//       }
-//     }
-//   }
-// }
+function infiniteCurry (fn) {
+  let args = [];
+  return function judgeCurry (...args1) {
+    args = args.concat(args1);
+    if (args1.length === 0) {
+      return fn.apply(null, args)
+    } else {
+      return function (...args2) {
+        return judgeCurry.apply(null, args2)
+      }
+    }
+  }
+}
 
-// let curryAddPro = infiniteCurry(add)
+let curryAddPro = infiniteCurry(addPro)
 
-// let sum = curryAddPro(1)(2)(3)();
-
-// console.log(sum);
+console.log(curryAddPro(4, 10, 1)(1)());
