@@ -12,33 +12,33 @@ Vue.config.productionTip = false
 //   render: h => h(App)
 // }).$mount('#app')
 
-const vm = new Vue({
-  el: '#app',
-  template: ('<div id="app">{{bar}}</div>'),
-  computed: {
-    bar() {
-      return this.name + this.name
-    }
-  },
-  methods: {
-    demo() {}
-  },
-  mounted() {
-    this.$watch("name", {
-      deep: true,
-      handler() {
-        console.log(this.name);
-      }
-    })
-  },
-  created() {},
-  data() {
-    return {
-      name: "king"
-    }
-  }
-})
-console.log(vm);
+// const vm = new Vue({
+//   el: '#app',
+//   template: ('<div id="app">{{bar}}</div>'),
+//   computed: {
+//     bar() {
+//       return this.name + this.name
+//     }
+//   },
+//   methods: {
+//     demo() {}
+//   },
+//   mounted() {
+//     this.$watch("name", {
+//       deep: true,
+//       handler() {
+//         console.log(this.name);
+//       }
+//     })
+//   },
+//   created() {},
+//   data() {
+//     return {
+//       name: "king"
+//     }
+//   }
+// })
+// console.log(vm);
 
 // const mutationMethods = [
 //   'push',
@@ -258,3 +258,47 @@ console.log(vm);
 //   }
 // });
 // }
+
+function add (a, b) {
+  return a + b
+}
+
+
+function curry (fn) {
+  let len = fn.length;
+  return function judgeCurry (...args1) {
+    if (args1.length >= len) {
+      return fn.apply(null, args1)
+    } else {
+      return function (...args2) {
+        return judgeCurry.apply(null, args1.concat(args2))
+      }
+    }
+  }
+}
+
+let curryAdd = curry(add);
+
+console.log(curryAdd(1, 2));
+console.log(curryAdd(1)(2));
+
+
+// function infiniteCurry (fn) {
+//   let args = [];
+//   return function judgeCurry (...args1) {
+//     if (args1.length === 0) {
+//       return fn.apply(null, args)
+//     } else {
+//       return function (...args2) {
+//         args = args1.concat(args2);
+//         return judgeCurry.apply(null, args2)
+//       }
+//     }
+//   }
+// }
+
+// let curryAddPro = infiniteCurry(add)
+
+// let sum = curryAddPro(1)(2)(3)();
+
+// console.log(sum);
