@@ -14,45 +14,31 @@ Vue.config.productionTip = false
 
 const vm = new Vue({
   el: '#app',
-  template: ('<div id="app"><div>{{name}}{{name}}{{name}}{{name}}{{someValue}}</div></div>'),
+  template: ('<div id="app">{{bar}}</div>'),
   computed: {
-    someValue() {
-      return this.foo + this.bar
+    bar() {
+      return this.name + this.name
     }
   },
   methods: {
-    getData() {
-      console.log("getData");
-    }
+    demo() {}
   },
   mounted() {
-    // let i = 0;
-    // let demo = this.$watch("name", () => {
-    //   console.log("change");
-    // })
-    // console.log(demo);
-    // setInterval(() => {
-    //   this.name = i++;
-    // }, 1000);
-    // setTimeout(() => {
-    //   demo()
-    // }, 5000);
+    this.$watch("name", {
+      deep: true,
+      handler() {
+        console.log(this.name);
+      }
+    })
   },
-  created() {
-    // this.$nextTick(() => {
-    //   console.log('第一个 $nextTick')
-    //   this.$nextTick(() => { console.log('第二个 $nextTick') })
-    // })
-  },
+  created() {},
   data() {
     return {
-      name: null,
-      foo: "foo",
-      bar: "bar",
-      arr: [{ a: 1 }]
+      name: "king"
     }
   }
 })
+console.log(vm);
 
 // const mutationMethods = [
 //   'push',
@@ -190,7 +176,85 @@ const vm = new Vue({
 // const p = Promise.resolve()
 // p.then(flushCallbacks)
 
-// let t = Date.now()
-// for (let i = 0; i < 100000000; i++) {}
+// let obj = {
+//   name: "King"
+// }
 
-// console.log(Date.now() - t);
+// defineReactive(obj, "name");
+
+// function defineReactive(obj, key) {
+//   let val = obj[key];
+//   Object.defineProperty(obj, key, {
+//     enumerable: true,
+//     configurable: true,
+//     get() {
+//       console.log("get");
+//       return val;
+//     },
+//     set(newVal) {
+//       console.log("set");
+//       // 为什么赋值 val 就可以让 obj[key] 的值改变？
+//       // 因为 get 中就是取的 val 的值
+//       val = newVal;
+//     }
+//   })
+// }
+
+// console.log(obj.name);
+// obj.name = 123;
+// console.log(obj.name);
+
+// console.log(Object.getOwnPropertyDescriptor(obj, "name"));
+
+
+// var dep = new Dep();
+
+// var property = Object.getOwnPropertyDescriptor(obj, key);
+// if (property && property.configurable === false) {
+//   return
+// }
+
+// // cater for pre-defined getter/setters
+// var getter = property && property.get;
+// if (!getter && arguments.length === 2) {
+//   val = obj[key];
+// }
+// var setter = property && property.set;
+
+// var childOb = !shallow && observe(val);
+// Object.defineProperty(obj, key, {
+//   enumerable: true,
+//   configurable: true,
+//   get: function reactiveGetter() {
+//     var value = getter ? getter.call(obj) : val;
+//     if (Dep.target) {
+//       dep.depend();
+//       if (childOb) {
+//         childOb.dep.depend();
+//         if (Array.isArray(value)) {
+//           dependArray(value);
+//         }
+//       }
+//     }
+//     return value
+//   },
+//   set: function reactiveSetter(newVal) {
+//     var value = getter ? getter.call(obj) : val;
+//     /* eslint-disable no-self-compare */
+//     if (newVal === value || (newVal !== newVal && value !== value)) {
+//       return
+//     }
+//     /* eslint-enable no-self-compare */
+//     if (process.env.NODE_ENV !== 'production' && customSetter) {
+//       customSetter();
+//     }
+//     if (setter) {
+//       setter.call(obj, newVal);
+//     } else {
+//       val = newVal;
+//     }
+//     childOb = !shallow && observe(newVal);
+//     dep.notify();
+//   }
+// });
+// }
