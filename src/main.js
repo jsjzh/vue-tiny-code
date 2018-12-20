@@ -303,4 +303,3 @@ Vue.config.productionTip = false
 // let curryAddPro = infiniteCurry(addPro)
 
 // console.log(curryAddPro(4, 10, 1)(1)());
-
