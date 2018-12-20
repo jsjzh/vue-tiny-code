@@ -259,47 +259,48 @@ Vue.config.productionTip = false
 // });
 // }
 
-function add (a, b) {
-  return a + b
-}
+// function add(a, b) {
+//   return a + b
+// }
 
 
-function curry (fn) {
-  let len = fn.length;
-  return function judgeCurry (...args1) {
-    if (args1.length >= len) {
-      return fn.apply(null, args1)
-    } else {
-      return function (...args2) {
-        return judgeCurry.apply(null, args1.concat(args2))
-      }
-    }
-  }
-}
+// function curry(fn) {
+//   let len = fn.length;
+//   return function judgeCurry(...args1) {
+//     if (args1.length >= len) {
+//       return fn.apply(null, args1)
+//     } else {
+//       return function(...args2) {
+//         return judgeCurry.apply(null, args1.concat(args2))
+//       }
+//     }
+//   }
+// }
 
-let curryAdd = curry(add);
+// let curryAdd = curry(add);
 
-console.log(curryAdd(1, 2));
-console.log(curryAdd(1)(2));
+// console.log(curryAdd(1, 2));
+// console.log(curryAdd(1)(2));
 
-function addPro (...args) {
-  return args.reduce((pre, cur) => pre + cur, 0)
-}
+// function addPro(...args) {
+//   return args.reduce((pre, cur) => pre + cur, 0)
+// }
 
-function infiniteCurry (fn) {
-  let args = [];
-  return function judgeCurry (...args1) {
-    args = args.concat(args1);
-    if (args1.length === 0) {
-      return fn.apply(null, args)
-    } else {
-      return function (...args2) {
-        return judgeCurry.apply(null, args2)
-      }
-    }
-  }
-}
+// function infiniteCurry(fn) {
+//   let args = [];
+//   return function judgeCurry(...args1) {
+//     args = args.concat(args1);
+//     if (args1.length === 0) {
+//       return fn.apply(null, args)
+//     } else {
+//       return function(...args2) {
+//         return judgeCurry.apply(null, args2)
+//       }
+//     }
+//   }
+// }
 
-let curryAddPro = infiniteCurry(addPro)
+// let curryAddPro = infiniteCurry(addPro)
 
-console.log(curryAddPro(4, 10, 1)(1)());
+// console.log(curryAddPro(4, 10, 1)(1)());
+
