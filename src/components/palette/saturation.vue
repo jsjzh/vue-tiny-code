@@ -18,7 +18,7 @@ export default {
       document.onmousemove = function(e) {
         let left = e.clientX - diffX;
         left = left < 1 ? 0 : left > 399 ? 400 : left;
-        _bar.style.left = left / _saturation.clientWidth * 100 + "%";
+        _bar.style.left = (left / _saturation.clientWidth) * 100 + "%";
         console.log(_bar.style.left);
       };
 

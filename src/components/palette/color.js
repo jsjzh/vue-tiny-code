@@ -1,8 +1,8 @@
-const hsv2hsl = function (hue, sat, val) {
+const hsv2hsl = function(hue, sat, val) {
   return [hue, (sat * val / ((hue = (2 - sat) * val) < 1 ? hue : 2 - hue)) || 0, hue / 2];
 };
 
-const hsl2hsv = function (hue, sat, light) {
+const hsl2hsv = function(hue, sat, light) {
   sat = sat / 100;
   light = light / 100;
   let smin = sat;
@@ -28,7 +28,7 @@ const hsl2hsv = function (hue, sat, light) {
  * RGB颜色转换为十六进制
  * 摘自 https://www.zhangxinxu.com/wordpress/2010/03/javascript-hex-rgb-hsl-color-convert/
  */
-String.prototype.colorHex = function () {
+String.prototype.colorHex = function() {
   let that = this;
   //十六进制颜色值的正则表达式
   let reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
@@ -66,7 +66,7 @@ String.prototype.colorHex = function () {
  * 十六进制颜色转为RGB
  * 摘自 https://www.zhangxinxu.com/wordpress/2010/03/javascript-hex-rgb-hsl-color-convert/
  */
-String.prototype.colorRgb = function () {
+String.prototype.colorRgb = function() {
   let sColor = this.toLowerCase();
   //十六进制颜色值的正则表达式
   let reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
@@ -183,7 +183,7 @@ function colorToRgb(color) {
 
 // -------------------------------------------------------------------------------------------------------
 
-const getBracketValue = function (str) {
+const getBracketValue = function(str) {
   return str.split(/\s|\,/g).filter(val => val)
 }
 

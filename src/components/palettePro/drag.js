@@ -4,13 +4,13 @@ let isDrag = false;
  * @param {Element} elem 
  * @param {Object} options 
  */
-export default function (elem, options) {
+export default function(elem, options) {
 
-  const moveFn = function (event) {
+  const moveFn = function(event) {
     options.move && options.move(event || window.event, elem);
   }
 
-  const endFn = function (event) {
+  const endFn = function(event) {
     document.removeEventListener("mousemove", moveFn);
     document.removeEventListener("mouseup", endFn);
     document.onselectstart = null;
@@ -19,10 +19,10 @@ export default function (elem, options) {
     options.end && options.end(event || window.event, elem);
   }
 
-  elem.addEventListener("mousedown", function (event) {
+  elem.addEventListener("mousedown", function(event) {
     if (isDrag) return;
-    document.onselectstart = function () { return false; };
-    document.ondragstart = function () { return false; };
+    document.onselectstart = function() { return false; };
+    document.ondragstart = function() { return false; };
     document.addEventListener("mousemove", moveFn);
     document.addEventListener("mouseup", endFn);
     isDrag = true;

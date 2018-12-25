@@ -1,4 +1,4 @@
-export default function (text) {
+export default function(text) {
   const body = document.querySelector("body");
   const input = document.createElement("input");
   input.value = text;

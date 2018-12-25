@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <span v-for="i in 100" :key="i">{{i}}</span>
-    <div v-for="i in 100" :key="i">{{i}}</div>
+    <!-- <span v-for="i in 100" :key="i">{{i}}</span> -->
+    <!-- <div v-for="i in 100" :key="i">{{i}}</div> -->
   </div>
 </template>
 

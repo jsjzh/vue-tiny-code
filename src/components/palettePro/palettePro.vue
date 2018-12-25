@@ -1,6 +1,5 @@
 <template>
   <div class="palette-pro-container">
-
     <div ref="dotStage" class="color-stage" title="拖动调节饱和度和明度">
       <div class="bgd current-bgd" :style="{'backgroundColor': pureColor}"></div>
       <div class="bgd white-bgd"></div>
@@ -20,29 +19,54 @@
         </div>
         <div ref="transStage" class="bar trans-stage" title="拖动调节透明度">
           <div class="lucency"></div>
-          <div class="trans-bar" :style="{'backgroundImage': `linear-gradient(to right, rgba(255, 255, 255, 0), ${pureColor})`}"></div>
+          <div
+            class="trans-bar"
+            :style="{'backgroundImage': `linear-gradient(to right, rgba(255, 255, 255, 0), ${pureColor})`}"
+          ></div>
           <div ref="trans" class="slider" :style="{'left': `${transLeft}%`}"></div>
         </div>
       </div>
       <div class="current-color-text-stage">
-        <input id="current-color-text" type="text" class="current-color-input" v-model="_currentColor">
+        <input
+          id="current-color-text"
+          type="text"
+          class="current-color-input"
+          v-model="_currentColor"
+        >
         <label for="current-color-text" class="current-color-label">切换</label>
       </div>
     </div>
 
     <div class="show-stage">
       <div class="show-toggle-stage flex-start-stage">
-        <button class="show-toggle-btn" @click="(blendent = item.value, update())" v-for="item in blendents" :key="item.label">{{item.label}}</button>
+        <button
+          class="show-toggle-btn"
+          @click="(blendent = item.value, update())"
+          v-for="item in blendents"
+          :key="item.label"
+        >{{item.label}}</button>
       </div>
       <div class="show-color-stage flex-start-stage">
-        <div class="show-color-item" title="点击复制" @click="handleCopyColor(color)" v-for="(color, index) in showColors" :key="index" :style="{'backgroundColor': color}"></div>
+        <div
+          class="show-color-item"
+          title="点击复制"
+          @click="handleCopyColor(color)"
+          v-for="(color, index) in showColors"
+          :key="index"
+          :style="{'backgroundColor': color}"
+        ></div>
       </div>
     </div>
 
     <div class="recom-stage flex-start-stage">
-      <div class="recom-color-item" @click="handleSetColor(color)" v-for="(color, index) in recomColors" :key="index" :style="{'backgroundColor': color}"></div>
+      <div
+        class="recom-color-item"
+        @click="handleSetColor(color)"
+        v-for="(color, index) in recomColors"
+        :key="index"
+        :style="{'backgroundColor': color}"
+      ></div>
     </div>
-
   </div>
 </template>
 
@@ -126,13 +150,13 @@ export default {
       _top = _top > 0 ? Math.min(height, _top) : 0;
 
       _className.indexOf("hue") !== -1
-        ? (this.hueLeft = _left / width * 100)
+        ? (this.hueLeft = (_left / width) * 100)
         : _className.indexOf("trans") !== -1
-          ? (this.transLeft = _left / width * 100)
-          : _className.indexOf("color") !== -1
-            ? ((this.satLeft = _left / width * 100),
-              (this.valueTop = _top / height * 100))
-            : "";
+        ? (this.transLeft = (_left / width) * 100)
+        : _className.indexOf("color") !== -1
+        ? ((this.satLeft = (_left / width) * 100),
+          (this.valueTop = (_top / height) * 100))
+        : "";
 
       this.update();
     }

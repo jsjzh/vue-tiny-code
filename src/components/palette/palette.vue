@@ -1,11 +1,22 @@
 <template>
   <div class="palette-container">
     <div class="show-stage">
-      <div @click="handleGetColor(item)" v-for="(item, index) in colorArr" :key="index" style="height: 50%;cursor: cell;" :style="{'background-color':item, 'width': `${100/(colorArr.length + 1)}%`}"></div>
+      <div
+        @click="handleGetColor(item)"
+        v-for="(item, index) in colorArr"
+        :key="index"
+        style="height: 50%;cursor: cell;"
+        :style="{'background-color':item, 'width': `${100/(colorArr.length + 1)}%`}"
+      ></div>
     </div>
     <div class="palette">
       <div ref="dish" class="dish">
-        <i class="sector" v-for="item in count" :key="item" :style="{'transform': `rotate(${item * 360 / count}deg)`, 'color' : `hsl(${item * 360 / count}, 100%, 50%)`}"></i>
+        <i
+          class="sector"
+          v-for="item in count"
+          :key="item"
+          :style="{'transform': `rotate(${item * 360 / count}deg)`, 'color' : `hsl(${item * 360 / count}, 100%, 50%)`}"
+        ></i>
         <i class="dot" :style="{top: `${dotTop}px`, left: `${dotLeft}px`}">&#x2716;</i>
       </div>
     </div>
@@ -15,11 +26,8 @@
     <div ref="lightness" class="bar bar-two">
       <div class="contro"></div>
     </div>
-    <div class="text-stage">
-      {{ currentColor }}
-    </div>
+    <div class="text-stage">{{ currentColor }}</div>
   </div>
-
 </template>
 
 <script>
@@ -83,7 +91,7 @@ export default {
       function getAngle(x0, y0, x, y) {
         let a = x0 - x;
         let b = y0 - y;
-        let result = Math.atan2(a, b) / Math.PI * 180;
+        let result = (Math.atan2(a, b) / Math.PI) * 180;
         return result > 0 ? 360 - result : Math.abs(result);
       }
       let angle = getAngle(_radius, _radius, left, top);

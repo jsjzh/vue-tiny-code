@@ -6,7 +6,7 @@ function isPercentage(n) {
   return typeof n === 'string' && n.indexOf('%') !== -1;
 };
 
-const bound01 = function (value, max) {
+const bound01 = function(value, max) {
   if (isOnePointZero(value)) value = '100%';
 
   const processPercent = isPercentage(value);
@@ -123,7 +123,7 @@ const INT_HEX_MAP = {
 };
 
 export function toHex(r, g, b) {
-  const hexOne = function (value) {
+  const hexOne = function(value) {
     value = Math.min(Math.round(value), 255);
     const high = Math.floor(value / 16);
     const low = value % 16;

@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div v-if="!chunkIsHide" style="width: 100px;height: 100px;background: red" v-clickoutside="handleHide"></div>
+    <div
+      v-if="!chunkIsHide"
+      style="width: 100px;height: 100px;background: red"
+      v-clickoutside="handleHide"
+    ></div>
   </div>
 </template>
 
