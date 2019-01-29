@@ -152,11 +152,11 @@ export default {
       _className.indexOf("hue") !== -1
         ? (this.hueLeft = (_left / width) * 100)
         : _className.indexOf("trans") !== -1
-        ? (this.transLeft = (_left / width) * 100)
-        : _className.indexOf("color") !== -1
-        ? ((this.satLeft = (_left / width) * 100),
-          (this.valueTop = (_top / height) * 100))
-        : "";
+          ? (this.transLeft = (_left / width) * 100)
+          : _className.indexOf("color") !== -1
+            ? ((this.satLeft = (_left / width) * 100),
+              (this.valueTop = (_top / height) * 100))
+            : "";
 
       this.update();
     }

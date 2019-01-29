@@ -1,24 +1,35 @@
 <template>
   <div id="app">
-    <router-link to="/">Home</router-link>|
-    <router-link to="/Palette">Palette</router-link>|
-    <router-link to="/Resize">Resize</router-link>|
-    <router-link to="/palettePro">palettePro</router-link>
+    <div class="link-container">
+      <router-link v-for="(item, index) in routes" :key="index" :to="item.path">{{item.name}}&nbsp;</router-link>
+    </div>
     <router-view/>
   </div>
 </template>
 
 
 <script>
+import { routes } from "./router";
+
 export default {
-  name: "app"
+  name: "app",
+  data() {
+    return { routes };
+  }
 };
 </script>
 
+<style lang="scss" scoped>
+.link-container {
+  display: flex;
+  justify-content: center;
+  background-color: #eee;
+  /deep/ a {
+    margin: 1rem 5rem;
+  }
+}
+</style>
 
 <style lang="scss">
-body,
-html {
-  font-size: 14px !important;
-}
+@import "./app.scss";
 </style>
