@@ -5,7 +5,7 @@
 <script>
 import { data } from "./js/data";
 
-console.log(data);
+// console.log(data);
 
 export default {
   name: "dragReport",

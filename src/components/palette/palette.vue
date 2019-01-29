@@ -1,159 +1,177 @@
 <template>
-  <div class="palette-container">
-    <div class="show-stage">
-      <div
-        @click="handleGetColor(item)"
-        v-for="(item, index) in colorArr"
-        :key="index"
-        style="height: 50%;cursor: cell;"
-        :style="{'background-color':item, 'width': `${100/(colorArr.length + 1)}%`}"
-      ></div>
+  <div class="palette-pro-container">
+    <div ref="dotStage" class="color-stage" title="拖动调节饱和度和明度">
+      <div class="bgd current-bgd" :style="{'backgroundColor': pureColor}"/>
+      <div class="bgd white-bgd"/>
+      <div class="bgd black-bgd"/>
+      <div ref="dot" class="color-dot" :style="{'left': `${satLeft}%`, 'top': `${valueTop}%`}"/>
     </div>
-    <div class="palette">
-      <div ref="dish" class="dish">
-        <i
-          class="sector"
-          v-for="item in count"
-          :key="item"
-          :style="{'transform': `rotate(${item * 360 / count}deg)`, 'color' : `hsl(${item * 360 / count}, 100%, 50%)`}"
-        ></i>
-        <i class="dot" :style="{top: `${dotTop}px`, left: `${dotLeft}px`}">&#x2716;</i>
+
+    <div class="controller-stage">
+      <div class="current-color-stage" title="点击复制" @click="handleCopyColor(currentColor)">
+        <div class="lucency"/>
+        <div class="current-color" :style="{'backgroundColor': currentColor}"/>
+      </div>
+      <div class="controller-bars">
+        <div ref="hueStage" class="bar hue-stage" title="拖动调节色相">
+          <div class="hue-bar"/>
+          <div ref="hue" class="slider" :style="{'left': `${hueLeft}%`}"/>
+        </div>
+        <div ref="transStage" class="bar trans-stage" title="拖动调节透明度">
+          <div class="lucency"/>
+          <div
+            class="trans-bar"
+            :style="{'backgroundImage': `linear-gradient(to right, rgba(255, 255, 255, 0), ${pureColor})`}"
+          />
+          <div ref="trans" class="slider" :style="{'left': `${transLeft}%`}"/>
+        </div>
+      </div>
+      <div class="current-color-text-stage">
+        <input
+          id="current-color-text"
+          type="text"
+          class="current-color-input"
+          v-model="_currentColor"
+        >
+        <label for="current-color-text" class="current-color-label">切换</label>
       </div>
     </div>
-    <div ref="saturation" class="bar bar-one">
-      <div class="contro"></div>
+
+    <div class="show-stage">
+      <div class="show-toggle-stage flex-start-stage">
+        <button
+          class="show-toggle-btn"
+          @click="(blendent = item.value, update())"
+          v-for="item in blendents"
+          :key="item.label"
+        >{{item.label}}</button>
+      </div>
+      <div class="show-color-stage flex-start-stage">
+        <div
+          class="show-color-item"
+          title="点击复制"
+          @click="handleCopyColor(color)"
+          v-for="(color, index) in showColors"
+          :key="index"
+          :style="{'backgroundColor': color}"
+        />
+      </div>
     </div>
-    <div ref="lightness" class="bar bar-two">
-      <div class="contro"></div>
+
+    <div class="recom-stage flex-start-stage">
+      <div
+        class="recom-color-item"
+        @click="handleSetColor(color)"
+        v-for="(color, index) in recomColors"
+        :key="index"
+        :style="{'backgroundColor': color}"
+      />
     </div>
-    <div class="text-stage">{{ currentColor }}</div>
   </div>
 </template>
 
+
 <script>
-let _width = 200;
-let _height = 200;
-let _radius = _width / 2;
-
-import { getCoords, isInside } from "./util";
-
-import Color from "./color";
 import drag from "./drag";
+import paste from "./paste";
+import Color from "./color";
 
 export default {
-  props: {
-    colorFormat: String
-  },
-
+  name: "palette",
   data() {
     const color = new Color({
-      format: this.colorFormat,
-      count: 12 * 5
+      // 精度
+      precision: 12 * 5
     });
     return {
-      count: color.get("count"),
       color,
-      dotTop: _width / 2,
-      dotLeft: _width / 2,
-      colorArr: [],
-      currentColor: null
+      satLeft: 50,
+      valueTop: 50,
+      hueLeft: 50,
+      transLeft: 50,
+      pureColor: undefined,
+      currentColor: undefined,
+      showColors: undefined,
+      blendent: undefined,
+      recomColors: color.get("recomColors"),
+      blendents: [
+        { label: "互补色", value: "reverse" },
+        { label: "近似色", value: "similar" },
+        { label: "三角色", value: "triangle" },
+        { label: "四角色", value: "square" },
+        { label: "分裂互补色", value: "complement" },
+        { label: "双分裂互补色", value: "doubleComplement" }
+      ]
     };
   },
+  computed: {
+    _currentColor() {
+      return this.currentColor;
+    }
+  },
   methods: {
-    handleGetColor(color) {
-      this.currentColor = color;
+    handleSetColor(color) {
+      const { satLeft, valueTop, hueLeft, transLeft } = this.color.string2rate(
+        color
+      );
+      this.satLeft = satLeft;
+      this.valueTop = valueTop;
+      this.hueLeft = hueLeft;
+      this.transLeft = transLeft;
+      this.update();
     },
+
+    handleCopyColor(color) {
+      paste(color);
+    },
+
     update() {
-      const hue = this.color.get("hue");
-      const saturation = this.color.get("saturation");
-      const value = this.color.get("value");
+      console.log(this.color);
+
+      this.color._update(
+        this.satLeft,
+        this.valueTop,
+        this.hueLeft,
+        this.transLeft
+      );
+      this.showColors = this.color.blendent(this.blendent);
+      this.currentColor = this.color.get("output");
+      this.pureColor = this.color.get("pure");
     },
-    handleDreg(event, elem) {
-      let gbcr = this.$refs["dish"].getBoundingClientRect();
 
-      let top = event.clientY - gbcr.top;
-      let left = event.clientX - gbcr.left;
+    handleDrag(event, elem) {
+      const { hue, trans, dot } = this.$refs;
+      const _className = elem.className;
 
-      // 对圆形的边界情况进行处理
-      if (!!isInside(left, top, _radius)) {
-        let k = (top - _radius) / (left - _radius);
-        let b = _radius - _radius * k;
-        let coords = getCoords(k, b, -_radius, -_radius, _radius);
+      const { width, height, left, top } = elem.getBoundingClientRect();
 
-        left > _radius
-          ? ((top = coords[1][1]), (left = coords[1][0]))
-          : ((top = coords[0][1]), (left = coords[0][0]));
-      }
+      let _left = event.clientX - left;
+      let _top = event.clientY - top;
 
-      this.dotTop = top;
-      this.dotLeft = left;
+      _left = _left > 0 ? Math.min(width, _left) : 0;
+      _top = _top > 0 ? Math.min(height, _top) : 0;
 
-      function getAngle(x0, y0, x, y) {
-        let a = x0 - x;
-        let b = y0 - y;
-        let result = (Math.atan2(a, b) / Math.PI) * 180;
-        return result > 0 ? 360 - result : Math.abs(result);
-      }
-      let angle = getAngle(_radius, _radius, left, top);
+      _className.indexOf("hue") !== -1
+        ? (this.hueLeft = (_left / width) * 100)
+        : _className.indexOf("trans") !== -1
+          ? (this.transLeft = (_left / width) * 100)
+          : _className.indexOf("color") !== -1
+            ? ((this.satLeft = (_left / width) * 100),
+              (this.valueTop = (_top / height) * 100))
+            : "";
 
-      // reverse
-      // similar
-      // triangle
-      // complement
-      // doubleComplement
-      // square
-      this.color.set("hue", angle);
-      this.colorArr = this.color.blendent("square", 10);
-
-      let barOne = document.querySelector(".bar-one");
-      barOne.style.backgroundImage = `linear-gradient(${
-        this.color.value
-      }, gray)`;
-    },
-    handleDregBar(event, elem) {
-      let cont = Array.prototype.filter.call(
-        elem.childNodes,
-        el => el.className === "contro"
-      )[0];
-      const { top, height } = elem.getBoundingClientRect();
-      let rate = (event.clientY - top) / height;
-      let _top = rate < 0 ? 0 * 100 : rate > 1 ? 1 * 100 : rate * 100;
-      cont.style.top = `${_top}%`;
-      if (elem.classList.contains("bar-one")) {
-        this.color.set("saturation", Math.abs(100 - _top));
-        this.colorArr = this.color.blendent("square", 10);
-      } else if (elem.classList.contains("bar-two")) {
-        this.color.set("value", Math.abs(50 - _top / 2));
-        this.colorArr = this.color.blendent("square", 10);
-        let barOne = document.querySelector(".bar-one");
-        barOne.style.backgroundImage = `linear-gradient(${
-          this.color.value
-        }, gray)`;
-      }
+      this.update();
     }
   },
   mounted() {
-    // const value = this.value;
-    // value && this.color.fromString(value);
+    const { dotStage, hueStage, transStage } = this.$refs;
 
-    const { dish, saturation, lightness } = this.$refs;
-
-    drag(dish, {
-      start: (event, elem) => this.handleDreg(event, elem),
-      move: (event, elem) => this.handleDreg(event, elem),
-      end: (event, elem) => this.handleDreg(event, elem)
-    });
-
-    drag(saturation, {
-      start: (event, elem) => this.handleDregBar(event, elem),
-      move: (event, elem) => this.handleDregBar(event, elem),
-      end: (event, elem) => this.handleDregBar(event, elem)
-    });
-
-    drag(lightness, {
-      start: (event, elem) => this.handleDregBar(event, elem),
-      move: (event, elem) => this.handleDregBar(event, elem),
-      end: (event, elem) => this.handleDregBar(event, elem)
+    [dotStage, hueStage, transStage].forEach(item => {
+      drag(item, {
+        start: (event, elem) => this.handleDrag(event, elem),
+        move: (event, elem) => this.handleDrag(event, elem),
+        end: (event, elem) => this.handleDrag(event, elem)
+      });
     });
 
     this.update();
@@ -161,107 +179,185 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-$paletteWidth: 200px;
-$paletteHeight: 200px;
-.palette-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgb(39, 37, 37);
-  width: 350px;
-  height: 250px;
-  z-index: 1000;
+
+<style scoped>
+.palette-pro-container {
+  width: 300px;
+  margin: 50px auto;
+  background-color: #fff;
+  box-shadow: 1px 1px 5px #949494;
+  box-sizing: border-box;
+  font-size: 1rem;
 }
-.show-stage {
-  position: absolute;
-  top: -50px;
+/* color-stage */
+.color-stage {
+  position: relative;
   width: 100%;
-  height: 50px;
-  background-color: rgb(39, 37, 37);
+  height: 200px;
+  overflow: hidden;
+  cursor: crosshair;
+}
+.bgd {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.white-bgd {
+  background: linear-gradient(to right, white, rgba(255, 255, 255, 0));
+}
+.black-bgd {
+  background: linear-gradient(to top, black, rgba(255, 255, 255, 0));
+}
+.current-bgd {
+  background-color: red;
+}
+.color-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  box-shadow: 1px 1px 1px #949494;
+  transform: translate(-50%, -50%);
+}
+/* color-stage */
+/* controller-stage */
+.controller-stage {
+  position: relative;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex-wrap: wrap;
+  padding: 20px 10px;
 }
-.text-stage {
-  color: white;
+.current-color-stage {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: cell;
+  box-shadow: 1px 1px 1px #949494;
+  overflow: hidden;
+}
+.current-color {
   position: absolute;
-  bottom: -30px;
   width: 100%;
-  height: 30px;
-  line-height: 30px;
-  background-color: rgb(39, 37, 37);
-  text-align: center;
+  height: 100%;
+}
+.controller-bars {
+  width: 65%;
+  height: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 .bar {
-  position: absolute;
-  top: 50%;
-  width: 25px;
-  height: 200px;
-  transform: translateY(-50%);
-  cursor: n-resize;
+  position: relative;
+  width: 100%;
+  height: 15px;
+  border-radius: 3px;
+  cursor: e-resize;
+  box-shadow: 1px 1px 1px #949494;
 }
-// 饱和度
-.bar-one {
-  right: 6%;
-  background-image: linear-gradient(hsl(0, 100%, 50%), gray);
-}
-// 明度
-.bar-two {
-  right: 22%;
-  background-image: linear-gradient(white, black);
-}
-.contro {
+.hue-bar {
   position: absolute;
   width: 100%;
-  height: 5px;
-  top: 0;
-  left: 0;
-  background-color: brown;
-  transform: translateY(-50%);
+  height: 100%;
+  background-image: linear-gradient(
+    to right,
+    red 0,
+    #f0f 17%,
+    blue 33%,
+    cyan 50%,
+    lime 67%,
+    #ff0 83%,
+    red
+  );
 }
-.palette {
+.slider {
   position: absolute;
-  width: $paletteWidth;
-  height: $paletteHeight;
-  top: 50%;
-  left: 35%;
-  margin: (-($paletteWidth / 2)) (-($paletteHeight / 2));
-  // overflow: hidden;
-  cursor: crosshair;
-  .dish {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    transform: rotate(-(360 / 12 * 5) deg);
-  }
-  .sector {
-    width: $paletteWidth;
-    height: $paletteWidth;
-    position: absolute;
-    clip: rect(0 $paletteWidth $paletteWidth $paletteWidth / 2);
-    overflow: hidden;
-  }
-  .sector::after {
-    content: "";
-    width: 100%;
-    height: 100%;
-    background: currentColor;
-    position: absolute;
-    clip: rect(0 $paletteWidth / 2 $paletteWidth 0);
-    transform: rotate(30deg);
-    border-radius: 50%;
-  }
-  .dot {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    color: black;
-    top: 200px;
-    left: 200px;
-    cursor: pointer;
-    font-weight: bolder;
-    font-style: inherit;
-  }
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  margin: -3px 0;
+  transform: translateX(-50%);
+  background-color: #fff;
+  box-shadow: 1px 1px 5px#949494;
 }
+.trans-bar {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.lucency {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("./lucency.png");
+  background-repeat: repeat;
+  background-size: 10px;
+  background-position: 0 0;
+}
+/* controller-stage */
+/* current-color-text-stage */
+.current-color-text-stage {
+  margin-top: 20px;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.current-color-input {
+  border: 1px solid #949494;
+  width: 70%;
+  height: 10px;
+  border-radius: 3px;
+  padding: 8px;
+}
+/* current-color-text-stage */
+/* show-stage */
+.show-stage {
+  padding: 10px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+.show-toggle-btn {
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 3px;
+  color: #fff;
+  border: 1px solid #409eff;
+  background-color: #409eff;
+}
+.flex-start-stage {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.show-color-item {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px #949494;
+  cursor: cell;
+  margin: 5px;
+}
+/* show-stage */
+/* recom-stage */
+.recom-stage {
+  padding: 10px;
+}
+.recom-color-item {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px #949494;
+  margin: 5px;
+}
+/* recom-stage */
 </style>

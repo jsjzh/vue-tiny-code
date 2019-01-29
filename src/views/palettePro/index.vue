@@ -1,14 +1,15 @@
 <template>
   <div>
-    <palette-pro/>
+    <palette/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import palettePro from "@/components/palettePro/palettePro";
+import palette from "@/components/palette/palette";
 export default {
-  components: { palettePro }
+  name: "palettePro",
+  components: { palette }
 };
 </script>
 
