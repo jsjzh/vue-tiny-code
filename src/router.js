@@ -4,8 +4,8 @@ import Router from 'vue-router'
 const importLayout = name => require(`@/layout/${name}/index.vue`).default
 const importView = name => require(`@/views/${name}/index.vue`).default
 
-console.log(importView('palettePro'))
-
+console.log(importLayout('home'))
+console.log(importView('dragReport'))
 Vue.use(Router)
 
 export const routes = [
