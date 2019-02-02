@@ -23,7 +23,7 @@ export default {
       });
     }
     let nodes = createNodes(this.items);
-    console.log(nodes);
+    // console.log(nodes);
 
     return <div>{nodes}</div>;
   }

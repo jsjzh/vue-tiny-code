@@ -1,1 +1,11 @@
-$defaultBackground: #eee;
+$defaultBackground: #666;
+$defaultColor: white;
+
+@mixin defaultBackgroundColor {
+  background-color: $defaultBackground;
+}
+
+
+@mixin defaultBorder {
+  border: 2px solid black;
+}

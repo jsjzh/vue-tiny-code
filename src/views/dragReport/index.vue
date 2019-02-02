@@ -1,53 +1,62 @@
 <template>
   <div class="group-report-container">
-    <div v-for="item in data" :key="item.name + Math.random()">
-      <span>{{item.name}}</span>
-      <group-box v-if="item.items.length" :items="item.items">
-        <component :is="'group-box'" :items="item.items"></component>
-      </group-box>
+    <div
+      class="layout-box"
+      @drop="handleDrop($event, layout)"
+      @dragover="handleDragOver($event, layout)"
+      v-for="layout in layoutData"
+      :key="layout.id"
+    >
+      <template v-if="layout.boxs.length">
+        <div
+          class="box"
+          draggable="true"
+          @drag="handleDrag($event, layout, box)"
+          :style="{width: `${100 / layout.boxs.length}%`}"
+          v-for="(box, boxIndex) in layout.boxs"
+          :key="boxIndex"
+        >{{box.label}}</div>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
-import { data, ztreeData } from "./js/data";
-import groupBox from "./components/group-box";
-
-// console.log(data);
-// console.log(ztreeData);
+import { layoutData, ztreeData } from "./js/data";
 
 export default {
   name: "dragReport",
-  components: { groupBox },
   data() {
     return {
-      data,
-      dragData: { item: null }
+      layoutData,
+      dragData: {
+        box: null
+      }
     };
   },
   methods: {
-    handleDrop(event) {
+    handleDrop(event, targetLayout) {
       event.preventDefault();
-      let nodes = document.querySelectorAll(".box");
-      nodes.forEach(item => {
-        item.style.borderStyle = "solid";
-      });
-      // let id = event.dataTransfer.getData("_id");
-      let node = document.getElementById(this.dragData.item).cloneNode(true);
-      event.target.appendChild(node);
+      console.log(targetLayout);
+      console.log(this.dragData.box);
     },
     handleDragLeave(event) {
       event.preventDefault();
       event.target.style.borderStyle = "solid";
     },
-    handleDragOver(event) {
+    handleDragOver(event, targetLayout) {
       event.preventDefault();
-      event.target.style.borderStyle = "dotted";
+      console.log(targetLayout);
+      targetLayout.box.push(this.dragData.box);
     },
-    handleDrag(event) {
-      let id = event.target.id;
-      this.dragData.item = id;
-      // event.dataTransfer.setData("_id", id);
+    handleDrag(event, parent, box) {
+      // console.log(event);
+      // console.log(parent);
+      // console.log(box);
+      this.dragData.box = box;
+    },
+    setDragData(key, value) {
+      this.dragData[key] = value;
     }
   }
 };
@@ -58,10 +67,6 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-.box {
-  height: 100px;
-  border: 2px solid black;
-}
 </style>
 
 
