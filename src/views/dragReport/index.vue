@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-02-04 12:37:28
+ * @LastEditTime: 2019-02-04 16:57:50
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
@@ -11,32 +11,27 @@
 <template>
   <div>
     <div class="group-report-container">
-      <div
-        class="layout-box"
-        @drop="handleDrop($event, layout)"
-        @dragover="handleDragOver($event, layout)"
-        v-for="layout in layoutData"
-        :key="layout.id"
-      >
-        <template v-if="layout.boxs.length">
-          <div
-            class="box"
-            draggable="true"
-            @drag="handleDrag($event, layout, box)"
-            :style="{width: `${100 / layout.boxs.length}%`}"
-            v-for="(box, boxIndex) in layout.boxs"
-            :key="boxIndex"
-          >{{box.label}}</div>
-        </template>
+      <div class="layout-row-box" v-for="(row, rowIndex) in layoutData.children" :key="rowIndex">
+        <div
+          class="layout-col-box"
+          style="height: 100%"
+          :style="{width: `${100 / row.children.length}%` }"
+          v-for="(col, colIndex) in row.children"
+          :key="colIndex"
+          @drop="handleDrop($event, col)"
+          @dragover="handleDragOver($event, col)"
+          @dragleave="handleDragLeave($event, col)"
+        >{{col.label}}</div>
       </div>
     </div>
     <div class="components-container">
       <div
         class="components-box"
+        v-for="(component, index) in componentsData"
         draggable="true"
-        v-for="(components, index) in componentsData"
+        @drag="handleDrag($event, component)"
         :key="index"
-      >{{components.label}}</div>
+      >{{component.label}}</div>
     </div>
   </div>
 </template>
@@ -51,36 +46,25 @@ export default {
       layoutData,
       componentsData,
       dragData: {
-        insertIndex: null,
-        parent: null,
-        box: null
+        component: null
       }
     };
   },
   methods: {
     handleDrop(event, targetLayout) {
       event.preventDefault();
-      let index = this.dragData.parent.boxs.findIndex(
-        item => item.id === this.dragData.box.id
-      );
-      if (index !== -1) {
-        this.dragData.parent.boxs.splice(index, 1);
-      }
-      targetLayout.boxs.push(this.dragData.box);
+      targetLayout = this.dragData.component;
     },
-    handleDragLeave(event) {
+    handleDragLeave(event, targetLayout) {
       event.preventDefault();
-      event.target.style.borderStyle = "solid";
+      // console.log(event);
     },
     handleDragOver(event, targetLayout) {
       event.preventDefault();
+      // console.log(event);
     },
-    handleDrag(event, parent, box) {
-      this.dragData.parent = parent;
-      this.dragData.box = box;
-    },
-    setDragData(key, value) {
-      this.dragData[key] = value;
+    handleDrag(event, component) {
+      this.dragData.component = component;
     }
   }
 };

@@ -1,20 +1,25 @@
 // layoutData
 
-export const layoutData = [
-  {
-    children: [
-      {
-        children: [{}, {}]
-      },
-      {
-        children: [{}, {}, {}]
-      },
-      {
-        children: [{}, {}, {}, {}]
-      }
-    ]
-  }
-];
+export const layoutData = {
+  children: [
+    {
+      children: [
+        {
+          label: "test"
+        }
+      ]
+    },
+    {
+      children: [{}, {}]
+    },
+    {
+      children: [{}, {}, {}]
+    },
+    {
+      children: [{}, {}, {}, {}]
+    }
+  ]
+};
 
 export const componentsData = [
   { type: 1, label: 1 },

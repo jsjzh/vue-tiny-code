@@ -3,21 +3,18 @@
 .group-report-container {
   max-width: 1366px;
   margin: 0 auto;
-  .layout-box {
+  .layout-row-box {
     @include defaultBackgroundColor;
     @include defaultBorder;
     @include defaultFlex;
     flex-wrap: nowrap;
     min-height: 200px;
     margin: 1rem;
-    padding: 1rem;
     color: $defaultColor;
-    .box {
+    .layout-col-box {
       @include defaultBorder;
-      height: 200px;
-      padding: 1rem;
-      margin: 1rem;
-      text-align: center;
+      @include defaultFlex;
+      min-height: 200px;
     }
   }
 }
