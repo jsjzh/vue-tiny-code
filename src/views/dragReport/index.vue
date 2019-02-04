@@ -1,3 +1,13 @@
+<!--
+ * @Author: jsjzh
+ * @Email: kimimi_king@163.com
+ * @Date: 2019-02-02 15:47:44
+ * @LastEditors: jsjzh
+ * @LastEditTime: 2019-02-04 12:27:12
+ * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
+      然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
+      关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
+ -->
 <template>
   <div class="group-report-container">
     <div
@@ -30,6 +40,8 @@ export default {
     return {
       layoutData,
       dragData: {
+        insertIndex: null,
+        parent: null,
         box: null
       }
     };
@@ -37,8 +49,13 @@ export default {
   methods: {
     handleDrop(event, targetLayout) {
       event.preventDefault();
-      console.log(targetLayout);
-      console.log(this.dragData.box);
+      let index = this.dragData.parent.boxs.findIndex(
+        item => item.id === this.dragData.box.id
+      );
+      if (index !== -1) {
+        this.dragData.parent.boxs.splice(index, 1);
+      }
+      targetLayout.boxs.push(this.dragData.box);
     },
     handleDragLeave(event) {
       event.preventDefault();
@@ -46,13 +63,9 @@ export default {
     },
     handleDragOver(event, targetLayout) {
       event.preventDefault();
-      console.log(targetLayout);
-      targetLayout.box.push(this.dragData.box);
     },
     handleDrag(event, parent, box) {
-      // console.log(event);
-      // console.log(parent);
-      // console.log(box);
+      this.dragData.parent = parent;
       this.dragData.box = box;
     },
     setDragData(key, value) {

@@ -3,29 +3,9 @@
 export const layoutData = [
   {
     id: 1,
-    boxs: [
-      {
-        label: "test"
-      },
-      {
-        label: "test"
-      },
-      {
-        label: "test"
-      }
-    ]
+    boxs: [{ id: 3, label: 3 }, { id: 4, label: 4 }, { id: 5, label: 5 }]
   },
-  {
-    id: 2,
-    boxs: [
-      {
-        label: "test"
-      },
-      {
-        label: "test"
-      }
-    ]
-  }
+  { id: 2, boxs: [{ id: 6, label: 6 }, { id: 7, label: 7 }] }
 ];
 
 export const ztreeData = [
