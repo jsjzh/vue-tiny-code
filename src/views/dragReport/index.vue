@@ -3,42 +3,53 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-02-04 12:27:12
+ * @LastEditTime: 2019-02-04 12:37:28
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
  -->
 <template>
-  <div class="group-report-container">
-    <div
-      class="layout-box"
-      @drop="handleDrop($event, layout)"
-      @dragover="handleDragOver($event, layout)"
-      v-for="layout in layoutData"
-      :key="layout.id"
-    >
-      <template v-if="layout.boxs.length">
-        <div
-          class="box"
-          draggable="true"
-          @drag="handleDrag($event, layout, box)"
-          :style="{width: `${100 / layout.boxs.length}%`}"
-          v-for="(box, boxIndex) in layout.boxs"
-          :key="boxIndex"
-        >{{box.label}}</div>
-      </template>
+  <div>
+    <div class="group-report-container">
+      <div
+        class="layout-box"
+        @drop="handleDrop($event, layout)"
+        @dragover="handleDragOver($event, layout)"
+        v-for="layout in layoutData"
+        :key="layout.id"
+      >
+        <template v-if="layout.boxs.length">
+          <div
+            class="box"
+            draggable="true"
+            @drag="handleDrag($event, layout, box)"
+            :style="{width: `${100 / layout.boxs.length}%`}"
+            v-for="(box, boxIndex) in layout.boxs"
+            :key="boxIndex"
+          >{{box.label}}</div>
+        </template>
+      </div>
+    </div>
+    <div class="components-container">
+      <div
+        class="components-box"
+        draggable="true"
+        v-for="(components, index) in componentsData"
+        :key="index"
+      >{{components.label}}</div>
     </div>
   </div>
 </template>
 
 <script>
-import { layoutData, ztreeData } from "./js/data";
+import { layoutData, ztreeData, componentsData } from "./js/data";
 
 export default {
   name: "dragReport",
   data() {
     return {
       layoutData,
+      componentsData,
       dragData: {
         insertIndex: null,
         parent: null,
@@ -77,9 +88,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "./css/layout.scss";
-</style>
-
-<style lang="scss" scoped>
 </style>
 
 

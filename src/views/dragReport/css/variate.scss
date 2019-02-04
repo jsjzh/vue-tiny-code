@@ -5,7 +5,12 @@ $defaultColor: white;
   background-color: $defaultBackground;
 }
 
-
 @mixin defaultBorder {
   border: 2px solid black;
+}
+
+@mixin defaultFlex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -2,10 +2,25 @@
 
 export const layoutData = [
   {
-    id: 1,
-    boxs: [{ id: 3, label: 3 }, { id: 4, label: 4 }, { id: 5, label: 5 }]
-  },
-  { id: 2, boxs: [{ id: 6, label: 6 }, { id: 7, label: 7 }] }
+    children: [
+      {
+        children: [{}, {}]
+      },
+      {
+        children: [{}, {}, {}]
+      },
+      {
+        children: [{}, {}, {}, {}]
+      }
+    ]
+  }
+];
+
+export const componentsData = [
+  { type: 1, label: 1 },
+  { type: 2, label: 2 },
+  { type: 3, label: 3 },
+  { type: 4, label: 4 }
 ];
 
 export const ztreeData = [
