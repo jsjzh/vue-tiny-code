@@ -7,7 +7,10 @@ import '../assets/css/normalize.css'
 
 Vue.config.productionTip = false
 
-new Vue({
+const app = new Vue({
+  el: '#app',
   router,
   render: h => h(App)
-}).$mount('#app')
+})
+
+console.log(app)
