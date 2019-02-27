@@ -1,0 +1,21 @@
+$deep-color-1: rgb(52, 73, 93);
+$deep-color-2: rgb(44, 61, 79);
+$active-color-1: rgb(238, 119, 56);
+$active-color-2: rgb(245, 157, 42);
+$shallow-color-1: rgb(242, 245, 247);
+$shallow-color-2: rgb(253, 241, 235);
+
+@mixin defaultFlex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flexWrap {
+  flex-wrap: wrap;
+}
+
+@mixin flexCol {
+  @include flexWrap;
+  flex-flow: column;
+}

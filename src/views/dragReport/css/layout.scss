@@ -1,30 +1,163 @@
-@import "./variate.scss";
+@import './variate.scss';
 
-.group-report-container {
-  max-width: 1366px;
-  margin: 0 auto;
-  .layout-row-box {
-    @include defaultBackgroundColor;
-    @include defaultBorder;
-    @include defaultFlex;
-    flex-wrap: nowrap;
-    min-height: 200px;
-    margin: 1rem;
-    color: $defaultColor;
-    .layout-col-box {
-      @include defaultBorder;
+.drag-report {
+  @include posRelative;
+  .drag-report-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    .layout-row-box {
+      // @include defaultBackgroundColor;
+      // @include defaultBorder;
       @include defaultFlex;
-      min-height: 200px;
+      @include posRelative;
+      flex-wrap: nowrap;
+      margin: 2rem 1rem;
+      color: $defaultColor;
+      .row-controller-bar {
+        @include curAll;
+        @include controllerBar;
+        top: -20px;
+        .title-box {
+          @include fl;
+          @include titleMargin;
+        }
+        .right-box {
+          @include fr;
+          .align-type-item {
+            @include cur;
+            @include titleMargin;
+            display: inline-block;
+          }
+          .remove-item {
+            @include cur;
+            @include titleMargin;
+            color: $dangerColor;
+            display: inline-block;
+          }
+        }
+      }
+      .layout-col-box {
+        @include defaultBorder;
+        @include defaultFlex;
+        @include posRelative;
+        @include borderRadius;
+        @include backgroundImg;
+        // @include boxShadow;
+        border-style: dashed;
+        margin: 0 0.2rem;
+        .col-controller-bar {
+          @include controllerBar;
+          @include topZero;
+          .title-box {
+            @include fr;
+            @include cur;
+            @include titleMargin;
+            &.danger {
+              color: $dangerColor;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .drag-report-add-container {
+    @include sideControllerBox;
+    @include defaultFlex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    flex-flow: column;
+    .title-box {
+      @include controllerBar;
+      @include topZero;
+      background-color: transparent;
+      font-size: 2rem;
+      .el-icon-close {
+        @include cur;
+      }
+    }
+  }
+
+  .drag-report-add-row-container {
+    @include boxShadow;
+    left: 0;
+    .title-box {
+      text-align: right;
+      right: 0;
+    }
+  }
+  .drag-report-add-col-container {
+    @include boxShadowReversal;
+    right: 0;
+    .title-box {
+      text-align: left;
+      left: 0;
+    }
+  }
+
+  .add-report-component-icon {
+    @include cur;
+    font-size: 5rem;
+    &.drag-report-add-row-icon {
+      @include posAbsolute;
+      @include topZero;
+      left: 10%;
+      &:hover {
+        animation: transIcon 1s infinite;
+      }
+    }
+    &.drag-report-add-col-icon {
+      @include posAbsolute;
+      @include topZero;
+      right: 10%;
+      &:hover {
+        animation: transIconReversal 1s infinite;
+      }
+    }
+    &.drag-report-preview-icon {
+      @include posAbsolute;
+      @include topZero;
+      right: 5%;
     }
   }
 }
 
 .components-container {
   @include defaultFlex;
-  justify-content: space-around;
-}
-
-.components-box {
-  @include defaultBorder;
-  padding: 4rem;
+  width: 100%;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-flow: column;
+  padding: 0.5rem;
+  overflow: auto;
+  & .components-row {
+    @include defaultFlex;
+    @include borderRadius;
+    @include boxShadow;
+    flex-flow: wrap;
+    padding: 1rem;
+    width: 100%;
+    min-height: 200px;
+    background: $defaultColor;
+    margin: 1rem 0;
+    & .components-infos-box {
+      width: 100%;
+      top: 10px;
+      left: 10px;
+      color: $defaultActiveColor;
+    }
+    & .preview-box {
+      @include defaultFlex;
+      width: 100%;
+      & .preview {
+        @include curAll;
+        @include backgroundImg;
+      }
+    }
+  }
+  & .components-controller-bar {
+    flex: 1;
+  }
 }

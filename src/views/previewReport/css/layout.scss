@@ -1,0 +1,20 @@
+@import '~@/assets/css/default-variable.scss';
+@import './variable.scss';
+
+.preview-container {
+  @include defaultFlex;
+  @include flexCol;
+  max-width: 1200px;
+  margin: 0 auto;
+  .layout-row {
+    @include defaultFlex;
+    margin: 1rem 0;
+    width: 100%;
+    .layout-col {
+      height: 100%;
+      margin: 0 0.2rem;
+      border: 1px dashed $deep-color-1;
+      border-radius: 5px;
+    }
+  }
+}

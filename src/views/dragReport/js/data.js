@@ -1,562 +1,254 @@
-// layoutData
+/*
+ * @Author: jsjzh
+ * @Email: kimimi_king@163.com
+ * @LastEditors: jsjzh
+ * @Date: 2019-02-11 10:55:03
+ * @LastEditTime: 2019-02-27 16:02:21
+ * @Description: 组件相关信息
+ */
+
+/**
+ * align
+ * center: center
+ * left: flex-start
+ * right: flex-end
+ * around: space-around
+ * between: space-between
+ */
 
 export const layoutData = {
   children: [
     {
+      align: 'flex-start',
+      height: 100,
+      index: 0,
+      showControllerBar: false,
       children: [
-        {
-          label: "test"
-        }
+        { showChildrenControllerBar: false, layoutCol: 4.8, initLayoutCol: 4.8 },
+        { showChildrenControllerBar: false, layoutCol: 4.8, initLayoutCol: 4.8 },
+        { showChildrenControllerBar: false, layoutCol: 4.8, initLayoutCol: 4.8 },
+        { showChildrenControllerBar: false, layoutCol: 4.8, initLayoutCol: 4.8 },
+        { showChildrenControllerBar: false, layoutCol: 4.8, initLayoutCol: 4.8 }
       ]
-    },
-    {
-      children: [{}, {}]
-    },
-    {
-      children: [{}, {}, {}]
-    },
-    {
-      children: [{}, {}, {}, {}]
     }
   ]
-};
+}
 
-export const componentsData = [
-  { type: 1, label: 1 },
-  { type: 2, label: 2 },
-  { type: 3, label: 3 },
-  { type: 4, label: 4 }
-];
-
-export const ztreeData = [
+// 预计做成这样，有个 types 可以提供选择，因为很多图都是一样的，比如曲线图和折线图什么乱七八糟的
+// 这些组件就用同一个图，然后选择组件的时候就要选择 type，然后这些组件都有对应的接口
+// 然后后续应该还会有一个对应的 key，该 key 表示接口过来的 json 数据的 key
+export const componentDatas = [
   {
-    name: "安全管理系统",
-    hrefName: null,
-    id: "0",
-    parent_id: "-1",
-    type: 0,
-    iconSkin: "line0",
-    children: [
+    types: [
       {
-        name: "监控中心",
-        hrefName: null,
-        id: "5e35a9e2-af2c-11e7-96be-00163e13457c",
-        parent_id: "0",
-        type: 1,
-        iconSkin: "line1",
-        children: [
-          {
-            name: "得润电子",
-            hrefName: null,
-            id: "5e359439-af2c-11e7-96be-00163e13457c",
-            parent_id: "5e35a9e2-af2c-11e7-96be-00163e13457c",
-            type: 2,
-            iconSkin: "line2",
-            children: [
-              {
-                name: "东部398路",
-                hrefName: null,
-                id: "1141c396-7d26-4771-98c5-8439ad54822f,null",
-                parent_id: "5e359439-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "东部398路下行",
-                    hrefName: null,
-                    id: "1141c396-7d26-4771-98c5-8439ad54822f",
-                    parent_id: "5e359439-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: "东部公交398",
-                hrefName: null,
-                id: "834a79a7-bca1-4fac-a389-72ccc5c90e46,null",
-                parent_id: "5e359439-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "东部公交398",
-                    hrefName: null,
-                    id: "834a79a7-bca1-4fac-a389-72ccc5c90e46",
-                    parent_id: "5e359439-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: "桃源19路",
-                hrefName: null,
-                id:
-                  "be7ce742-3113-481e-9b56-c41e6f57d042,b1868170-ad05-4322-b82e-fb020d3a1b6a",
-                parent_id: "5e359439-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "桃源19路上行",
-                    hrefName: "b1868170-ad05-4322-b82e-fb020d3a1b6a",
-                    id: "be7ce742-3113-481e-9b56-c41e6f57d042",
-                    parent_id: "5e359439-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  },
-                  {
-                    name: "桃源19路下行",
-                    hrefName: "be7ce742-3113-481e-9b56-c41e6f57d042",
-                    id: "b1868170-ad05-4322-b82e-fb020d3a1b6a",
-                    parent_id: "5e359439-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            name: "苏州公交",
-            hrefName: null,
-            id: "5e35af49-af2c-11e7-96be-00163e13457c",
-            parent_id: "5e35a9e2-af2c-11e7-96be-00163e13457c",
-            type: 2,
-            iconSkin: "line2",
-            children: [
-              {
-                name: "test",
-                hrefName: null,
-                id: "97013127-a29f-411f-ad7c-81b030e1786f,null",
-                parent_id: "5e35af49-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "test",
-                    hrefName: null,
-                    id: "97013127-a29f-411f-ad7c-81b030e1786f",
-                    parent_id: "5e35af49-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: "苏州202",
-                hrefName: null,
-                id:
-                  "664f6101-041a-42b6-bcf4-cdc3c75e205c,ff01c359-ca21-4643-afa3-f7752ac49901",
-                parent_id: "5e35af49-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "苏州202上",
-                    hrefName: "ff01c359-ca21-4643-afa3-f7752ac49901",
-                    id: "664f6101-041a-42b6-bcf4-cdc3c75e205c",
-                    parent_id: "5e35af49-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  },
-                  {
-                    name: "苏州202下",
-                    hrefName: "664f6101-041a-42b6-bcf4-cdc3c75e205c",
-                    id: "ff01c359-ca21-4643-afa3-f7752ac49901",
-                    parent_id: "5e35af49-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: "苏州38",
-                hrefName: null,
-                id:
-                  "c067ef9e-8249-4b16-9447-fec844df459d,7bc3b1fd-d2fc-460e-a7e7-6fc2591af476",
-                parent_id: "5e35af49-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "苏州38上",
-                    hrefName: "7bc3b1fd-d2fc-460e-a7e7-6fc2591af476",
-                    id: "c067ef9e-8249-4b16-9447-fec844df459d",
-                    parent_id: "5e35af49-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  },
-                  {
-                    name: "苏州38下",
-                    hrefName: "c067ef9e-8249-4b16-9447-fec844df459d",
-                    id: "7bc3b1fd-d2fc-460e-a7e7-6fc2591af476",
-                    parent_id: "5e35af49-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: "苏州游4",
-                hrefName: null,
-                id:
-                  "0b1375cd-fc44-497c-8729-cce8f44d8f09,4b80c06f-7eed-462e-b3a9-f63d60118a83",
-                parent_id: "5e35af49-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "苏州游4上",
-                    hrefName: "4b80c06f-7eed-462e-b3a9-f63d60118a83",
-                    id: "0b1375cd-fc44-497c-8729-cce8f44d8f09",
-                    parent_id: "5e35af49-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  },
-                  {
-                    name: "苏州游4下",
-                    hrefName: "0b1375cd-fc44-497c-8729-cce8f44d8f09",
-                    id: "4b80c06f-7eed-462e-b3a9-f63d60118a83",
-                    parent_id: "5e35af49-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            name: "小驹科技",
-            hrefName: null,
-            id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-            parent_id: "5e35a9e2-af2c-11e7-96be-00163e13457c",
-            type: 2,
-            iconSkin: "line2",
-            children: [
-              {
-                name: "113AI",
-                hrefName: null,
-                id: "fd3e0ccc-c9ac-4d8f-afaa-e738c02d7ad4,null",
-                parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "113AI",
-                    hrefName: null,
-                    id: "fd3e0ccc-c9ac-4d8f-afaa-e738c02d7ad4",
-                    parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: "113快速线",
-                hrefName: null,
-                id: "bb21bb91-f965-4bc0-a9b4-36982d7ae9b4,null",
-                parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "113快速线",
-                    hrefName: null,
-                    id: "bb21bb91-f965-4bc0-a9b4-36982d7ae9b4",
-                    parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: "195",
-                hrefName: null,
-                id:
-                  "d7d0bfea-dced-4007-970a-5a4144984b82,a7d268ad-d7b4-4fcc-8ce2-87aecea5d680",
-                parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "195上",
-                    hrefName: "a7d268ad-d7b4-4fcc-8ce2-87aecea5d680",
-                    id: "d7d0bfea-dced-4007-970a-5a4144984b82",
-                    parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  },
-                  {
-                    name: "195下",
-                    hrefName: "d7d0bfea-dced-4007-970a-5a4144984b82",
-                    id: "a7d268ad-d7b4-4fcc-8ce2-87aecea5d680",
-                    parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: "tets",
-                hrefName: null,
-                id: "e50f56d6-eddb-4ec9-87f6-702020de3d88,null",
-                parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "tets",
-                    hrefName: null,
-                    id: "e50f56d6-eddb-4ec9-87f6-702020de3d88",
-                    parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: "Tline326",
-                hrefName: null,
-                id:
-                  "959eeaad-358f-415f-8670-c68d30b4773c,87e1d022-5ce9-4836-8677-6b7b4c5490c6",
-                parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "Tline326上行",
-                    hrefName: "87e1d022-5ce9-4836-8677-6b7b4c5490c6",
-                    id: "959eeaad-358f-415f-8670-c68d30b4773c",
-                    parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  },
-                  {
-                    name: "Tline326下行",
-                    hrefName: "959eeaad-358f-415f-8670-c68d30b4773c",
-                    id: "87e1d022-5ce9-4836-8677-6b7b4c5490c6",
-                    parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: "Tline",
-                hrefName: null,
-                id:
-                  "26fc15af-b03e-40f1-9385-983b6967d1e8,261778a1-79eb-4472-b6fa-4fb1bbe68caa",
-                parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "Tline上行",
-                    hrefName: "261778a1-79eb-4472-b6fa-4fb1bbe68caa",
-                    id: "26fc15af-b03e-40f1-9385-983b6967d1e8",
-                    parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  },
-                  {
-                    name: "Tline下行",
-                    hrefName: "26fc15af-b03e-40f1-9385-983b6967d1e8",
-                    id: "261778a1-79eb-4472-b6fa-4fb1bbe68caa",
-                    parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: "测试",
-                hrefName: null,
-                id: "67143b78-ca5d-4ce8-a251-1b8b59fdd903,",
-                parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "测试",
-                    hrefName: "",
-                    id: "67143b78-ca5d-4ce8-a251-1b8b59fdd903",
-                    parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: "测试4",
-                hrefName: null,
-                id:
-                  "64733d03-6df6-48e9-ae6e-a9fac4cc7e8c,43367cf3-43d7-419b-b17d-8fdb98cae000",
-                parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "测试4",
-                    hrefName: "43367cf3-43d7-419b-b17d-8fdb98cae000",
-                    id: "64733d03-6df6-48e9-ae6e-a9fac4cc7e8c",
-                    parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  },
-                  {
-                    name: "测试4下",
-                    hrefName: "64733d03-6df6-48e9-ae6e-a9fac4cc7e8c",
-                    id: "43367cf3-43d7-419b-b17d-8fdb98cae000",
-                    parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: "测试线路1",
-                hrefName: null,
-                id: "a63621a6-456f-4e8d-868a-cc1ee9f9aa7c,null",
-                parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "测试线路1",
-                    hrefName: null,
-                    id: "a63621a6-456f-4e8d-868a-cc1ee9f9aa7c",
-                    parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: "车队线路",
-                hrefName: null,
-                id: "9a2192bd-2571-40ca-bd2f-ded87cc8cbc0,null",
-                parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "车队线路",
-                    hrefName: null,
-                    id: "9a2192bd-2571-40ca-bd2f-ded87cc8cbc0",
-                    parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: "瓜皮",
-                hrefName: null,
-                id: "cc0e8b5d-a6fc-4c9d-b0fc-22e46e3970eb,null",
-                parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "瓜皮",
-                    hrefName: null,
-                    id: "cc0e8b5d-a6fc-4c9d-b0fc-22e46e3970eb",
-                    parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: "线路88",
-                hrefName: null,
-                id: "5f422327-6c3c-4803-ba3e-db3fc3a35ed3,null",
-                parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "线路88",
-                    hrefName: null,
-                    id: "5f422327-6c3c-4803-ba3e-db3fc3a35ed3",
-                    parent_id: "5e35bacd-af2c-11e7-96be-00163e13457c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        label: '1 --- 占位组件',
+        value: 1,
+        componentName: 'demo',
+        api: '/ponysafety2/a/report/getdeptscorereport',
+        dataKey: 'drive_score_city'
+      }
+    ],
+    selectValue: 1,
+    height: 250,
+    previewImage: require('../img/col-1-0.png'),
+    label: 1,
+    layoutCol: 1
+  },
+  {
+    types: [
+      {
+        label: '2 --- 占位组件',
+        value: 1,
+        componentName: 'demo',
+        api: '/ponysafety2/a/report/getdeptscorereport',
+        dataKey: 'drive_score_city'
+      }
+    ],
+    selectValue: 1,
+    height: 250,
+    previewImage: require('../img/col-2-0.png'),
+    label: 2,
+    layoutCol: 2
+  },
+  {
+    types: [
+      {
+        label: '3 --- 占位组件',
+        value: 1,
+        componentName: 'demo',
+        api: '/ponysafety2/a/report/getdeptscorereport',
+        dataKey: 'drive_score_city'
+      }
+    ],
+    selectValue: 1,
+    height: 250,
+    previewImage: require('../img/col-3-0.png'),
+    label: 3,
+    layoutCol: 3
+  },
+  {
+    types: [
+      {
+        label: '4 --- 占位组件',
+        value: 1,
+        componentName: 'demo',
+        api: '/ponysafety2/a/report/getdeptscorereport',
+        dataKey: 'drive_score_city'
+      }
+    ],
+    selectValue: 1,
+    height: 250,
+    previewImage: require('../img/col-4-0.png'),
+    label: 4,
+    layoutCol: 4
+  },
+  {
+    types: [
+      {
+        label: '驾驶评分',
+        value: 1,
+        componentName: 'four-dot-eight-default',
+        api: '/ponysafety2/a/report/getdeptscorereport',
+        method: 'get',
+        dataKey: 'drive_score_total',
+        previewImage: require('../img/col-4.8-1.png')
       },
       {
-        name: "代理商1",
-        hrefName: null,
-        id: "a2ed74dc-5142-48cd-aa49-544dc352075e",
-        parent_id: "0",
-        type: 1,
-        iconSkin: "line1",
-        children: [
-          {
-            name: "企业1",
-            hrefName: null,
-            id: "6ae7a9f4-9f0f-4cc2-804b-a221ce49d30c",
-            parent_id: "a2ed74dc-5142-48cd-aa49-544dc352075e",
-            type: 2,
-            iconSkin: "line2",
-            children: [
-              {
-                name: "测试线路",
-                hrefName: null,
-                id: "bcdf9e13-9c7c-43de-adad-9ee416e3d935,null",
-                parent_id: "6ae7a9f4-9f0f-4cc2-804b-a221ce49d30c",
-                type: 3,
-                iconSkin: "line3",
-                children: [
-                  {
-                    name: "测试线路",
-                    hrefName: null,
-                    id: "bcdf9e13-9c7c-43de-adad-9ee416e3d935",
-                    parent_id: "6ae7a9f4-9f0f-4cc2-804b-a221ce49d30c",
-                    type: 4,
-                    iconSkin: "line4",
-                    children: []
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        label: '高速评分',
+        value: 2,
+        componentName: 'four-dot-eight-default',
+        api: '/ponysafety2/a/report/getdeptscorereport',
+        method: 'get',
+        dataKey: 'drive_score_motorway',
+        previewImage: require('../img/col-4.8-2.png')
+      },
+      {
+        label: '非高速评分',
+        value: 3,
+        componentName: 'four-dot-eight-default',
+        api: '/ponysafety2/a/report/getdeptscorereport',
+        method: 'get',
+        dataKey: 'drive_score_city',
+        previewImage: require('../img/col-4.8-3.png')
+      },
+      {
+        label: '日间评分',
+        value: 4,
+        componentName: 'four-dot-eight-default',
+        api: '/ponysafety2/a/report/getdeptscorereport',
+        method: 'get',
+        dataKey: 'drive_score_day',
+        previewImage: require('../img/col-4.8-4.png')
+      },
+      {
+        label: '夜间评分',
+        value: 5,
+        componentName: 'four-dot-eight-default',
+        api: '/ponysafety2/a/report/getdeptscorereport',
+        method: 'get',
+        dataKey: 'drive_score_night',
+        previewImage: require('../img/col-4.8-5.png')
       }
-    ]
+    ],
+    selectValue: 1,
+    height: 100,
+    previewImage: require('../img/col-4.8-1.png'),
+    label: 4.8,
+    layoutCol: 4.8
+  },
+  {
+    types: [
+      {
+        label: '6 --- 占位组件',
+        value: 1,
+        componentName: 'demo',
+        api: '/ponysafety2/a/report/getdeptscorereport',
+        dataKey: 'drive_score_city'
+      }
+    ],
+    selectValue: 1,
+    height: 250,
+    previewImage: require('../img/col-6-0.png'),
+    label: 6,
+    layoutCol: 6
+  },
+  {
+    types: [
+      {
+        label: '报警车速分布图',
+        value: 1,
+        componentName: 'alarm-speed-distribution',
+        api: '/ponysafety2/a/report/getdeptscorereport',
+        dataKey: 'drive_score_city'
+      }
+    ],
+    selectValue: 1,
+    height: 250,
+    previewImage: require('../img/col-8-1.png'),
+    label: 8,
+    layoutCol: 8
+  },
+  {
+    types: [
+      {
+        label: '作业时段分布图（次）',
+        value: 1,
+        componentName: 'working-time-distribution',
+        api: '/ponysafety2/a/report/gettraildeptworktime',
+        method: 'post',
+        dataKey: '',
+        previewImage: require('../img/col-12-1.png')
+      },
+      {
+        label: '作业趋势图（次）',
+        value: 2,
+        componentName: 'working-time-tendency',
+        api: '/ponysafety2/a/report/gettraildeptworktime',
+        method: 'post',
+        dataKey: 'work_detail_day',
+        previewImage: require('../img/col-12-2.png')
+      }
+    ],
+    selectValue: 1,
+    height: 250,
+    previewImage: require('../img/col-12-1.png'),
+    label: 12,
+    layoutCol: 12
+  },
+  {
+    types: [
+      {
+        label: '风险类型分布图（TOP5）',
+        value: 1,
+        componentName: 'risk-type-distribution',
+        api: '/ponysafety2/a/report/getdeptalarmreport',
+        method: 'get',
+        dataKey: 'adas_alarm_types',
+        previewImage: require('../img/col-16-1.png')
+      }
+    ],
+    selectValue: 1,
+    height: 250,
+    previewImage: require('../img/col-16-1.png'),
+    label: 16,
+    layoutCol: 16
+  },
+  {
+    types: [
+      {
+        label: '评分图',
+        value: 1,
+        componentName: 'full-tabs-grade',
+        api: '/ponysafety2/a/report/getdeptscorereport',
+        method: 'get',
+        dataKey: '',
+        previewImage: require('../img/col-24-1.png')
+      }
+    ],
+    selectValue: 1,
+    height: 250,
+    previewImage: require('../img/col-24-1.png'),
+    label: 24,
+    layoutCol: 24
   }
-];
+]

@@ -1,16 +1,127 @@
-$defaultBackground: #666;
+$defaultBackground: rgba(102, 102, 102, 0.8);
+$defaultControllerBarBackground: rgba(158, 158, 158, 0.5);
 $defaultColor: white;
+$defaultActiveColor: black;
+$dangerColor: #f44336;
 
 @mixin defaultBackgroundColor {
   background-color: $defaultBackground;
 }
 
+@mixin defaultControllerBarBackgroundColor {
+  background-color: $defaultControllerBarBackground;
+}
+
 @mixin defaultBorder {
-  border: 2px solid black;
+  border: 1px solid black;
 }
 
 @mixin defaultFlex {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@mixin cur {
+  cursor: pointer;
+}
+
+@mixin curAll {
+  cursor: all-scroll;
+}
+
+@mixin minHeight {
+  min-height: 100px;
+}
+
+@mixin posRelative {
+  position: relative;
+}
+
+@mixin posAbsolute {
+  position: absolute;
+}
+
+@mixin fr {
+  float: right;
+}
+
+@mixin fl {
+  float: left;
+}
+
+@mixin topZero {
+  top: 0;
+}
+
+@mixin borderRadius {
+  border-radius: 5px;
+}
+
+@mixin boxShadow {
+  box-shadow: 2px 2px 5px rgba(158, 158, 158, 0.4);
+}
+
+@mixin boxShadowReversal {
+  box-shadow: -2px 2px 5px rgba(158, 158, 158, 0.4);
+}
+
+@mixin titleMargin {
+  margin: 0 0.5rem;
+}
+
+@mixin previewRow {
+  @include defaultFlex;
+  width: 100%;
+  flex-wrap: wrap;
+  // flex-flow: column;
+}
+
+@mixin backgroundImg {
+  background-size: 100%;
+  background-position: center center;
+}
+
+@mixin controllerBar {
+  @include posAbsolute;
+  @include defaultControllerBarBackgroundColor;
+  @include borderRadius;
+  width: 100%;
+  color: $defaultActiveColor;
+}
+
+@mixin previewItem {
+  @include defaultFlex;
+  @include borderRadius;
+  background-color: rgb(238, 238, 238);
+  height: 50px;
+  margin: 0 0.2rem;
+}
+
+@mixin sideControllerBox {
+  @include posAbsolute;
+  @include topZero;
+  @include borderRadius;
+  background-color: rgb(245, 247, 250);
+  height: 95vh;
+  width: 25%;
+  overflow: hidden;
+}
+
+@keyframes transIcon {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes transIconReversal {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
 }
