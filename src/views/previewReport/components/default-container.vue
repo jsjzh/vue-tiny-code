@@ -22,7 +22,7 @@ export default {
 @import "~@/assets/css/default-variable.scss";
 @import "./css/variable.scss";
 .default-container {
-  @include defaultFlex;
+  @include default-flex;
   width: 100%;
   height: 100%;
 }

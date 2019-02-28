@@ -2,7 +2,7 @@
   <transition name="el-zoom-in-top" @after-leave="doDestroy">
     <div
       class="el-color-dropdown"
-      v-show="showPopper">
+      v-if="showPopper">
       <div class="el-color-dropdown__main-wrapper">
         <hue-slider ref="hue" :color="color" vertical style="float: right;"></hue-slider>
         <sv-panel ref="sl" :color="color"></sv-panel>

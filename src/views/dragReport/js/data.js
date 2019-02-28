@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-11 10:55:03
- * @LastEditTime: 2019-02-27 16:02:21
+ * @LastEditTime: 2019-02-28 14:35:48
  * @Description: 组件相关信息
  */
 
@@ -30,6 +30,27 @@ export const layoutData = {
         { showChildrenControllerBar: false, layoutCol: 4.8, initLayoutCol: 4.8 },
         { showChildrenControllerBar: false, layoutCol: 4.8, initLayoutCol: 4.8 }
       ]
+    },
+    {
+      align: 'flex-start',
+      height: 250,
+      index: 1,
+      showControllerBar: false,
+      children: [{ showChildrenControllerBar: false, layoutCol: 24, initLayoutCol: 24 }]
+    },
+    {
+      align: 'flex-start',
+      height: 250,
+      index: 2,
+      showControllerBar: false,
+      children: [{ showChildrenControllerBar: false, layoutCol: 24, initLayoutCol: 24 }]
+    },
+    {
+      align: 'flex-start',
+      height: 250,
+      index: 3,
+      showControllerBar: false,
+      children: [{ showChildrenControllerBar: false, layoutCol: 24, initLayoutCol: 24 }]
     }
   ]
 }

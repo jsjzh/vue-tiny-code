@@ -4,18 +4,8 @@
   </div>
 </template>
 
-
 <script>
 export default {
-  name: "app",
-  mounted() {}
+  name: "app"
 };
 </script>
-
-<style lang="scss">
-body,
-html {
-  font-size: 14px;
-  color: #777;
-}
-</style>

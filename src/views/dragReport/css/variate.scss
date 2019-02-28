@@ -1,60 +1,45 @@
+@import '~@/assets/css/default-variable.scss';
+
 $defaultBackground: rgba(102, 102, 102, 0.8);
 $defaultControllerBarBackground: rgba(158, 158, 158, 0.5);
+$defaultControllerBoxBackground: white;
 $defaultColor: white;
 $defaultActiveColor: black;
 $dangerColor: #f44336;
+$previewColBg: rgb(238, 238, 238);
+
+@mixin btn-icon {
+  font-size: 1.8rem;
+}
 
 @mixin defaultBackgroundColor {
   background-color: $defaultBackground;
 }
 
-@mixin defaultControllerBarBackgroundColor {
-  background-color: $defaultControllerBarBackground;
+@mixin default-col-style {
+  background-color: $previewColBg;
+  @include default-col-border;
+  @include default-col-radius;
+}
+
+@mixin default-col-layout {
+  margin: 0 0.2rem;
+  @include default-flex;
+}
+
+@mixin default-col-border {
+  border: 1px dashed $deep-color-2;
 }
 
 @mixin defaultBorder {
   border: 1px solid black;
 }
 
-@mixin defaultFlex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin cur {
-  cursor: pointer;
-}
-
-@mixin curAll {
-  cursor: all-scroll;
-}
-
 @mixin minHeight {
   min-height: 100px;
 }
 
-@mixin posRelative {
-  position: relative;
-}
-
-@mixin posAbsolute {
-  position: absolute;
-}
-
-@mixin fr {
-  float: right;
-}
-
-@mixin fl {
-  float: left;
-}
-
-@mixin topZero {
-  top: 0;
-}
-
-@mixin borderRadius {
+@mixin default-col-radius {
   border-radius: 5px;
 }
 
@@ -66,45 +51,44 @@ $dangerColor: #f44336;
   box-shadow: -2px 2px 5px rgba(158, 158, 158, 0.4);
 }
 
-@mixin titleMargin {
+@mixin title-margin {
   margin: 0 0.5rem;
 }
 
 @mixin previewRow {
-  @include defaultFlex;
+  @include default-flex;
   width: 100%;
   flex-wrap: wrap;
-  // flex-flow: column;
 }
 
-@mixin backgroundImg {
+@mixin default-background-img {
   background-size: 100%;
   background-position: center center;
 }
 
-@mixin controllerBar {
-  @include posAbsolute;
-  @include defaultControllerBarBackgroundColor;
-  @include borderRadius;
+@mixin controller-bar {
+  @include ps-a;
+  @include default-col-radius;
   width: 100%;
+  height: 20px;
+  line-height: 20px;
+  background-color: $defaultControllerBarBackground;
   color: $defaultActiveColor;
 }
 
 @mixin previewItem {
-  @include defaultFlex;
-  @include borderRadius;
-  background-color: rgb(238, 238, 238);
+  @include default-flex;
+  @include default-col-radius;
   height: 50px;
   margin: 0 0.2rem;
 }
 
-@mixin sideControllerBox {
-  @include posAbsolute;
-  @include topZero;
-  @include borderRadius;
-  background-color: rgb(245, 247, 250);
-  height: 95vh;
-  width: 25%;
+@mixin side-controller-box {
+  @include ps-a;
+  @include default-col-radius;
+  top: 0;
+  height: 800px;
+  width: 450px;
   overflow: hidden;
 }
 

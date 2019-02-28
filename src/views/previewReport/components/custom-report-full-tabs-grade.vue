@@ -290,7 +290,7 @@ export default {
     @include title-4_8;
   }
   & .custom-table-line-container {
-    @include defaultFlex;
+    @include default-flex;
     width: 100%;
     height: 100%;
   }
@@ -302,7 +302,7 @@ export default {
       margin: 0;
     }
     .el-tabs__content {
-      @include defaultFlex;
+      @include default-flex;
       @include flexFullRow;
       flex: 1;
     }

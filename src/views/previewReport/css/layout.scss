@@ -2,12 +2,12 @@
 @import './variable.scss';
 
 .preview-container {
-  @include defaultFlex;
+  @include default-flex;
   @include flexCol;
   max-width: 1200px;
   margin: 0 auto;
   .layout-row {
-    @include defaultFlex;
+    @include default-flex;
     margin: 1rem 0;
     width: 100%;
     .layout-col {

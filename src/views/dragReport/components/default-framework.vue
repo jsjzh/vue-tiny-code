@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-13 14:50:02
- * @LastEditTime: 2019-02-27 11:22:10
+ * @LastEditTime: 2019-02-28 14:43:27
  * @Description: 组件列表头部的展示框集
  -->
 <template>
@@ -79,20 +79,20 @@ export default {
 @import "../css/variate.scss";
 
 .select-col-box {
-  @include defaultFlex;
+  @include default-flex;
   background-color: $defaultColor;
   flex-wrap: wrap;
   padding: 1rem 10rem;
   width: 100%;
   .box-row {
-    @include defaultFlex;
+    @include default-flex;
     margin: 0.5rem 0;
     width: 100%;
     .col-item {
       @include previewItem;
-      @include cur;
+      @include cur-p;
       &.active {
-        @include defaultBorder;
+        @include default-col-border;
         border-color: rgb(239, 132, 75);
         border-width: 2px;
       }

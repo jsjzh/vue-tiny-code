@@ -3,13 +3,13 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-02-28 10:09:23
+ * @LastEditTime: 2019-02-28 16:40:20
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
  -->
 <template>
-  <div ref="report" class="drag-report">
+  <div class="drag-report">
     <div class="drag-report-container">
       <div
         class="layout-row-box"
@@ -27,11 +27,23 @@
             @dragstart="handleDragRow($event, row, rowIndex)"
             class="row-controller-bar"
           >
-            <div class="title-box">index: {{row.index + 1}}</div>
-            <div class="title-box">suggest-height: {{row.height}}</div>
-            <div class="title-box">suggest-col: {{PAGE_suggestLayout(row.children)}}</div>
-            <div class="title-box">real-col: {{PAGE_realLayout(row.children)}}</div>
-            <div class="right-box">
+            <div
+              class="row-controller-bar-title-box"
+              :title="row.index + 1"
+            >index: {{row.index + 1}}</div>
+            <div
+              class="row-controller-bar-title-box"
+              :title="row.height"
+            >suggest-height: {{row.height}}</div>
+            <div
+              class="row-controller-bar-title-box"
+              :title="PAGE_suggestLayout(row.children)"
+            >suggest-col: {{PAGE_suggestLayout(row.children)}}</div>
+            <div
+              class="row-controller-bar-title-box"
+              :title="PAGE_realLayout(row.children)"
+            >real-col: {{PAGE_realLayout(row.children)}}</div>
+            <div class="controller-bar-right-box">
               <span
                 :title="align.title"
                 class="align-type-item"
@@ -39,7 +51,10 @@
                 :key="alignIndex"
                 @click="row.align = align.value"
               >{{align.label}}</span>
-              <span class="remove-item" @click="handleRemoveRow($event, row)">remove</span>
+              <span
+                class="align-type-item remove-item"
+                @click="handleRemoveRow($event, row)"
+              >remove-row</span>
             </div>
           </div>
         </transition>
@@ -59,8 +74,11 @@
         >
           <transition name="slide-fade">
             <div class="col-controller-bar" v-show="col.showChildrenControllerBar">
-              <span class="title-box" style="float: left">{{col.title}}</span>
-              <span class="title-box danger" @click="handleRemoveComponent($event, col)">remove</span>
+              <span class="col-controller-bar-title-box" style="float: left">{{col.title}}</span>
+              <span
+                class="col-controller-bar-title-box remove-item"
+                @click="handleRemoveComponent($event, col)"
+              >remove-col</span>
             </div>
           </transition>
         </div>
@@ -68,21 +86,21 @@
     </div>
 
     <i
-      class="el-icon-plus drag-report-add-row-icon add-report-component-icon"
+      class="el-icon-plus drag-report-add-row-icon report-ps-icon-btn"
       :style="{top: `${addContainerTop}px`}"
       v-show="!addRow.show"
       title="add row"
       @click="handleShowAddContainer('row')"
     />
     <i
-      class="el-icon-plus drag-report-add-col-icon add-report-component-icon"
+      class="el-icon-plus drag-report-add-col-icon report-ps-icon-btn"
       :style="{top: `${addContainerTop}px`}"
       v-show="!addCol.show"
       title="add col"
       @click="handleShowAddContainer('col')"
     />
     <i
-      class="el-icon-d-arrow-right drag-report-preview-icon add-report-component-icon"
+      class="el-icon-d-arrow-right drag-report-preview-icon report-ps-icon-btn"
       :style="{top: `${addContainerTop}px`}"
       v-show="!addCol.show"
       title="preview"
@@ -91,7 +109,7 @@
 
     <transition name="slide-fade">
       <div
-        class="drag-report-add-container drag-report-add-row-container"
+        class="drag-report-add-box drag-report-add-row-box"
         :style="{top: `${addContainerTop}px`}"
         v-show="addRow.show"
         @mouseover="addRow.showControllerBar = true"
@@ -112,7 +130,7 @@
 
     <transition name="slide-fade">
       <div
-        class="drag-report-add-container drag-report-add-col-container"
+        class="drag-report-add-box drag-report-add-col-box"
         :style="{top: `${addContainerTop}px`}"
         v-show="addCol.show"
         @mouseover="addCol.showControllerBar = true"
@@ -167,14 +185,12 @@
 </template>
 
 <script>
-import _ from "lodash";
+import { debounce } from "lodash";
 import { layoutData, componentDatas } from "./js/data";
 import { depClone, filterByKey } from "@/util/pageUtil";
 
 import defaultFramework from "./components/default-framework";
 import defaultLayoutEditor from "./components/default-layout-editor";
-
-let app = null;
 
 const arr = ["initLayoutCol"];
 const arr2 = ["initLayoutCol", "layoutCol"];
@@ -221,10 +237,10 @@ export default {
   },
   methods: {
     PAGE_realLayout(children) {
-      return children.map(item => item.layoutCol).join(":");
+      return children.map(item => item.layoutCol).join(" : ");
     },
     PAGE_suggestLayout(children) {
-      return children.map(item => item.initLayoutCol).join(":");
+      return children.map(item => item.initLayoutCol).join(" : ");
     },
     resolveLayoutData() {
       let layoutData = depClone(this.layoutData);
@@ -407,19 +423,19 @@ export default {
       event.preventDefault();
     },
     handleListenerScroll(e) {
-      this.addContainerTop = app.scrollTop;
+      let scrollTop =
+        document.documentElement.scrollTop ||
+        window.pageYOffset ||
+        document.body.scrollTop;
+      this.addContainerTop = scrollTop;
     }
   },
   mounted() {
-    app = document.querySelector("#app");
-    this.listeners.scroll = _.debounce(this.handleListenerScroll, 0);
-    app.addEventListener("scroll", this.listeners.scroll);
-
-    let body = document.querySelector("body");
-    body.removeAttribute("class");
+    this.listeners.scroll = debounce(this.handleListenerScroll, 0);
+    window.addEventListener("scroll", this.listeners.scroll);
   },
   beforeDestroy() {
-    app.removeEventListener("scroll", this.listeners.scroll);
+    window.removeEventListener("scroll", this.listeners.scroll);
   }
 };
 </script>

@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-22 09:31:45
- * @LastEditTime: 2019-02-28 10:26:39
+ * @LastEditTime: 2019-02-28 16:45:45
  * @Description: 左侧添加布局的框
  -->
 <template>
@@ -19,9 +19,9 @@
             <el-radio-button :label="100"/>
             <el-radio-button :label="250"/>
           </el-radio-group>
-          <i class="el-icon-more" @click="handleAverage" title="average layout"/>
-          <i class="el-icon-remove" @click="handleRemove" title="remove layout"/>
-          <i class="el-icon-circle-plus" @click="handleAdd" title="add layout"/>
+          <i class="el-icon-more" @click="handleAverage" title="average-layout"/>
+          <i class="el-icon-remove" @click="handleRemove" title="remove-layout"/>
+          <i class="el-icon-circle-plus" @click="handleAdd" title="add-layout"/>
         </div>
       </div>
       <div class="editor-infos-box" style="color: #4caf50">4.8 的组件高度建议为 100，其他组件为 250，该比例显示最为正确</div>
@@ -48,7 +48,7 @@
         class="preview-item"
         v-for="(ipt, iptIndex) in inputs"
         :key="iptIndex"
-        :style="{width: `${100 * ipt.value / 24}%`, height: `${ipt.height / 3}px`}"
+        :style="previewColStyle({ width: ipt.value, height: ipt.height })"
       >{{ipt.value}}</div>
     </div>
     <div class="suggest-layout-box">
@@ -63,7 +63,7 @@
       >
         <div
           class="suggest-layout-item"
-          :style="{width: `${100 * col.value / 24}%`, height: `${col.height / 3}px`}"
+          :style="previewColStyle({ width: col.value, height: col.height })"
           v-for="(col, colIndex) in suggestLayout.cols"
           :key="colIndex"
         >{{col.value}}</div>
@@ -73,69 +73,64 @@
 </template>
 
 <script>
+import { suggestLayouts } from "./variable";
+
 export default {
   name: "default-layout-editor",
   data() {
-    const suggestLayouts = [
-      {
-        cols: [
-          { height: 100, value: 4.8 },
-          { height: 100, value: 4.8 },
-          { height: 100, value: 4.8 },
-          { height: 100, value: 4.8 },
-          { height: 100, value: 4.8 }
-        ]
-      },
-      { cols: [{ height: 250, value: 16 }, { height: 250, value: 8 }] },
-      { cols: [{ height: 250, value: 12 }, { height: 250, value: 12 }] },
-      {
-        cols: [
-          { height: 250, value: 8 },
-          { height: 250, value: 8 },
-          { height: 250, value: 8 }
-        ]
-      },
-      { cols: [{ height: 250, value: 24 }] }
-    ];
     return {
       inputsHeight: 250,
-      inputs: [
-        { height: 250, value: 6 },
-        { height: 250, value: 6 },
-        { height: 250, value: 6 },
-        { height: 250, value: 6 }
-      ],
+      inputs: [{ height: 250, value: 24 }],
       suggestLayouts
     };
   },
   computed: {
     PAGE_realTotal() {
-      return this.inputs.reduce((pre, curr) => pre + Number(curr.value), 0);
+      return this.inputs.reduce((pre, curr) => pre + +curr.value, 0);
     }
   },
   methods: {
+    previewColStyle({ width, height }, base = 100) {
+      return {
+        width: `${(base * width) / 24}%`,
+        height: `${height / 3}px`
+      };
+    },
     handleDragRow(event, row) {
       this.$emit("drag-row-start", row);
     },
     hanDragRowEnd(event, row) {
       this.$emit("drag-row-end", row);
     },
-    handleChangeColHeight() {
-      this.inputs.forEach(input => (input.height = this.inputsHeight));
+    handleChangeColHeight(height) {
+      this.inputs.forEach(input => (input.height = height));
     },
     handleAverage() {
       let averageCol = 24 / this.inputs.length;
-      console.log(averageCol);
-      this.inputs.forEach(input => {
-        input.value = averageCol;
-      });
+      this.inputs.forEach(input => (input.value = averageCol));
     },
     handleRemove() {
-      this.inputs.splice(this.inputs.length - 1, 1);
+      if (this.inputs.length === 1) {
+        this.$msg("1_至少需要一列布局");
+        return;
+      }
+
+      do {
+        this.inputs.splice(this.inputs.length - 1, 1);
+      } while (24 % this.inputs.length && this.inputs.length >= 1);
+
       this.handleAverage();
     },
     handleAdd() {
-      this.inputs.push({ value: 0, height: this.inputsHeight });
+      if (this.inputs.length === 24) {
+        this.$msg("1_至多只能有二十四列布局");
+        return;
+      }
+
+      do {
+        this.inputs.push({ value: 0, height: this.inputsHeight });
+      } while (24 % this.inputs.length && this.inputs.length <= 24);
+
       this.handleAverage();
     }
   }
@@ -146,69 +141,73 @@ export default {
 @import "../css/variate.scss";
 
 .layout-editor-container {
-  @include previewRow;
+  @include default-flex;
+  flex-wrap: wrap;
   flex-flow: column;
-  background-color: $defaultColor;
+  height: 100%;
   padding: 2rem 1rem;
   & .editor-box {
-    @include previewRow;
+    @include default-flex;
+    @include flex-full;
+    flex-wrap: wrap;
     height: 130px;
-    width: 100%;
     & .editor-infos-box {
-      @include defaultFlex;
+      @include default-flex;
       justify-content: space-between;
       width: 100%;
       & .infos {
-        width: 50%;
-        text-align: left;
+        @include default-flex;
+        justify-content: space-around;
+        flex: 1;
         & .limit {
           color: $dangerColor;
         }
       }
       & .controller-btn {
-        @include cur;
-        width: 50%;
-        text-align: right;
-        font-size: 2rem;
+        @include default-flex;
+        @include cur-p;
+        @include btn-icon;
+        justify-content: space-between;
+        flex: 1;
       }
     }
     & .editor-inputs-box {
-      @include defaultFlex;
+      @include default-flex;
+      justify-content: space-around;
       flex-wrap: wrap;
       width: 100%;
       & .input-item-box {
-        width: 12%;
-        & .input-item {
-          max-width: 40px;
-        }
+        width: 50px;
       }
     }
   }
   & .layout-preview-box {
-    @include defaultFlex;
-    @include curAll;
+    @include default-flex;
+    @include cur-all;
+    @include flex-full;
     height: 100px;
-    width: 100%;
     & .preview-item {
-      @include previewItem;
+      @include default-col-style;
+      @include default-col-layout;
     }
   }
   & .suggest-layout-box {
     @include previewRow;
+    @include flex-full;
     overflow: auto;
     flex: 1;
-    width: 100%;
     & .suggest-layout-title {
       margin-top: 1rem;
-      font-size: 2rem;
+      @include btn-icon;
     }
     & .suggest-layout-row {
-      @include defaultFlex;
-      @include curAll;
+      @include default-flex;
+      @include cur-all;
       margin: 1rem 0;
       width: 100%;
       & .suggest-layout-item {
-        @include previewItem;
+        @include default-col-style;
+        @include default-col-layout;
       }
     }
   }

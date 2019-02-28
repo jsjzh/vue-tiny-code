@@ -89,7 +89,7 @@ export default {
     @include title-4_8;
   }
   & .demo-count {
-    @include defaultFlex;
+    @include default-flex;
     flex: 1;
     & div {
       flex: 1;
@@ -99,7 +99,7 @@ export default {
     }
   }
   & .demo-rate {
-    @include defaultFlex;
+    @include default-flex;
     font-size: 1.2rem;
     & div {
       flex: 1;
