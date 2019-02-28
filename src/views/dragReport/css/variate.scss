@@ -5,7 +5,6 @@ $defaultControllerBarBackground: rgba(158, 158, 158, 0.5);
 $defaultControllerBoxBackground: white;
 $defaultColor: white;
 $defaultActiveColor: black;
-$dangerColor: #f44336;
 $previewColBg: rgb(238, 238, 238);
 
 @mixin btn-icon {
@@ -17,9 +16,9 @@ $previewColBg: rgb(238, 238, 238);
 }
 
 @mixin default-col-style {
-  background-color: $previewColBg;
   @include default-col-border;
   @include default-col-radius;
+  background-color: $previewColBg;
 }
 
 @mixin default-col-layout {

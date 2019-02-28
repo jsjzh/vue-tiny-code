@@ -19,7 +19,7 @@
           @include fl;
           @include title-margin;
           @include ellipsis;
-          max-width: 200px;
+          max-width: 25%;
           overflow: hidden;
         }
         .controller-bar-right-box {
@@ -28,9 +28,12 @@
             @include cur-p;
             @include title-margin;
             display: inline-block;
+            &.active {
+              color: $success-color;
+            }
           }
           .remove-item {
-            color: $dangerColor;
+            color: $danger-color;
           }
         }
       }
@@ -48,7 +51,7 @@
             @include cur-p;
             @include title-margin;
             &.remove-item {
-              color: $dangerColor;
+              color: $danger-color;
             }
           }
         }

@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-22 09:31:45
- * @LastEditTime: 2019-02-28 16:45:45
+ * @LastEditTime: 2019-02-28 17:09:23
  * @Description: 左侧添加布局的框
  -->
 <template>
@@ -24,7 +24,7 @@
           <i class="el-icon-circle-plus" @click="handleAdd" title="add-layout"/>
         </div>
       </div>
-      <div class="editor-infos-box" style="color: #4caf50">4.8 的组件高度建议为 100，其他组件为 250，该比例显示最为正确</div>
+      <div class="editor-infos-box suggest">4.8 的组件高度建议为 100，其他组件为 250，该比例显示最为正确</div>
       <div class="editor-inputs-box">
         <div class="input-item-box" v-for="(ipt, iptIndex) in inputs" :key="iptIndex">
           <el-input
@@ -74,9 +74,11 @@
 
 <script>
 import { suggestLayouts } from "./variable";
+import colStyle from "../mixins/col-style";
 
 export default {
   name: "default-layout-editor",
+  mixins: [colStyle],
   data() {
     return {
       inputsHeight: 250,
@@ -90,12 +92,6 @@ export default {
     }
   },
   methods: {
-    previewColStyle({ width, height }, base = 100) {
-      return {
-        width: `${(base * width) / 24}%`,
-        height: `${height / 3}px`
-      };
-    },
     handleDragRow(event, row) {
       this.$emit("drag-row-start", row);
     },
@@ -153,14 +149,17 @@ export default {
     height: 130px;
     & .editor-infos-box {
       @include default-flex;
+      @include flex-full;
       justify-content: space-between;
-      width: 100%;
+      &.suggest {
+        color: $success-color;
+      }
       & .infos {
         @include default-flex;
         justify-content: space-around;
         flex: 1;
         & .limit {
-          color: $dangerColor;
+          color: $danger-color;
         }
       }
       & .controller-btn {
@@ -173,9 +172,9 @@ export default {
     }
     & .editor-inputs-box {
       @include default-flex;
+      @include flex-full;
       justify-content: space-around;
       flex-wrap: wrap;
-      width: 100%;
       & .input-item-box {
         width: 50px;
       }
@@ -192,8 +191,9 @@ export default {
     }
   }
   & .suggest-layout-box {
-    @include previewRow;
+    @include default-flex;
     @include flex-full;
+    flex-wrap: wrap;
     overflow: auto;
     flex: 1;
     & .suggest-layout-title {
@@ -203,8 +203,8 @@ export default {
     & .suggest-layout-row {
       @include default-flex;
       @include cur-all;
+      @include flex-full;
       margin: 1rem 0;
-      width: 100%;
       & .suggest-layout-item {
         @include default-col-style;
         @include default-col-layout;
