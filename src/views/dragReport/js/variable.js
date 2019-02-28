@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-11 10:55:03
- * @LastEditTime: 2019-02-28 17:51:43
+ * @LastEditTime: 2019-02-28 18:04:28
  * @Description: 组件相关信息
  */
 
@@ -54,3 +54,11 @@ export const layoutData = {
     }
   ]
 }
+
+export const alignType = [
+  { title: '居中对齐', label: 'center', value: 'center' },
+  { title: '左对齐', label: 'left', value: 'flex-start' },
+  { title: '右对齐', label: 'right', value: 'flex-end' },
+  { title: '两侧留白', label: 'around', value: 'space-around' },
+  { title: '两侧对齐', label: 'between', value: 'space-between' }
+]

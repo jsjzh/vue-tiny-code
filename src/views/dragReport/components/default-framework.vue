@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-13 14:50:02
- * @LastEditTime: 2019-02-28 17:54:57
+ * @LastEditTime: 2019-02-28 18:16:20
  * @Description: 组件列表头部的展示框集
  -->
 <template>
@@ -34,10 +34,10 @@
           <div
             class="preview"
             draggable="true"
-            :style="{height: `${component.height / 3}px`,width: `${100 * component.layoutCol / 24}%`, backgroundImage: component.previewImage ? `url(${component.previewImage})` : null}"
+            :style="previewColStyle({ width: component.layoutCol, height: component.height }, 100, 3, 24,{backgroundImage: component.previewImage ? `url(${component.previewImage})` : null})"
             @dragstart="handleDragCol($event, component)"
             @dragend="hanDragColEnd($event, component)"
-          ></div>
+          />
         </div>
         <div class="components-controller-bar">
           <el-select
@@ -51,7 +51,7 @@
               :value="type.value"
               v-for="(type, typeIndex) in component.types"
               :key="typeIndex"
-            ></el-option>
+            />
           </el-select>
         </div>
       </div>
