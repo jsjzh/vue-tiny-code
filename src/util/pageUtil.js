@@ -3,9 +3,14 @@
  * @Email: kimimi_king@163.com
  * @Date: 2018-6-28 15:13:23
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-02-27 16:58:35
+ * @LastEditTime: 2019-02-28 10:28:57
  * @Description: 常用函数包装
  */
+import * as R from 'ramda'
+
+import html2canvas from 'html2canvas'
+import * as jsPDF from 'jspdf'
+
 const OBJECT = '[object Object]'
 const ARRAY = '[object Array]'
 const NUMBER = '[object Number]'

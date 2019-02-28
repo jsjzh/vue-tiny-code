@@ -97,7 +97,7 @@
 
   .add-report-component-icon {
     @include cur;
-    font-size: 5rem;
+    font-size: 2rem;
     &.drag-report-add-row-icon {
       @include posAbsolute;
       @include topZero;

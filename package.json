@@ -8,6 +8,14 @@
     "start": "npm run serve"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
+    "echarts": "^4.1.0",
+    "element-ui": "^2.5.4",
+    "html2canvas": "^1.0.0-alpha.12",
+    "jspdf": "^1.5.3",
+    "lodash": "^4.17.11",
+    "ramda": "^0.26.1",
     "resize-observer-polyfill": "^1.5.0",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1"

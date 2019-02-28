@@ -18,6 +18,11 @@ export const routes = [
         component: importView('dragReport')
       },
       {
+        path: 'previewReport',
+        name: 'previewReport',
+        component: importView('previewReport')
+      },
+      {
         path: 'palettePro',
         name: 'palettePro',
         component: importView('palettePro')

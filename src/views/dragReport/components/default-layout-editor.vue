@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-22 09:31:45
- * @LastEditTime: 2019-02-27 11:22:40
+ * @LastEditTime: 2019-02-28 10:26:39
  * @Description: 左侧添加布局的框
  -->
 <template>
@@ -24,7 +24,7 @@
           <i class="el-icon-circle-plus" @click="handleAdd" title="add layout"/>
         </div>
       </div>
-      <!-- <div class="editor-infos-box" style="color: #4caf50">4.8 的组件高度建议为 100，其他组件为 250，该比例显示最为正确</div> -->
+      <div class="editor-infos-box" style="color: #4caf50">4.8 的组件高度建议为 100，其他组件为 250，该比例显示最为正确</div>
       <div class="editor-inputs-box">
         <div class="input-item-box" v-for="(ipt, iptIndex) in inputs" :key="iptIndex">
           <el-input

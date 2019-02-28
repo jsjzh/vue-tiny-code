@@ -15,6 +15,7 @@ export default {
 <style lang="scss">
 body,
 html {
-  font-size: 14px !important;
+  font-size: 14px;
+  color: #777;
 }
 </style>
