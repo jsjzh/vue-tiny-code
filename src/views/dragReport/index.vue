@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-01 15:19:19
+ * @LastEditTime: 2019-03-01 16:44:42
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
@@ -92,14 +92,14 @@
       :style="{top: `${addContainerTop}px`}"
       v-if="!addRow.show"
       title="add row"
-      @click="handleShowAddContainer('row')"
+      @click="addRow.show = true"
     />
     <i
       class="el-icon-plus drag-report-add-col-icon report-ps-icon-btn"
       :style="{top: `${addContainerTop}px`}"
       v-if="!addCol.show"
       title="add col"
-      @click="handleShowAddContainer('col')"
+      @click="addCol.show = true"
     />
     <i
       class="el-icon-d-arrow-right drag-report-preview-icon report-ps-icon-btn"
@@ -203,11 +203,9 @@ export default {
         container.show && (container.show = false);
       };
     },
+    handleDragNewColEnd() {},
     handleDragNewColStart(col) {
       this.handleDragCol(null, col);
-    },
-    handleDragNewColEnd(col) {
-      this.addCol.show = true;
     },
     PAGE_realLayout(children) {
       return children.map(item => item.layoutCol).join(" : ");
@@ -237,8 +235,7 @@ export default {
       window.open(routeUrl.href, "_blank");
     },
     handleShowAddContainer(target) {
-      target = target.charAt(0).toUpperCase() + target.slice(1);
-      this[`add${target}`].show = true;
+      target.show = true;
     },
     handleDragNewRowStart(row) {
       console.log(row);

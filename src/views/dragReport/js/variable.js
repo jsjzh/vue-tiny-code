@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-11 10:55:03
- * @LastEditTime: 2019-03-01 14:52:23
+ * @LastEditTime: 2019-03-01 16:45:09
  * @Description: 组件相关信息
  */
 
@@ -38,27 +38,6 @@ export const layoutData = {
         { showChildrenControllerBar: false, layoutCol: 4.8, initLayoutCol: 4.8 },
         { showChildrenControllerBar: false, layoutCol: 4.8, initLayoutCol: 4.8 }
       ]
-    },
-    {
-      align: alignType[0].value,
-      height: 250,
-      index: 1,
-      showControllerBar: false,
-      children: [{ showChildrenControllerBar: false, layoutCol: 24, initLayoutCol: 24 }]
-    },
-    {
-      align: alignType[0].value,
-      height: 250,
-      index: 2,
-      showControllerBar: false,
-      children: [{ showChildrenControllerBar: false, layoutCol: 24, initLayoutCol: 24 }]
-    },
-    {
-      align: alignType[0].value,
-      height: 250,
-      index: 3,
-      showControllerBar: false,
-      children: [{ showChildrenControllerBar: false, layoutCol: 24, initLayoutCol: 24 }]
     }
   ]
 }
@@ -78,27 +57,6 @@ export const dragReportData = {
         { showChildrenControllerBar: false, layoutCol: 4.8, initLayoutCol: 4.8 },
         { showChildrenControllerBar: false, layoutCol: 4.8, initLayoutCol: 4.8 }
       ]
-    },
-    {
-      align: alignType[0].value,
-      height: 250,
-      index: 1,
-      showControllerBar: false,
-      children: [{ showChildrenControllerBar: false, layoutCol: 24, initLayoutCol: 24 }]
-    },
-    {
-      align: alignType[0].value,
-      height: 250,
-      index: 2,
-      showControllerBar: false,
-      children: [{ showChildrenControllerBar: false, layoutCol: 24, initLayoutCol: 24 }]
-    },
-    {
-      align: alignType[0].value,
-      height: 250,
-      index: 3,
-      showControllerBar: false,
-      children: [{ showChildrenControllerBar: false, layoutCol: 24, initLayoutCol: 24 }]
     }
   ]
 }
