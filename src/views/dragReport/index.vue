@@ -3,13 +3,14 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-02-28 18:08:04
+ * @LastEditTime: 2019-03-01 15:19:19
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
  -->
 <template>
   <div class="drag-report">
+    <div class="drag-report-title">{{dragReportData.title.toUpperCase()}}</div>
     <div class="drag-report-container">
       <div
         class="layout-row-box"
@@ -123,6 +124,7 @@
         </transition>
 
         <default-layout-editor
+          v-clickoutside="handleClickutside(addRow)"
           @drag-row-start="handleDragNewRowStart"
           @drag-row-end="handleDragNewRowEnd"
         />
@@ -144,6 +146,7 @@
         </transition>
 
         <default-framework
+          v-clickoutside="handleClickutside(addCol)"
           @drag-col-start="handleDragNewColStart"
           @drag-col-end="handleDragNewColEnd"
         />
@@ -154,8 +157,11 @@
 
 <script>
 import { debounce } from "lodash";
-import { layoutData, alignType } from "./js/variable";
-import { depClone, filterByKey } from "@/util/pageUtil";
+
+import clickoutside from "@/util/clickoutside";
+import { deepClone, filterByKey } from "@/util/pageUtil";
+
+import { layoutData, alignType, dragReportData } from "./js/variable";
 
 import defaultFramework from "./components/default-framework";
 import defaultLayoutEditor from "./components/default-layout-editor";
@@ -166,8 +172,10 @@ const arr2 = ["initLayoutCol", "layoutCol"];
 export default {
   name: "dragReport",
   components: { defaultFramework, defaultLayoutEditor },
+  directives: { clickoutside },
   data() {
     return {
+      dragReportData,
       layoutData,
       alignType,
       addContainerTop: 0,
@@ -178,9 +186,6 @@ export default {
         component: null,
         row: null,
         rowIndex: null
-      },
-      listeners: {
-        scroll: null
       },
       addRow: {
         show: false,
@@ -193,6 +198,11 @@ export default {
     };
   },
   methods: {
+    handleClickutside(container) {
+      return function() {
+        container.show && (container.show = false);
+      };
+    },
     handleDragNewColStart(col) {
       this.handleDragCol(null, col);
     },
@@ -206,7 +216,7 @@ export default {
       return children.map(item => item.initLayoutCol).join(" : ");
     },
     resolveLayoutData() {
-      let layoutData = depClone(this.layoutData);
+      let layoutData = deepClone(this.layoutData);
       layoutData.children.forEach(row => {
         delete row.showControllerBar;
         row.children.forEach(col => {
@@ -219,7 +229,6 @@ export default {
     },
     handleToPreviewPage() {
       let layoutData = this.resolveLayoutData();
-      console.log(layoutData);
       window.localStorage.setItem(
         "dragReport-layoutData",
         JSON.stringify(layoutData)
@@ -334,8 +343,8 @@ export default {
       if (this.dragData.isRow) return;
       event.preventDefault();
 
-      let _component = depClone(this.dragData.component);
-      let _targetLayout = depClone(targetLayout);
+      let _component = deepClone(this.dragData.component);
+      let _targetLayout = deepClone(targetLayout);
 
       console.log(_component);
 
@@ -375,11 +384,12 @@ export default {
     }
   },
   mounted() {
-    this.listeners.scroll = debounce(this.handleListenerScroll, 0);
-    window.addEventListener("scroll", this.listeners.scroll);
+    this.$$listeners = { scroll: null };
+    this.$$listeners.scroll = debounce(this.handleListenerScroll, 0);
+    window.addEventListener("scroll", this.$$listeners.scroll);
   },
   beforeDestroy() {
-    window.removeEventListener("scroll", this.listeners.scroll);
+    window.removeEventListener("scroll", this.$$listeners.scroll);
   }
 };
 </script>

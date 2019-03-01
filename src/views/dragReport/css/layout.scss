@@ -2,6 +2,11 @@
 
 .drag-report {
   @include ps-r;
+  .drag-report-title {
+    margin: 2rem;
+    text-align: center;
+    font-size: 3rem;
+  }
   .drag-report-container {
     width: 1200px;
     margin: 0 auto;
@@ -10,7 +15,6 @@
       @include ps-r;
       flex-wrap: nowrap;
       margin: 2rem 0;
-      color: $defaultColor;
       .row-controller-bar {
         @include cur-all;
         @include controller-bar;
@@ -115,45 +119,5 @@
     &.drag-report-preview-icon {
       right: 5%;
     }
-  }
-}
-
-.components-container {
-  @include default-flex;
-  width: 100%;
-  flex: 1;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-flow: column;
-  padding: 0.5rem;
-  overflow: auto;
-  & .components-row {
-    @include default-flex;
-    @include default-col-radius;
-    @include boxShadow;
-    flex-flow: wrap;
-    padding: 1rem;
-    width: 100%;
-    min-height: 200px;
-    background: $defaultColor;
-    margin: 1rem 0;
-    & .components-infos-box {
-      width: 100%;
-      top: 10px;
-      left: 10px;
-      color: $defaultActiveColor;
-    }
-    & .preview-box {
-      @include default-flex;
-      width: 100%;
-      & .preview {
-        @include cur-all;
-        @include default-background-img;
-      }
-    }
-  }
-  & .components-controller-bar {
-    flex: 1;
   }
 }

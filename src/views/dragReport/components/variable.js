@@ -45,216 +45,153 @@ export const box = [
 // 然后后续应该还会有一个对应的 key，该 key 表示接口过来的 json 数据的 key
 export const componentDatas = [
   {
-    types: [
-      {
-        label: '1 --- 占位组件',
-        value: 1,
-        componentName: 'demo',
-        api: '/ponysafety2/a/report/getdeptscorereport',
-        dataKey: 'drive_score_city'
-      }
-    ],
-    selectValue: 1,
+    label: '1 --- 占位组件',
+    componentName: 'demo',
+    api: '/ponysafety2/a/report/getdeptscorereport',
+    method: 'get',
+    dataKey: 'drive_score_city',
+    col: 1,
     height: 250,
-    previewImage: require('../img/col-1-0.png'),
-    label: 1,
-    layoutCol: 1
+    previewImage: require('../img/col-1-0.png')
   },
   {
-    types: [
-      {
-        label: '2 --- 占位组件',
-        value: 1,
-        componentName: 'demo',
-        api: '/ponysafety2/a/report/getdeptscorereport',
-        dataKey: 'drive_score_city'
-      }
-    ],
-    selectValue: 1,
+    label: '2 --- 占位组件',
+    componentName: 'demo',
+    api: '/ponysafety2/a/report/getdeptscorereport',
+    method: 'get',
+    dataKey: 'drive_score_city',
+    col: 2,
     height: 250,
-    previewImage: require('../img/col-2-0.png'),
-    label: 2,
-    layoutCol: 2
+    previewImage: require('../img/col-2-0.png')
   },
   {
-    types: [
-      {
-        label: '3 --- 占位组件',
-        value: 1,
-        componentName: 'demo',
-        api: '/ponysafety2/a/report/getdeptscorereport',
-        dataKey: 'drive_score_city'
-      }
-    ],
-    selectValue: 1,
+    label: '3 --- 占位组件',
+    componentName: 'demo',
+    api: '/ponysafety2/a/report/getdeptscorereport',
+    method: 'get',
+    dataKey: 'drive_score_city',
+    col: 3,
     height: 250,
-    previewImage: require('../img/col-3-0.png'),
-    label: 3,
-    layoutCol: 3
+    previewImage: require('../img/col-3-0.png')
   },
   {
-    types: [
-      {
-        label: '4 --- 占位组件',
-        value: 1,
-        componentName: 'demo',
-        api: '/ponysafety2/a/report/getdeptscorereport',
-        dataKey: 'drive_score_city'
-      }
-    ],
-    selectValue: 1,
+    label: '4 --- 占位组件',
+    componentName: 'demo',
+    api: '/ponysafety2/a/report/getdeptscorereport',
+    method: 'get',
+    dataKey: 'drive_score_city',
+    col: 4,
     height: 250,
-    previewImage: require('../img/col-4-0.png'),
-    label: 4,
-    layoutCol: 4
+    previewImage: require('../img/col-4-0.png')
   },
   {
-    types: [
-      {
-        label: '驾驶评分',
-        value: 1,
-        componentName: 'four-dot-eight-default',
-        api: '/ponysafety2/a/report/getdeptscorereport',
-        method: 'get',
-        dataKey: 'drive_score_total',
-        previewImage: require('../img/col-4.8-1.png')
-      },
-      {
-        label: '高速评分',
-        value: 2,
-        componentName: 'four-dot-eight-default',
-        api: '/ponysafety2/a/report/getdeptscorereport',
-        method: 'get',
-        dataKey: 'drive_score_motorway',
-        previewImage: require('../img/col-4.8-2.png')
-      },
-      {
-        label: '非高速评分',
-        value: 3,
-        componentName: 'four-dot-eight-default',
-        api: '/ponysafety2/a/report/getdeptscorereport',
-        method: 'get',
-        dataKey: 'drive_score_city',
-        previewImage: require('../img/col-4.8-3.png')
-      },
-      {
-        label: '日间评分',
-        value: 4,
-        componentName: 'four-dot-eight-default',
-        api: '/ponysafety2/a/report/getdeptscorereport',
-        method: 'get',
-        dataKey: 'drive_score_day',
-        previewImage: require('../img/col-4.8-4.png')
-      },
-      {
-        label: '夜间评分',
-        value: 5,
-        componentName: 'four-dot-eight-default',
-        api: '/ponysafety2/a/report/getdeptscorereport',
-        method: 'get',
-        dataKey: 'drive_score_night',
-        previewImage: require('../img/col-4.8-5.png')
-      }
-    ],
-    selectValue: 1,
+    label: '驾驶评分',
+    componentName: 'four-dot-eight-default',
+    api: '/ponysafety2/a/report/getdeptscorereport',
+    method: 'get',
+    dataKey: 'drive_score_total',
+    col: 4.8,
     height: 100,
-    previewImage: require('../img/col-4.8-1.png'),
-    label: 4.8,
-    layoutCol: 4.8
+    previewImage: require('../img/col-4.8-1.png')
   },
   {
-    types: [
-      {
-        label: '6 --- 占位组件',
-        value: 1,
-        componentName: 'demo',
-        api: '/ponysafety2/a/report/getdeptscorereport',
-        dataKey: 'drive_score_city'
-      }
-    ],
-    selectValue: 1,
-    height: 250,
-    previewImage: require('../img/col-6-0.png'),
-    label: 6,
-    layoutCol: 6
+    label: '高速评分',
+    componentName: 'four-dot-eight-default',
+    api: '/ponysafety2/a/report/getdeptscorereport',
+    method: 'get',
+    dataKey: 'drive_score_motorway',
+    col: 4.8,
+    height: 100,
+    previewImage: require('../img/col-4.8-2.png')
   },
   {
-    types: [
-      {
-        label: '报警车速分布图',
-        value: 1,
-        componentName: 'alarm-speed-distribution',
-        api: '/ponysafety2/a/report/getdeptscorereport',
-        dataKey: 'drive_score_city'
-      }
-    ],
-    selectValue: 1,
-    height: 250,
-    previewImage: require('../img/col-8-1.png'),
-    label: 8,
-    layoutCol: 8
+    label: '非高速评分',
+    componentName: 'four-dot-eight-default',
+    api: '/ponysafety2/a/report/getdeptscorereport',
+    method: 'get',
+    dataKey: 'drive_score_city',
+    col: 4.8,
+    height: 100,
+    previewImage: require('../img/col-4.8-3.png')
   },
   {
-    types: [
-      {
-        label: '作业时段分布图（次）',
-        value: 1,
-        componentName: 'working-time-distribution',
-        api: '/ponysafety2/a/report/gettraildeptworktime',
-        method: 'post',
-        dataKey: '',
-        previewImage: require('../img/col-12-1.png')
-      },
-      {
-        label: '作业趋势图（次）',
-        value: 2,
-        componentName: 'working-time-tendency',
-        api: '/ponysafety2/a/report/gettraildeptworktime',
-        method: 'post',
-        dataKey: 'work_detail_day',
-        previewImage: require('../img/col-12-2.png')
-      }
-    ],
-    selectValue: 1,
-    height: 250,
-    previewImage: require('../img/col-12-1.png'),
-    label: 12,
-    layoutCol: 12
+    label: '日间评分',
+    componentName: 'four-dot-eight-default',
+    api: '/ponysafety2/a/report/getdeptscorereport',
+    method: 'get',
+    dataKey: 'drive_score_day',
+    col: 4.8,
+    height: 100,
+    previewImage: require('../img/col-4.8-4.png')
   },
   {
-    types: [
-      {
-        label: '风险类型分布图（TOP5）',
-        value: 1,
-        componentName: 'risk-type-distribution',
-        api: '/ponysafety2/a/report/getdeptalarmreport',
-        method: 'get',
-        dataKey: 'adas_alarm_types',
-        previewImage: require('../img/col-16-1.png')
-      }
-    ],
-    selectValue: 1,
-    height: 250,
-    previewImage: require('../img/col-16-1.png'),
-    label: 16,
-    layoutCol: 16
+    label: '夜间评分',
+    componentName: 'four-dot-eight-default',
+    api: '/ponysafety2/a/report/getdeptscorereport',
+    method: 'get',
+    dataKey: 'drive_score_night',
+    col: 4.8,
+    height: 100,
+    previewImage: require('../img/col-4.8-5.png')
   },
   {
-    types: [
-      {
-        label: '评分图',
-        value: 1,
-        componentName: 'full-tabs-grade',
-        api: '/ponysafety2/a/report/getdeptscorereport',
-        method: 'get',
-        dataKey: '',
-        previewImage: require('../img/col-24-1.png')
-      }
-    ],
-    selectValue: 1,
+    label: '6 --- 占位组件',
+    componentName: 'demo',
+    api: '/ponysafety2/a/report/getdeptscorereport',
+    method: 'get',
+    dataKey: 'drive_score_city',
+    col: 6,
     height: 250,
-    previewImage: require('../img/col-24-1.png'),
-    label: 24,
-    layoutCol: 24
+    previewImage: require('../img/col-6-0.png')
+  },
+  {
+    label: '报警车速分布图',
+    componentName: 'alarm-speed-distribution',
+    api: '/ponysafety2/a/report/getdeptscorereport',
+    method: 'get',
+    dataKey: 'drive_score_city',
+    col: 8,
+    height: 250,
+    previewImage: require('../img/col-8-1.png')
+  },
+  {
+    label: '作业时段分布图（次）',
+    componentName: 'working-time-distribution',
+    api: '/ponysafety2/a/report/gettraildeptworktime',
+    method: 'post',
+    dataKey: '',
+    col: 12,
+    height: 250,
+    previewImage: require('../img/col-12-1.png')
+  },
+  {
+    label: '作业趋势图（次）',
+    componentName: 'working-time-tendency',
+    api: '/ponysafety2/a/report/gettraildeptworktime',
+    method: 'post',
+    dataKey: 'work_detail_day',
+    col: 12,
+    height: 250,
+    previewImage: require('../img/col-12-2.png')
+  },
+  {
+    label: '风险类型分布图（TOP5）',
+    componentName: 'risk-type-distribution',
+    api: '/ponysafety2/a/report/getdeptalarmreport',
+    method: 'get',
+    dataKey: 'adas_alarm_types',
+    col: 16,
+    height: 250,
+    previewImage: require('../img/col-16-1.png')
+  },
+  {
+    label: '评分图',
+    componentName: 'full-tabs-grade',
+    api: '/ponysafety2/a/report/getdeptscorereport',
+    method: 'get',
+    dataKey: '',
+    col: 24,
+    height: 250,
+    previewImage: require('../img/col-24-1.png')
   }
 ]

@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2018-6-28 15:13:23
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-02-28 10:28:57
+ * @LastEditTime: 2019-03-01 15:53:32
  * @Description: 常用函数包装
  */
 import * as R from 'ramda'
@@ -167,10 +167,10 @@ export function flatLayoutData(data, key = 'children') {
   }
 
   return data.reduce((pre, curr) => {
-    if (!curr.children) {
+    if (!curr[key]) {
       return [...pre, curr]
     } else {
-      return [...pre, ...flatLayoutData(curr.children)]
+      return [...pre, ...flatLayoutData(curr[key])]
     }
   }, [])
 }
@@ -216,6 +216,10 @@ export function transBarChartData({ valueKey, nameKey, toValueKey = 'value', toN
     },
     { [toValueKey]: [], [toNameKey]: [] }
   )
+}
+
+export function mixinData(item, mixinData) {
+  return { ...item, ...mixinData }
 }
 
 export function exportPDF(dom) {
