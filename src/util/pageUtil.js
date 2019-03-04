@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2018-6-28 15:13:23
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-01 15:53:32
+ * @LastEditTime: 2019-03-04 09:35:39
  * @Description: 常用函数包装
  */
 import * as R from 'ramda'
@@ -85,7 +85,7 @@ export function bindResize() {
   }
 }
 
-export function depClone(obj) {
+export function deepClone(obj) {
   return JSON.parse(JSON.stringify(obj))
 }
 
