@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-05 18:27:08
+ * @LastEditTime: 2019-03-05 19:09:34
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
@@ -115,7 +115,7 @@
 
         <default-layout-editor
           v-clickoutside="handleClickoutside(addRow)"
-          @drag-row-start="handleDragNewRowStart"
+          @drag-row-start="handleDragNewRow"
         />
       </div>
     </transition>
@@ -164,6 +164,17 @@ import defaultLayoutEditor from "./components/default-layout-editor";
 
 const colSkipArr = ["initCol"];
 
+function getInitCol(options) {
+  let obj = {
+    title: null,
+    col: 0,
+    componentKey: null,
+    initCol: 0,
+    showChildrenControllerBar: false
+  };
+  return { ...obj, ...options };
+}
+
 const arr = ["initLayoutCol"];
 const arr2 = ["initLayoutCol", "layoutCol"];
 
@@ -183,9 +194,9 @@ export default {
       addContainerTop: 0,
       dragData: {
         isRow: false,
-        isOldRow: false,
+        isNewRow: false,
         isNewCol: false,
-        component: null,
+        col: null,
         row: null,
         rowIndex: null
       },
@@ -200,31 +211,31 @@ export default {
     };
   },
   methods: {
-    handleDragNewRowStart(event, row) {
+    handleDragNewRow(event, row) {
       this.dragData.isRow = true;
-      this.dragData.isOldRow = false;
-      let children = row.map(col => ({
-        showChildrenControllerBar: false,
-        layoutCol: col.value,
-        initLayoutCol: col.value
-      }));
-      let obj = {
-        align: "left",
+      this.dragData.isNewRow = true;
+      let children = row.map(col =>
+        getInitCol({
+          initCol: col.value
+        })
+      );
+      this.dragData.row = {
+        align: "flex-start",
         height: row[0].height,
         showControllerBar: false,
-        children
+        children,
+        index: null
       };
-      this.dragData.row = obj;
     },
     handleDragRow(event, row, rowIndex) {
       this.dragData.isRow = true;
-      this.dragData.isOldRow = true;
+      this.dragData.isNewRow = false;
       this.dragData.row = row;
       this.dragData.rowIndex = rowIndex;
     },
     handleDropRow(event, row, rowIndex) {
       if (!this.dragData.isRow) return;
-      if (this.dragData.isOldRow) {
+      if (!this.dragData.isNewRow) {
         // TODO 似乎索引会有出错的时候，不过好像不影响使用，先放着，以后改
         this.dragData.row.index = rowIndex;
         row.index = this.dragData.rowIndex;
@@ -272,27 +283,27 @@ export default {
        */
       if (!component.previewImage) return;
       this.dragData.isRow = false;
-      this.dragData.component = component;
+      this.dragData.col = component;
       this.dragData.isNewCol = isNewCol;
       this.addCol.show = false;
     },
     handleDropCol(event, target) {
       // 如果拖动的是 row，忽略
       if (this.dragData.isRow) return;
-      let oldFrom = deepClone(this.dragData.component);
+      let oldFrom = deepClone(this.dragData.col);
       let oldTarget = deepClone(target);
 
-      this.setCol(this.dragData.component, target);
+      this.setCol(this.dragData.col, target);
       if (!this.dragData.isNewCol) {
         // 若拖动的组件不是新组件
         if (oldTarget.previewImage) {
           // 若放置的位置不是空的，则将两者交换
           this.setCol(oldFrom, target);
-          this.setCol(oldTarget, this.dragData.component);
+          this.setCol(oldTarget, this.dragData.col);
         } else {
           // 若仿制的位置是空的，则将 from 重置并赋值 target
-          this.resetCol(this.dragData.component);
-          this.setCol(this.dragData.component, target);
+          this.resetCol(this.dragData.col);
+          this.setCol(this.dragData.col, target);
         }
       } else {
         this.addCol.show = true;
@@ -317,12 +328,7 @@ export default {
       }
     },
     resetCol(col) {
-      let init = {
-        col: 0,
-        componentKey: null,
-        initCol: col.initCol,
-        showChildrenControllerBar: false
-      };
+      let init = getInitCol({ title: col.title, initCol: col.initCol });
       this.delCol(col);
       this.setCol(init, col);
     },

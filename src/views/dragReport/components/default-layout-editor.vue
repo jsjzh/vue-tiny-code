@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-22 09:31:45
- * @LastEditTime: 2019-03-05 18:27:01
+ * @LastEditTime: 2019-03-05 18:59:05
  * @Description: 左侧添加布局的框
  -->
 <template>
