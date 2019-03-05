@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-05 23:20:37
+ * @LastEditTime: 2019-03-05 23:25:03
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
@@ -338,11 +338,15 @@ export default {
     },
     resolvePreviewData() {
       let dragReportData = deepClone(this.dragReportData);
-      console.log(dragReportData);
       dragReportData.children.forEach(row => {
         delete row.showControllerBar;
         row.children.forEach(col => {
-          delete col.initLayoutCol;
+          delete col.api;
+          delete col.componentName;
+          delete col.dataKey;
+          delete col.height;
+          delete col.label;
+          delete col.method;
           delete col.previewImage;
           delete col.showChildrenControllerBar;
         });

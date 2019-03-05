@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-02-27 16:52:10
+ * @LastEditTime: 2019-03-05 23:26:22
  * @Description: preview 页面
  -->
 <template>
@@ -77,7 +77,7 @@ export default {
       };
     },
     resolveLayoutData() {
-      return JSON.parse(window.localStorage.getItem("dragReport-layoutData"));
+      return JSON.parse(window.localStorage.getItem("dragReport-previewData"));
     }
   },
   mounted() {
@@ -85,6 +85,8 @@ export default {
 
     this.queryData = this.resolveQueryData();
     this.layoutData = this.resolveLayoutData();
+
+    console.log(this.layoutData);
 
     let flatData = flatLayoutData(this.layoutData);
 
@@ -139,9 +141,9 @@ export default {
       })
       .finally(() => {
         this.isLoading = false;
-        setTimeout(() => {
-          exportPDF("#app");
-        }, 2000);
+        // setTimeout(() => {
+        //   exportPDF("#app");
+        // }, 2000);
       });
   }
 };
