@@ -40,12 +40,10 @@ export const box = [
   { col: [{ active: false, height: 50, placeholderCol: 24 }] }
 ]
 
-// 预计做成这样，有个 types 可以提供选择，因为很多图都是一样的，比如曲线图和折线图什么乱七八糟的
-// 这些组件就用同一个图，然后选择组件的时候就要选择 type，然后这些组件都有对应的接口
-// 然后后续应该还会有一个对应的 key，该 key 表示接口过来的 json 数据的 key
 export const componentDatas = [
   {
     label: '1 --- 占位组件',
+    componentKey: 1,
     componentName: 'demo',
     api: '/ponysafety2/a/report/getdeptscorereport',
     method: 'get',
@@ -56,6 +54,7 @@ export const componentDatas = [
   },
   {
     label: '2 --- 占位组件',
+    componentKey: 2,
     componentName: 'demo',
     api: '/ponysafety2/a/report/getdeptscorereport',
     method: 'get',
@@ -66,6 +65,7 @@ export const componentDatas = [
   },
   {
     label: '3 --- 占位组件',
+    componentKey: 3,
     componentName: 'demo',
     api: '/ponysafety2/a/report/getdeptscorereport',
     method: 'get',
@@ -76,6 +76,7 @@ export const componentDatas = [
   },
   {
     label: '4 --- 占位组件',
+    componentKey: 4,
     componentName: 'demo',
     api: '/ponysafety2/a/report/getdeptscorereport',
     method: 'get',
@@ -86,6 +87,7 @@ export const componentDatas = [
   },
   {
     label: '驾驶评分',
+    componentKey: 5,
     componentName: 'four-dot-eight-default',
     api: '/ponysafety2/a/report/getdeptscorereport',
     method: 'get',
@@ -96,6 +98,7 @@ export const componentDatas = [
   },
   {
     label: '高速评分',
+    componentKey: 6,
     componentName: 'four-dot-eight-default',
     api: '/ponysafety2/a/report/getdeptscorereport',
     method: 'get',
@@ -106,6 +109,7 @@ export const componentDatas = [
   },
   {
     label: '非高速评分',
+    componentKey: 7,
     componentName: 'four-dot-eight-default',
     api: '/ponysafety2/a/report/getdeptscorereport',
     method: 'get',
@@ -116,6 +120,7 @@ export const componentDatas = [
   },
   {
     label: '日间评分',
+    componentKey: 8,
     componentName: 'four-dot-eight-default',
     api: '/ponysafety2/a/report/getdeptscorereport',
     method: 'get',
@@ -126,6 +131,7 @@ export const componentDatas = [
   },
   {
     label: '夜间评分',
+    componentKey: 9,
     componentName: 'four-dot-eight-default',
     api: '/ponysafety2/a/report/getdeptscorereport',
     method: 'get',
@@ -136,6 +142,7 @@ export const componentDatas = [
   },
   {
     label: '6 --- 占位组件',
+    componentKey: 10,
     componentName: 'demo',
     api: '/ponysafety2/a/report/getdeptscorereport',
     method: 'get',
@@ -146,6 +153,7 @@ export const componentDatas = [
   },
   {
     label: '报警车速分布图',
+    componentKey: 11,
     componentName: 'alarm-speed-distribution',
     api: '/ponysafety2/a/report/getdeptscorereport',
     method: 'get',
@@ -156,6 +164,7 @@ export const componentDatas = [
   },
   {
     label: '作业时段分布图（次）',
+    componentKey: 12,
     componentName: 'working-time-distribution',
     api: '/ponysafety2/a/report/gettraildeptworktime',
     method: 'post',
@@ -166,6 +175,7 @@ export const componentDatas = [
   },
   {
     label: '作业趋势图（次）',
+    componentKey: 13,
     componentName: 'working-time-tendency',
     api: '/ponysafety2/a/report/gettraildeptworktime',
     method: 'post',
@@ -176,6 +186,7 @@ export const componentDatas = [
   },
   {
     label: '风险类型分布图（TOP5）',
+    componentKey: 14,
     componentName: 'risk-type-distribution',
     api: '/ponysafety2/a/report/getdeptalarmreport',
     method: 'get',
@@ -186,6 +197,7 @@ export const componentDatas = [
   },
   {
     label: '评分图',
+    componentKey: 15,
     componentName: 'full-tabs-grade',
     api: '/ponysafety2/a/report/getdeptscorereport',
     method: 'get',

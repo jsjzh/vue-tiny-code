@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-13 14:50:02
- * @LastEditTime: 2019-03-01 11:17:10
+ * @LastEditTime: 2019-03-05 11:02:19
  * @Description: 组件列表头部的展示框集
  -->
 <template>
@@ -61,10 +61,10 @@ export default {
   methods: {
     handleDragCol(event, col) {
       col.title = col.title || col.label;
-      this.$emit("drag-col-start", col);
+      this.$emit("drag-col-start", event, col);
     },
     hanDragColEnd(event, col) {
-      this.$emit("drag-col-end", col);
+      this.$emit("drag-col-end", event, col);
     },
     handleChangeSelectComponent(event, component) {
       let previewImage = component.types.find(

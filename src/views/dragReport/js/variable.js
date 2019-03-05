@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-11 10:55:03
- * @LastEditTime: 2019-03-01 16:45:09
+ * @LastEditTime: 2019-03-05 14:55:32
  * @Description: 组件相关信息
  */
 
@@ -15,6 +15,8 @@
  * around: space-around
  * between: space-between
  */
+
+export { componentDatas } from '../components/variable'
 
 export const alignType = [
   { title: '左对齐', label: 'left', value: 'flex-start' },
@@ -49,13 +51,12 @@ export const dragReportData = {
       align: alignType[0].value,
       height: 100,
       index: 0,
-      showControllerBar: false,
       children: [
-        { showChildrenControllerBar: false, layoutCol: 4.8, initLayoutCol: 4.8 },
-        { showChildrenControllerBar: false, layoutCol: 4.8, initLayoutCol: 4.8 },
-        { showChildrenControllerBar: false, layoutCol: 4.8, initLayoutCol: 4.8 },
-        { showChildrenControllerBar: false, layoutCol: 4.8, initLayoutCol: 4.8 },
-        { showChildrenControllerBar: false, layoutCol: 4.8, initLayoutCol: 4.8 }
+        { initCol: 4.8, componentKey: 5 },
+        { initCol: 4.8, componentKey: 6 },
+        { initCol: 4.8, componentKey: 7 },
+        { initCol: 4.8, componentKey: 8 },
+        { initCol: 4.8, componentKey: 9 }
       ]
     }
   ]
