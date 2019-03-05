@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-11 10:55:03
- * @LastEditTime: 2019-03-05 16:16:30
+ * @LastEditTime: 2019-03-05 17:46:02
  * @Description: 组件相关信息
  */
 
@@ -56,11 +56,11 @@ export const dragReportData = {
          * col 组件的 col
          * initCol 初始化 col 不会变
          */
-        { col: 4.8, initCol: 4.8, componentKey: 5 },
-        { col: 4.8, initCol: 4.8, componentKey: 6 },
-        { col: 4.8, initCol: 4.8, componentKey: 7 },
-        { col: 4.8, initCol: 4.8, componentKey: 8 },
-        { col: 0, initCol: 4.8, componentKey: null }
+        { title: '驾驶评分 t-title', col: 4.8, initCol: 4.8, componentKey: 5 },
+        { title: '高速驾驶评分 t-title', col: 4.8, initCol: 4.8, componentKey: 6 },
+        { title: '城区驾驶评分 t-title', col: 4.8, initCol: 4.8, componentKey: 7 },
+        { title: '日间评分 t-title', col: 4.8, initCol: 4.8, componentKey: 8 },
+        { title: null, col: 0, initCol: 4.8, componentKey: null }
       ]
     }
   ]

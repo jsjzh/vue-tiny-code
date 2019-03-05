@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-05 16:34:17
+ * @LastEditTime: 2019-03-05 17:49:42
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
@@ -60,6 +60,7 @@
           :draggable="col.previewImage ? true : false"
           @mouseenter="col.previewImage ? col.showChildrenControllerBar = true : null"
           @mouseleave="col.showChildrenControllerBar = false"
+          @click="handleClickCol(col)"
           @dragstart="handleDragCol($event, col, false)"
           @drop="handleDropCol($event, col)"
           @dragover="handleDragOver($event, col)"
@@ -67,7 +68,10 @@
           <transition name="slide-fade">
             <div class="col-controller-bar" v-if="col.showChildrenControllerBar">
               <span class="col-controller-bar-title-box" style="float: left">{{col.title}}</span>
-              <span class="col-controller-bar-title-box remove-item" @click="delCol(col)">remove-col</span>
+              <span
+                class="col-controller-bar-title-box remove-item"
+                @click="resetCol(col)"
+              >remove-col</span>
             </div>
           </transition>
         </div>
@@ -197,6 +201,9 @@ export default {
     };
   },
   methods: {
+    handleClickCol(col) {
+      console.log(col);
+    },
     handleClickoutside(container) {
       return function() {
         container.show && (container.show = false);
@@ -281,6 +288,7 @@ export default {
       /**
        * isNewCol 区分是否是拖动的新的组件
        */
+      if (!component.previewImage) return;
       this.dragData.isRow = false;
       this.dragData.component = component;
       this.dragData.isNewCol = isNewCol;
@@ -289,16 +297,17 @@ export default {
     handleDropCol(event, target) {
       // 如果拖动的是 row，忽略
       if (this.dragData.isRow) return;
-      let _component = deepClone(this.dragData.component);
-      let _target = deepClone(target);
-      this.setCol(_component, target);
+      let oldFrom = deepClone(this.dragData.component);
+      let oldTarget = deepClone(target);
+
+      this.setCol(this.dragData.component, target);
       if (!this.dragData.isNewCol) {
-        // 如果拖动的不是新的组件
-        // 第二种，如果拖动至空的布局内，只要将原先的那个删去即可
-        this.delCol(this.dragData.component);
-        // 第一种，如果拖动至已有组件的布局内，则需要将两嗝组件内容对调，该逻辑是先删除原有的，再重新赋值
-        if (_target.previewImage) {
-          this.setCol(_target, this.dragData.component);
+        if (oldTarget.previewImage) {
+          this.setCol(oldFrom, target);
+          this.setCol(oldTarget, this.dragData.component);
+        } else {
+          this.resetCol(this.dragData.component);
+          this.setCol(this.dragData.component, target);
         }
       } else {
         this.addCol.show = true;
@@ -338,6 +347,16 @@ export default {
         }
       }
     },
+    resetCol(col) {
+      let init = {
+        col: 0,
+        componentKey: null,
+        initCol: col.initCol,
+        showChildrenControllerBar: false
+      };
+      this.delCol(col);
+      this.setCol(init, col);
+    },
     handleListenerScroll(e) {
       let scrollTop =
         document.documentElement.scrollTop ||
@@ -353,13 +372,18 @@ export default {
           row.children &&
             row.children.forEach((col, colIndex) => {
               let mixinCol = { showChildrenControllerBar: false };
-              let curr = componentDatas.find(
-                component => component.componentKey === col.componentKey
-              );
-              curr &&
-                (row.children[colIndex] = { ...col, ...curr, ...mixinCol });
+              let curr =
+                componentDatas.find(
+                  component => component.componentKey === col.componentKey
+                ) || {};
+              this.$set(row.children, colIndex, {
+                ...col,
+                ...curr,
+                ...mixinCol
+              });
             });
         });
+      console.log(dragReportData);
       this.dragReportData = dragReportData;
     },
     addListener() {
