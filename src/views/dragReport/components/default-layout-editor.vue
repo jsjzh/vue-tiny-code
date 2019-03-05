@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-22 09:31:45
- * @LastEditTime: 2019-02-28 17:09:23
+ * @LastEditTime: 2019-03-05 18:27:01
  * @Description: 左侧添加布局的框
  -->
 <template>
@@ -29,7 +29,7 @@
         <div class="input-item-box" v-for="(ipt, iptIndex) in inputs" :key="iptIndex">
           <el-input
             size="mini"
-            :maxlength="2"
+            :maxlength="3"
             :minlength="1"
             :max="24"
             :min="1"
@@ -93,10 +93,10 @@ export default {
   },
   methods: {
     handleDragRow(event, row) {
-      this.$emit("drag-row-start", row);
+      this.$emit("drag-row-start", event, row);
     },
     hanDragRowEnd(event, row) {
-      this.$emit("drag-row-end", row);
+      this.$emit("drag-row-end", event, row);
     },
     handleChangeColHeight(height) {
       this.inputs.forEach(input => (input.height = height));

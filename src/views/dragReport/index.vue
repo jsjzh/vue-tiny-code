@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-05 17:49:42
+ * @LastEditTime: 2019-03-05 18:27:08
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
@@ -60,7 +60,6 @@
           :draggable="col.previewImage ? true : false"
           @mouseenter="col.previewImage ? col.showChildrenControllerBar = true : null"
           @mouseleave="col.showChildrenControllerBar = false"
-          @click="handleClickCol(col)"
           @dragstart="handleDragCol($event, col, false)"
           @drop="handleDropCol($event, col)"
           @dragover="handleDragOver($event, col)"
@@ -201,42 +200,7 @@ export default {
     };
   },
   methods: {
-    handleClickCol(col) {
-      console.log(col);
-    },
-    handleClickoutside(container) {
-      return function() {
-        container.show && (container.show = false);
-      };
-    },
-    PAGE_layout(cols, key) {
-      return cols.map(item => (item[key] ? item[key] : 0)).join(" : ");
-    },
-    resolveLayoutData() {
-      let layoutData = deepClone(this.layoutData);
-      dragReportData.children.forEach(row => {
-        delete row.showControllerBar;
-        row.children.forEach(col => {
-          delete col.initLayoutCol;
-          delete col.previewImage;
-          delete col.showChildrenControllerBar;
-        });
-      });
-      return layoutData;
-    },
-    handleToPreviewPage() {
-      let layoutData = this.resolveLayoutData();
-      window.localStorage.setItem(
-        "dragReport-layoutData",
-        JSON.stringify(layoutData)
-      );
-      let routeUrl = this.$router.resolve({ path: "/previewReport" });
-      window.open(routeUrl.href, "_blank");
-    },
-    handleShowAddContainer(target) {
-      target.show = true;
-    },
-    handleDragNewRowStart(row) {
+    handleDragNewRowStart(event, row) {
       this.dragData.isRow = true;
       this.dragData.isOldRow = false;
       let children = row.map(col => ({
@@ -281,7 +245,25 @@ export default {
         this.sortRow();
       }
     },
+    sortRow() {
+      this.dragReportData.children = this.dragReportData.children.sort(
+        (a, b) => a.index - b.index
+      );
+    },
+    handleRemoveRow(event, row) {
+      if (this.dragReportData.children.length === 1) {
+        this.$msg("1_至少需要一条布局");
+        return;
+      }
+      let index = this.dragReportData.children.findIndex(
+        item => item.index === row.index
+      );
+      this.dragReportData.children.splice(index, 1);
+    },
+    // edit col function
+    // 另外，突然觉得自己是不是想的复杂了，如果把 col 和 row 一样，用 index 做排序
     handleDragOver(event) {
+      // 默认情况下，对于 drop 的元素，要使用 dragover 移除默认事件，event.preventDefault()
       event.preventDefault();
     },
     handleDragCol(event, component, isNewCol = true) {
@@ -302,32 +284,19 @@ export default {
 
       this.setCol(this.dragData.component, target);
       if (!this.dragData.isNewCol) {
+        // 若拖动的组件不是新组件
         if (oldTarget.previewImage) {
+          // 若放置的位置不是空的，则将两者交换
           this.setCol(oldFrom, target);
           this.setCol(oldTarget, this.dragData.component);
         } else {
+          // 若仿制的位置是空的，则将 from 重置并赋值 target
           this.resetCol(this.dragData.component);
           this.setCol(this.dragData.component, target);
         }
       } else {
         this.addCol.show = true;
       }
-    },
-    sortRow() {
-      this.dragReportData.children = this.dragReportData.children.sort(
-        (a, b) => a.index - b.index
-      );
-    },
-
-    handleRemoveRow(event, row) {
-      if (this.dragReportData.children.length === 1) {
-        this.$msg("1_至少需要一条布局");
-        return;
-      }
-      let index = this.dragReportData.children.findIndex(
-        item => item.index === row.index
-      );
-      this.dragReportData.children.splice(index, 1);
     },
     delCol(component) {
       for (const key in component) {
@@ -357,6 +326,36 @@ export default {
       this.delCol(col);
       this.setCol(init, col);
     },
+    // other function
+    handleClickoutside(container) {
+      return function() {
+        container.show && (container.show = false);
+      };
+    },
+    PAGE_layout(cols, key) {
+      return cols.map(item => (item[key] ? item[key] : 0)).join(" : ");
+    },
+    resolveLayoutData() {
+      let layoutData = deepClone(this.layoutData);
+      dragReportData.children.forEach(row => {
+        delete row.showControllerBar;
+        row.children.forEach(col => {
+          delete col.initLayoutCol;
+          delete col.previewImage;
+          delete col.showChildrenControllerBar;
+        });
+      });
+      return layoutData;
+    },
+    handleToPreviewPage() {
+      let layoutData = this.resolveLayoutData();
+      window.localStorage.setItem(
+        "dragReport-layoutData",
+        JSON.stringify(layoutData)
+      );
+      let routeUrl = this.$router.resolve({ path: "/previewReport" });
+      window.open(routeUrl.href, "_blank");
+    },
     handleListenerScroll(e) {
       let scrollTop =
         document.documentElement.scrollTop ||
@@ -383,7 +382,6 @@ export default {
               });
             });
         });
-      console.log(dragReportData);
       this.dragReportData = dragReportData;
     },
     addListener() {
