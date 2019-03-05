@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-05 23:05:48
+ * @LastEditTime: 2019-03-05 23:20:37
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
@@ -152,12 +152,7 @@ import hoverswitch from "@/util/hoverswitch";
 import { deepClone, filterByKey } from "@/util/pageUtil";
 import colStyle from "./mixins/col-style";
 
-import {
-  layoutData,
-  alignType,
-  dragReportData,
-  componentDatas
-} from "./js/variable";
+import { alignType, dragReportData, componentDatas } from "./js/variable";
 
 import defaultFramework from "./components/default-framework";
 import defaultLayoutEditor from "./components/default-layout-editor";
@@ -175,9 +170,6 @@ function getInitCol(options) {
   return { ...obj, ...options };
 }
 
-const arr = ["initLayoutCol"];
-const arr2 = ["initLayoutCol", "layoutCol"];
-
 export default {
   name: "dragReport",
   components: { defaultFramework, defaultLayoutEditor },
@@ -189,7 +181,6 @@ export default {
         title: "",
         children: []
       },
-      layoutData,
       alignType,
       addContainerTop: 0,
       dragData: {
@@ -211,6 +202,7 @@ export default {
     };
   },
   methods: {
+    // edit row functions
     handleDragNewRow(event, row) {
       this.dragData.isRow = true;
       this.dragData.isNewRow = true;
@@ -241,7 +233,8 @@ export default {
         row.index = dragIndex;
         this.sortRow();
       } else {
-        let behindRows = this.dragReportData.children.reduce((prev, curr) => {
+        let { dragReportData } = this;
+        let behindRows = dragReportData.children.reduce((prev, curr) => {
           if (curr.index > row.index) {
             return [...prev, curr];
           } else {
@@ -249,7 +242,7 @@ export default {
           }
         }, []);
         behindRows.forEach(row => row.index++);
-        this.dragReportData.children.push({
+        dragReportData.children.push({
           ...this.dragData.row,
           index: row.index + 1
         });
@@ -257,21 +250,23 @@ export default {
       }
     },
     sortRow() {
-      this.dragReportData.children = this.dragReportData.children.sort(
+      let { dragReportData } = this;
+      dragReportData.children = dragReportData.children.sort(
         (a, b) => a.index - b.index
       );
     },
     handleRemoveRow(event, row) {
-      if (this.dragReportData.children.length === 1) {
+      let { dragReportData } = this;
+      if (dragReportData.children.length === 1) {
         this.$msg("1_至少需要一条布局");
         return;
       }
-      let index = this.dragReportData.children.findIndex(
+      let index = dragReportData.children.findIndex(
         item => item.index === row.index
       );
-      this.dragReportData.children.splice(index, 1);
+      dragReportData.children.splice(index, 1);
     },
-    // edit col function
+    // edit col functions
     // 另外，突然觉得自己是不是想的复杂了，如果把 col 和 row 一样，用 index 做排序
     handleDragOver(event) {
       // 默认情况下，对于 drop 的元素，要使用 dragover 移除默认事件，event.preventDefault()
@@ -341,8 +336,9 @@ export default {
     PAGE_layout(cols, key) {
       return cols.map(item => (item[key] ? item[key] : 0)).join(" : ");
     },
-    resolveLayoutData() {
-      let layoutData = deepClone(this.layoutData);
+    resolvePreviewData() {
+      let dragReportData = deepClone(this.dragReportData);
+      console.log(dragReportData);
       dragReportData.children.forEach(row => {
         delete row.showControllerBar;
         row.children.forEach(col => {
@@ -351,13 +347,13 @@ export default {
           delete col.showChildrenControllerBar;
         });
       });
-      return layoutData;
+      return dragReportData;
     },
     handleToPreviewPage() {
-      let layoutData = this.resolveLayoutData();
+      let previewData = this.resolvePreviewData();
       window.localStorage.setItem(
-        "dragReport-layoutData",
-        JSON.stringify(layoutData)
+        "dragReport-previewData",
+        JSON.stringify(previewData)
       );
       let routeUrl = this.$router.resolve({ path: "/previewReport" });
       window.open(routeUrl.href, "_blank");
