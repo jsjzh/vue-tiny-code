@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-11 10:55:03
- * @LastEditTime: 2019-03-05 14:55:32
+ * @LastEditTime: 2019-03-05 16:16:30
  * @Description: 组件相关信息
  */
 
@@ -52,11 +52,15 @@ export const dragReportData = {
       height: 100,
       index: 0,
       children: [
-        { initCol: 4.8, componentKey: 5 },
-        { initCol: 4.8, componentKey: 6 },
-        { initCol: 4.8, componentKey: 7 },
-        { initCol: 4.8, componentKey: 8 },
-        { initCol: 4.8, componentKey: 9 }
+        /**
+         * col 组件的 col
+         * initCol 初始化 col 不会变
+         */
+        { col: 4.8, initCol: 4.8, componentKey: 5 },
+        { col: 4.8, initCol: 4.8, componentKey: 6 },
+        { col: 4.8, initCol: 4.8, componentKey: 7 },
+        { col: 4.8, initCol: 4.8, componentKey: 8 },
+        { col: 0, initCol: 4.8, componentKey: null }
       ]
     }
   ]

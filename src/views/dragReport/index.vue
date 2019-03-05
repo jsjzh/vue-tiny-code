@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-05 15:21:20
+ * @LastEditTime: 2019-03-05 16:34:17
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
@@ -18,6 +18,7 @@
         :key="rowIndex"
         :style="{justifyContent: row.align, height: `${row.height}px`}"
         @drop="handleDropRow($event, row, rowIndex)"
+        @dragover="handleDragOver($event, row)"
         @mouseenter="row.showControllerBar = true"
         @mouseleave="row.showControllerBar = false"
       >
@@ -54,24 +55,19 @@
         <div
           class="layout-col-box"
           v-for="(col, colIndex) in row.children"
-          :style="previewColStyle({width: col.col, height: row.height}, 100, 1, 24, {backgroundImage: col.previewImage ? `url(${col.previewImage})` : null, cursor: col.previewImage ? 'all-scroll' : null})"
+          :style="previewColStyle({width: col.initCol, height: row.height}, 100, 1, 24, {backgroundImage: col.previewImage ? `url(${col.previewImage})` : null, cursor: col.previewImage ? 'all-scroll' : null})"
           :key="colIndex"
           :draggable="col.previewImage ? true : false"
-          @click="handleClickCol(col)"
           @mouseenter="col.previewImage ? col.showChildrenControllerBar = true : null"
           @mouseleave="col.showChildrenControllerBar = false"
           @dragstart="handleDragCol($event, col, false)"
           @drop="handleDropCol($event, col)"
           @dragover="handleDragOver($event, col)"
-          @dragleave="handleDragLeave($event, col)"
         >
           <transition name="slide-fade">
             <div class="col-controller-bar" v-if="col.showChildrenControllerBar">
               <span class="col-controller-bar-title-box" style="float: left">{{col.title}}</span>
-              <span
-                class="col-controller-bar-title-box remove-item"
-                @click="handleRemoveComponent($event, col)"
-              >remove-col</span>
+              <span class="col-controller-bar-title-box remove-item" @click="delCol(col)">remove-col</span>
             </div>
           </transition>
         </div>
@@ -148,6 +144,8 @@
 import { debounce } from "lodash";
 
 import clickoutside from "@/util/clickoutside";
+import hoverswitch from "@/util/hoverswitch";
+
 import { deepClone, filterByKey } from "@/util/pageUtil";
 import colStyle from "./mixins/col-style";
 
@@ -161,13 +159,15 @@ import {
 import defaultFramework from "./components/default-framework";
 import defaultLayoutEditor from "./components/default-layout-editor";
 
+const colSkipArr = ["initCol"];
+
 const arr = ["initLayoutCol"];
 const arr2 = ["initLayoutCol", "layoutCol"];
 
 export default {
   name: "dragReport",
   components: { defaultFramework, defaultLayoutEditor },
-  directives: { clickoutside },
+  directives: { clickoutside, hoverswitch },
   mixins: [colStyle],
   data() {
     return {
@@ -197,16 +197,13 @@ export default {
     };
   },
   methods: {
-    handleClickCol(col) {
-      console.log("col :", col);
-    },
     handleClickoutside(container) {
       return function() {
         container.show && (container.show = false);
       };
     },
     PAGE_layout(cols, key) {
-      return cols.map(item => item[key]).join(" : ");
+      return cols.map(item => (item[key] ? item[key] : 0)).join(" : ");
     },
     resolveLayoutData() {
       let layoutData = deepClone(this.layoutData);
@@ -277,30 +274,42 @@ export default {
         this.sortRow();
       }
     },
+    handleDragOver(event) {
+      event.preventDefault();
+    },
     handleDragCol(event, component, isNewCol = true) {
       /**
        * isNewCol 区分是否是拖动的新的组件
        */
       this.dragData.isRow = false;
-      this.dragData.component = deepClone(component);
+      this.dragData.component = component;
       this.dragData.isNewCol = isNewCol;
       this.addCol.show = false;
+    },
+    handleDropCol(event, target) {
+      // 如果拖动的是 row，忽略
+      if (this.dragData.isRow) return;
+      let _component = deepClone(this.dragData.component);
+      let _target = deepClone(target);
+      this.setCol(_component, target);
+      if (!this.dragData.isNewCol) {
+        // 如果拖动的不是新的组件
+        // 第二种，如果拖动至空的布局内，只要将原先的那个删去即可
+        this.delCol(this.dragData.component);
+        // 第一种，如果拖动至已有组件的布局内，则需要将两嗝组件内容对调，该逻辑是先删除原有的，再重新赋值
+        if (_target.previewImage) {
+          this.setCol(_target, this.dragData.component);
+        }
+      } else {
+        this.addCol.show = true;
+      }
     },
     sortRow() {
       this.dragReportData.children = this.dragReportData.children.sort(
         (a, b) => a.index - b.index
       );
     },
-    delCol(component) {
-      const arr = ["initLayoutCol"];
-      Object.keys(component).forEach(key => {
-        if (key === "layoutCol") {
-          component["layoutCol"] = component["initLayoutCol"];
-        } else if (arr.indexOf(key) === -1) {
-          this.$delete(component, key);
-        }
-      });
-    },
+
     handleRemoveRow(event, row) {
       if (this.dragReportData.children.length === 1) {
         this.$msg("1_至少需要一条布局");
@@ -311,39 +320,23 @@ export default {
       );
       this.dragReportData.children.splice(index, 1);
     },
-    handleRemoveComponent(event, component) {
-      this.delCol(component);
+    delCol(component) {
+      for (const key in component) {
+        if (component.hasOwnProperty(key)) {
+          if (colSkipArr.indexOf(key) === -1) {
+            this.$delete(component, key);
+          }
+        }
+      }
     },
     setCol(from, target) {
       for (const key in from) {
         if (from.hasOwnProperty(key)) {
-          this.$set(target, key, from[key]);
+          if (colSkipArr.indexOf(key) === -1) {
+            this.$set(target, key, from[key]);
+          }
         }
       }
-    },
-    handleDropCol(event, target) {
-      // 如果拖动的是 row，忽略
-      if (this.dragData.isRow) return;
-      // 赋值 col
-      let _component = deepClone(this.dragData.component);
-      let _target = deepClone(target);
-      this.setCol(_component, target);
-      // 如果拖动的不是新的 Col
-      if (!this.dragData.isNewCol) {
-        // 如果拖动的不是新的组件
-        // 第一种，如果拖动至已有组件的布局内，则需要将两嗝组件内容对调，该逻辑是先删除原有的，再重新赋值
-        // if (target.componentName) {
-        //   this.setCol(_target, this.dragData.component);
-        // }
-        // 第二种，如果拖动至空的布局内，只要将原先的那个删去即可
-        this.delCol(this.dragData.component);
-      }
-    },
-    handleDragLeave(event, targetLayout) {
-      event.preventDefault();
-    },
-    handleDragOver(event, targetLayout) {
-      event.preventDefault();
     },
     handleListenerScroll(e) {
       let scrollTop =
@@ -364,10 +357,9 @@ export default {
                 component => component.componentKey === col.componentKey
               );
               curr &&
-                (row.children[colIndex] = { ...curr, ...col, ...mixinCol });
+                (row.children[colIndex] = { ...col, ...curr, ...mixinCol });
             });
         });
-      console.log(dragReportData);
       this.dragReportData = dragReportData;
     },
     addListener() {
