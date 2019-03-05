@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-03-05 23:26:22
+ * @LastEditTime: 2019-03-05 23:32:30
  * @Description: preview 页面
  -->
 <template>
@@ -65,11 +65,6 @@ export default {
         height: `${row.height}px`
       };
     },
-    initPage() {
-      let body = document.querySelector("body");
-      body.removeAttribute("class");
-      body.removeAttribute("style");
-    },
     resolveQueryData() {
       return {
         dept_id: "1ab0d68d-de2a-4774-95e4-e0d5d1cbbf00",
@@ -81,8 +76,6 @@ export default {
     }
   },
   mounted() {
-    this.initPage();
-
     this.queryData = this.resolveQueryData();
     this.layoutData = this.resolveLayoutData();
 
