@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-05 19:09:34
+ * @LastEditTime: 2019-03-05 23:05:48
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
@@ -17,7 +17,7 @@
         v-for="(row, rowIndex) in dragReportData.children"
         :key="rowIndex"
         :style="{justifyContent: row.align, height: `${row.height}px`}"
-        @drop="handleDropRow($event, row, rowIndex)"
+        @drop="handleDropRow($event, row)"
         @dragover="handleDragOver($event, row)"
         @mouseenter="row.showControllerBar = true"
         @mouseleave="row.showControllerBar = false"
@@ -26,7 +26,7 @@
           <div
             draggable="true"
             v-if="row.showControllerBar"
-            @dragstart="handleDragRow($event, row, rowIndex)"
+            @dragstart="handleDragRow($event, row)"
             class="row-controller-bar"
           >
             <div class="row-controller-bar-title-box">index: {{row.index + 1}}</div>
@@ -227,31 +227,31 @@ export default {
         index: null
       };
     },
-    handleDragRow(event, row, rowIndex) {
+    handleDragRow(event, row) {
       this.dragData.isRow = true;
       this.dragData.isNewRow = false;
       this.dragData.row = row;
-      this.dragData.rowIndex = rowIndex;
     },
-    handleDropRow(event, row, rowIndex) {
+    handleDropRow(event, row) {
       if (!this.dragData.isRow) return;
       if (!this.dragData.isNewRow) {
-        // TODO 似乎索引会有出错的时候，不过好像不影响使用，先放着，以后改
-        this.dragData.row.index = rowIndex;
-        row.index = this.dragData.rowIndex;
+        let dragIndex = this.dragData.row.index;
+        let oldIndex = row.index;
+        this.dragData.row.index = oldIndex;
+        row.index = dragIndex;
         this.sortRow();
       } else {
-        let behindRow = this.dragReportData.children.reduce((prev, curr) => {
-          if (curr.index > rowIndex) {
+        let behindRows = this.dragReportData.children.reduce((prev, curr) => {
+          if (curr.index > row.index) {
             return [...prev, curr];
           } else {
             return prev;
           }
         }, []);
-        behindRow.forEach(row => row.index++);
+        behindRows.forEach(row => row.index++);
         this.dragReportData.children.push({
           ...this.dragData.row,
-          index: rowIndex + 1
+          index: row.index + 1
         });
         this.sortRow();
       }

@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-11 10:55:03
- * @LastEditTime: 2019-03-05 19:07:59
+ * @LastEditTime: 2019-03-05 23:02:54
  * @Description: 组件相关信息
  */
 
@@ -66,7 +66,7 @@ export const dragReportData = {
     {
       align: alignType[0].value,
       height: 250,
-      index: 2,
+      index: 1,
       children: [
         /**
          * col 组件的 col
