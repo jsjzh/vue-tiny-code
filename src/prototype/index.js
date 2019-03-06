@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import echarts from 'echarts'
+import { Message } from 'element-ui'
 
 Vue.prototype.$echarts = echarts
 
@@ -8,7 +9,7 @@ Vue.prototype.$msg = function(message = '0_操作成功', callback, duration = 1
   let dealArr = message.split('_')
   let type = arr[~~dealArr[0]] || 'info'
   message = dealArr[1] || '未知信息'
-  this.$message({
+  Message({
     type,
     showClose: true,
     message,

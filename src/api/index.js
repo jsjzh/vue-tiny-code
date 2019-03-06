@@ -1,2 +1,5 @@
-export function get() {}
-export function post() {}
+import { post, get } from './service'
+
+export function demo(name) {
+  return get('/demo', { name, namePro: name })
+}

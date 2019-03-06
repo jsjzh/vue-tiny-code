@@ -5,7 +5,14 @@
 </template>
 
 <script>
+import { demo } from "@/api";
+
 export default {
-  name: "app"
+  name: "app",
+  mounted() {
+    demo(123).then(res => {
+      console.log(res);
+    });
+  }
 };
 </script>

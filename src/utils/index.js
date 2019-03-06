@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2018-6-28 15:13:23
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-06 15:40:28
+ * @LastEditTime: 2019-03-06 17:27:00
  * @Description: 常用函数包装
  */
 import * as R from 'ramda'
@@ -217,4 +217,10 @@ export function transBarChartData({ valueKey, nameKey, toValueKey = 'value', toN
 
 export function mixinData(item, mixinData) {
   return { ...item, ...mixinData }
+}
+
+export function getUrlParam(url) {
+  const paramStr = url.split('?')[1]
+  if (!paramStr) return {}
+  return JSON.parse(`{"${paramStr.replace(/&/g, '","').replace(/=/g, '":"')}"}`)
 }
