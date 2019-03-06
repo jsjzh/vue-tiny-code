@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-05 23:25:03
+ * @LastEditTime: 2019-03-06 09:34:35
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
@@ -149,7 +149,7 @@ import { debounce } from "lodash";
 import clickoutside from "@/util/clickoutside";
 import hoverswitch from "@/util/hoverswitch";
 
-import { deepClone, filterByKey } from "@/util/pageUtil";
+import { deepClone } from "@/util/pageUtil";
 import colStyle from "./mixins/col-style";
 
 import { alignType, dragReportData, componentDatas } from "./js/variable";
@@ -182,7 +182,6 @@ export default {
         children: []
       },
       alignType,
-      addContainerTop: 0,
       dragData: {
         isRow: false,
         isNewRow: false,
@@ -191,6 +190,7 @@ export default {
         row: null,
         rowIndex: null
       },
+      addContainerTop: 0,
       addRow: {
         show: false,
         showControllerBar: false
@@ -206,16 +206,15 @@ export default {
     handleDragNewRow(event, row) {
       this.dragData.isRow = true;
       this.dragData.isNewRow = true;
-      let children = row.map(col =>
-        getInitCol({
-          initCol: col.value
-        })
-      );
       this.dragData.row = {
         align: "flex-start",
         height: row[0].height,
         showControllerBar: false,
-        children,
+        children: row.map(col =>
+          getInitCol({
+            initCol: col.value
+          })
+        ),
         index: null
       };
     },
@@ -337,27 +336,24 @@ export default {
       return cols.map(item => (item[key] ? item[key] : 0)).join(" : ");
     },
     resolvePreviewData() {
-      let dragReportData = deepClone(this.dragReportData);
-      dragReportData.children.forEach(row => {
-        delete row.showControllerBar;
-        row.children.forEach(col => {
-          delete col.api;
-          delete col.componentName;
-          delete col.dataKey;
-          delete col.height;
-          delete col.label;
-          delete col.method;
-          delete col.previewImage;
-          delete col.showChildrenControllerBar;
-        });
+      return this.dragReportData.children.map(row => {
+        return {
+          align: row.align,
+          height: row.height,
+          index: row.index,
+          children: row.children.map(col => ({
+            col: col.col,
+            componentKey: col.componentKey,
+            initCol: col.initCol,
+            title: col.title
+          }))
+        };
       });
-      return dragReportData;
     },
     handleToPreviewPage() {
-      let previewData = this.resolvePreviewData();
       window.localStorage.setItem(
         "dragReport-previewData",
-        JSON.stringify(previewData)
+        JSON.stringify(this.resolvePreviewData())
       );
       let routeUrl = this.$router.resolve({ path: "/previewReport" });
       window.open(routeUrl.href, "_blank");
@@ -392,7 +388,7 @@ export default {
     },
     addListener() {
       this.$$listeners = { scroll: null };
-      this.$$listeners.scroll = debounce(this.handleListenerScroll, 0);
+      this.$$listeners.scroll = debounce(this.handleListenerScroll, 10);
       window.addEventListener("scroll", this.$$listeners.scroll);
     }
   },
