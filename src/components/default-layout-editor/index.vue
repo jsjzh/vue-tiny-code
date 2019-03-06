@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-22 09:31:45
- * @LastEditTime: 2019-03-06 15:06:44
+ * @LastEditTime: 2019-03-06 18:16:35
  * @Description: 左侧添加布局的框
  -->
 <template>
@@ -73,7 +73,6 @@
 </template>
 
 <script>
-import { suggestLayouts } from "@/mock/variable";
 import colStyle from "@/mixins/methods/col-style";
 
 export default {
@@ -83,7 +82,27 @@ export default {
     return {
       inputsHeight: 250,
       inputs: [{ height: 250, value: 24 }],
-      suggestLayouts
+      suggestLayouts: [
+        {
+          cols: [
+            { height: 100, value: 4.8 },
+            { height: 100, value: 4.8 },
+            { height: 100, value: 4.8 },
+            { height: 100, value: 4.8 },
+            { height: 100, value: 4.8 }
+          ]
+        },
+        { cols: [{ height: 250, value: 16 }, { height: 250, value: 8 }] },
+        { cols: [{ height: 250, value: 12 }, { height: 250, value: 12 }] },
+        {
+          cols: [
+            { height: 250, value: 8 },
+            { height: 250, value: 8 },
+            { height: 250, value: 8 }
+          ]
+        },
+        { cols: [{ height: 250, value: 24 }] }
+      ]
     };
   },
   computed: {

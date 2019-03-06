@@ -219,7 +219,7 @@ export function mixinData(item, mixinData) {
   return { ...item, ...mixinData }
 }
 
-export function getUrlParam(url) {
+export function transUrlParams(url) {
   const paramStr = url.split('?')[1]
   if (!paramStr) return {}
   return JSON.parse(`{"${paramStr.replace(/&/g, '","').replace(/=/g, '":"')}"}`)

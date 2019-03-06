@@ -1,8 +1,10 @@
-import Mock from 'mockjs'
-import { getUrlParam } from '@/utils'
+const mock = require('mockjs').mock
+import { transUrlParams } from '@/utils'
 
-Mock.mock(/demo/, 'get', function(config) {
-  return getUrlParam(config.url)
+import { componentDatas, dragReportData } from './modules/dragReport'
+
+mock(/getReportData/, 'get', config => {
+  let { reportKey } = transUrlParams(config.url)
+  return dragReportData.find(report => report.reportKey === reportKey)
 })
-
-export default Mock
+mock(/getComponents/, 'get', config => componentDatas)

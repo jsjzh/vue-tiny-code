@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-06 15:27:32
+ * @LastEditTime: 2019-03-06 18:43:59
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
@@ -145,23 +145,20 @@
 
 <script>
 import { debounce } from "lodash";
+import { deepClone } from "@/utils";
+import colStyle from "@/mixins/methods/col-style";
 
 import clickoutside from "@/directive/clickoutside";
 import hoverswitch from "@/directive/hoverswitch";
 
-import { deepClone } from "@/utils";
-import colStyle from "@/mixins/methods/col-style";
-
-import { componentDatas } from "@/mock/variable";
-
-import { alignType, dragReportData } from "./variable";
-
 import defaultFramework from "@/components/default-framework";
 import defaultLayoutEditor from "@/components/default-layout-editor";
 
+import { getComponents, getReportData } from "@/api";
+
 const colSkipArr = ["initCol"];
 
-function getInitCol(options) {
+const getInitCol = function(options) {
   let obj = {
     title: null,
     col: 0,
@@ -170,7 +167,7 @@ function getInitCol(options) {
     showChildrenControllerBar: false
   };
   return { ...obj, ...options };
-}
+};
 
 export default {
   name: "dragReport",
@@ -183,7 +180,14 @@ export default {
         title: "",
         children: []
       },
-      alignType,
+      componentDatas: [],
+      alignType: [
+        { title: "左对齐", label: "left", value: "flex-start" },
+        { title: "居中对齐", label: "center", value: "center" },
+        { title: "右对齐", label: "right", value: "flex-end" },
+        { title: "两侧留白", label: "around", value: "space-around" },
+        { title: "两侧对齐", label: "between", value: "space-between" }
+      ],
       dragData: {
         isRow: false,
         isNewRow: false,
@@ -338,26 +342,31 @@ export default {
       return cols.map(item => (item[key] ? item[key] : 0)).join(" : ");
     },
     resolvePreviewData() {
-      return this.dragReportData.children.map(row => {
-        return {
-          align: row.align,
-          height: row.height,
-          index: row.index,
-          children: row.children.map(col => ({
-            col: col.col,
-            componentKey: col.componentKey,
-            initCol: col.initCol,
-            title: col.title
-          }))
-        };
-      });
+      return {
+        title: this.dragReportData.title,
+        reportKey: this.dragReportData.reportKey,
+        ...this.dragReportData.children.map(row => {
+          return {
+            align: row.align,
+            height: row.height,
+            index: row.index,
+            children: row.children.map(col => ({
+              col: col.col,
+              componentKey: col.componentKey,
+              initCol: col.initCol,
+              title: col.title
+            }))
+          };
+        })
+      };
     },
     handleToPreviewPage() {
-      window.localStorage.setItem(
-        "dragReport-previewData",
-        JSON.stringify(this.resolvePreviewData())
-      );
-      let routeUrl = this.$router.resolve({ path: "/previewReport" });
+      let { reportKey } = this.resolvePreviewData();
+      let routeUrl = this.$router.resolve({
+        path: "/previewReport",
+        query: { reportKey }
+      });
+      console.log(routeUrl);
       window.open(routeUrl.href, "_blank");
     },
     handleListenerScroll(e) {
@@ -376,7 +385,7 @@ export default {
             row.children.forEach((col, colIndex) => {
               let mixinCol = { showChildrenControllerBar: false };
               let curr =
-                componentDatas.find(
+                this.componentDatas.find(
                   component => component.componentKey === col.componentKey
                 ) || {};
               this.$set(row.children, colIndex, {
@@ -396,7 +405,11 @@ export default {
   },
   mounted() {
     this.addListener();
-    this.resolveReportData(dragReportData);
+    let promises = [getComponents(), getReportData("first-report")];
+    Promise.all(promises).then(ress => {
+      this.componentDatas = ress[0];
+      this.resolveReportData(ress[1]);
+    });
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.$$listeners.scroll);

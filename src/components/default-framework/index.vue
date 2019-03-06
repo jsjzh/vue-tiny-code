@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-13 14:50:02
- * @LastEditTime: 2019-03-06 15:00:49
+ * @LastEditTime: 2019-03-06 18:17:03
  * @Description: 组件列表头部的展示框集
  -->
 <template>
@@ -48,15 +48,50 @@
 </template>
 
 <script>
-import { box, componentDatas } from "@/mock/variable";
 import colStyle from "@/mixins/methods/col-style";
 import { mixinData } from "@/utils";
+
+import { getComponents } from "@/api";
 
 export default {
   name: "default-framework",
   mixins: [colStyle],
   data() {
-    return { box, initComponentDatas: [], componentDatas: [] };
+    return {
+      box: [
+        {
+          col: [
+            { active: false, height: 30, placeholderCol: 4.8 },
+            { active: false, height: 30, placeholderCol: 4.8 },
+            { active: false, height: 30, placeholderCol: 4.8 },
+            { active: false, height: 30, placeholderCol: 4.8 },
+            { active: false, height: 30, placeholderCol: 4.8 }
+          ]
+        },
+        {
+          col: [
+            { active: false, height: 50, placeholderCol: 16 },
+            { active: false, height: 50, placeholderCol: 8 }
+          ]
+        },
+        {
+          col: [
+            { active: false, height: 50, placeholderCol: 12 },
+            { active: false, height: 50, placeholderCol: 12 }
+          ]
+        },
+        {
+          col: [
+            { active: false, height: 50, placeholderCol: 8 },
+            { active: false, height: 50, placeholderCol: 8 },
+            { active: false, height: 50, placeholderCol: 8 }
+          ]
+        },
+        { col: [{ active: false, height: 50, placeholderCol: 24 }] }
+      ],
+      initComponentDatas: [],
+      componentDatas: []
+    };
   },
   methods: {
     handleDragCol(event, col) {
@@ -91,18 +126,18 @@ export default {
   },
   mounted() {
     let data = { title: "" };
-    this.componentDatas = componentDatas.map(component =>
-      mixinData(component, data)
-    );
-    this.initComponentDatas = componentDatas.map(component =>
-      mixinData(component, data)
-    );
+    getComponents().then(res => {
+      this.componentDatas = res.map(component => mixinData(component, data));
+      this.initComponentDatas = res.map(component =>
+        mixinData(component, data)
+      );
+    });
   }
 };
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/variable.scss';
+@import "~@/styles/variable.scss";
 
 .default-framework-container {
   @include default-flex;

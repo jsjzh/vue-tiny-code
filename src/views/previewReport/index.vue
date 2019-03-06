@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-03-06 15:13:06
+ * @LastEditTime: 2019-03-06 18:47:22
  * @Description: preview 页面
  -->
 <template>
@@ -33,11 +33,11 @@
 </template>
 
 <script>
-import { post, get } from "@/api";
+import { post, get } from "@/api/service";
 import exportPDF from "@/utils/exportPDF";
 import { flatLayoutData } from "@/utils";
 import _components from "./js/components";
-import { alignType } from "./js/variable";
+import { getComponents, getReportData } from "@/api";
 
 const _methods = { post, get };
 const noop = function() {
@@ -48,7 +48,13 @@ export default {
   name: "previewReport",
   data() {
     return {
-      alignType,
+      alignType: [
+        { title: "居中对齐", label: "center", value: "center" },
+        { title: "左对齐", label: "left", value: "flex-start" },
+        { title: "右对齐", label: "right", value: "flex-end" },
+        { title: "两侧留白", label: "around", value: "space-around" },
+        { title: "两侧对齐", label: "between", value: "space-between" }
+      ],
       isLoading: true,
       layoutData: [],
       queryData: {}
@@ -72,15 +78,15 @@ export default {
         type: 2
       };
     },
-    resolveLayoutData() {
-      return JSON.parse(window.localStorage.getItem("dragReport-previewData"));
-    }
+    resolveLayoutData() {}
   },
   mounted() {
+    let { reportKey } = this.$route.query;
+    getReportData(reportKey).then(res => {
+      this.layoutData = res;
+      console.log(this.layoutData);
+    });
     this.queryData = this.resolveQueryData();
-    this.layoutData = this.resolveLayoutData();
-
-    console.log(this.layoutData);
 
     let flatData = flatLayoutData(this.layoutData);
 

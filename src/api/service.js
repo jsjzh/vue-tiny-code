@@ -9,7 +9,8 @@ const service = axios.create({
 
 service.interceptors.request.use(
   config => {
-    return { ...config, _t: +Date.now() }
+    config.params = { ...config.params, _t: +Date.now() }
+    return config
   },
   err => {
     console.log('request err', err)
@@ -43,7 +44,6 @@ service.interceptors.response.use(
 )
 
 export const get = R.curry(function(url, params) {
-  console.log({ ...params })
   return service.get(url, {
     params: { ...params }
   })
