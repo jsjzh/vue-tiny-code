@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-06 18:43:59
+ * @LastEditTime: 2019-03-06 22:11:09
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
@@ -25,7 +25,7 @@
         <transition name="slide-fade">
           <div
             draggable="true"
-            v-if="row.showControllerBar"
+            v-show="row.showControllerBar"
             @dragstart="handleDragRow($event, row)"
             class="row-controller-bar"
           >
@@ -58,6 +58,7 @@
           :style="previewColStyle({width: col.initCol, height: row.height}, 100, 1, 24, {backgroundImage: col.previewImage ? `url(${col.previewImage})` : null, cursor: col.previewImage ? 'all-scroll' : null})"
           :key="colIndex"
           :draggable="col.previewImage ? true : false"
+          @click="handleClickCol(col)"
           @mouseenter="col.previewImage ? col.showChildrenControllerBar = true : null"
           @mouseleave="col.showChildrenControllerBar = false"
           @dragstart="handleDragCol($event, col, false)"
@@ -65,7 +66,7 @@
           @dragover="handleDragOver($event, col)"
         >
           <transition name="slide-fade">
-            <div class="col-controller-bar" v-if="col.showChildrenControllerBar">
+            <div class="col-controller-bar" v-show="col.showChildrenControllerBar">
               <span class="col-controller-bar-title-box" style="float: left">{{col.title}}</span>
               <span
                 class="col-controller-bar-title-box remove-item"
@@ -81,21 +82,21 @@
       class="el-icon-plus drag-report-add-row-icon report-ps-icon-btn"
       title="add row"
       :style="{top: `${addContainerTop}px`}"
-      v-if="!addRow.show"
+      v-show="!addRow.show"
       @click="addRow.show = true"
     />
     <i
       class="el-icon-plus drag-report-add-col-icon report-ps-icon-btn"
       title="add col"
       :style="{top: `${addContainerTop}px`}"
-      v-if="!addCol.show"
+      v-show="!addCol.show"
       @click="addCol.show = true"
     />
     <i
       class="el-icon-d-arrow-right drag-report-preview-icon report-ps-icon-btn"
       title="preview"
       :style="{top: `${addContainerTop}px`}"
-      v-if="!addCol.show"
+      v-show="!addCol.show"
       @click="handleToPreviewPage"
     />
 
@@ -108,7 +109,7 @@
         @mouseleave="addRow.showControllerBar = false"
       >
         <transition name="slide-fade">
-          <div class="title-box" v-if="addRow.showControllerBar">
+          <div class="title-box" v-show="addRow.showControllerBar">
             <i class="el-icon-close" @click="addRow.show = false"/>
           </div>
         </transition>
@@ -129,7 +130,7 @@
         @mouseleave="addCol.showControllerBar = false"
       >
         <transition name="slide-fade">
-          <div class="title-box" v-if="addCol.showControllerBar">
+          <div class="title-box" v-show="addCol.showControllerBar">
             <i class="el-icon-close" @click="addCol.show = false"/>
           </div>
         </transition>
@@ -208,6 +209,9 @@ export default {
     };
   },
   methods: {
+    handleClickCol(col) {
+      console.log(col);
+    },
     // edit row functions
     handleDragNewRow(event, row) {
       this.dragData.isRow = true;
@@ -301,9 +305,9 @@ export default {
           this.setCol(oldFrom, target);
           this.setCol(oldTarget, this.dragData.col);
         } else {
-          // 若仿制的位置是空的，则将 from 重置并赋值 target
-          this.resetCol(this.dragData.col);
+          // 若放置的位置是空的，则将 from 重置并赋值 target
           this.setCol(this.dragData.col, target);
+          this.resetCol(this.dragData.col);
         }
       } else {
         this.addCol.show = true;
@@ -328,7 +332,9 @@ export default {
       }
     },
     resetCol(col) {
-      let init = getInitCol({ title: col.title, initCol: col.initCol });
+      let init = getInitCol({
+        initCol: col.initCol
+      });
       this.delCol(col);
       this.setCol(init, col);
     },
