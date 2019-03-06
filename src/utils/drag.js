@@ -1,6 +1,14 @@
+/*
+ * @Author: jsjzh
+ * @Email: kimimi_king@163.com
+ * @LastEditors: jsjzh
+ * @Date: 2019-01-30 09:34:29
+ * @LastEditTime: 2019-03-06 15:41:47
+ * @Description: 对鼠标点击、移动、抬起事件进行包装
+ */
+
 let isDrag = false
 /**
- * 对鼠标点击、移动、抬起事件进行包装
  * @param {Element} elem
  * @param {Object} options
  */

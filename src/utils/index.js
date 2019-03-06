@@ -3,11 +3,10 @@
  * @Email: kimimi_king@163.com
  * @Date: 2018-6-28 15:13:23
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-06 15:11:19
+ * @LastEditTime: 2019-03-06 15:40:28
  * @Description: 常用函数包装
  */
 import * as R from 'ramda'
-
 
 const OBJECT = '[object Object]'
 const ARRAY = '[object Array]'

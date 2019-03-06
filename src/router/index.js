@@ -13,6 +13,11 @@ export const routes = [
     component: importLayout('home'),
     children: [
       {
+        path: 'palette',
+        name: 'palette',
+        component: importView('palette')
+      },
+      {
         path: 'dragReport',
         name: 'dragReport',
         component: importView('dragReport')
@@ -21,16 +26,6 @@ export const routes = [
         path: 'previewReport',
         name: 'previewReport',
         component: importView('previewReport')
-      },
-      {
-        path: 'palettePro',
-        name: 'palettePro',
-        component: importView('palettePro')
-      },
-      {
-        path: 'resize',
-        name: 'resize',
-        component: importView('resize')
       }
     ]
   },

@@ -72,12 +72,12 @@
 
 
 <script>
-import drag from "./drag";
-import paste from "./paste";
+import drag from "@/utils/drag";
+import paste from "@/utils/paste";
 import Color from "./color";
 
 export default {
-  name: "palette",
+  name: "color-picker",
   data() {
     const color = new Color({
       // 精度
@@ -126,8 +126,6 @@ export default {
     },
 
     update() {
-      console.log(this.color);
-
       this.color._update(
         this.satLeft,
         this.valueTop,
@@ -154,11 +152,11 @@ export default {
       _className.indexOf("hue") !== -1
         ? (this.hueLeft = (_left / width) * 100)
         : _className.indexOf("trans") !== -1
-          ? (this.transLeft = (_left / width) * 100)
-          : _className.indexOf("color") !== -1
-            ? ((this.satLeft = (_left / width) * 100),
-              (this.valueTop = (_top / height) * 100))
-            : "";
+        ? (this.transLeft = (_left / width) * 100)
+        : _className.indexOf("color") !== -1
+        ? ((this.satLeft = (_left / width) * 100),
+          (this.valueTop = (_top / height) * 100))
+        : "";
 
       this.update();
     }
@@ -180,10 +178,9 @@ export default {
 </script>
 
 
-<style scoped>
+<style lang="scss" scoped>
 .palette-pro-container {
   width: 300px;
-  margin: 50px auto;
   background-color: #fff;
   box-shadow: 1px 1px 5px #949494;
   box-sizing: border-box;
@@ -294,7 +291,7 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: url("./lucency.png");
+  background-image: url("~@/assets/img/palette/lucency.png");
   background-repeat: repeat;
   background-size: 10px;
   background-position: 0 0;
