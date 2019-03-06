@@ -24,7 +24,7 @@ import {
   riskTypeDistributeTableOption as tableOption,
   riskTypeDistributeChartOption as chartOption
 } from "./js/variable";
-import { transPieChartData } from "@/util/pageUtil";
+import { transPieChartData } from "@/utils";
 
 export default {
   name: "custom-report-risk-type-distribution",
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/css/default-variable.scss";
+@import "~@/styles/variable.scss";
 @import "./css/variable.scss";
 .custom-container {
   @include componentContainer;

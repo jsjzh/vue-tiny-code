@@ -78,7 +78,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/css/default-variable.scss";
+@import "~@/styles/variable.scss";
 @import "./css/variable.scss";
 .custom-container {
   @include componentContainer;

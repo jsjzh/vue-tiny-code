@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-03-05 23:32:30
+ * @LastEditTime: 2019-03-06 15:13:06
  * @Description: preview 页面
  -->
 <template>
@@ -33,8 +33,9 @@
 </template>
 
 <script>
-import { post, get } from "@/util/ajax";
-import { flatLayoutData, exportPDF } from "@/util/pageUtil";
+import { post, get } from "@/api";
+import exportPDF from "@/utils/exportPDF";
+import { flatLayoutData } from "@/utils";
 import _components from "./js/components";
 import { alignType } from "./js/variable";
 

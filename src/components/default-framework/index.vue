@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-13 14:50:02
- * @LastEditTime: 2019-03-05 11:02:19
+ * @LastEditTime: 2019-03-06 15:00:49
  * @Description: 组件列表头部的展示框集
  -->
 <template>
@@ -48,9 +48,9 @@
 </template>
 
 <script>
-import { box, componentDatas } from "./variable";
-import colStyle from "../mixins/col-style";
-import { mixinData } from "@/util/pageUtil";
+import { box, componentDatas } from "@/mock/variable";
+import colStyle from "@/mixins/methods/col-style";
+import { mixinData } from "@/utils";
 
 export default {
   name: "default-framework",
@@ -102,7 +102,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../css/variate.scss";
+@import '~@/styles/variable.scss';
 
 .default-framework-container {
   @include default-flex;

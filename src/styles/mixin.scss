@@ -1,11 +1,53 @@
-@import '~@/assets/css/default-variable.scss';
+@mixin default-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-$defaultBackground: rgba(102, 102, 102, 0.8);
-$defaultControllerBarBackground: rgba(158, 158, 158, 0.5);
-$defaultControllerBoxBackground: white;
-$defaultColor: white;
-$defaultActiveColor: black;
-$previewColBg: rgb(238, 238, 238);
+@mixin flex-full {
+  width: 100%;
+}
+
+@mixin flexWrap {
+  flex-wrap: wrap;
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin flexCol {
+  @include flexWrap;
+  flex-flow: column;
+}
+
+@mixin ps-r {
+  position: relative;
+}
+
+@mixin ps-a {
+  position: absolute;
+}
+
+@mixin fr {
+  float: right;
+}
+
+@mixin fl {
+  float: left;
+}
+
+@mixin cur-p {
+  cursor: pointer;
+}
+
+@mixin cur-all {
+  cursor: all-scroll;
+}
+
+/* 待整理 */
 
 @mixin btn-icon {
   font-size: 1.8rem;

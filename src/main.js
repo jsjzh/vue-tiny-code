@@ -2,23 +2,17 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 
-import echarts from 'echarts'
+import 'element-ui/lib/theme-chalk/index.css'
 import ElementUI from 'element-ui'
-
-import mixins from '@/mixins'
+Vue.use(ElementUI)
 
 import '../static/css/reset.css'
-
-import 'element-ui/lib/theme-chalk/index.css'
-import './assets/css/element-cover.scss'
-import './assets/css/global.scss'
-
-Vue.use(ElementUI)
-Vue.use(mixins)
+import '@/styles/global.scss'
 
 Vue.config.productionTip = false
 
-Vue.prototype.$echarts = echarts
+import './mock'
+import './prototype'
 
 const app = new Vue({
   el: '#app',

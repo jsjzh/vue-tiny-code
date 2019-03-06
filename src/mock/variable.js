@@ -50,7 +50,7 @@ export const componentDatas = [
     dataKey: 'drive_score_city',
     col: 1,
     height: 250,
-    previewImage: require('../img/col-1-0.png')
+    previewImage: require('@/assets/img/dragReport/col-1-0.png')
   },
   {
     label: '2 --- 占位组件',
@@ -61,7 +61,7 @@ export const componentDatas = [
     dataKey: 'drive_score_city',
     col: 2,
     height: 250,
-    previewImage: require('../img/col-2-0.png')
+    previewImage: require('@/assets/img/dragReport/col-2-0.png')
   },
   {
     label: '3 --- 占位组件',
@@ -72,7 +72,7 @@ export const componentDatas = [
     dataKey: 'drive_score_city',
     col: 3,
     height: 250,
-    previewImage: require('../img/col-3-0.png')
+    previewImage: require('@/assets/img/dragReport/col-3-0.png')
   },
   {
     label: '4 --- 占位组件',
@@ -83,7 +83,7 @@ export const componentDatas = [
     dataKey: 'drive_score_city',
     col: 4,
     height: 250,
-    previewImage: require('../img/col-4-0.png')
+    previewImage: require('@/assets/img/dragReport/col-4-0.png')
   },
   {
     label: '驾驶评分',
@@ -94,7 +94,7 @@ export const componentDatas = [
     dataKey: 'drive_score_total',
     col: 4.8,
     height: 100,
-    previewImage: require('../img/col-4.8-1.png')
+    previewImage: require('@/assets/img/dragReport/col-4.8-1.png')
   },
   {
     label: '高速评分',
@@ -105,7 +105,7 @@ export const componentDatas = [
     dataKey: 'drive_score_motorway',
     col: 4.8,
     height: 100,
-    previewImage: require('../img/col-4.8-2.png')
+    previewImage: require('@/assets/img/dragReport/col-4.8-2.png')
   },
   {
     label: '非高速评分',
@@ -116,7 +116,7 @@ export const componentDatas = [
     dataKey: 'drive_score_city',
     col: 4.8,
     height: 100,
-    previewImage: require('../img/col-4.8-3.png')
+    previewImage: require('@/assets/img/dragReport/col-4.8-3.png')
   },
   {
     label: '日间评分',
@@ -127,7 +127,7 @@ export const componentDatas = [
     dataKey: 'drive_score_day',
     col: 4.8,
     height: 100,
-    previewImage: require('../img/col-4.8-4.png')
+    previewImage: require('@/assets/img/dragReport/col-4.8-4.png')
   },
   {
     label: '夜间评分',
@@ -138,7 +138,7 @@ export const componentDatas = [
     dataKey: 'drive_score_night',
     col: 4.8,
     height: 100,
-    previewImage: require('../img/col-4.8-5.png')
+    previewImage: require('@/assets/img/dragReport/col-4.8-5.png')
   },
   {
     label: '6 --- 占位组件',
@@ -149,7 +149,7 @@ export const componentDatas = [
     dataKey: 'drive_score_city',
     col: 6,
     height: 250,
-    previewImage: require('../img/col-6-0.png')
+    previewImage: require('@/assets/img/dragReport/col-6-0.png')
   },
   {
     label: '报警车速分布图',
@@ -160,7 +160,7 @@ export const componentDatas = [
     dataKey: 'drive_score_city',
     col: 8,
     height: 250,
-    previewImage: require('../img/col-8-1.png')
+    previewImage: require('@/assets/img/dragReport/col-8-1.png')
   },
   {
     label: '作业时段分布图（次）',
@@ -171,7 +171,7 @@ export const componentDatas = [
     dataKey: '',
     col: 12,
     height: 250,
-    previewImage: require('../img/col-12-1.png')
+    previewImage: require('@/assets/img/dragReport/col-12-1.png')
   },
   {
     label: '作业趋势图（次）',
@@ -182,7 +182,7 @@ export const componentDatas = [
     dataKey: 'work_detail_day',
     col: 12,
     height: 250,
-    previewImage: require('../img/col-12-2.png')
+    previewImage: require('@/assets/img/dragReport/col-12-2.png')
   },
   {
     label: '风险类型分布图（TOP5）',
@@ -193,7 +193,7 @@ export const componentDatas = [
     dataKey: 'adas_alarm_types',
     col: 16,
     height: 250,
-    previewImage: require('../img/col-16-1.png')
+    previewImage: require('@/assets/img/dragReport/col-16-1.png')
   },
   {
     label: '评分图',
@@ -204,6 +204,6 @@ export const componentDatas = [
     dataKey: '',
     col: 24,
     height: 250,
-    previewImage: require('../img/col-24-1.png')
+    previewImage: require('@/assets/img/dragReport/col-24-1.png')
   }
 ]

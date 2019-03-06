@@ -19,7 +19,7 @@
 import defaultContainer from "./default-container";
 import defaultPieChart from "./default-pie-chart";
 import { alarmSpeedDistribution as chartOption } from "./js/variable";
-import { transPieChartData } from "@/util/pageUtil";
+import { transPieChartData } from "@/utils";
 
 export default {
   name: "custom-report-alarm-speed-distribution",
@@ -76,7 +76,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/css/default-variable.scss";
+@import "~@/styles/variable.scss";
 @import "./css/variable.scss";
 .custom-container {
   @include componentContainer;

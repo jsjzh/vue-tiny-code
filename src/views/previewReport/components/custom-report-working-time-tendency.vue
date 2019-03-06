@@ -19,7 +19,7 @@
 import defaultContainer from "./default-container";
 import defaultLineChart from "./default-line-chart";
 import { workingTimetimeTendencyLineChartOption as chartOption } from "./js/variable";
-import { transLineChartData } from "@/util/pageUtil";
+import { transLineChartData } from "@/utils";
 
 export default {
   name: "custom-report-working-time-tendency",
@@ -80,7 +80,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/css/default-variable.scss";
+@import "~@/styles/variable.scss";
 @import "./css/variable.scss";
 .custom-container {
   @include componentContainer;

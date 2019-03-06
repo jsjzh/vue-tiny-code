@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-06 09:34:35
+ * @LastEditTime: 2019-03-06 14:59:28
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
@@ -146,16 +146,18 @@
 <script>
 import { debounce } from "lodash";
 
-import clickoutside from "@/util/clickoutside";
-import hoverswitch from "@/util/hoverswitch";
+import clickoutside from "@/directive/clickoutside";
+import hoverswitch from "@/directive/hoverswitch";
 
-import { deepClone } from "@/util/pageUtil";
-import colStyle from "./mixins/col-style";
+import { deepClone } from "@/utils";
+import colStyle from "@/mixins/methods/col-style";
 
-import { alignType, dragReportData, componentDatas } from "./js/variable";
+import { componentDatas } from "@/mock/variable";
 
-import defaultFramework from "./components/default-framework";
-import defaultLayoutEditor from "./components/default-layout-editor";
+import { alignType, dragReportData } from "./variable";
+
+import defaultFramework from "@/components/default-framework";
+import defaultLayoutEditor from "@/components/default-layout-editor";
 
 const colSkipArr = ["initCol"];
 
@@ -403,5 +405,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./css/layout.scss";
+@import "./layout.scss";
 </style>

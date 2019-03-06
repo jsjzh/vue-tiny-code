@@ -1,0 +1,26 @@
+/*
+ * @Author: jsjzh
+ * @Email: kimimi_king@163.com
+ * @LastEditors: jsjzh
+ * @Date: 2019-02-27 18:21:10
+ * @LastEditTime: 2019-03-06 15:06:02
+ * @Description: 全局样式变量
+ */
+@import './mixin.scss';
+
+$deep-color-1: rgb(52, 73, 93);
+$deep-color-2: rgb(44, 61, 79);
+$active-color-1: rgb(238, 119, 56);
+$active-color-2: rgb(245, 157, 42);
+$shallow-color-1: rgb(242, 245, 247);
+$shallow-color-2: rgb(253, 241, 235);
+
+$danger-color: #f44336;
+$success-color: #4caf50;
+
+$defaultBackground: rgba(102, 102, 102, 0.8);
+$defaultControllerBarBackground: rgba(158, 158, 158, 0.5);
+$defaultControllerBoxBackground: white;
+$defaultColor: white;
+$defaultActiveColor: black;
+$previewColBg: rgb(238, 238, 238);

@@ -37,7 +37,7 @@ import {
   fullTabsGradeTime,
   fullTabsGradeDimension
 } from "./js/variable";
-import { transLineChartData } from "@/util/pageUtil";
+import { transLineChartData } from "@/utils";
 
 export default {
   name: "custom-report-full-tabs-grade",
@@ -279,7 +279,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/css/default-variable.scss";
+@import "~@/styles/variable.scss";
 @import "./css/variable.scss";
 .custom-container {
   @include componentContainer;

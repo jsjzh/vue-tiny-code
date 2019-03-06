@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-22 09:31:45
- * @LastEditTime: 2019-03-05 18:59:05
+ * @LastEditTime: 2019-03-06 15:06:44
  * @Description: 左侧添加布局的框
  -->
 <template>
@@ -73,8 +73,8 @@
 </template>
 
 <script>
-import { suggestLayouts } from "./variable";
-import colStyle from "../mixins/col-style";
+import { suggestLayouts } from "@/mock/variable";
+import colStyle from "@/mixins/methods/col-style";
 
 export default {
   name: "default-layout-editor",
@@ -134,7 +134,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../css/variate.scss";
+@import "~@/styles/variable.scss";
 
 .layout-editor-container {
   @include default-flex;

@@ -25,7 +25,7 @@ import {
   workingTimeDistributionBarChartOption as barChartOption,
   workingTimeDistributionPieChartOption as pieChartOption
 } from "./js/variable";
-import { transBarChartData, transPieChartData } from "@/util/pageUtil";
+import { transBarChartData, transPieChartData } from "@/utils";
 
 export default {
   name: "custom-report-working-time-distribution",
@@ -119,7 +119,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/css/default-variable.scss";
+@import "~@/styles/variable.scss";
 @import "./css/variable.scss";
 .custom-container {
   @include componentContainer;

@@ -3,20 +3,9 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-11 10:55:03
- * @LastEditTime: 2019-03-05 23:02:54
+ * @LastEditTime: 2019-03-06 14:56:37
  * @Description: 组件相关信息
  */
-
-/**
- * align
- * center: center
- * left: flex-start
- * right: flex-end
- * around: space-around
- * between: space-between
- */
-
-export { componentDatas } from '../components/variable'
 
 export const alignType = [
   { title: '左对齐', label: 'left', value: 'flex-start' },

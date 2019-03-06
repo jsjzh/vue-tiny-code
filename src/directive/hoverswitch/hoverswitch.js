@@ -1,16 +1,13 @@
 /*
  * @Author: jsjzh
  * @Email: kimimi_king@163.com
- * @Date: 2018-10-30 16:30:49
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-01 13:48:53
- * @Description: 判断鼠标点击是否在被绑定的元素上
- * @use
- *  import Clickoutside from "util/clickoutside"
- *  directives: { Clickoutside }
- *  <div v-clickoutside="handleClickutside" />
+ * @Date: 2019-03-05 15:26:27
+ * @LastEditTime: 2019-03-06 14:42:19
+ * @Description: 鼠标移入移出状态切换
  */
-import { on, off } from './dom'
+
+import { on, off } from '@/utils/dom'
 
 const nodeList = []
 const context = '@@clickoutsideContext'
