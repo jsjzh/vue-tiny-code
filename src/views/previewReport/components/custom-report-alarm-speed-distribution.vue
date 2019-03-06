@@ -3,16 +3,16 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:43:52
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-02-27 18:25:52
+ * @LastEditTime: 2019-03-06 23:46:28
  * @Description: custom-report-alarm-speed-distribution
  -->
 <template>
-  <default-container class="custom-container">
+  <div class="custom-container">
     <div class="custom-item custom-title">{{title}}</div>
     <div class="custom-table-pie-container">
       <default-pie-chart ref="pie-chart" style="flex: 1" @reload="handlePieReload"/>
     </div>
-  </default-container>
+  </div>
 </template>
 
 <script>

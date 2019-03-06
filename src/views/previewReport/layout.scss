@@ -1,0 +1,27 @@
+@import '~@/styles/variable.scss';
+
+.preview-report {
+  @include ps-r;
+  .preview-report-title {
+    margin: 2rem;
+    text-align: center;
+    font-size: 3rem;
+  }
+  .preview-container {
+    width: 1200px;
+    margin: 0 auto;
+    .layout-row {
+      @include default-flex;
+      @include ps-r;
+      flex-wrap: nowrap;
+      margin: 2rem 0;
+      .layout-col {
+        @include default-flex;
+        @include default-background-img;
+        @include ps-r;
+        @include default-col-style;
+        @include default-col-layout;
+      }
+    }
+  }
+}

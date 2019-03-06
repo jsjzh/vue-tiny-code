@@ -7,7 +7,7 @@
  * @Description: custom-report-working-time-tendency
  -->
 <template>
-  <default-container class="custom-container">
+  <div class="custom-container">
     <div class="custom-item custom-title">{{title}}</div>
     <div class="custom-table-line-container">
       <el-tabs style="width: 100%;height: 100%" v-model="activeName" @tab-click="handleToggleTabs">
@@ -25,7 +25,7 @@
         </el-tab-pane>
       </el-tabs>
     </div>
-  </default-container>
+  </div>
 </template>
 
 <script>

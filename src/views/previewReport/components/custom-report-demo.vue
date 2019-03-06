@@ -7,7 +7,7 @@
  * @Description: custom-report-demo 基础组件模板
  -->
 <template>
-  <default-container class="custom-container">
+  <div class="custom-container">
     <div class="demo-item demo-title">{{title}}</div>
     <div class="demo-item demo-count">
       <div>
@@ -33,7 +33,7 @@
         </span>
       </div>
     </div>
-  </default-container>
+  </div>
 </template>
 
 <script>

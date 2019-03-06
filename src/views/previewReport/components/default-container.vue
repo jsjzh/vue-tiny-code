@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:42:41
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-02-27 16:25:45
+ * @LastEditTime: 2019-03-06 23:45:49
  * @Description: 所有组件都要引用该框架组件
  -->
 <template>
@@ -22,7 +22,6 @@ export default {
 @import "~@/styles/variable.scss";
 @import "./css/variable.scss";
 .default-container {
-  @include default-flex;
   width: 100%;
   height: 100%;
 }

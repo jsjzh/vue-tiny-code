@@ -7,13 +7,13 @@
  * @Description: custom-report-working-time-distribution
  -->
 <template>
-  <default-container class="custom-container">
+  <div class="custom-container">
     <div class="custom-item custom-title">{{title}}</div>
     <div class="custom-table-bar-container">
       <default-bar-chart ref="bar-chart" style="flex: 6" @reload="handleBarReload"/>
       <default-pie-chart ref="pie-chart" style="flex: 4" @reload="handlePieReload"/>
     </div>
-  </default-container>
+  </div>
 </template>
 
 <script>

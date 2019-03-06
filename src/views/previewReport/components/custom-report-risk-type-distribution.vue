@@ -7,13 +7,13 @@
  * @Description: custom-report-risk-type-distribution
  -->
 <template>
-  <default-container class="custom-container">
+  <div class="custom-container">
     <div class="custom-item custom-title">{{title}}</div>
     <div class="custom-table-pie-container">
       <default-table style="flex: 6" :tableData="reportData" :tableOption="tableOption"/>
       <default-pie-chart ref="pie-chart" style="flex: 4" @reload="handlePieReload"/>
     </div>
-  </default-container>
+  </div>
 </template>
 
 <script>

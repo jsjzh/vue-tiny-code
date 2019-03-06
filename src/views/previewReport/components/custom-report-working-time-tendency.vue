@@ -7,12 +7,12 @@
  * @Description: custom-report-working-time-tendency
  -->
 <template>
-  <default-container class="custom-container">
+  <div class="custom-container">
     <div class="custom-item custom-title">{{title}}</div>
     <div class="custom-table-line-container">
       <default-line-chart ref="line-chart" style="flex: 1" @reload="handleLineReload"/>
     </div>
-  </default-container>
+  </div>
 </template>
 
 <script>
