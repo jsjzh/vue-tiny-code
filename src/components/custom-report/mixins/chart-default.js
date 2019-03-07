@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-27 10:20:10
- * @LastEditTime: 2019-02-27 15:41:05
+ * @LastEditTime: 2019-03-07 17:10:46
  * @Description: chart 实例默认 mixin 配置
  */
 import { defaultLineOption, defaultPieOption, defaultBarOption } from '../js/variable'
@@ -13,7 +13,7 @@ const chartOptions = { defaultLineOption, defaultPieOption, defaultBarOption }
 export default {
   methods: {
     // 同时还接受父组件传来的 option
-    renderChart(option) {
+    setOption(option) {
       this.$$chartInstance && this.$$chartInstance.setOption(option)
     },
     handleResize() {
@@ -37,7 +37,7 @@ export default {
     }
 
     this.initChart(this.$options.name)
-    this.renderChart(chartOptions[this.optionName])
+    this.setOption(chartOptions[this.optionName])
     this.$emit('reload', this.$$chartInstance)
     this.addResizeListener()
   },

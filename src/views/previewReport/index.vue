@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-03-06 23:45:15
+ * @LastEditTime: 2019-03-07 16:53:02
  * @Description: preview 页面
  -->
 <template>
@@ -12,7 +12,7 @@
     <div class="preview-container">
       <div
         class="layout-row"
-        :style="rowStyle(row)"
+        :style="{justifyContent: row.align, height: `${row.height}px`}"
         v-for="(row, rowIndex) in layoutData.children"
         :key="rowIndex"
       >
@@ -22,12 +22,9 @@
           v-for="(col, colIndex) in row.children"
           :key="colIndex"
         >
-          <default-container v-if="col.componentName">
-            <component
-              :is="`custom-report-${col.componentName}`"
-              :title="col.title"
-              :reportData="col.reportData"
-            />
+          <default-container v-if="col.componentKey">
+            <div class="col-title">{{col.title}}</div>
+            <component style="flex: 1" :is="`custom-report-${col.componentName}`" :reportData="col.reportData"/>
           </default-container>
           <default-container v-else>空组件</default-container>
         </div>
@@ -38,13 +35,19 @@
 
 <script>
 import { post, get } from "@/api/service";
+
 import exportPDF from "@/utils/exportPDF";
 import { flatLayoutData } from "@/utils";
-import _components from "./js/components";
-import { getComponents, getReportData } from "@/api";
+
 import colStyle from "@/mixins/methods/col-style";
 
+import defaultContainer from "@/components/custom-report/default-container";
+import customReports from "./index";
+
+import { getComponents, getReportData } from "@/api";
+
 const _methods = { post, get };
+
 const noop = function() {
   return function() {};
 };
@@ -70,15 +73,8 @@ export default {
       queryData: {}
     };
   },
-  components: _components,
+  components: { defaultContainer, ...customReports },
   methods: {
-    rowStyle(row) {
-      let align = this.alignType.find(aligns => aligns.value === row.align);
-      return {
-        justifyContent: (align && align.value) || "flex-left",
-        height: `${row.height}px`
-      };
-    },
     resolveQueryData() {
       return { serarchKey: "test" };
     },
@@ -97,63 +93,55 @@ export default {
               });
             });
         });
-      this.layoutData = reportData;
+      return reportData;
     }
   },
   mounted() {
     let { reportKey } = this.$route.query;
+
     let promises = [getComponents(), getReportData(reportKey)];
+
     Promise.all(promises).then(ress => {
       this.componentDatas = ress[0];
-      this.resolveReportData(ress[1]);
-
+      this.layoutData = this.resolveReportData(ress[1]);
       this.queryData = this.resolveQueryData();
 
       let flatData = flatLayoutData(this.layoutData);
 
-      let apiList = flatData.map(col => ({
-        api: col.api,
-        method: col.method,
-        key: col.dataKey
-      }));
-
-      let list = flatData.reduce((pre, curr, index) => {
-        let api = curr.api;
-        let key = curr.dataKey;
-        // 保存使用相同的接口的 index
-        if (!(api in pre)) {
-          pre[api] = {};
-          pre[api].sameIndexs = [index];
+      let apiList = {};
+      for (let index = 0; index < flatData.length; index++) {
+        const item = flatData[index];
+        const api = item.api;
+        const method = item.method;
+        const key = item.dataKey;
+        if (!api) continue;
+        if (api in apiList) {
+          apiList[api].sameIndexs.push(index);
         } else {
-          pre[api].sameIndexs.push(index);
+          apiList[api] = {};
+          apiList[api].sameIndexs = [index];
         }
-        // 保存方法
-        pre[api].method = curr.method ? curr.method : "get";
-        // 保存 dataKey
-        if (!pre[api].keys) {
-          pre[api].keys = [];
+        if (!apiList[api].keys) {
+          apiList[api].keys = [];
         }
-        pre[api].keys[index] = key;
-        return pre;
-      }, {});
-
-      if ("undefined" in list) {
-        delete list.undefined;
+        apiList[api].keys[index] = key;
+        apiList[api].method = method;
       }
 
-      let requestList = Object.keys(list).map(api => {
-        const item = list[api];
+      let requestList = Object.keys(apiList).map(api => {
+        const item = apiList[api];
         let method = item.method ? _methods[item.method] : noop;
         return method(api);
       });
 
       Promise.all(requestList.map(request => request(this.queryData)))
         .then(datas => {
-          Object.keys(list).forEach((api, apiIndex) => {
-            let sameIndexs = list[api].sameIndexs;
+          console.log(datas);
+          Object.keys(apiList).forEach((api, apiIndex) => {
+            let sameIndexs = apiList[api].sameIndexs;
             flatData.forEach((col, colIndex) => {
               if (sameIndexs.findIndex(index => index === colIndex) !== -1) {
-                let key = list[api].keys[colIndex];
+                let key = apiList[api].keys[colIndex];
                 let _data = key ? datas[apiIndex][key] : datas[apiIndex];
                 this.$set(col, "reportData", _data);
               }

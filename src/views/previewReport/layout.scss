@@ -21,6 +21,10 @@
         @include ps-r;
         @include default-col-style;
         @include default-col-layout;
+        .col-title {
+          width: 100%;
+          font-weight: 600;
+        }
       }
     }
   }

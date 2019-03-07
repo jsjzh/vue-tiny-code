@@ -3,8 +3,8 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:43:52
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-02-27 11:16:44
- * @Description: custom-report-four-dot-eight-default
+ * @LastEditTime: 2019-03-07 14:43:19
+ * @Description: custom-report-demo 基础组件模板
  -->
 <template>
   <div class="custom-container">
@@ -39,7 +39,7 @@
 <script>
 import defaultContainer from "./default-container";
 export default {
-  name: "custom-report-four-dot-eight-default",
+  name: "custom-report-demo",
   props: {
     title: {
       type: String,
@@ -78,36 +78,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/styles/variable.scss";
-@import "./css/variable.scss";
-.custom-container {
-  @include componentContainer;
-  & .demo-item {
-    @include flexFullRow;
-  }
-  & .demo-title {
-    @include title-4_8;
-  }
-  & .demo-count {
-    @include default-flex;
-    flex: 1;
-    & div {
-      flex: 1;
-    }
-    .count {
-      @include count-4_8;
-    }
-  }
-  & .demo-rate {
-    @include default-flex;
-    font-size: 1.2rem;
-    & div {
-      flex: 1;
-    }
-    .rate {
-      color: black;
-    }
-  }
-}
+@import "./css/index.scss";
 </style>
 

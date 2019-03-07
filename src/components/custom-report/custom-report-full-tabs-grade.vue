@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:43:52
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-02-27 15:38:06
+ * @LastEditTime: 2019-03-07 17:10:25
  * @Description: custom-report-working-time-tendency
  -->
 <template>
@@ -93,10 +93,10 @@ export default {
       let lineChartTwo = this.$refs["line-chart-two"];
       let lineChartThree = this.$refs["line-chart-three"];
       let lineChartFour = this.$refs["line-chart-four"];
-      lineChartOne.renderChart(fullTabsGradeAverage);
-      lineChartTwo.renderChart(fullTabsGradeHighway);
-      lineChartThree.renderChart(fullTabsGradeTime);
-      lineChartFour.renderChart(fullTabsGradeDimension);
+      lineChartOne.setOption(fullTabsGradeAverage);
+      lineChartTwo.setOption(fullTabsGradeHighway);
+      lineChartThree.setOption(fullTabsGradeTime);
+      lineChartFour.setOption(fullTabsGradeDimension);
       this.renderLineChart(this.chartData);
     },
     renderLineChart(option) {
@@ -216,7 +216,7 @@ export default {
         option
       );
 
-      lineChartOne.renderChart(
+      lineChartOne.setOption(
         {
           xAxis: { data: date },
           series: [
@@ -226,7 +226,7 @@ export default {
         },
         option
       );
-      lineChartTwo.renderChart(
+      lineChartTwo.setOption(
         {
           xAxis: { data: date },
           series: [
@@ -236,7 +236,7 @@ export default {
         },
         option
       );
-      lineChartThree.renderChart(
+      lineChartThree.setOption(
         {
           xAxis: { data: date },
           series: [
@@ -246,7 +246,7 @@ export default {
         },
         option
       );
-      lineChartFour.renderChart(
+      lineChartFour.setOption(
         {
           xAxis: { data: date },
           series: [
@@ -265,10 +265,10 @@ export default {
     let lineChartTwo = this.$refs["line-chart-two"];
     let lineChartThree = this.$refs["line-chart-three"];
     let lineChartFour = this.$refs["line-chart-four"];
-    lineChartOne.renderChart(fullTabsGradeAverage);
-    lineChartTwo.renderChart(fullTabsGradeHighway);
-    lineChartThree.renderChart(fullTabsGradeTime);
-    lineChartFour.renderChart(fullTabsGradeDimension);
+    lineChartOne.setOption(fullTabsGradeAverage);
+    lineChartTwo.setOption(fullTabsGradeHighway);
+    lineChartThree.setOption(fullTabsGradeTime);
+    lineChartFour.setOption(fullTabsGradeDimension);
     this.renderLineChart(this.chartData);
     lineChartOne.handleResize();
     lineChartTwo.handleResize();
@@ -279,34 +279,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/styles/variable.scss";
-@import "./css/variable.scss";
-.custom-container {
-  @include componentContainer;
-  & .custom-item {
-    @include flexFullRow;
-  }
-  & .custom-title {
-    @include title-4_8;
-  }
-  & .custom-table-line-container {
-    @include default-flex;
-    width: 100%;
-    height: 100%;
-  }
-  /deep/ .el-tabs {
-    display: flex;
-    flex-flow: column;
-    .el-tabs__header {
-      @include flexFullRow;
-      margin: 0;
-    }
-    .el-tabs__content {
-      @include default-flex;
-      @include flexFullRow;
-      flex: 1;
-    }
-  }
-}
+@import "./css/index.scss";
 </style>
 

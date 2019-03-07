@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:43:52
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-02-27 14:46:40
+ * @LastEditTime: 2019-03-07 17:10:37
  * @Description: custom-report-working-time-tendency
  -->
 <template>
@@ -52,7 +52,7 @@ export default {
     // 暂时不需要，该组件没有对应接口，使用假数据
     handleLineReload(instance) {
       let lineChart = this.$refs["line-chart"];
-      lineChart.renderChart(chartOption);
+      lineChart.setOption(chartOption);
       this.renderLineChart(this.reportData);
     },
     renderLineChart(option) {
@@ -66,7 +66,7 @@ export default {
         },
         option
       );
-      lineChart.renderChart({
+      lineChart.setOption({
         xAxis: { data: name },
         series: [{ data: value }]
       });
@@ -74,27 +74,12 @@ export default {
   },
   mounted() {
     let lineChart = this.$refs["line-chart"];
-    lineChart.renderChart(chartOption);
+    lineChart.setOption(chartOption);
   }
 };
 </script>
 
 <style lang="scss" scoped>
-@import "~@/styles/variable.scss";
-@import "./css/variable.scss";
-.custom-container {
-  @include componentContainer;
-  & .custom-item {
-    @include flexFullRow;
-  }
-  & .custom-title {
-    @include title-4_8;
-  }
-  & .custom-table-line-container {
-    @include default-flex;
-    width: 100%;
-    height: 100%;
-  }
-}
+@import "./css/index.scss";
 </style>
 

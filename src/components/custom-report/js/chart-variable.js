@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-27 11:18:09
- * @LastEditTime: 2019-02-27 18:08:38
+ * @LastEditTime: 2019-03-07 16:58:32
  * @Description: 该文件只是为了方便管理 default-chart-option，在 variable 中会将这些变量曝露出去
  */
 
@@ -49,7 +49,7 @@ const lineDefaultData = [820, 932, 901, 934, 1290, 1330, 1320]
 export const defaultPieOption = {
   color: defaultChartColors,
   title: { show: false },
-  legend: { orient: 'vertical', left: '5%', top: '0', icon: 'circle' },
+  legend: { orient: 'vertical', left: '5%', top: '15%', icon: 'circle' },
   tooltip: { confine: true, trigger: 'item', formatter: '{a} <br/>{b}: {c} ({d}%)' },
   series: [
     {

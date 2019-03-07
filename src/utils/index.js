@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2018-6-28 15:13:23
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-06 17:27:00
+ * @LastEditTime: 2019-03-07 15:06:34
  * @Description: 常用函数包装
  */
 import * as R from 'ramda'
@@ -223,4 +223,8 @@ export function transUrlParams(url) {
   const paramStr = url.split('?')[1]
   if (!paramStr) return {}
   return JSON.parse(`{"${paramStr.replace(/&/g, '","').replace(/=/g, '":"')}"}`)
+}
+
+export function hyphen2hump(str) {
+  return str.replace(/-(\w)/g, ($0, $1) => $1.toUpperCase())
 }

@@ -3,32 +3,27 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-25 17:34:43
- * @LastEditTime: 2019-02-27 15:07:22
+ * @LastEditTime: 2019-03-07 18:15:31
  * @Description: 组件公用变量
  */
 export { defaultChartColors, defaultPieOption, defaultBarOption, defaultLineOption } from './chart-variable'
 
-export {
-  $deepColor1,
-  $deepColor2,
-  $activeColor1,
-  $activeColor2,
-  $shallowColor1,
-  $shallowColor2
-} from '../../js/variable'
-
-export const riskTypeDistributeTableOption = [
-  { prop: 'name', label: '报警类型' },
-  { prop: 'alarms', label: '报警类型' },
-  { prop: 'alarm_hk', label: '百公里报警次数' }
+export const tableOption = [
+  { prop: 'name', label: '名称' },
+  { prop: 'value', label: '报警' },
+  { prop: 'count', label: '次数' }
 ]
 
-export const riskTypeDistributeChartOption = { series: [{ name: '报警类型分布' }] }
+export const barOption = {
+  toolbox: { show: false },
+  xAxis: { splitNumber: 1 },
+  series: [{ name: '作业次数' }]
+}
 
-export const alarmSpeedDistribution = {
+export const pieOption = {
   series: [
     {
-      name: '报警车速分布',
+      name: '饼图随机数据',
       data: [
         { value: 91, name: '<20km/h' },
         { value: 51, name: '20km/h ~ 40km/h' },
@@ -41,11 +36,7 @@ export const alarmSpeedDistribution = {
   ]
 }
 
-export const workingTimeDistributionBarChartOption = {
-  toolbox: { show: false },
-  xAxis: { splitNumber: 1 },
-  series: [{ name: '作业次数' }]
-}
+
 
 export const workingTimeDistributionPieChartOption = {
   series: [{ name: '报警类型分布', center: ['50%', '45%'] }],

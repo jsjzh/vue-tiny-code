@@ -1,0 +1,20 @@
+@import '~@/styles/variable.scss';
+
+.text-module-container {
+  @include default-flex;
+  flex-wrap: wrap;
+  flex-flow: column;
+  flex: 1;
+  .item {
+    @include default-flex;
+    width: 100%;
+    > div {
+      font-size: 0.5rem;
+      .count {
+        color: $active-color-1;
+        font-size: 1.3rem;
+      }
+      flex: 1;
+    }
+  }
+}

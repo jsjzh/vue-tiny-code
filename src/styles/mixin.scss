@@ -60,7 +60,7 @@
 @mixin default-col-style {
   @include default-col-border;
   @include default-col-radius;
-  background-color: $previewColBg;
+  // background-color: $previewColBg;
 }
 
 @mixin default-col-layout {
@@ -149,4 +149,25 @@
   100% {
     transform: rotate(-360deg);
   }
+}
+
+@mixin componentContainer {
+  @include flexCol;
+  height: 100%;
+  width: 100%;
+  padding: 0.6rem;
+}
+
+@mixin flexFullRow {
+  width: 100%;
+}
+
+@mixin title-4_8 {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+@mixin count-4_8 {
+  color: $active-color-1;
+  font-size: 2.5rem;
 }
