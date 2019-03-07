@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-03-07 16:53:02
+ * @LastEditTime: 2019-03-07 21:52:02
  * @Description: preview 页面
  -->
 <template>
@@ -23,8 +23,12 @@
           :key="colIndex"
         >
           <default-container v-if="col.componentKey">
-            <div class="col-title">{{col.title}}</div>
-            <component style="flex: 1" :is="`custom-report-${col.componentName}`" :reportData="col.reportData"/>
+            <div class="col-title" :title="`custom-report-${col.componentName}`">{{col.title}}</div>
+            <component
+              style="flex: 1"
+              :is="`custom-report-${col.componentName}`"
+              :reportData="col.reportData"
+            />
           </default-container>
           <default-container v-else>空组件</default-container>
         </div>

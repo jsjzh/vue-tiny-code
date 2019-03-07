@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-27 11:18:09
- * @LastEditTime: 2019-03-07 16:58:32
+ * @LastEditTime: 2019-03-07 22:42:45
  * @Description: 该文件只是为了方便管理 default-chart-option，在 variable 中会将这些变量曝露出去
  */
 
@@ -68,7 +68,7 @@ export const defaultPieOption = {
 
 export const defaultBarOption = {
   color: defaultChartColors,
-  tooltip: { confine: true, trigger: 'axis', axisPointer: { type: 'cross' }, formatter: '{a} <br/>{b}点 {c}次' },
+  tooltip: { confine: true, trigger: 'axis', axisPointer: { type: 'cross' }, formatter: '{a} <br/>{b} {c}' },
   legend: { left: 0, top: 0 },
   toolbox: { show: true, feature: { magicType: { show: true, type: ['line', 'bar'] }, restore: { show: true } } },
   grid: { left: '5%', right: '5%', top: '15%', bottom: 0, containLabel: true },

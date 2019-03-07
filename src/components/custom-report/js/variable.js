@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-25 17:34:43
- * @LastEditTime: 2019-03-07 18:15:31
+ * @LastEditTime: 2019-03-07 22:26:19
  * @Description: 组件公用变量
  */
 export { defaultChartColors, defaultPieOption, defaultBarOption, defaultLineOption } from './chart-variable'
@@ -17,26 +17,14 @@ export const tableOption = [
 export const barOption = {
   toolbox: { show: false },
   xAxis: { splitNumber: 1 },
-  series: [{ name: '作业次数' }]
+  series: [{ name: '柱状图随机数据' }]
 }
 
-export const pieOption = {
-  series: [
-    {
-      name: '饼图随机数据',
-      data: [
-        { value: 91, name: '<20km/h' },
-        { value: 51, name: '20km/h ~ 40km/h' },
-        { value: 81, name: '40km/h ~ 60km/h' },
-        { value: 110, name: '60km/h ~ 80km/h' },
-        { value: 21, name: '60km/h ~ 100km/h' },
-        { value: 11, name: '>100km/h' }
-      ]
-    }
-  ]
-}
+export const pieOption = { series: [{ name: '饼图随机数据' }] }
 
+export const pieTwoOption = { series: [{ name: '饼图2随机数据', center: ['70%', '65%'] }] }
 
+export const lineOption = { series: [{ name: '折线图随机数据' }] }
 
 export const workingTimeDistributionPieChartOption = {
   series: [{ name: '报警类型分布', center: ['50%', '45%'] }],

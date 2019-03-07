@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:43:52
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-07 17:47:39
+ * @LastEditTime: 2019-03-07 22:34:03
  * @Description: custom-report-table-pie-module
  -->
 <template>
@@ -45,7 +45,7 @@ export default {
     reloadChart() {
       let { chart } = this.$refs;
       chart.setOption(pieOption);
-      this.renderChart(this.reportData);
+      this.reportData.length && this.renderChart(this.reportData);
     },
     renderChart(option) {
       let { chart } = this.$refs;

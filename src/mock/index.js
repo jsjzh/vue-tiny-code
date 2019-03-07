@@ -4,14 +4,7 @@ import { transUrlParams } from '@/utils'
 import { componentDatas, dragReportData } from './modules/variable'
 
 const randomCount = '@integer(10, 80)'
-const randomKeyArr = [
-  '<20km/h',
-  '20km/h ~ 40km/h',
-  '40km/h ~ 60km/h',
-  '60km/h ~ 80km/h',
-  '60km/h ~ 100km/h',
-  '>100km/h'
-]
+const randomKeyArr = ['10km', '20km', '30km', '40km', '50km', '60km']
 
 mock(/getReportData/, 'get', config => {
   let { reportKey } = transUrlParams(config.url)
@@ -42,4 +35,6 @@ mock(/report\/getBarData/, 'get', config => {
   return mock(randomKeyArr.map(name => ({ count: randomCount, value: randomCount, name })))
 })
 
-
+mock(/report\/getLineData/, 'get', config => {
+  return mock(randomKeyArr.map(name => ({ count: randomCount, value: randomCount, name })))
+})
