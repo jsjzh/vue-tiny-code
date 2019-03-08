@@ -4,15 +4,14 @@ export const dragReportData = [
     reportKey: 'first-report',
     children: [
       {
-        align: 'flex-start',
-        height: 100,
+        align: 'space-between',
+        height: 250,
         index: 0,
         children: [
-          { col: 4.8, componentKey: 5, initCol: 4.8, title: '驾驶评分' },
-          { col: 4.8, componentKey: 6, initCol: 4.8, title: '高速评分' },
-          { col: 4.8, componentKey: 7, initCol: 4.8, title: '非高速评分' },
-          { col: 4.8, componentKey: 8, initCol: 4.8, title: '日间评分' },
-          { col: 4.8, componentKey: 9, initCol: 4.8, title: '夜间评分' }
+          { col: 1, componentKey: 1, initCol: '1', title: '1 --- 占位组件' },
+          { col: 2, componentKey: 2, initCol: '2', title: '2 --- 占位组件' },
+          { col: 3, componentKey: 3, initCol: '3', title: '3 --- 占位组件' },
+          { col: 4, componentKey: 4, initCol: '4', title: '4 --- 占位组件' }
         ]
       },
       {
@@ -20,28 +19,17 @@ export const dragReportData = [
         height: 250,
         index: 1,
         children: [
-          { col: 16, componentKey: 14, initCol: 16, title: '风险类型分布图（TOP5）' },
-          { col: 8, componentKey: 11, initCol: 8, title: '报警车速分布图' }
+          { col: 6, componentKey: 10, initCol: 6, title: '6 --- 占位组件' },
+          { col: 6, componentKey: 10, initCol: 6, title: '6 --- 占位组件' },
+          { col: 6, componentKey: 10, initCol: 6, title: '6 --- 占位组件' },
+          { col: 6, componentKey: 10, initCol: 6, title: '6 --- 占位组件' }
         ]
       },
       {
         align: 'flex-start',
         height: 250,
         index: 2,
-        children: [
-          { col: 12, componentKey: 12, initCol: 12, title: '作业时段分布图' },
-          { col: 12, componentKey: 13, initCol: 12, title: '作业趋势图' }
-        ]
-      },
-      {
-        align: 'flex-start',
-        height: 250,
-        index: 3,
-        children: [
-          { col: 8, componentKey: 11, initCol: 8, title: '报警车速分布图' },
-          { col: 8, componentKey: 11, initCol: 8, title: '报警车速分布图' },
-          { col: 8, componentKey: 11, initCol: 8, title: '报警车速分布图' }
-        ]
+        children: [{ col: 24, componentKey: 15, initCol: 24, title: '评分图' }]
       }
     ]
   }
@@ -51,10 +39,10 @@ export const componentDatas = [
   {
     label: '1 --- 占位组件',
     componentKey: 1,
-    componentName: 'demo',
-    api: '/report/placeholderApi',
+    componentName: 'block-module',
+    api: '',
     method: 'get',
-    dataKey: 'placeholderKey',
+    dataKey: '',
     col: 1,
     height: 250,
     previewImage: require('@/assets/img/dragReport/col-1-0.png')
@@ -62,10 +50,10 @@ export const componentDatas = [
   {
     label: '2 --- 占位组件',
     componentKey: 2,
-    componentName: 'demo',
-    api: '/report/placeholderApi',
+    componentName: 'block-module',
+    api: '',
     method: 'get',
-    dataKey: 'placeholderKey',
+    dataKey: '',
     col: 2,
     height: 250,
     previewImage: require('@/assets/img/dragReport/col-2-0.png')
@@ -73,10 +61,10 @@ export const componentDatas = [
   {
     label: '3 --- 占位组件',
     componentKey: 3,
-    componentName: 'demo',
-    api: '/report/placeholderApi',
+    componentName: 'block-module',
+    api: '',
     method: 'get',
-    dataKey: 'placeholderKey',
+    dataKey: '',
     col: 3,
     height: 250,
     previewImage: require('@/assets/img/dragReport/col-3-0.png')
@@ -84,10 +72,10 @@ export const componentDatas = [
   {
     label: '4 --- 占位组件',
     componentKey: 4,
-    componentName: 'demo',
-    api: '/report/placeholderApi',
+    componentName: 'block-module',
+    api: '',
     method: 'get',
-    dataKey: 'placeholderKey',
+    dataKey: '',
     col: 4,
     height: 250,
     previewImage: require('@/assets/img/dragReport/col-4-0.png')
@@ -150,10 +138,10 @@ export const componentDatas = [
   {
     label: '6 --- 占位组件',
     componentKey: 10,
-    componentName: 'demo',
-    api: '/report/placeholderApi',
+    componentName: 'bar-stack-module',
+    api: '/report/getBarStackData',
     method: 'get',
-    dataKey: 'placeholderKey',
+    dataKey: '',
     col: 6,
     height: 250,
     previewImage: require('@/assets/img/dragReport/col-6-0.png')
@@ -205,10 +193,10 @@ export const componentDatas = [
   {
     label: '评分图',
     componentKey: 15,
-    componentName: 'full-tabs-grade',
-    api: '/report/placeholderApi',
+    componentName: 'line-area-module',
+    api: '/report/getLineAreaData',
     method: 'get',
-    dataKey: 'placeholderKey',
+    dataKey: '',
     col: 24,
     height: 250,
     previewImage: require('@/assets/img/dragReport/col-24-1.png')

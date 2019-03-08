@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-25 17:34:43
- * @LastEditTime: 2019-03-07 22:26:19
+ * @LastEditTime: 2019-03-08 11:15:05
  * @Description: 组件公用变量
  */
 export { defaultChartColors, defaultPieOption, defaultBarOption, defaultLineOption } from './chart-variable'

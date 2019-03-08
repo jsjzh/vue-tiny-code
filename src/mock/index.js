@@ -3,8 +3,9 @@ import { transUrlParams } from '@/utils'
 
 import { componentDatas, dragReportData } from './modules/variable'
 
-const randomCount = '@integer(10, 80)'
-const randomKeyArr = ['10km', '20km', '30km', '40km', '50km', '60km']
+const randomCount = '@integer(10, 100)'
+const randomKeyArr = ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+const randomXAxisArr = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
 
 mock(/getReportData/, 'get', config => {
   let { reportKey } = transUrlParams(config.url)
@@ -37,4 +38,16 @@ mock(/report\/getBarData/, 'get', config => {
 
 mock(/report\/getLineData/, 'get', config => {
   return mock(randomKeyArr.map(name => ({ count: randomCount, value: randomCount, name })))
+})
+
+mock(/report\/getLineAreaData/, 'get', config => {
+  return mock(
+    randomKeyArr.map((name, index) => ({ xData: randomXAxisArr[index], name, data: new Array(10).fill(randomCount) }))
+  )
+})
+
+mock(/report\/getBarStackData/, 'get', config => {
+  return mock(
+    randomKeyArr.map((name, index) => ({ xData: randomXAxisArr[index], name, data: new Array(10).fill(randomCount) }))
+  )
 })
