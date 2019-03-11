@@ -13,21 +13,25 @@
 ## 各项目文档说明
 
 [拖拽自定义报表 --- 文档跳转](/doc/dragReport.md)
+
 ```html
 http://localhost:8080/dragReport
 ```
 
 [仿 `chrome` 调色板 --- 文档跳转](/doc/palette.md)
+
 ```html
 http://localhost:8080/palette
 ```
 
 ## 拷贝项目
+
 ```cmd
 git clone https://github.com/jsjzh/vue-tiny-code.git
 ```
 
 ## 开始项目
+
 ```cmd
 yarn
 or
@@ -35,6 +39,7 @@ npm install
 ```
 
 ## 本地环境
+
 ```cmd
 yarn start
 or
@@ -42,6 +47,7 @@ npm start
 ```
 
 ## 开发环境
+
 ```cmd
 yarn run build
 or
@@ -49,7 +55,9 @@ npm run build
 ```
 
 ## 其他
+
 `npm install` 的速度在不可抗力下会比较慢（该项目中，应该是 `node-sass` 比较慢），即使有 `npm.taobao.org` 也不能拯救我们，这个时候，我就推荐一个国内镜像的地址。
+
 ```cmd
 npm install -g mirror-config-china --registry=http://registry.npm.taobao.org
 ```
