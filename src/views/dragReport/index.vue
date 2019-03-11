@@ -3,13 +3,13 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-11 17:25:15
+ * @LastEditTime: 2019-03-11 18:39:13
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
  -->
 <template>
-  <div class="drag-report">
+  <div class="drag-report" v-loading="isLoading">
     <div class="drag-report-title">{{dragReportData.title.toUpperCase()}}</div>
     <div class="drag-report-container">
       <div
@@ -149,7 +149,6 @@ import { deepClone } from "@/utils";
 import colStyle from "@/mixins/methods/col-style";
 
 import clickoutside from "@/directive/clickoutside";
-import hoverswitch from "@/directive/hoverswitch";
 
 import defaultFramework from "@/components/default-framework";
 import defaultLayoutEditor from "@/components/default-layout-editor";
@@ -172,10 +171,11 @@ const getInitCol = function(options) {
 export default {
   name: "dragReport",
   components: { defaultFramework, defaultLayoutEditor },
-  directives: { clickoutside, hoverswitch },
+  directives: { clickoutside },
   mixins: [colStyle],
   data() {
     return {
+      isLoading: true,
       dragReportData: {
         title: "",
         children: []
@@ -408,10 +408,12 @@ export default {
   mounted() {
     this.addListener();
     let promises = [getComponents(), getReportData("first-report")];
-    Promise.all(promises).then(ress => {
-      this.componentDatas = ress[0];
-      this.resolveReportData(ress[1]);
-    });
+    Promise.all(promises)
+      .then(ress => {
+        this.componentDatas = ress[0];
+        this.resolveReportData(ress[1]);
+      })
+      .finally(() => (this.isLoading = false));
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.$$listeners.scroll);

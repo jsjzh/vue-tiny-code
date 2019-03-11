@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-03-11 16:40:09
+ * @LastEditTime: 2019-03-11 18:17:47
  * @Description: preview 页面
  -->
 <template>

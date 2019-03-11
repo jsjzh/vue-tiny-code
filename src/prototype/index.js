@@ -15,9 +15,6 @@ Vue.prototype.$msg = function(message = '0_操作成功', callback, duration = 1
     message,
     duration
   })
-  if (typeof callback === 'function') {
-    callback(true)
-  } else {
-    return Promise.resolve(true)
-  }
+  if (typeof callback === 'function') callback(true)
+  return Promise.resolve(true)
 }
