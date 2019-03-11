@@ -29,3 +29,11 @@
     }
   }
 }
+
+.report-ps-icon-btn {
+  @include cur-p;
+  @include ps-a;
+  @include btn-icon;
+  top: 0;
+  right: 10%;
+}

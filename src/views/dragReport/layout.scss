@@ -23,7 +23,7 @@
           @include fl;
           @include title-margin;
           @include ellipsis;
-          max-width: 25%;
+          max-width: 20%;
           overflow: hidden;
         }
         .controller-bar-right-box {
@@ -97,27 +97,27 @@
       left: 0;
     }
   }
+}
 
-  .report-ps-icon-btn {
-    @include cur-p;
-    @include ps-a;
-    @include btn-icon;
-    top: 0;
-    transition: all 0.5s;
-    &.drag-report-add-row-icon {
-      left: 10%;
-      &:hover {
-        animation: transIcon 1s infinite;
-      }
+.report-ps-icon-btn {
+  @include cur-p;
+  @include ps-a;
+  @include btn-icon;
+  top: 0;
+  transition: all 0.5s;
+  &.drag-report-add-row-icon {
+    left: 10%;
+    &:hover {
+      animation: transIcon 1s infinite;
     }
-    &.drag-report-add-col-icon {
-      right: 10%;
-      &:hover {
-        animation: transIconReversal 1s infinite;
-      }
+  }
+  &.drag-report-add-col-icon {
+    right: 10%;
+    &:hover {
+      animation: transIconReversal 1s infinite;
     }
-    &.drag-report-preview-icon {
-      right: 5%;
-    }
+  }
+  &.drag-report-preview-icon {
+    right: 5%;
   }
 }

@@ -3,12 +3,13 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-03-07 21:52:02
+ * @LastEditTime: 2019-03-11 16:40:09
  * @Description: preview 页面
  -->
 <template>
   <div class="preview-report" v-loading="isLoading">
     <div class="preview-report-title">{{layoutData.title.toUpperCase()}}</div>
+
     <div class="preview-container">
       <div
         class="layout-row"
@@ -34,6 +35,13 @@
         </div>
       </div>
     </div>
+
+    <i
+      v-if="!isLoading"
+      class="el-icon-document report-ps-icon-btn"
+      title="export-pdf"
+      @click="handleExport"
+    />
   </div>
 </template>
 
@@ -79,6 +87,9 @@ export default {
   },
   components: { defaultContainer, ...customReports },
   methods: {
+    handleExport() {
+      exportPDF("#app", this.layoutData.title);
+    },
     resolveQueryData() {
       return { serarchKey: "test" };
     },
@@ -152,12 +163,7 @@ export default {
             });
           });
         })
-        .finally(() => {
-          this.isLoading = false;
-          // setTimeout(() => {
-          //   exportPDF("#app");
-          // }, 2000);
-        });
+        .finally(() => (this.isLoading = false));
     });
   }
 };
