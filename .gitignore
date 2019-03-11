@@ -22,3 +22,5 @@ yarn-error.log*
 
 # lock files
 yarn.lock*
+
+# assets/img/dragReport

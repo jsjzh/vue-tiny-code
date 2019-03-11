@@ -54,7 +54,7 @@
             @include cur-p;
             @include title-margin;
             @include ellipsis;
-            max-width: 30%;
+            max-width: 35%;
             &.remove-item {
               color: $danger-color;
             }

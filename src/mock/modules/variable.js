@@ -54,10 +54,10 @@ export const dragReportData = [
         height: 250,
         index: 6,
         children: [
-          { col: 6, componentKey: 10, initCol: 6, title: '占位组件' },
-          { col: 6, componentKey: 10, initCol: 6, title: '占位组件' },
-          { col: 6, componentKey: 10, initCol: 6, title: '占位组件' },
-          { col: 6, componentKey: 10, initCol: 6, title: '占位组件' }
+          { col: 6, componentKey: 10, initCol: 6, title: '占位' },
+          { col: 6, componentKey: 10, initCol: 6, title: '占位' },
+          { col: 6, componentKey: 10, initCol: 6, title: '占位' },
+          { col: 6, componentKey: 10, initCol: 6, title: '占位' }
         ]
       },
       {
@@ -65,12 +65,12 @@ export const dragReportData = [
         height: 250,
         index: 7,
         children: [
-          { col: 4, componentKey: 4, initCol: 4, title: '占位组件' },
-          { col: 4, componentKey: 4, initCol: 4, title: '占位组件' },
-          { col: 4, componentKey: 4, initCol: 4, title: '占位组件' },
-          { col: 4, componentKey: 4, initCol: 4, title: '占位组件' },
-          { col: 4, componentKey: 4, initCol: 4, title: '占位组件' },
-          { col: 4, componentKey: 4, initCol: 4, title: '占位组件' }
+          { col: 4, componentKey: 4, initCol: 4, title: '占位' },
+          { col: 4, componentKey: 4, initCol: 4, title: '占位' },
+          { col: 4, componentKey: 4, initCol: 4, title: '占位' },
+          { col: 4, componentKey: 4, initCol: 4, title: '占位' },
+          { col: 4, componentKey: 4, initCol: 4, title: '占位' },
+          { col: 4, componentKey: 4, initCol: 4, title: '占位' }
         ]
       },
       {
@@ -78,14 +78,14 @@ export const dragReportData = [
         height: 250,
         index: 8,
         children: [
-          { col: 3, componentKey: 3, initCol: 3, title: '占位组件' },
-          { col: 3, componentKey: 3, initCol: 3, title: '占位组件' },
-          { col: 3, componentKey: 3, initCol: 3, title: '占位组件' },
-          { col: 3, componentKey: 3, initCol: 3, title: '占位组件' },
-          { col: 3, componentKey: 3, initCol: 3, title: '占位组件' },
-          { col: 3, componentKey: 3, initCol: 3, title: '占位组件' },
-          { col: 3, componentKey: 3, initCol: 3, title: '占位组件' },
-          { col: 3, componentKey: 3, initCol: 3, title: '占位组件' }
+          { col: 3, componentKey: 3, initCol: 3, title: '占位' },
+          { col: 3, componentKey: 3, initCol: 3, title: '占位' },
+          { col: 3, componentKey: 3, initCol: 3, title: '占位' },
+          { col: 3, componentKey: 3, initCol: 3, title: '占位' },
+          { col: 3, componentKey: 3, initCol: 3, title: '占位' },
+          { col: 3, componentKey: 3, initCol: 3, title: '占位' },
+          { col: 3, componentKey: 3, initCol: 3, title: '占位' },
+          { col: 3, componentKey: 3, initCol: 3, title: '占位' }
         ]
       },
       {
@@ -93,18 +93,18 @@ export const dragReportData = [
         height: 250,
         index: 9,
         children: [
-          { col: 2, componentKey: 2, initCol: 2, title: '占位组件' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位组件' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位组件' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位组件' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位组件' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位组件' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位组件' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位组件' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位组件' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位组件' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位组件' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位组件' }
+          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
+          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
+          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
+          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
+          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
+          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
+          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
+          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
+          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
+          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
+          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
+          { col: 2, componentKey: 2, initCol: 2, title: '占位' }
         ]
       }
     ]
@@ -113,7 +113,7 @@ export const dragReportData = [
 
 export const componentDatas = [
   {
-    label: '1 --- 占位组件',
+    label: '占位',
     componentKey: 1,
     componentName: 'block-module',
     api: '',
@@ -121,10 +121,10 @@ export const componentDatas = [
     dataKey: '',
     col: 1,
     height: 250,
-    previewImage: require('@/assets/img/dragReport/col-1-0.png')
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be38f28.png'
   },
   {
-    label: '占位组件',
+    label: '占位',
     componentKey: 2,
     componentName: 'block-module',
     api: '',
@@ -132,10 +132,10 @@ export const componentDatas = [
     dataKey: '',
     col: 2,
     height: 250,
-    previewImage: require('@/assets/img/dragReport/col-2-0.png')
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be37781.png'
   },
   {
-    label: '占位组件',
+    label: '占位',
     componentKey: 3,
     componentName: 'block-module',
     api: '',
@@ -143,10 +143,10 @@ export const componentDatas = [
     dataKey: '',
     col: 3,
     height: 250,
-    previewImage: require('@/assets/img/dragReport/col-3-0.png')
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3c255.png'
   },
   {
-    label: '占位组件',
+    label: '占位',
     componentKey: 4,
     componentName: 'block-module',
     api: '',
@@ -154,7 +154,7 @@ export const componentDatas = [
     dataKey: '',
     col: 4,
     height: 250,
-    previewImage: require('@/assets/img/dragReport/col-4-0.png')
+    previewImage: 'https://i.loli.net/2019/03/11/5c8664d04e3e7.png'
   },
   {
     label: '邮件营销',
@@ -165,7 +165,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4.8,
     height: 100,
-    previewImage: require('@/assets/img/dragReport/col-4.8-1.png')
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
   },
   {
     label: '联盟广告',
@@ -176,7 +176,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4.8,
     height: 100,
-    previewImage: require('@/assets/img/dragReport/col-4.8-2.png')
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be31676.png'
   },
   {
     label: '视频广告',
@@ -187,7 +187,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4.8,
     height: 100,
-    previewImage: require('@/assets/img/dragReport/col-4.8-3.png')
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be34837.png'
   },
   {
     label: '直接访问',
@@ -198,7 +198,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4.8,
     height: 100,
-    previewImage: require('@/assets/img/dragReport/col-4.8-4.png')
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be32edb.png'
   },
   {
     label: '搜索引擎',
@@ -209,10 +209,10 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4.8,
     height: 100,
-    previewImage: require('@/assets/img/dragReport/col-4.8-5.png')
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be360b8.png'
   },
   {
-    label: '占位组件',
+    label: '占位',
     componentKey: 10,
     componentName: 'bar-stack-module',
     api: '/report/getRandomData',
@@ -220,7 +220,7 @@ export const componentDatas = [
     dataKey: '',
     col: 6,
     height: 250,
-    previewImage: require('@/assets/img/dragReport/col-6-0.png')
+    previewImage: 'https://i.loli.net/2019/03/11/5c8664d167fb0.png'
   },
   {
     label: '分布图',
@@ -231,7 +231,7 @@ export const componentDatas = [
     dataKey: '',
     col: 8,
     height: 250,
-    previewImage: require('@/assets/img/dragReport/col-8-1.png')
+    previewImage: 'https://i.loli.net/2019/03/11/5c8664d441ebe.png'
   },
   {
     label: '时段分布图',
@@ -242,7 +242,7 @@ export const componentDatas = [
     dataKey: '',
     col: 12,
     height: 250,
-    previewImage: require('@/assets/img/dragReport/col-12-1.png')
+    previewImage: 'https://i.loli.net/2019/03/11/5c8664d473804.png'
   },
   {
     label: '趋势图',
@@ -253,7 +253,7 @@ export const componentDatas = [
     dataKey: '',
     col: 12,
     height: 250,
-    previewImage: require('@/assets/img/dragReport/col-12-2.png')
+    previewImage: 'https://i.loli.net/2019/03/11/5c8664d491680.png'
   },
   {
     label: '类型分布图',
@@ -264,7 +264,7 @@ export const componentDatas = [
     dataKey: '',
     col: 16,
     height: 250,
-    previewImage: require('@/assets/img/dragReport/col-16-1.png')
+    previewImage: 'https://i.loli.net/2019/03/11/5c8664d4d8a55.png'
   },
   {
     label: '评分图',
@@ -275,6 +275,6 @@ export const componentDatas = [
     dataKey: '',
     col: 24,
     height: 250,
-    previewImage: require('@/assets/img/dragReport/col-24-1.png')
+    previewImage: 'https://i.loli.net/2019/03/11/5c8664d70cb13.png'
   }
 ]
