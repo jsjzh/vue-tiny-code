@@ -60,16 +60,16 @@ gif 图稍大，若加载不出来请稍等片刻 (..•˘_˘•..)
 使用 `API` 说明
 - `<component is='component-title'/>` [`Vue` 动态组件](https://cn.vuejs.org/v2/guide/components.html#%E5%8A%A8%E6%80%81%E7%BB%84%E4%BB%B6)
 
-组件集（`src\components\custom-report`）
+组件集（`src/components/custom-report`）
 - 带 `custom-report-` 前缀的 `vue` 文件都会被自动引入到预览页面成为一个可供使用的组件
 - 带 `default-` 的组件需要手动引入
   - 基础 `echarts` 组件，在同级目录下的 `mixins` 中有定义其需要混入的方法
   - 基础 `element-table` 组件，接受一个 `table-option` 来定义表格的表头和 `key` 内容，由于该类型页面多为展示，遂该组件没有监听事件，若需要监听多个 `element-table` 的事件也简单，`element-table` 加上 `v-on="$listeners"` 即可
 - `echarts` 组件简单说明
-  - `echarts` 在 `src\prototype` 中被挂载到 `Vue` 的实例原型上方便调用
+  - `echarts` 在 `src/prototype` 中被挂载到 `Vue` 的实例原型上方便调用
   - 为什么会有这么多次的 `setOption`
-    - 第一次 `defaultOption` 设置默认 `option`（在该目录下的 `js\chart-variable`），同时想要修改图表颜色集也可以在这里修改
-    - 第二次 `customOption` 某些页面的图表使用默认的 `option` 会导致样式错位，这时候就需要增加 `js\variable` 变量，用于设置一些特殊的排版，比如 `center: [50%, 50%]`，等
+    - 第一次 `defaultOption` 设置默认 `option`（在该目录下的 `js/chart-variable`），同时想要修改图表颜色集也可以在这里修改
+    - 第二次 `customOption` 某些页面的图表使用默认的 `option` 会导致样式错位，这时候就需要增加 `js/variable` 变量，用于设置一些特殊的排版，比如 `center: [50%, 50%]`，等
     - 第三次 `reportData`，这个时候才是真实数据应该渲染的时候，建议在此处不要修改 `echarts` 样式相关的内容，而是只注入 `data`
 
 ### 小部件说明
@@ -89,5 +89,5 @@ gif 图稍大，若加载不出来请稍等片刻 (..•˘_˘•..)
 - 考虑到数据应该都由后台接口获取过来，所以加入了 `mockjs` 用以模拟 `ajax` 请求，引入到正式项目中的时候可以减少更改
 - 样式整理也是一个比较令人头秃的一个点，在初版完成之后的改版优化中，我一边改一边骂自己是个傻X，还好有 `sass` 的存在，让我减少了不少工作量，但是不能否认的是项目中还是有许多辣鸡代码（何谓辣鸡代码，就是让我看一遍也会想拍死作者，即使是自己写的），还是需要做优化
 - 在预览报表的页面，由于了解过 `Vue` 的 `component` 组件，所以实现起来也不是什么难事，关键点在于每个组件对外接收的 `prop` 要做到统一，这不仅是为了方便，任何一个框架都需要有人来维护，这也是为了减少后面接手的人的理解成本
-- 在框架搭建完成之后，组件式报表的业务重点就在于大量的组件，本来的写法是写一个组件在预览页面引用一个，但是在看 [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin) 的源码的时候，发现了 `webpack` 的 `require.context` 这个令人着迷的 `API`，那还能忍？盘他，于是，就有了 `src\views\previewReport\index.js` 这个文件的诞生，只要组件命名规范，我就会自动引入该组件，方便省心，比充X娃娃还好使
+- 在框架搭建完成之后，组件式报表的业务重点就在于大量的组件，本来的写法是写一个组件在预览页面引用一个，但是在看 [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin) 的源码的时候，发现了 `webpack` 的 `require.context` 这个令人着迷的 `API`，那还能忍？盘他，于是，就有了 `src/views/previewReport/index.js` 这个文件的诞生，只要组件命名规范，我就会自动引入该组件，方便省心，比充X娃娃还好使
 - 由于这样的页面大都不仅是用来看看，都会结合一下 `pdf` 导出的功能，遂查阅相关资料做了一个 `pdf` 导出的功能，前端实现 `pdf` 导出功能的思想就是通过 `dom` 来生成 `canvas`，然后又借助于 `canvas` 的 `API` 获取图片的 `base64` 码，最后通过 `jspdf` 生成 `pdf`
