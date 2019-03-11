@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:43:52
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-08 11:54:05
+ * @LastEditTime: 2019-03-11 15:02:34
  * @Description: custom-report-bar-stack-module
  -->
 <template>
@@ -12,7 +12,7 @@
 
 <script>
 import defaultBarChart from "./default-bar-chart";
-import { barOption } from "./js/variable";
+import { barStackOption } from "./js/variable";
 
 export default {
   name: "custom-report-bar-stack-module",
@@ -28,7 +28,7 @@ export default {
     reportData: {
       handler(newVal, oldVal) {
         // 父组件数据更新触发 echart 更新
-        this.renderLineChart(newVal);
+        this.renderChart(newVal);
       }
     }
   },
@@ -37,42 +37,22 @@ export default {
     // 开发模式下，热加载组件触发 echart 更新
     reloadChart() {
       let { chart } = this.$refs;
-      chart.setOption(barOption);
-      this.reportData.length && this.renderLineChart(this.reportData);
+      chart.setOption(barStackOption);
+      this.reportData.length && this.renderChart(this.reportData);
     },
-    renderLineChart(option) {
+    renderChart(option) {
       let { chart } = this.$refs;
       chart.setOption({
-        xAxis: {show: false},
-        yAxis: {show: false},
-        legend: {show: false},
-        angleAxis: {},
         radiusAxis: {
-          type: "category",
-          data: ["周一", "周二", "周三", "周四"],
-          z: 10
+          data: option.map(item => item.xdata)
         },
-        polar: {},
-        series: [
-          {
-            type: "bar",
-            data: [1, 2, 3, 4],
-            coordinateSystem: "polar",
-            stack: "a"
-          },
-          {
-            type: "bar",
-            data: [2, 4, 6, 8],
-            coordinateSystem: "polar",
-            stack: "a"
-          },
-          {
-            type: "bar",
-            data: [1, 2, 3, 4],
-            coordinateSystem: "polar",
-            stack: "a"
-          }
-        ]
+        series: option.map(item => ({
+          type: "bar",
+          name: item.name,
+          data: item.arrData,
+          coordinateSystem: "polar",
+          stack: "a"
+        }))
       });
     }
   },

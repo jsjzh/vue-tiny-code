@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:43:52
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-08 11:51:00
+ * @LastEditTime: 2019-03-11 15:10:26
  * @Description: custom-report-line-area-module
  -->
 <template>
@@ -28,7 +28,7 @@ export default {
     reportData: {
       handler(newVal, oldVal) {
         // 父组件数据更新触发 echart 更新
-        this.renderLineChart(newVal);
+        this.renderChart(newVal);
       }
     }
   },
@@ -38,17 +38,17 @@ export default {
     reloadChart() {
       let { chart } = this.$refs;
       chart.setOption(lineOption);
-      this.reportData.length && this.renderLineChart(this.reportData);
+      this.reportData.length && this.renderChart(this.reportData);
     },
-    renderLineChart(option) {
+    renderChart(option) {
       let { chart } = this.$refs;
       chart.setOption({
-        xAxis: { data: option.map(item => item.xData) },
+        xAxis: { data: option.map(item => item.xdata) },
         series: option.map(item => ({
           type: "line",
           name: item.name,
           areaStyle: {},
-          data: item.data
+          data: item.arrData
         }))
       });
     }

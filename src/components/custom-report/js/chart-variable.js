@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-27 11:18:09
- * @LastEditTime: 2019-03-07 23:01:59
+ * @LastEditTime: 2019-03-11 15:06:02
  * @Description: 该文件只是为了方便管理 default-chart-option，在 variable 中会将这些变量曝露出去
  */
 
@@ -33,17 +33,19 @@ export const defaultChartColors = [
  */
 
 const pieDefaultData = [
-  { value: 335, name: '直接访问' },
-  { value: 310, name: '邮件营销' },
-  { value: 234, name: '联盟广告' },
-  { value: 135, name: '视频广告' },
-  { value: 1548, name: '搜索引擎' }
+  { value: 335, name: 'no-data-1' },
+  { value: 310, name: 'no-data-2' },
+  { value: 234, name: 'no-data-3' },
+  { value: 135, name: 'no-data-4' },
+  { value: 465, name: 'no-data-5' },
+  { value: 379, name: 'no-data-6' },
+  { value: 664, name: 'no-data-7' }
 ]
 
-const barDefaultXData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+const barDefaultXData = ['no-data-1', 'no-data-2', 'no-data-3', 'no-data-4', 'no-data-5', 'no-data-6', 'no-data-7']
 const barDefaultData = [120, 200, 150, 80, 70, 110, 130]
 
-const lineDefaultXData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+const lineDefaultXData = ['no-data-1', 'no-data-2', 'no-data-3', 'no-data-4', 'no-data-5', 'no-data-6', 'no-data-7']
 const lineDefaultData = [820, 932, 901, 934, 1290, 1330, 1320]
 
 export const defaultPieOption = {
@@ -83,5 +85,5 @@ export const defaultLineOption = {
   grid: { left: '5%', right: '5%', top: '10%', bottom: 0, containLabel: true },
   xAxis: { type: 'category', boundaryGap: false, data: lineDefaultXData },
   yAxis: { type: 'value' },
-  series: [{ name: '未命名曲线图图', type: 'line', data: lineDefaultData, smooth: true }]
+  series: [{ name: '未命名曲线图图', type: 'line', data: lineDefaultData, smooth: false }]
 }

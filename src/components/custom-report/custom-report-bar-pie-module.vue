@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:43:52
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-07 22:21:35
+ * @LastEditTime: 2019-03-11 15:04:34
  * @Description: custom-report-bar-pie-module
  -->
 <template>
@@ -17,9 +17,7 @@
 import defaultBarChart from "./default-bar-chart";
 import defaultPieChart from "./default-pie-chart";
 
-import { barOption, pieTwoOption } from "./js/variable";
-
-import { transBarChartData, transPieChartData } from "@/utils";
+import { barFirstOption, pieSecondOption } from "./js/variable";
 
 export default {
   name: "custom-report-bar-pie-module",
@@ -46,14 +44,14 @@ export default {
       Object.keys(this.$refs).forEach(chart => {
         switch (chart) {
           case "bar-chart":
-            this.$refs[chart].setOption(barOption);
+            this.$refs[chart].setOption(barFirstOption);
             break;
           case "pie-chart":
-            this.$refs[chart].setOption(pieTwoOption);
+            this.$refs[chart].setOption(pieSecondOption);
             break;
         }
-        this.reportData.length && this.renderChart(this.reportData);
       });
+      this.reportData.length && this.renderChart(this.reportData);
     },
     renderChart(option) {
       Object.keys(this.$refs).forEach(chart => {
@@ -64,7 +62,7 @@ export default {
                 data: option.map(item => item.name)
               },
               series: {
-                data: option.map(item => item.count)
+                data: option.map(item => item.value)
               }
             });
             break;
@@ -73,7 +71,7 @@ export default {
               series: {
                 data: option.map(item => ({
                   name: item.name,
-                  value: item.count
+                  value: item.value
                 }))
               }
             });
