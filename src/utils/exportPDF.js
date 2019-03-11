@@ -1,3 +1,11 @@
+/*
+ * @Author: jsjzh
+ * @Email: kimimi_king@163.com
+ * @LastEditors: jsjzh
+ * @Date: 2019-03-06 15:10:59
+ * @LastEditTime: 2019-03-11 16:44:26
+ * @Description: from https://github.com/linwalker/render-html-to-pdf
+ */
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 

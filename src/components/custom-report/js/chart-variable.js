@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-27 11:18:09
- * @LastEditTime: 2019-03-11 15:06:02
+ * @LastEditTime: 2019-03-11 16:55:58
  * @Description: 该文件只是为了方便管理 default-chart-option，在 variable 中会将这些变量曝露出去
  */
 
@@ -59,7 +59,7 @@ export const defaultPieOption = {
       type: 'pie',
       radius: '55%',
       minAngle: 5,
-      center: ['75%', '65%'],
+      center: ['65%', '60%'],
       itemStyle: { normal: { borderWidth: 1, borderColor: '#e5e5e5' } },
       label: { show: false },
       labelLine: { show: false },
