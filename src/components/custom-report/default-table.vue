@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:42:41
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-07 17:44:13
+ * @LastEditTime: 2019-03-11 19:47:30
  * @Description: 基础 table 组件
  -->
 <template>
@@ -34,10 +34,7 @@ export default {
         return [];
       }
     },
-    haveIndex: {
-      type: Boolean,
-      default: true
-    }
+    haveIndex: { type: Boolean, default: true }
   }
 };
 </script>

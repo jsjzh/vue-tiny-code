@@ -24,7 +24,6 @@
           @include title-margin;
           @include ellipsis;
           max-width: 20%;
-          overflow: hidden;
         }
         .controller-bar-right-box {
           @include fr;
@@ -54,6 +53,8 @@
             @include fr;
             @include cur-p;
             @include title-margin;
+            @include ellipsis;
+            max-width: 30%;
             &.remove-item {
               color: $danger-color;
             }

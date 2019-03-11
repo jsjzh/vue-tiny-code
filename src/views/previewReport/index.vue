@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-03-11 18:17:47
+ * @LastEditTime: 2019-03-11 19:46:25
  * @Description: preview 页面
  -->
 <template>
@@ -127,8 +127,6 @@ export default {
       for (let index = 0; index < flatData.length; index++) {
         const item = flatData[index];
         const api = item.api;
-        const method = item.method;
-        const key = item.dataKey;
         if (!api) continue;
         if (api in apiList) {
           apiList[api].sameIndexs.push(index);
@@ -139,8 +137,8 @@ export default {
         if (!apiList[api].keys) {
           apiList[api].keys = [];
         }
-        apiList[api].keys[index] = key;
-        apiList[api].method = method;
+        apiList[api].keys[index] = item.dataKey;
+        apiList[api].method = item.method;
       }
 
       let requestList = Object.keys(apiList).map(api => {
@@ -151,7 +149,6 @@ export default {
 
       Promise.all(requestList.map(request => request(this.queryData)))
         .then(datas => {
-          console.log(datas);
           Object.keys(apiList).forEach((api, apiIndex) => {
             let sameIndexs = apiList[api].sameIndexs;
             flatData.forEach((col, colIndex) => {

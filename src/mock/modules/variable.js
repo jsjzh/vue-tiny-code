@@ -18,13 +18,13 @@ export const dragReportData = [
       {
         align: 'flex-start',
         height: 250,
-        index: 4,
+        index: 2,
         children: [{ col: 24, componentKey: 15, initCol: 24, title: '评分图' }]
       },
       {
         align: 'flex-start',
         height: 250,
-        index: 5,
+        index: 3,
         children: [
           { col: 16, componentKey: 14, initCol: 16, title: '类型分布图' },
           { col: 8, componentKey: 11, initCol: 8, title: '分布图' }
@@ -33,7 +33,7 @@ export const dragReportData = [
       {
         align: 'flex-start',
         height: 250,
-        index: 6,
+        index: 4,
         children: [
           { col: 12, componentKey: 13, initCol: 12, title: '作业趋势图' },
           { col: 12, componentKey: 12, initCol: 12, title: '分布图' }
@@ -42,7 +42,7 @@ export const dragReportData = [
       {
         align: 'flex-start',
         height: 250,
-        index: 7,
+        index: 5,
         children: [
           { col: 8, componentKey: 11, initCol: 8, title: '分布图' },
           { col: 8, componentKey: 11, initCol: 8, title: '分布图' },
@@ -52,7 +52,7 @@ export const dragReportData = [
       {
         align: 'flex-start',
         height: 250,
-        index: 8,
+        index: 6,
         children: [
           { col: 6, componentKey: 10, initCol: 6, title: '占位组件' },
           { col: 6, componentKey: 10, initCol: 6, title: '占位组件' },
@@ -63,7 +63,7 @@ export const dragReportData = [
       {
         align: 'flex-start',
         height: 250,
-        index: 9,
+        index: 7,
         children: [
           { col: 4, componentKey: 4, initCol: 4, title: '占位组件' },
           { col: 4, componentKey: 4, initCol: 4, title: '占位组件' },
@@ -76,7 +76,7 @@ export const dragReportData = [
       {
         align: 'flex-start',
         height: 250,
-        index: 10,
+        index: 8,
         children: [
           { col: 3, componentKey: 3, initCol: 3, title: '占位组件' },
           { col: 3, componentKey: 3, initCol: 3, title: '占位组件' },
@@ -91,7 +91,7 @@ export const dragReportData = [
       {
         align: 'flex-start',
         height: 250,
-        index: 11,
+        index: 9,
         children: [
           { col: 2, componentKey: 2, initCol: 2, title: '占位组件' },
           { col: 2, componentKey: 2, initCol: 2, title: '占位组件' },

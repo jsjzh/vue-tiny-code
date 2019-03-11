@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-11 18:39:13
+ * @LastEditTime: 2019-03-11 19:39:20
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
@@ -25,11 +25,11 @@
         <transition name="slide-fade">
           <div
             draggable="true"
-            v-show="row.showControllerBar"
+            v-if="row.showControllerBar"
             @dragstart="handleDragRow($event, row)"
             class="row-controller-bar"
           >
-            <div class="row-controller-bar-title-box">index: {{row.index + 1}}</div>
+            <div class="row-controller-bar-title-box">index: {{row.index}}</div>
             <div class="row-controller-bar-title-box">suggest-height: {{row.height}}</div>
             <div
               class="row-controller-bar-title-box"
@@ -44,10 +44,7 @@
                 :key="alignIndex"
                 @click="row.align = align.value"
               >{{align.label}}</span>
-              <span
-                class="align-type-item remove-item"
-                @click="handleRemoveRow($event, row)"
-              >remove-row</span>
+              <span class="align-type-item remove-item" @click="handleRemoveRow($event, row)">remove</span>
             </div>
           </div>
         </transition>
@@ -57,20 +54,17 @@
           v-for="(col, colIndex) in row.children"
           :style="previewColStyle({width: col.initCol, height: row.height}, 100, 1, 24, {backgroundImage: col.previewImage ? `url(${col.previewImage})` : null, cursor: col.previewImage ? 'all-scroll' : null})"
           :key="colIndex"
-          :draggable="col.previewImage ? true : false"
           @mouseenter="col.previewImage ? col.showChildrenControllerBar = true : null"
           @mouseleave="col.showChildrenControllerBar = false"
+          :draggable="col.previewImage ? true : false"
           @dragstart="handleDragCol($event, col, false)"
           @drop="handleDropCol($event, col)"
           @dragover="handleDragOver($event, col)"
         >
           <transition name="slide-fade">
-            <div class="col-controller-bar" v-show="col.showChildrenControllerBar">
+            <div class="col-controller-bar" v-if="col.showChildrenControllerBar">
               <span class="col-controller-bar-title-box" style="float: left">{{col.title}}</span>
-              <span
-                class="col-controller-bar-title-box remove-item"
-                @click="resetCol(col)"
-              >remove-col</span>
+              <span class="col-controller-bar-title-box remove-item" @click="resetCol(col)">remove</span>
             </div>
           </transition>
         </div>
@@ -81,21 +75,21 @@
       class="el-icon-plus drag-report-add-row-icon report-ps-icon-btn"
       title="add row"
       :style="{top: `${addContainerTop}px`}"
-      v-show="!addRow.show"
+      v-if="!addRow.show"
       @click="addRow.show = true"
     />
     <i
       class="el-icon-plus drag-report-add-col-icon report-ps-icon-btn"
       title="add col"
       :style="{top: `${addContainerTop}px`}"
-      v-show="!addCol.show"
+      v-if="!addCol.show"
       @click="addCol.show = true"
     />
     <i
       class="el-icon-d-arrow-right drag-report-preview-icon report-ps-icon-btn"
       title="preview"
       :style="{top: `${addContainerTop}px`}"
-      v-show="!addCol.show"
+      v-if="!addCol.show"
       @click="handleToPreviewPage"
     />
 
@@ -108,7 +102,7 @@
         @mouseleave="addRow.showControllerBar = false"
       >
         <transition name="slide-fade">
-          <div class="title-box" v-show="addRow.showControllerBar">
+          <div class="title-box" v-if="addRow.showControllerBar">
             <i class="el-icon-close" @click="addRow.show = false"/>
           </div>
         </transition>
@@ -129,7 +123,7 @@
         @mouseleave="addCol.showControllerBar = false"
       >
         <transition name="slide-fade">
-          <div class="title-box" v-show="addCol.showControllerBar">
+          <div class="title-box" v-if="addCol.showControllerBar">
             <i class="el-icon-close" @click="addCol.show = false"/>
           </div>
         </transition>
@@ -213,6 +207,7 @@ export default {
       this.dragData.isRow = true;
       this.dragData.isNewRow = true;
       this.dragData.row = {
+        index: null,
         align: "flex-start",
         height: row[0].height,
         showControllerBar: false,
@@ -220,8 +215,7 @@ export default {
           getInitCol({
             initCol: col.value
           })
-        ),
-        index: null
+        )
       };
     },
     handleDragRow(event, row) {
@@ -266,13 +260,11 @@ export default {
         this.$msg("1_至少需要一条布局");
         return;
       }
-      let index = dragReportData.children.findIndex(
-        item => item.index === row.index
+      dragReportData.children = dragReportData.children.filter(
+        item => item.index !== row.index
       );
-      dragReportData.children.splice(index, 1);
     },
     // edit col functions
-    // 另外，突然觉得自己是不是想的复杂了，如果把 col 和 row 一样，用 index 做排序
     handleDragOver(event) {
       // 默认情况下，对于 drop 的元素，要使用 dragover 移除默认事件，event.preventDefault()
       event.preventDefault();
@@ -379,7 +371,7 @@ export default {
       this.addContainerTop = scrollTop;
     },
     resolveReportData(dragReportData) {
-      // 为保证存到数据库的数据尽量小，需要对数据做一些优化
+      // 为保证存到数据库的数据少一些，对数据做一些优化
       dragReportData.children &&
         dragReportData.children.forEach(row => {
           row.showControllerBar = false;
