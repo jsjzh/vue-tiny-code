@@ -26,6 +26,11 @@ export const routes = [
         path: 'previewReport',
         name: 'previewReport',
         component: importView('previewReport')
+      },
+      {
+        path: 'waves',
+        name: 'waves',
+        component: importView('waves')
       }
     ]
   },

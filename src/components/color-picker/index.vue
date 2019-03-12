@@ -28,12 +28,13 @@
       </div>
       <div class="current-color-text-stage">
         <input
+          disabled
           id="current-color-text"
           type="text"
           class="current-color-input"
           v-model="_currentColor"
         >
-        <label for="current-color-text" class="current-color-label">切换</label>
+        <!-- <label for="current-color-text" class="current-color-label">切换</label> -->
       </div>
     </div>
 
