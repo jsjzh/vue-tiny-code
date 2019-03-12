@@ -40,7 +40,8 @@ export default {
   bind(el, binding) {
     on(el, 'click', handleClick(el, binding))
   },
-  unbind() {
+  update() {},
+  unbind(el) {
     console.log('unbind', arguments)
   }
 }
