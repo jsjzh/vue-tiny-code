@@ -8,6 +8,8 @@ function handleClick(el, binding) {
   el.style.position = 'relative'
   el.style.overflow = 'hidden'
   return function(e) {
+    // getBoundingClientRect 弊端
+    // 每次调用都会强制浏览器重新计算整个页面的布局，可能给网页造成相当大的闪烁
     const rect = el.getBoundingClientRect()
     let ripple = el.querySelector('.waves-ripple')
     if (!ripple) {
