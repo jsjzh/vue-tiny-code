@@ -3,22 +3,15 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-27 11:18:09
- * @LastEditTime: 2019-03-11 16:55:58
+ * @LastEditTime: 2019-03-12 10:39:14
  * @Description: 该文件只是为了方便管理 default-chart-option，在 variable 中会将这些变量曝露出去
  */
+const defaultColor = [ '#ee7738', '#f59d2a', '#fcc419', '#ffe066', '#9bca63', '#b5c334', '#5e85a8', '#476480', '#34495d', '#2c3d4f' ]
+const darkColor = [ '#dd6b66', '#759aa0', '#e69d87', '#8dc1a9', '#ea7e53', '#eedd78', '#73a373', '#73b9bc', '#7289ab', '#91ca8c', '#f49f42' ]
+const shineColor = ['#c12e34', '#e6b600', '#0098d9', '#2b821d', '#005eaa', '#339ca8', '#cda819', '#32a487']
+const infographicColor = [ '#C1232B', '#27727B', '#FCCE10', '#E87C25', '#B5C334', '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD', '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0' ]
 
-export const defaultChartColors = [
-  '#ee7738',
-  '#f59d2a',
-  '#fcc419',
-  '#ffe066',
-  '#9bca63',
-  '#b5c334',
-  '#5e85a8',
-  '#476480',
-  '#34495d',
-  '#2c3d4f'
-]
+export const defaultChartColors = defaultColor
 
 /**
  * color 颜色系

@@ -5,18 +5,6 @@ export const dragReportData = [
     children: [
       {
         align: 'flex-start',
-        height: 100,
-        index: 1,
-        children: [
-          { col: 4.8, componentKey: 5, initCol: 4.8, title: '邮件营销' },
-          { col: 4.8, componentKey: 6, initCol: 4.8, title: '联盟广告' },
-          { col: 4.8, componentKey: 7, initCol: 4.8, title: '视频广告' },
-          { col: 4.8, componentKey: 8, initCol: 4.8, title: '直接访问' },
-          { col: 4.8, componentKey: 9, initCol: 4.8, title: '搜索引擎' }
-        ]
-      },
-      {
-        align: 'flex-start',
         height: 250,
         index: 2,
         children: [{ col: 24, componentKey: 15, initCol: 24, title: '评分图' }]
@@ -35,76 +23,9 @@ export const dragReportData = [
         height: 250,
         index: 4,
         children: [
-          { col: 12, componentKey: 13, initCol: 12, title: '作业趋势图' },
-          { col: 12, componentKey: 12, initCol: 12, title: '分布图' }
-        ]
-      },
-      {
-        align: 'flex-start',
-        height: 250,
-        index: 5,
-        children: [
-          { col: 8, componentKey: 11, initCol: 8, title: '分布图' },
-          { col: 8, componentKey: 11, initCol: 8, title: '分布图' },
-          { col: 8, componentKey: 11, initCol: 8, title: '分布图' }
-        ]
-      },
-      {
-        align: 'flex-start',
-        height: 250,
-        index: 6,
-        children: [
           { col: 6, componentKey: 10, initCol: 6, title: '占位' },
-          { col: 6, componentKey: 10, initCol: 6, title: '占位' },
-          { col: 6, componentKey: 10, initCol: 6, title: '占位' },
+          { col: 12, componentKey: 12, initCol: 12, title: '分布图' },
           { col: 6, componentKey: 10, initCol: 6, title: '占位' }
-        ]
-      },
-      {
-        align: 'flex-start',
-        height: 250,
-        index: 7,
-        children: [
-          { col: 4, componentKey: 4, initCol: 4, title: '占位' },
-          { col: 4, componentKey: 4, initCol: 4, title: '占位' },
-          { col: 4, componentKey: 4, initCol: 4, title: '占位' },
-          { col: 4, componentKey: 4, initCol: 4, title: '占位' },
-          { col: 4, componentKey: 4, initCol: 4, title: '占位' },
-          { col: 4, componentKey: 4, initCol: 4, title: '占位' }
-        ]
-      },
-      {
-        align: 'flex-start',
-        height: 250,
-        index: 8,
-        children: [
-          { col: 3, componentKey: 3, initCol: 3, title: '占位' },
-          { col: 3, componentKey: 3, initCol: 3, title: '占位' },
-          { col: 3, componentKey: 3, initCol: 3, title: '占位' },
-          { col: 3, componentKey: 3, initCol: 3, title: '占位' },
-          { col: 3, componentKey: 3, initCol: 3, title: '占位' },
-          { col: 3, componentKey: 3, initCol: 3, title: '占位' },
-          { col: 3, componentKey: 3, initCol: 3, title: '占位' },
-          { col: 3, componentKey: 3, initCol: 3, title: '占位' }
-        ]
-      },
-      {
-        align: 'flex-start',
-        height: 250,
-        index: 9,
-        children: [
-          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位' },
-          { col: 2, componentKey: 2, initCol: 2, title: '占位' }
         ]
       }
     ]

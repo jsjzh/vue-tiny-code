@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-11 19:39:20
+ * @LastEditTime: 2019-03-12 10:11:30
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
@@ -253,6 +253,7 @@ export default {
       dragReportData.children = dragReportData.children.sort(
         (a, b) => a.index - b.index
       );
+      dragReportData.children.forEach((item, index) => (item.index = index));
     },
     handleRemoveRow(event, row) {
       let { dragReportData } = this;
@@ -293,7 +294,7 @@ export default {
           this.setCol(oldFrom, target);
           this.setCol(oldTarget, this.dragData.col);
         } else {
-          // 若放置的位置是空的，则将 from 重置并赋值 target
+          // 若放置的位置是空的，则将 target 赋值并重置 from
           this.setCol(this.dragData.col, target);
           this.resetCol(this.dragData.col);
         }
@@ -357,6 +358,10 @@ export default {
     handleToPreviewPage() {
       let previewData = this.resolvePreviewData();
       console.log(JSON.stringify(previewData));
+      window.localStorage.setItem(
+        "dragReport-data",
+        JSON.stringify(previewData)
+      );
       let routeUrl = this.$router.resolve({
         path: "/previewReport",
         query: { reportKey: previewData.reportKey }

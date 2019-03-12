@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-03-11 19:46:25
+ * @LastEditTime: 2019-03-12 10:13:01
  * @Description: preview 页面
  -->
 <template>
@@ -56,7 +56,7 @@ import colStyle from "@/mixins/methods/col-style";
 import defaultContainer from "@/components/custom-report/default-container";
 import customReports from "./index";
 
-import { getComponents, getReportData } from "@/api";
+import { getComponents } from "@/api";
 
 const _methods = { post, get };
 
@@ -114,11 +114,12 @@ export default {
   mounted() {
     let { reportKey } = this.$route.query;
 
-    let promises = [getComponents(), getReportData(reportKey)];
+    let promises = [getComponents()];
 
     Promise.all(promises).then(ress => {
       this.componentDatas = ress[0];
-      this.layoutData = this.resolveReportData(ress[1]);
+      let dragReportData = window.localStorage.getItem("dragReport-data");
+      this.layoutData = this.resolveReportData(JSON.parse(dragReportData));
       this.queryData = this.resolveQueryData();
 
       let flatData = flatLayoutData(this.layoutData);
