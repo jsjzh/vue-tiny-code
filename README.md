@@ -8,7 +8,7 @@
 
 项目目录结构取自于 [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin) 项目。
 
-当然，不仅仅是自己的项目，也有很多日常看其他开源项目源码时候看到的有意思的代码，具体可以查阅 `src/directive`、`src/utils` 这两个目录，相信我，里面有不少好东西。
+当然，不仅仅是自己的项目，也有很多日常看其他开源项目源码时候看到的有意思的代码，具体可以查阅 `src\directive`、`src\utils` 这两个目录，相信我，里面有不少好东西。
 
 ## 各项目文档说明
 
