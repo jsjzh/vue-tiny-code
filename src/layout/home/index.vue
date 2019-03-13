@@ -1,6 +1,6 @@
 <template>
   <div class="home-container">
-    <el-menu mode="horizontal" :default-active="activeTab" :router="true">
+    <el-menu v-if="activeTab!=='-1'" mode="horizontal" :default-active="activeTab" :router="true">
       <el-menu-item
         :index="pathIndex.toString()"
         v-for="(path, pathIndex) in paths"
@@ -17,7 +17,7 @@ export default {
   name: "home",
   data() {
     return {
-      activeTab: "0",
+      activeTab: "-1",
       paths: [
         { to: "/", title: "首页" },
         { to: "/dragReport", title: "Vue 拖拽报表" },
@@ -28,8 +28,8 @@ export default {
   },
   mounted() {
     const { path } = this.$route;
-    let index = this.paths.findIndex(item => item.to === path).toString();
-    this.activeTab = index;
+    let index = this.paths.findIndex(item => item.to === path);
+    this.activeTab = index.toString();
   }
 };
 </script>
