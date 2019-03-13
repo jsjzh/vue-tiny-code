@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-03-13 08:39:08
- * @LastEditTime: 2019-03-13 11:45:08
+ * @LastEditTime: 2019-03-13 15:17:01
  * @Description: 使用方式
  *  <div v-waves>test</div>
  *  <div v-waves="{color: 'red'}">test</div>
@@ -47,6 +47,8 @@ function handleClick(el, binding) {
     el[context] = {
       removeHandle: handle
     }
+  } else {
+    el[context].removeHandle = handle
   }
   return handle
 }
@@ -58,5 +60,10 @@ export default {
   update(el, binding) {
     off(el, 'click', el[context].removeHandle)
     on(el, 'click', handleClick(el, binding))
+  },
+  unbind(el) {
+    off(el, 'click', el[context].removeHandle)
+    el[context] = null
+    delete el[context]
   }
 }
