@@ -31,6 +31,11 @@ export const routes = [
         path: 'waves',
         name: 'waves',
         component: importView('waves')
+      },
+      {
+        path: 'dragDialog',
+        name: 'dragDialog',
+        component: importView('dragDialog')
       }
     ]
   },

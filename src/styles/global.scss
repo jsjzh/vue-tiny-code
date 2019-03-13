@@ -3,13 +3,14 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-28 11:41:17
- * @LastEditTime: 2019-02-28 12:02:19
+ * @LastEditTime: 2019-03-13 16:14:20
  * @Description: 全局样式
  */
 @import './variable.scss';
 
 body,
 html {
+  height: 100%;
   font-size: 14px;
   color: $deep-color-1;
 }

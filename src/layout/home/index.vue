@@ -22,7 +22,8 @@ export default {
         { to: "/", title: "首页" },
         { to: "/dragReport", title: "Vue 拖拽报表" },
         { to: "/palette", title: "仿 Chrome 调色板" },
-        { to: "/waves", title: "水波纹" }
+        { to: "/waves", title: "水波纹" },
+        { to: "/dragDialog", title: "elementDialog 可拖拽" }
       ]
     };
   },
