@@ -1,13 +1,14 @@
 <template>
-  <div>
-    <div style="width: 200px;height: 200px" v-waves="{type: 'hit'}">test-waves</div>
-    <div style="width: 200px;height: 200px" v-waves="{type: 'center'}">test-waves</div>
+  <div class="wave-container">
+    <div class="wave-demo-btn" v-waves>wave-demo-btn</div>
+    <div class="wave-demo-btn" v-waves="{color: 'red'}">wave-demo-btn</div>
+    <div class="wave-demo-btn" v-waves="{color: 'blue'}">wave-demo-btn</div>
+    <div class="wave-demo-btn" v-waves="{color: 'yellow'}">wave-demo-btn</div>
   </div>
 </template>
 
 <script>
 import waves from "@/directive/waves";
-import clickoutside from "@/directive/clickoutside";
 
 export default {
   name: "waves",
@@ -16,15 +17,27 @@ export default {
       show: true
     };
   },
-  directives: { waves, clickoutside },
-  methods: {
-    handleClickoutside() {
-      console.log("handleClickoutside");
-    }
-  },
-  mounted() {}
+  directives: { waves }
 };
 </script>
 
 <style lang="scss" scoped>
+.wave-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 5rem 0;
+  & > div {
+    margin: 0 2rem;
+  }
+  .wave-demo-btn {
+    min-width: 100px;
+    min-height: 20px;
+    background-color: #67c23a;
+    color: white;
+    border-radius: 5px;
+    padding: 1rem 2.5rem;
+  }
+}
 </style>
