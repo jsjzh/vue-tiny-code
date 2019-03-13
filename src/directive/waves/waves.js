@@ -1,3 +1,13 @@
+/*
+ * @Author: jsjzh
+ * @Email: kimimi_king@163.com
+ * @LastEditors: jsjzh
+ * @Date: 2019-03-13 08:39:08
+ * @LastEditTime: 2019-03-13 11:45:08
+ * @Description: 使用方式
+ *  <div v-waves>test</div>
+ *  <div v-waves="{color: 'red'}">test</div>
+ */
 import './waves.css'
 
 import { on, off } from '@/utils/dom'
