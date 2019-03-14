@@ -21,6 +21,4 @@ yarn-error.log*
 *.sw*
 
 # lock files
-yarn.lock*
-
-# assets/img/dragReport
+yarn.lock
