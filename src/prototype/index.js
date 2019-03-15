@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import echarts from 'echarts'
 import { Message } from 'element-ui'
+import customLoading from '@/directive/customLoading'
 
 Vue.prototype.$echarts = echarts
 
@@ -18,3 +19,5 @@ Vue.prototype.$msg = function(message = '0_操作成功', callback, duration = 1
   if (typeof callback === 'function') callback(true)
   return Promise.resolve(true)
 }
+
+Vue.prototype.$customLoading = customLoading.service

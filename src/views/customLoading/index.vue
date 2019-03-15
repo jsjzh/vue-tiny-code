@@ -6,7 +6,7 @@
 
 <script>
 import customLoading from "@/directive/customLoading";
-
+console.log(customLoading);
 export default {
   name: "customLoadingShow",
   directives: { customLoading },
