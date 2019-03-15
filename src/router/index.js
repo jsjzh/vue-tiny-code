@@ -36,6 +36,11 @@ export const routes = [
         path: 'dragDialog',
         name: 'dragDialog',
         component: importView('dragDialog')
+      },
+      {
+        path: 'customLoading',
+        name: 'customLoading',
+        component: importView('customLoading')
       }
     ]
   },
