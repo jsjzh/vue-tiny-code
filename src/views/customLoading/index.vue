@@ -1,15 +1,13 @@
 <template>
   <div v-custom-loading="isLoading">
-    <button @click="handleShowLoading">toggle</button>
+    <button @click="handleShowLoading">v-custom-loading</button>
+    <button @click="handleServiceLoading">service-loading</button>
   </div>
 </template>
 
 <script>
-import customLoading from "@/directive/customLoading";
-console.log(customLoading);
 export default {
   name: "customLoadingShow",
-  directives: { customLoading },
   data() {
     return {
       isLoading: false
@@ -18,8 +16,18 @@ export default {
   methods: {
     handleShowLoading() {
       this.isLoading = true;
-      setTimeout(() => {
+      let timer = setTimeout(() => {
         this.isLoading = false;
+        clearTimeout(timer);
+      }, 1000);
+    },
+    handleServiceLoading() {
+      let loading = this.$customLoading({
+        target: "body"
+      });
+      let timer = setTimeout(() => {
+        loading.close();
+        clearTimeout(timer);
       }, 1000);
     }
   }

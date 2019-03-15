@@ -3,10 +3,11 @@
  * @Email: kimimi_king@163.com
  * @Date: 2018-6-28 15:13:23
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-07 15:06:34
+ * @LastEditTime: 2019-03-15 20:34:50
  * @Description: 常用函数包装
  */
 import * as R from 'ramda'
+import { Message } from 'element-ui'
 
 const OBJECT = '[object Object]'
 const ARRAY = '[object Array]'
@@ -227,4 +228,19 @@ export function transUrlParams(url) {
 
 export function hyphen2hump(str) {
   return str.replace(/-(\w)/g, ($0, $1) => $1.toUpperCase())
+}
+
+export function $msg(message = '0_操作成功', callback, duration = 1500) {
+  let arr = ['success', 'error', 'info']
+  let dealArr = message.split('_')
+  let type = arr[~~dealArr[0]] || 'info'
+  message = dealArr[1] || '未知信息'
+  Message({
+    type,
+    showClose: true,
+    message,
+    duration
+  })
+  if (typeof callback === 'function') callback(true)
+  return Promise.resolve(true)
 }
