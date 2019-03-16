@@ -1,6 +1,6 @@
 <template>
   <div v-custom-loading="isLoading">
-    <button @click="handleShowLoading">v-custom-loading</button>
+    <button v-custom-loading="isLoading" @click="handleShowLoading">v-custom-loading</button>
     <button @click="handleServiceLoading">service-loading</button>
   </div>
 </template>

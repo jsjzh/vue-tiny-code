@@ -5,9 +5,16 @@ const Mask = Vue.extend(customLoading)
 
 Mask.prototype.close = function() {
   this.visible = false
+  let timer = setTimeout(() => {
+    if (this.$el && this.$el.parentNode) {
+      this.$el.parentNode.removeChild(this.$el)
+    }
+    this.$destroy()
+    clearTimeout(timer)
+  }, 2000)
 }
 
-export default function Loading(options) {
+const Loading = options => {
   let parent = document.querySelector(options.target)
   let mask = new Mask({
     el: document.createElement('div'),
@@ -17,3 +24,5 @@ export default function Loading(options) {
   mask.visible = true
   return mask
 }
+
+export default Loading

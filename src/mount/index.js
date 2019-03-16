@@ -9,4 +9,4 @@ Vue.prototype.$msg = $msg
 Vue.prototype.$customLoading = customLoading.service
 
 Vue.use(ElementUI)
-Vue.use(customLoading)
+Vue.use(customLoading.directive)
