@@ -1,12 +1,31 @@
 <template>
   <div class="container">
     <div class="component-container">
-      <div class="filter-container"></div>
+      <div class="filter-container">
+        <div
+          v-for="(filterItem, filterIndex) in filterOptions"
+          :key="filterIndex"
+          class="filter-item"
+        >
+          {{filterIndex}}
+          <el-radio-group
+            size="mini"
+            v-model="filterItem.value"
+            @change="handleFilterComponent(filterIndex, filterItem.value)"
+          >
+            <el-radio-button
+              v-for="(radioValue, radioValueIndex) in filterItem.values"
+              :key="radioValueIndex"
+              :label="radioValue"
+            />
+          </el-radio-group>
+        </div>
+      </div>
       <div class="component-list-container">
         <div
           class="item-box"
           @click="handleClickComponent(component)"
-          v-for="(component, componentIndex) in components"
+          v-for="(component, componentIndex) in filterComponents"
           :key="componentIndex"
         >
           <div class="item-infos">
@@ -90,6 +109,17 @@ export default {
   data() {
     return {
       components: [],
+      filterComponents: [],
+      filterOptions: {
+        col: {
+          value: null,
+          values: []
+        },
+        height: {
+          value: null,
+          values: []
+        }
+      },
       canEdit: false,
       editComponentInfo: {},
       editForms: [
@@ -154,6 +184,11 @@ export default {
     };
   },
   methods: {
+    handleFilterComponent(type, value) {
+      this.filterComponents = this.components.filter(
+        item => item[type] === value
+      );
+    },
     handleClickComponent(component) {
       this.editComponentInfo = deepClone(component);
       this.canEdit = true;
@@ -170,8 +205,14 @@ export default {
   },
   mounted() {
     getComponents().then(res => {
-      console.log(res);
       this.components = res;
+      this.filterComponents = res;
+      this.filterOptions.col.values = Array.from(
+        new Set(this.filterComponents.map(item => item.col))
+      );
+      this.filterOptions.height.values = Array.from(
+        new Set(this.filterComponents.map(item => item.height))
+      );
     });
   }
 };
