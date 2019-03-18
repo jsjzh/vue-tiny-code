@@ -1,0 +1,183 @@
+<template>
+  <div class="container">
+    <div class="component-container">
+      <div class="filter-container"></div>
+      <div class="component-list-container">
+        <div
+          class="item-box"
+          @click="handleClickComponent(component)"
+          v-for="(component, componentIndex) in components"
+          :key="componentIndex"
+        >
+          <div class="item-infos">
+            <div>col：{{component.col}}</div>
+            <div>height：{{component.height}}</div>
+          </div>
+          <div
+            class="component-item"
+            :style="previewColStyle({ width: component.col, height: component.height }, 100, 3, 24,{backgroundImage: component.previewImage ? `url(${component.previewImage})` : null})"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="edit-component-container">
+      <div class="priview-container">
+        <div
+          class="priview-item"
+          :style="previewColStyle({ width: editComponentInfo.col, height: editComponentInfo.height }, 100, 1, 24,{backgroundImage: editComponentInfo.previewImage ? `url(${editComponentInfo.previewImage})` : null, width: `${editComponentInfo.col *50}px`})"
+        />
+      </div>
+      <div class="edit-container">
+        <div class="controller-bar">
+          <el-button
+            style="float: left;margin-left: 2rem"
+            type="success"
+            @click="handleAddComponent"
+          >add</el-button>
+          <el-button
+            style="float: left;margin-left: 2rem"
+            type="warning"
+            v-show="canEdit"
+            @click="handleClearComponent"
+          >clear</el-button>
+          <el-button type="danger" @click="handleDelComponent" v-show="editComponentInfo.id">del</el-button>
+          <el-button type="primary" v-show="canEdit" @click="handleSaveComponent">save</el-button>
+        </div>
+        <div class="edit-form-container">
+          <div class="item-col" v-for="(form, formIndex) in editForms" :key="formIndex">
+            <div class="form-box">
+              <el-tooltip effect="dark" :content="form.tip" placement="top-start">
+                <i class="el-icon-question tip"/>
+              </el-tooltip>
+              <div class="title">{{form.title}}：</div>
+              <el-input
+                :disabled="!canEdit"
+                v-if="form.type === 'input'"
+                :maxlength="form.maxlength"
+                :minlength="form.minlength"
+                :max="form.max"
+                :min="form.min"
+                :placeholder="form.title"
+                v-model="editComponentInfo[form.key]"
+              />
+              <el-radio-group
+                :disabled="!canEdit"
+                v-if="form.type === 'radio'"
+                v-model="editComponentInfo[form.key]"
+              >
+                <el-radio-button
+                  v-for="(radioValue, radioValueIndex) in form.radioVlaues"
+                  :key="radioValueIndex"
+                  :label="radioValue"
+                />
+              </el-radio-group>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import colStyle from "@/mixins/methods/col-style";
+import { deepClone } from "@/utils";
+import { getComponents } from "@/api";
+
+export default {
+  name: "editComponent",
+  mixins: [colStyle],
+  data() {
+    return {
+      components: [],
+      canEdit: false,
+      editComponentInfo: {},
+      editForms: [
+        {
+          key: "previewImage",
+          type: "input",
+          tip: "组件的预览图，建议使用 url",
+          title: "预览图"
+        },
+        {
+          key: "label",
+          type: "input",
+          tip: "组件默认标题，在排版组件的时候若用户未设定名称就会用这个标题",
+          title: "默认标题"
+        },
+        {
+          key: "componentKey",
+          type: "input",
+          tip: "组件标识，不能重复，建议为数字，若重复了希望后台给一个错误信息",
+          title: "组件标识"
+        },
+        {
+          key: "componentName",
+          type: "input",
+          tip:
+            "组件名称，前端开发完一个组件之后，假设是 custom-report-demo，那这里就填 demo 即可",
+          title: "组件名称"
+        },
+        { key: "api", type: "input", tip: "组件数据对应的接口", title: "接口" },
+        {
+          key: "method",
+          type: "radio",
+          radioVlaues: ["get", "post"],
+          tip: "接口的方法名",
+          title: "方法"
+        },
+        {
+          key: "dataKey",
+          type: "input",
+          tip:
+            "若接口返回的数据是 { data: names: {} }，你想要获取 names，这里就填写 names，若为空则会将数据全部传入组件内。（强烈建议定义了之后就不要修改）",
+          title: "数据标识"
+        },
+        {
+          key: "col",
+          type: "input",
+          maxlength: 3,
+          minlength: 1,
+          max: 24,
+          min: 1,
+          tip: "组件所占的宽度，[1, 24]",
+          title: "占位"
+        },
+        {
+          key: "height",
+          type: "radio",
+          radioVlaues: [100, 250],
+          tip: "组件所占的高度，暂时就只有 100 和 250 两种高度",
+          title: "高度"
+        }
+      ]
+    };
+  },
+  methods: {
+    handleClickComponent(component) {
+      this.editComponentInfo = deepClone(component);
+      this.canEdit = true;
+    },
+    handleAddComponent() {
+      this.canEdit = true;
+      this.editComponentInfo = {};
+    },
+    handleClearComponent() {
+      this.editComponentInfo = {};
+    },
+    handleDelComponent() {},
+    handleSaveComponent() {}
+  },
+  mounted() {
+    getComponents().then(res => {
+      console.log(res);
+      this.components = res;
+    });
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+@import "./layout.scss";
+</style>
+
