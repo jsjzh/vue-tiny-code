@@ -7,13 +7,13 @@
           :key="filterIndex"
           class="filter-item"
         >
-          {{filterIndex}}
           <el-radio-group
             size="mini"
             v-model="filterItem.value"
             @change="handleFilterComponent(filterIndex, filterItem.value)"
           >
-            <el-radio-button
+            <el-radio
+              border
               v-for="(radioValue, radioValueIndex) in filterItem.values"
               :key="radioValueIndex"
               :label="radioValue"
@@ -185,9 +185,20 @@ export default {
   },
   methods: {
     handleFilterComponent(type, value) {
-      this.filterComponents = this.components.filter(
-        item => item[type] === value
-      );
+      let {
+        col: { value: colValue },
+        height: { value: heightValue }
+      } = this.filterOptions;
+
+      colValue &&
+        (this.filterComponents = this.components.filter(
+          item => item.col === colValue
+        ));
+
+      heightValue &&
+        (this.filterComponents = this.filterComponents.filter(
+          item => item.height === heightValue
+        ));
     },
     handleClickComponent(component) {
       this.editComponentInfo = deepClone(component);

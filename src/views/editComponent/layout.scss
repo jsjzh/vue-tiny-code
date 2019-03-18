@@ -20,6 +20,9 @@
       box-shadow: 1px 1px 1px#999;
       .filter-item {
         width: 100%;
+        /deep/ label {
+          margin: 0.5rem;
+        }
         // white-space: nowrap;
         // overflow: auto;
       }
