@@ -7,12 +7,26 @@
 <script>
 export default {
   name: "drag-item",
+  data() {
+    return {
+      dom: {
+        cloneNode: null
+      }
+    };
+  },
   methods: {
+    handleMouseup(e) {
+      console.log("handleMouseup", e);
+      document.removeEventListener("mousemove", this.handleMousemove);
+    },
+    handleMousemove(e) {
+      console.log("handleMousemove", e);
+    },
     handleMouseDown(event) {
       let target = event.target;
-      debugger
-      let cloneNode = target.cloneNode();
-      console.log(cloneNode);
+      this.dom.cloneNode = target.cloneNode(true);
+      document.addEventListener("mousemove", this.handleMousemove);
+      document.addEventListener("mouseup", this.handleMouseup);
     }
   }
 };
