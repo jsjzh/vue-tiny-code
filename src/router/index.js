@@ -46,6 +46,11 @@ export const routes = [
         path: 'customLoading',
         name: 'customLoading',
         component: importView('customLoading')
+      },
+      {
+        path: 'dragList',
+        name: 'dragList',
+        component: importView('dragList')
       }
     ]
   },

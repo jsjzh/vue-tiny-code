@@ -24,7 +24,8 @@ export default {
         { to: "/palette", title: "仿 Chrome 调色板" },
         { to: "/waves", title: "水波纹" },
         { to: "/dragDialog", title: "elementDialog 可拖拽" },
-        { to: "/customLoading", title: "自定义 loading" }
+        { to: "/customLoading", title: "自定义 loading" },
+        { to: "/dragList", title: "重新定义拖动" }
       ]
     };
   },
