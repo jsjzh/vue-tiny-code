@@ -22,7 +22,6 @@ export default {
 .demo-container {
   width: 400px;
   height: 600px;
-  float: right;
-  margin-right: 2rem;
+  margin: 5rem auto;
 }
 </style>
