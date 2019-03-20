@@ -1,17 +1,15 @@
 <template>
-  <div>
-    <slot></slot>
+  <div class="bar-wrap">
+    <div class="bar"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "drag-group",
-  mounted() {
-    console.log(this);
-  }
+  name: "custom-bar"
 };
 </script>
 
 <style lang="scss" scoped>
+
 </style>

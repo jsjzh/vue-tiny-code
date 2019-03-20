@@ -18,6 +18,7 @@ export default {
     handleMouseup(e) {
       console.log("handleMouseup", e);
       document.removeEventListener("mousemove", this.handleMousemove);
+      document.removeEventListener("mouseup", this.handleMouseup);
     },
     handleMousemove(e) {
       console.log("handleMousemove", e);

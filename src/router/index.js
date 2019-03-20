@@ -4,6 +4,9 @@ import Router from 'vue-router'
 const importLayout = name => require(`@/layout/${name}/index.vue`).default
 const importView = name => require(`@/views/${name}/index.vue`).default
 
+const importLayoutJsx = name => require(`@/layout/${name}/index.js`).default
+const importViewJsx = name => require(`@/views/${name}/index.js`).default
+
 Vue.use(Router)
 
 export const routes = [
@@ -46,6 +49,11 @@ export const routes = [
         path: 'customLoading',
         name: 'customLoading',
         component: importView('customLoading')
+      },
+      {
+        path: 'customScrollbar',
+        name: 'customScrollbar',
+        component: importView('customScrollbar')
       },
       {
         path: 'dragList',
