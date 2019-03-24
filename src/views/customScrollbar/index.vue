@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import customScrollbar from "@/components/customScrollbar";
+import customScrollbar from "@/components/custom-scrollbar";
 export default {
   name: "customScrollbarShow",
   components: { customScrollbar }

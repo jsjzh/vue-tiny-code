@@ -1,9 +1,9 @@
 <template>
   <div class="wave-container">
-    <div class="wave-demo-btn" v-waves>wave-demo-btn</div>
-    <div class="wave-demo-btn" v-waves="{color: 'red'}">wave-demo-btn</div>
-    <div class="wave-demo-btn" v-waves="{color: 'blue'}">wave-demo-btn</div>
-    <div class="wave-demo-btn" v-waves="{color: 'yellow'}">wave-demo-btn</div>
+    <el-button v-waves>wave-demo-btn</el-button>
+    <el-button v-waves="{color: 'red'}">wave-demo-btn</el-button>
+    <el-button v-waves="{color: 'blue'}">wave-demo-btn</el-button>
+    <el-button v-waves="{color: 'yellow'}">wave-demo-btn</el-button>
   </div>
 </template>
 
@@ -30,14 +30,6 @@ export default {
   margin: 5rem 0;
   & > div {
     margin: 0 2rem;
-  }
-  .wave-demo-btn {
-    min-width: 100px;
-    min-height: 20px;
-    background-color: #67c23a;
-    color: white;
-    border-radius: 5px;
-    padding: 1rem 2.5rem;
   }
 }
 </style>
