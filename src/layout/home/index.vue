@@ -26,7 +26,7 @@ export default {
         { to: "/dragDialog", title: "elementDialog 可拖拽" },
         { to: "/customLoading", title: "自定义 loading" },
         { to: "/customScrollbar", title: "自定义 scrollbar" },
-        { to: "/dragList", title: "重新定义拖动" }
+        // { to: "/dragList", title: "重新定义拖动" }
       ]
     };
   },
