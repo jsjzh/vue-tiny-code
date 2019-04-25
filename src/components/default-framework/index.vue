@@ -51,7 +51,7 @@
 import colStyle from "@/mixins/methods/col-style";
 import { mixinData } from "@/utils";
 
-import { getComponents } from "@/api";
+import { getcomponentinfo } from "@/api";
 
 export default {
   name: "default-framework",
@@ -126,7 +126,7 @@ export default {
   },
   mounted() {
     let data = { title: "" };
-    getComponents().then(res => {
+    getcomponentinfo().then(res => {
       this.componentDatas = res.map(component => mixinData(component, data));
       this.initComponentDatas = res.map(component =>
         mixinData(component, data)

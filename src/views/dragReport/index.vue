@@ -3,14 +3,28 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-12 10:11:30
+ * @LastEditTime: 2019-04-25 18:03:41
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
       然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
       关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
  -->
 <template>
   <div class="drag-report" v-loading="isLoading">
-    <div class="drag-report-title">{{dragReportData.title.toUpperCase()}}</div>
+    <div class="drag-report-title">
+      <div
+        class="report-title-box"
+        v-if="!showTitleEditer"
+        @click="handleEditTitle"
+      >{{dragReportData.title.toUpperCase() || 'pleace enter the report name'.toUpperCase()}}</div>
+      <div v-if="showTitleEditer" class="report-title-box">
+        <el-input
+          ref="titleInput"
+          v-model="dragReportData.title"
+          @blur="showTitleEditer = false"
+          placeholder="please enter the report name"
+        />
+      </div>
+    </div>
     <div class="drag-report-container">
       <div
         class="layout-row-box"
@@ -72,21 +86,21 @@
     </div>
 
     <i
-      class="el-icon-plus drag-report-add-row-icon report-ps-icon-btn"
+      class="el-icon-plus drag-report-add-row-icon drag-report-report-ps-icon-btn"
       title="add row"
       :style="{top: `${addContainerTop}px`}"
       v-if="!addRow.show"
       @click="addRow.show = true"
     />
     <i
-      class="el-icon-plus drag-report-add-col-icon report-ps-icon-btn"
+      class="el-icon-plus drag-report-add-col-icon drag-report-report-ps-icon-btn"
       title="add col"
       :style="{top: `${addContainerTop}px`}"
       v-if="!addCol.show"
       @click="addCol.show = true"
     />
     <i
-      class="el-icon-d-arrow-right drag-report-preview-icon report-ps-icon-btn"
+      class="el-icon-d-arrow-right drag-report-preview-icon drag-report-report-ps-icon-btn"
       title="preview"
       :style="{top: `${addContainerTop}px`}"
       v-if="!addCol.show"
@@ -147,7 +161,7 @@ import clickoutside from "@/directive/clickoutside";
 import defaultFramework from "@/components/default-framework";
 import defaultLayoutEditor from "@/components/default-layout-editor";
 
-import { getComponents, getReportData } from "@/api";
+import { getcomponentinfo, getreportcomponentinfo } from "@/api";
 
 const colSkipArr = ["initCol"];
 
@@ -170,6 +184,7 @@ export default {
   data() {
     return {
       isLoading: true,
+      showTitleEditer: false,
       dragReportData: {
         title: "",
         children: []
@@ -328,6 +343,13 @@ export default {
       this.setCol(init, col);
     },
     // other function
+    handleEditTitle() {
+      this.showTitleEditer = true;
+      this.$nextTick(() => {
+        let { titleInput } = this.$refs;
+        titleInput.focus();
+      });
+    },
     handleClickoutside(container) {
       return function() {
         container.show && (container.show = false);
@@ -404,7 +426,7 @@ export default {
   },
   mounted() {
     this.addListener();
-    let promises = [getComponents(), getReportData("first-report")];
+    let promises = [getcomponentinfo(), getreportcomponentinfo("first-report")];
     Promise.all(promises)
       .then(ress => {
         this.componentDatas = ress[0];

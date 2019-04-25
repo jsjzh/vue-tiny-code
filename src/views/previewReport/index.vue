@@ -56,7 +56,7 @@ import colStyle from "@/mixins/methods/col-style";
 import defaultContainer from "@/components/custom-report/default-container";
 import customReports from "./index";
 
-import { getComponents } from "@/api";
+import { getcomponentinfo } from "@/api";
 
 const _methods = { post, get };
 
@@ -114,7 +114,7 @@ export default {
   mounted() {
     let { reportKey } = this.$route.query;
 
-    let promises = [getComponents()];
+    let promises = [getcomponentinfo()];
 
     Promise.all(promises).then(ress => {
       this.componentDatas = ress[0];

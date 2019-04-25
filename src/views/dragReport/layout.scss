@@ -3,9 +3,14 @@
 .drag-report {
   @include ps-r;
   .drag-report-title {
-    margin: 2rem;
+    @include default-flex;
     text-align: center;
     font-size: 3rem;
+    height: 5rem;
+    .report-title-box {
+      width: 1000px;
+      margin: 0 auto;
+    }
   }
   .drag-report-container {
     width: 1200px;
@@ -100,12 +105,13 @@
   }
 }
 
-.report-ps-icon-btn {
+.drag-report-report-ps-icon-btn {
   @include cur-p;
   @include ps-a;
   @include btn-icon;
   top: 0;
   transition: all 0.5s;
+  font-size: 3rem;
   &.drag-report-add-row-icon {
     left: 10%;
     &:hover {

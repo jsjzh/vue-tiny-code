@@ -101,7 +101,7 @@
 <script>
 import colStyle from "@/mixins/methods/col-style";
 import { deepClone } from "@/utils";
-import { getComponents } from "@/api";
+import { getcomponentinfo } from "@/api";
 
 export default {
   name: "editComponent",
@@ -215,7 +215,7 @@ export default {
     handleSaveComponent() {}
   },
   mounted() {
-    getComponents().then(res => {
+    getcomponentinfo().then(res => {
       this.components = res;
       this.filterComponents = res;
       this.filterOptions.col.values = Array.from(

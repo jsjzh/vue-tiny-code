@@ -36,6 +36,11 @@ export const routes = [
         component: importView('editComponent')
       },
       {
+        path: 'customReportList',
+        name: 'customReportList',
+        component: importView('customReportList')
+      },
+      {
         path: 'waves',
         name: 'waves',
         component: importView('waves')
