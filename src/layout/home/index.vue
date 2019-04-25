@@ -20,7 +20,7 @@ export default {
       activeTab: "-1",
       paths: [
         { to: "/", title: "首页" },
-        { to: "/dragReport", title: "Vue 拖拽报表" },
+        { to: "/dragReport", title: "Vue 拖拽报表 --- 拖拽页面" },
         { to: "/editComponent", title: "Vue 拖拽报表 --- 编辑组件" },
         { to: "/customReportList", title: "Vue 拖拽报表 --- 报表列表" },
         { to: "/palette", title: "仿 Chrome 调色板" },
