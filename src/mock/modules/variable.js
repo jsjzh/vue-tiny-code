@@ -1,7 +1,119 @@
 export const dragReportData = [
   {
-    title: 'drag-report',
-    reportKey: 'first-report',
+    title: 'test-report',
+    reportUnionKey: '17826e40-dba6-4605-b96a-9d4ae2ddcab5',
+    children: [
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 2,
+        children: [{ col: 24, componentKey: 15, initCol: 24, title: '评分图' }]
+      },
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 3,
+        children: [
+          { col: 16, componentKey: 14, initCol: 16, title: '类型分布图' },
+          { col: 8, componentKey: 11, initCol: 8, title: '分布图' }
+        ]
+      },
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 4,
+        children: [
+          { col: 6, componentKey: 10, initCol: 6, title: '占位' },
+          { col: 12, componentKey: 12, initCol: 12, title: '分布图' },
+          { col: 6, componentKey: 10, initCol: 6, title: '占位' }
+        ]
+      },
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 2,
+        children: [{ col: 24, componentKey: 15, initCol: 24, title: '评分图' }]
+      },
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 3,
+        children: [
+          { col: 16, componentKey: 14, initCol: 16, title: '类型分布图' },
+          { col: 8, componentKey: 11, initCol: 8, title: '分布图' }
+        ]
+      },
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 4,
+        children: [
+          { col: 6, componentKey: 10, initCol: 6, title: '占位' },
+          { col: 12, componentKey: 12, initCol: 12, title: '分布图' },
+          { col: 6, componentKey: 10, initCol: 6, title: '占位' }
+        ]
+      },
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 2,
+        children: [{ col: 24, componentKey: 15, initCol: 24, title: '评分图' }]
+      },
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 3,
+        children: [
+          { col: 16, componentKey: 14, initCol: 16, title: '类型分布图' },
+          { col: 8, componentKey: 11, initCol: 8, title: '分布图' }
+        ]
+      },
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 4,
+        children: [
+          { col: 6, componentKey: 10, initCol: 6, title: '占位' },
+          { col: 12, componentKey: 12, initCol: 12, title: '分布图' },
+          { col: 6, componentKey: 10, initCol: 6, title: '占位' }
+        ]
+      }
+    ]
+  },
+  {
+    title: 'month-report',
+    reportUnionKey: '83502436-6100-4628-b564-c6920e2c2f15',
+    children: [
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 2,
+        children: [{ col: 24, componentKey: 15, initCol: 24, title: '评分图' }]
+      },
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 3,
+        children: [
+          { col: 16, componentKey: 14, initCol: 16, title: '类型分布图' },
+          { col: 8, componentKey: 11, initCol: 8, title: '分布图' }
+        ]
+      },
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 4,
+        children: [
+          { col: 6, componentKey: 10, initCol: 6, title: '占位' },
+          { col: 12, componentKey: 12, initCol: 12, title: '分布图' },
+          { col: 6, componentKey: 10, initCol: 6, title: '占位' }
+        ]
+      }
+    ]
+  },
+  {
+    title: 'year-report',
+    reportUnionKey: 'af84a1c6-b83e-44fd-9230-b364631d2925',
     children: [
       {
         align: 'flex-start',
@@ -30,6 +142,12 @@ export const dragReportData = [
       }
     ]
   }
+]
+
+export const reportListDatas = [
+  { reportUnionKey: '17826e40-dba6-4605-b96a-9d4ae2ddcab5', type: 'day', title: '日报' },
+  { reportUnionKey: '83502436-6100-4628-b564-c6920e2c2f15', type: 'month', title: '月报' },
+  { reportUnionKey: 'af84a1c6-b83e-44fd-9230-b364631d2925', type: 'year', title: '年报' }
 ]
 
 export const componentDatas = [

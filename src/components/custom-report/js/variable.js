@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-25 17:34:43
- * @LastEditTime: 2019-03-11 16:42:12
+ * @LastEditTime: 2019-04-29 10:18:52
  * @Description:
  *  组件公用变量
  *  该处不设置 data 相关内容，只设置一些特殊的 chart 样式

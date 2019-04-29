@@ -1,9 +1,18 @@
+<!--
+ * @Author: jsjzh
+ * @Email: kimimi_king@163.com
+ * @LastEditors: jsjzh
+ * @Date: 2019-04-25 18:09:30
+ * @LastEditTime: 2019-04-29 16:41:17
+ * @Description: 自定义报表列表页，该页面数据都是由 mockjs 接管，若需要接入自己的项目，则需要更改接口等相关配置。另外， mockjs 的数据只对当前打开的 tab 页面生效，若有一些操作是打开新的 tab 页面则只能获取到初始的 mock 数据。
+ * @TODO: 拟想一个方法，可以靠传入参数来实现整个页面的功能，比如接口的选择，然后发送数据前的回调，不过好像不太现实，有空可以试试。
+ -->
+
 <template>
-  <div v-loading="isLoading" class="main-container">
+  <div v-loading="isLoading" class="custom-report-list-main-container">
     <div class="report-list-container">
-      <div class="query-infos" v-html="PAGE_queryData"></div>
       <div class="controller-bar">
-        <i class="el-icon-plus" title="add" @click="handleAddReport"/>
+        <i class="el-icon-plus default-icon" title="add" @click="handleAddReport"/>
         <div>
           <el-input
             style="width: 400px"
@@ -20,26 +29,27 @@
           @mouseenter="report.showShade = true"
           @mouseleave="report.showShade = false"
         >
-          <div class="report-info">{{report.title.toUpperCase()}}</div>
+          <div class="report-type">type: {{report.type}}</div>
+          <div class="report-info">{{report.title}}</div>
           <transition name="slide-fade">
             <div v-show="report.showShade" class="shade">
               <div class="shade-edit-view">
                 <i
                   @click="handleClickEdit(report.reportUnionKey)"
                   title="edit"
-                  class="el-icon-edit-outline"
+                  class="el-icon-edit-outline default-icon"
                 />
                 <i
-                  @click="handleClickPriview(report.reportUnionKey)"
-                  title="priview"
-                  class="el-icon-view"
+                  @click="handleClickPreview(report.reportUnionKey)"
+                  title="preview"
+                  class="el-icon-view default-icon"
                 />
               </div>
               <div class="shade-del">
                 <i
                   @click="handleClickDel(report.reportUnionKey)"
                   title="delete"
-                  class="el-icon-delete"
+                  class="el-icon-delete default-icon"
                 />
               </div>
             </div>
@@ -47,185 +57,113 @@
         </div>
       </div>
     </div>
-
-    <i
-      class="el-icon-setting report-list-query-data-icon-btn"
-      title="edit-query"
-      @click="showQueryContainer = true"
-    />
-
-    <transition name="slide-fade">
-      <default-select-query
-        v-show="showQueryContainer"
-        @click-outside="showQueryContainer = false"
-        @select-query-done="handleQueryData"
-      />
-    </transition>
   </div>
 </template>
 
 <script>
-import { deepClone } from "@/utils";
-import clickoutside from "@/directive/clickoutside";
+import { deepClone, openNewWindow, setStorage } from "@/utils";
 
 import {
-  // getreportstructurelist,
-  // operatestructureinfo,
-  // delstructureinfo
+  getreportstructurelist,
+  operatestructureinfo,
+  delstructureinfo
 } from "@/api";
 
-import defaultSelectQuery from "@/components/custom-report/default-select-query";
-
-function getZtreeSetting(clickFn, options = {}) {
+function createReport(params) {
   return {
-    check: { enable: false, chkStyle: "radio" },
-    data: { key: { children: "children", name: "name" } },
-    view: { showIcon: true },
-    callback: { onClick: clickFn },
-    ...options
+    title: "the new report",
+    children: [
+      {
+        align: "flex-start",
+        height: 250,
+        index: 1,
+        children: [{ col: 24, componentKey: null, initCol: 24, title: null }]
+      }
+    ],
+    ...params
   };
 }
+
 export default {
   name: "customReportList",
-  directives: { clickoutside },
-  components: { defaultSelectQuery },
-
   data() {
     return {
       isLoading: false,
       reportDatas: [],
-      newReportName: "",
-      queryData: {
-        startTime: undefined,
-        endTime: undefined,
-        type: undefined,
-        targetId: undefined,
-        text: undefined
-      },
-      showQueryContainer: false
+      newReportName: ""
     };
   },
-  computed: {
-    PAGE_queryData() {
-      let str = "";
-      let queryData = deepClone(this.queryData);
-      Object.keys(queryData).forEach(key => {
-        if (key === "startTime" || key === "endTime") {
-          queryData[key] = moment(queryData[key]).format("YYYY-MM-DD HH:mm:ss");
-        }
-
-        let value =
-          queryData[key] !== undefined
-            ? queryData[key]
-            : `<span style="color: #f44336">${queryData[key]}</span>`;
-        str += ` ${key} : ${value} `;
-      });
-      return str;
-    }
-  },
   methods: {
-    handleQueryData(queryData) {
-      this.showQueryContainer = false;
-      queryData = deepClone(queryData);
-      Object.keys(queryData).forEach(key => {
-        this.$set(this.queryData, key, queryData[key]);
-      });
-    },
-
     handleAddReport() {
       if (!this.newReportName) {
-        this.$msg("1_请先输入新报表名称");
+        this.$msg("1_please enter the new report name");
         return;
       }
-      operatestructureinfo({
-        title: this.newReportName,
-        reportKey: "new-report",
-        structureUnitList: [
-          {
-            align: "flex-start",
-            height: 250,
-            index: 1,
-            children: [
-              { col: 24, componentKey: null, initCol: 24, title: null }
-            ]
-          }
-        ]
-      }).then(res => {
-        if (res.status === 200) {
-          this.$msg("0_新增成功，将打开编辑页").then(() => {
+      this.isLoading = true;
+      operatestructureinfo(createReport({ title: this.newReportName })).then(
+        res => {
+          let { reportUnionKey } = res;
+          this.$msg("0_add new report success").then(() => {
             setTimeout(() => {
-              this.handleClickEdit(res.data);
+              this.handleClickEdit(reportUnionKey);
             }, 1000);
           });
-          getreportstructurelist().then(res => {
-            res.data ? res.data : [];
-            this.reportDatas = res.data.map(item => ({
-              ...item,
-              showShade: false
-            }));
-          });
+          this.getReportList();
         }
-      });
+      );
     },
 
     handleClickDel(reportUnionKey) {
-      delstructureinfo({ reportUnionKey, indexList: [] }).then(res => {
-        if (res.status === 200) {
-          this.$msg("0_删除成功").then(() => {
-            getreportstructurelist().then(res => {
-              res.data ? res.data : [];
-              this.reportDatas = res.data.map(item => ({
-                ...item,
-                showShade: false
-              }));
-            });
-          });
-        }
+      this.isLoading = true;
+      delstructureinfo({ reportUnionKey }).then(res => {
+        this.$msg("0_delete success").then(() => {
+          this.getReportList();
+        });
       });
     },
 
     handleClickEdit(reportUnionKey) {
-      let routeUrl = this.$router.resolve({
-        path: "/ai/dragReport",
-        query: { reportUnionKey, ...this.queryData }
+      let { href } = this.$router.resolve({
+        path: "/dragReport",
+        query: { reportUnionKey }
       });
-      window.open(routeUrl.href, "_blank");
+      openNewWindow(href);
     },
 
-    handleClickPriview(reportUnionKey) {
-      window.localStorage.setItem("drag-report-data:isEdit", "false");
-      let routeUrl = this.$router.resolve({
-        path: "/ai/previewReport",
-        query: { ...this.queryData, reportUnionKey }
+    handleClickPreview(reportUnionKey) {
+      setStorage("drag-report-data:isEdit", false);
+      let { href } = this.$router.resolve({
+        path: "/previewReport",
+        query: { reportUnionKey }
       });
-      window.open(routeUrl.href, "_blank");
+      openNewWindow(href);
     },
 
-    initPage() {
-      document.body.removeAttribute("class");
+    getReportList() {
+      getreportstructurelist()
+        .then(res => {
+          this.reportDatas = res.map(item => ({
+            ...item,
+            showShade: false
+          }));
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     }
   },
 
   mounted() {
-    this.initPage();
-
-    // let promises = [getreportstructurelist()];
-    // Promise.all(promises)
-    //   .then(ress => {
-    //     ress[0].data ? ress[0].data : [];
-    //     this.reportDatas = ress[0].data.map(item => ({
-    //       ...item,
-    //       showShade: false
-    //     }));
-    //   })
-    //   .finally(() => {
-    //     this.isLoading = false;
-    //   });
+    this.getReportList();
   }
 };
 </script>
 
 <style lang="scss" scoped>
 @import "./layout.scss";
+body,
+html {
+  height: 100%;
+}
 </style>
 

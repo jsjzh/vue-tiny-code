@@ -1,7 +1,18 @@
-const mock = require('mockjs').mock
-import { transUrlParams } from '@/utils'
+const Mock = require('mockjs')
+import { transUrlParams, transBodyParams } from '@/utils'
+import { componentDatas, dragReportData, reportListDatas } from './modules/variable'
 
-import { componentDatas, dragReportData } from './modules/variable'
+import * as R from 'ramda'
+
+let $$id = 0
+
+let _componentDatas = componentDatas
+let _dragReportData = dragReportData
+let _reportListDatas = reportListDatas
+
+Mock.setup({
+  timeout: 200
+})
 
 const randomCount = '@integer(10, 100)'
 const randomKeyArr = [
@@ -15,15 +26,38 @@ const randomKeyArr = [
 ]
 const randomXAxisArr = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
-mock(/getreportcomponentinfo/, 'get', config => {
-  let { reportKey } = transUrlParams(config.url)
-  return dragReportData.find(report => report.reportKey === reportKey) || dragReportData[0]
+Mock.mock(/getreportcomponentinfo/, 'get', config => {
+  let { reportUnionKey } = transUrlParams(config.url)
+  return _dragReportData.find(report => report.reportUnionKey === reportUnionKey) || _dragReportData[0]
 })
 
-mock(/getcomponentinfo/, 'get', config => componentDatas)
+/**
+ * 获取自定义报表的组件列表
+ */
+Mock.mock(/getcomponentinfo/, 'get', config => _componentDatas)
+/**
+ * 获取自定义报表列表
+ */
+Mock.mock(/getreportstructurelist/, 'get', config => _reportListDatas)
+/**
+ * 新增自定义报表
+ */
+Mock.mock(/operatestructureinfo/, 'post', config => {
+  let { title, children } = transBodyParams(config.body)
+  let newReport = { title, children, reportUnionKey: $$id++ }
+  _reportListDatas.push(newReport)
+  return newReport
+})
+/**
+ * 删除自定义报表
+ */
+Mock.mock(/delstructureinfo/, 'post', config => {
+  let { reportUnionKey } = transBodyParams(config.body)
+  _reportListDatas = _reportListDatas.filter(report => report.reportUnionKey !== reportUnionKey)
+})
 
-mock(/report\/getCountData/, 'get', config => {
-  return mock({
+Mock.mock(/report\/getCountData/, 'get', config => {
+  return Mock.mock({
     countKey: {
       countOne: randomCount,
       countTwo: randomCount,
@@ -33,8 +67,8 @@ mock(/report\/getCountData/, 'get', config => {
   })
 })
 
-mock(/report\/getRandomData/, 'get', config =>
-  mock(
+Mock.mock(/report\/getRandomData/, 'get', config =>
+  Mock.mock(
     randomKeyArr.map((name, index) => ({
       name: name,
       value: randomCount,

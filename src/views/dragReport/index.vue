@@ -3,27 +3,25 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-04-25 18:03:41
- * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等
-      然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置
-      关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
+ * @LastEditTime: 2019-04-29 17:32:34
+ * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等，然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置，关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
  -->
 <template>
-  <div class="drag-report" v-loading="isLoading">
+  <div v-loading="isLoading" class="drag-report-main-container">
     <div class="drag-report-title">
-      <div
-        class="report-title-box"
+      <span
         v-if="!showTitleEditer"
         @click="handleEditTitle"
-      >{{dragReportData.title.toUpperCase() || 'pleace enter the report name'.toUpperCase()}}</div>
-      <div v-if="showTitleEditer" class="report-title-box">
-        <el-input
-          ref="titleInput"
-          v-model="dragReportData.title"
-          @blur="showTitleEditer = false"
-          placeholder="please enter the report name"
-        />
-      </div>
+      >{{dragReportData.title || 'pleace enter the report name'}}</span>
+      <el-input
+        v-if="showTitleEditer"
+        ref="titleInput"
+        style="width: 500px"
+        v-model="dragReportData.title"
+        @keyup.enter.native="showTitleEditer = false"
+        @blur="showTitleEditer = false"
+        placeholder="please enter the report name"
+      />
     </div>
     <div class="drag-report-container">
       <div
@@ -54,8 +52,8 @@
                 class="align-type-item"
                 :title="align.title"
                 :class="{active: row.align  === align.value}"
-                v-for="(align, alignIndex) in alignType"
                 :key="alignIndex"
+                v-for="(align, alignIndex) in alignType"
                 @click="row.align = align.value"
               >{{align.label}}</span>
               <span class="align-type-item remove-item" @click="handleRemoveRow($event, row)">remove</span>
@@ -68,9 +66,9 @@
           v-for="(col, colIndex) in row.children"
           :style="previewColStyle({width: col.initCol, height: row.height}, 100, 1, 24, {backgroundImage: col.previewImage ? `url(${col.previewImage})` : null, cursor: col.previewImage ? 'all-scroll' : null})"
           :key="colIndex"
+          :draggable="col.previewImage ? true : false"
           @mouseenter="col.previewImage ? col.showChildrenControllerBar = true : null"
           @mouseleave="col.showChildrenControllerBar = false"
-          :draggable="col.previewImage ? true : false"
           @dragstart="handleDragCol($event, col, false)"
           @drop="handleDropCol($event, col)"
           @dragover="handleDragOver($event, col)"
@@ -86,21 +84,23 @@
     </div>
 
     <i
-      class="el-icon-plus drag-report-add-row-icon drag-report-report-ps-icon-btn"
+      class="el-icon-plus add-row-icon ps-icon-btn"
       title="add row"
       :style="{top: `${addContainerTop}px`}"
       v-if="!addRow.show"
       @click="addRow.show = true"
     />
+
     <i
-      class="el-icon-plus drag-report-add-col-icon drag-report-report-ps-icon-btn"
+      class="el-icon-plus add-col-icon ps-icon-btn"
       title="add col"
       :style="{top: `${addContainerTop}px`}"
       v-if="!addCol.show"
       @click="addCol.show = true"
     />
+
     <i
-      class="el-icon-d-arrow-right drag-report-preview-icon drag-report-report-ps-icon-btn"
+      class="el-icon-d-arrow-right preview-icon ps-icon-btn"
       title="preview"
       :style="{top: `${addContainerTop}px`}"
       v-if="!addCol.show"
@@ -205,7 +205,7 @@ export default {
         row: null,
         rowIndex: null
       },
-      addContainerTop: 0,
+      addContainerTop: 30,
       addRow: {
         show: false,
         showControllerBar: false
@@ -240,6 +240,10 @@ export default {
     },
     handleDropRow(event, row) {
       if (!this.dragData.isRow) return;
+      let sum = this.dragReportData.children.reduce(
+        (pre, curr) => (pre += curr.height),
+        0
+      );
       if (!this.dragData.isNewRow) {
         let dragIndex = this.dragData.row.index;
         let oldIndex = row.index;
@@ -247,6 +251,10 @@ export default {
         row.index = dragIndex;
         this.sortRow();
       } else {
+        if (sum + this.dragData.row.height > 2300) {
+          this.$msg("1_高度超出一页纸");
+          return;
+        }
         let { dragReportData } = this;
         let behindRows = dragReportData.children.reduce((prev, curr) => {
           if (curr.index > row.index) {
@@ -379,25 +387,44 @@ export default {
     },
     handleToPreviewPage() {
       let previewData = this.resolvePreviewData();
-      console.log(JSON.stringify(previewData));
       window.localStorage.setItem(
-        "dragReport-data",
+        "drag-report-data",
         JSON.stringify(previewData)
       );
-      let routeUrl = this.$router.resolve({
-        path: "/previewReport",
-        query: { reportKey: previewData.reportKey }
+      window.localStorage.setItem("drag-report-data:isEdit", "true");
+      this.$msg("0_现将打开预览页面").then(() => {
+        setTimeout(() => {
+          let routeUrl = this.$router.resolve({
+            path: "/previewReport",
+            query: this.$route.query
+          });
+          window.open(routeUrl.href, "_blank");
+        }, 2000);
       });
-      window.open(routeUrl.href, "_blank");
     },
     handleListenerScroll(e) {
       let scrollTop =
         document.documentElement.scrollTop ||
         window.pageYOffset ||
         document.body.scrollTop;
-      this.addContainerTop = scrollTop;
+      this.addContainerTop = scrollTop + 30;
     },
     resolveReportData(dragReportData) {
+      if (!dragReportData.reportUnionKey) {
+        dragReportData = {
+          title: "blank-report",
+          reportKey: null,
+          reportUnionKey: null,
+          children: [
+            {
+              align: "flex-start",
+              height: 250,
+              index: 1,
+              children: [{ col: null, componentKey: null, initCol: 24 }]
+            }
+          ]
+        };
+      }
       // 为保证存到数据库的数据少一些，对数据做一些优化
       dragReportData.children &&
         dragReportData.children.forEach(row => {
@@ -425,14 +452,24 @@ export default {
     }
   },
   mounted() {
+    this.isLoading = true;
     this.addListener();
-    let promises = [getcomponentinfo(), getreportcomponentinfo("first-report")];
+    let { reportUnionKey } = this.$route.query;
+
+    let promises = [
+      getcomponentinfo(),
+      getreportcomponentinfo({ reportUnionKey })
+    ];
+
     Promise.all(promises)
       .then(ress => {
-        this.componentDatas = ress[0];
-        this.resolveReportData(ress[1]);
+        let [componentDatas = [], reportData = {}] = ress;
+        this.componentDatas = componentDatas;
+        this.resolveReportData(reportData);
       })
-      .finally(() => (this.isLoading = false));
+      .finally(() => {
+        this.isLoading = false;
+      });
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.$$listeners.scroll);

@@ -6,6 +6,10 @@
     margin: 2rem;
     text-align: center;
     font-size: 3rem;
+    padding-top: 3rem;
+  }
+  .query-infos {
+    width: 100%;
   }
   .preview-container {
     width: 1200px;
@@ -30,10 +34,49 @@
   }
 }
 
-.report-ps-icon-btn {
+.preview-report-report-ps-icon-btn {
   @include cur-p;
   @include ps-a;
   @include btn-icon;
   top: 0;
   right: 10%;
+  font-size: 5rem;
+  transition: all 0.5s;
+}
+
+.preview-report-query-data-icon-btn {
+  @include cur-p;
+  @include ps-a;
+  @include btn-icon;
+  top: 0;
+  left: 10%;
+  font-size: 5rem;
+  transition: all 0.5s;
+}
+
+.preview-report-report-save-icon-btn {
+  @include cur-p;
+  @include ps-a;
+  @include btn-icon;
+  top: 0;
+  left: 15%;
+  font-size: 5rem;
+  transition: all 0.5s;
+}
+
+.color-bar-ctr {
+  @include ps-a;
+  top: 5%;
+  right: 0;
+}
+
+.color-bar {
+  @include ps-a;
+  top: 5%;
+  right: -6.5%;
+  transition: all 0.5s;
+}
+
+.color-bar:hover {
+  right: 1%;
 }

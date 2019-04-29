@@ -40,9 +40,9 @@
       </div>
     </div>
     <div class="edit-component-container">
-      <div class="priview-container">
+      <div class="preview-container">
         <div
-          class="priview-item"
+          class="preview-item"
           :style="previewColStyle({ width: editComponentInfo.col, height: editComponentInfo.height }, 100, 1, 24,{backgroundImage: editComponentInfo.previewImage ? `url(${editComponentInfo.previewImage})` : null, width: `${editComponentInfo.col *50}px`})"
         />
       </div>

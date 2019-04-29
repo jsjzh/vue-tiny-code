@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-27 10:20:10
- * @LastEditTime: 2019-03-07 17:10:46
+ * @LastEditTime: 2019-04-29 10:19:19
  * @Description: chart 实例默认 mixin 配置
  */
 import { defaultLineOption, defaultPieOption, defaultBarOption } from '../js/variable'

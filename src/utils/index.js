@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2018-6-28 15:13:23
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-15 20:34:50
+ * @LastEditTime: 2019-04-29 14:47:32
  * @Description: 常用函数包装
  */
 import * as R from 'ramda'
@@ -223,7 +223,16 @@ export function mixinData(item, mixinData) {
 export function transUrlParams(url) {
   const paramStr = url.split('?')[1]
   if (!paramStr) return {}
-  return JSON.parse(`{"${paramStr.replace(/&/g, '","').replace(/=/g, '":"')}"}`)
+  let paramObj = JSON.parse(`{"${paramStr.replace(/&/g, '","').replace(/=/g, '":"')}"}`)
+  Object.keys(paramObj).forEach(key => {
+    paramObj[key] = decodeURI(paramObj[key])
+  })
+  return paramObj
+}
+
+export function transBodyParams(body) {
+  let obj = JSON.parse(body)
+  return obj.params ? obj.params : obj
 }
 
 export function hyphen2hump(str) {
@@ -243,4 +252,20 @@ export function $msg(message = '0_操作成功', callback, duration = 1500) {
   })
   if (typeof callback === 'function') callback(true)
   return Promise.resolve(true)
+}
+
+export function openNewWindow(url) {
+  window.open(url, '_blank')
+}
+
+export function setStorage(key, value, type = 'local') {
+  window[type + 'Storage'].setItem(key, value)
+}
+
+export function resolveStorage(key, type = 'local') {
+  let value = window[type + 'Storage'].getItem(key)
+  if (value === 'false') return false
+  if (value === 'true') return true
+  if (value.indexOf('{') !== -1 && value.indexOf('}') !== -1) return JSON.parse(value)
+  return value
 }

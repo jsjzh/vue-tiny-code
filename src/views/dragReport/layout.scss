@@ -1,16 +1,13 @@
 @import '~@/styles/variable.scss';
 
-.drag-report {
+.drag-report-main-container {
   @include ps-r;
   .drag-report-title {
     @include default-flex;
-    text-align: center;
+    width: 1000px;
+    margin: 0 auto;
+    height: 80px;
     font-size: 3rem;
-    height: 5rem;
-    .report-title-box {
-      width: 1000px;
-      margin: 0 auto;
-    }
   }
   .drag-report-container {
     width: 1200px;
@@ -103,28 +100,28 @@
       left: 0;
     }
   }
-}
 
-.drag-report-report-ps-icon-btn {
-  @include cur-p;
-  @include ps-a;
-  @include btn-icon;
-  top: 0;
-  transition: all 0.5s;
-  font-size: 3rem;
-  &.drag-report-add-row-icon {
-    left: 10%;
-    &:hover {
-      animation: transIcon 1s infinite;
+  .ps-icon-btn {
+    @include cur-p;
+    @include ps-a;
+    @include btn-icon;
+    top: 0;
+    transition: all 0.5s;
+    font-size: 2.5rem;
+    &.add-row-icon {
+      left: 10%;
+      &:hover {
+        animation: transIcon 1s infinite;
+      }
     }
-  }
-  &.drag-report-add-col-icon {
-    right: 10%;
-    &:hover {
-      animation: transIconReversal 1s infinite;
+    &.add-col-icon {
+      right: 10%;
+      &:hover {
+        animation: transIconReversal 1s infinite;
+      }
     }
-  }
-  &.drag-report-preview-icon {
-    right: 5%;
+    &.preview-icon {
+      right: 5%;
+    }
   }
 }

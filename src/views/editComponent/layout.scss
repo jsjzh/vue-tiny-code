@@ -52,13 +52,13 @@
     // background-color: #eee;
     display: flex;
     flex-flow: column;
-    .priview-container {
+    .preview-container {
       width: 100%;
       min-height: 250px;
       box-shadow: 1px 1px 1px#999;
       // background-color: #2196f3;
       @include default-flex;
-      .priview-item {
+      .preview-item {
         max-width: 100%;
         margin: 0 auto;
         @include default-background-img;

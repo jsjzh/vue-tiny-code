@@ -44,13 +44,11 @@ service.interceptors.response.use(
 )
 
 export const get = R.curry(function(url, params) {
-  return service.get(url, {
-    params: { ...params }
-  })
+  return service.get(url, { params })
 })
 
 export const post = R.curry(function(url, params) {
-  return service.get(url, params)
+  return service.post(url, { params })
 })
 
 export default service
