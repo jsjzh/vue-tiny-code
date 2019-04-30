@@ -26,11 +26,13 @@ const randomKeyArr = [
 ]
 const randomXAxisArr = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
+/**
+ * 获取某一报表详细布局信息
+ */
 Mock.mock(/getreportcomponentinfo/, 'get', config => {
   let { reportUnionKey } = transUrlParams(config.url)
-  return _dragReportData.find(report => report.reportUnionKey === reportUnionKey) || _dragReportData[0]
+  return _dragReportData.find(report => report.reportUnionKey === reportUnionKey)
 })
-
 /**
  * 获取自定义报表的组件列表
  */
@@ -54,10 +56,18 @@ Mock.mock(/operatestructureinfo/, 'post', config => {
 Mock.mock(/delstructureinfo/, 'post', config => {
   let { reportUnionKey } = transBodyParams(config.body)
   _reportListDatas = _reportListDatas.filter(report => report.reportUnionKey !== reportUnionKey)
+  return { status: 'success', code: 200, data: { reportUnionKey } }
 })
 
-Mock.mock(/report\/getCountData/, 'get', config => {
-  return Mock.mock({
+Mock.mock(/updatestructureinfo/, 'post', config => {
+  let updateInfo = transBodyParams(config.body)
+  let report = _dragReportData.find(reports => reports.reportUnionKey === updateInfo.reportUnionKey)
+  report = { ...report, ...updateInfo }
+  return { status: 'success', code: 200, data: { reportUnionKey: updateInfo.reportUnionKey } }
+})
+
+Mock.mock(/report\/getCountData/, 'get', config =>
+  Mock.mock({
     countKey: {
       countOne: randomCount,
       countTwo: randomCount,
@@ -65,8 +75,7 @@ Mock.mock(/report\/getCountData/, 'get', config => {
       average: randomCount
     }
   })
-})
-
+)
 Mock.mock(/report\/getRandomData/, 'get', config =>
   Mock.mock(
     randomKeyArr.map((name, index) => ({

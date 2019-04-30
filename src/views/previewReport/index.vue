@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-04-29 16:18:07
+ * @LastEditTime: 2019-04-30 11:29:57
  * @Description: preview 页面
  -->
 <template>
@@ -105,7 +105,7 @@ import { post, get } from "@/api/service";
 import { debounce } from "lodash";
 
 import exportPDF from "@/utils/exportPDF";
-import { deepClone, flatLayoutData } from "@/utils";
+import { deepClone, flatLayoutData, resolveStorage } from "@/utils";
 
 import colStyle from "@/mixins/methods/col-style";
 
@@ -120,7 +120,11 @@ import {
   infographicColor
 } from "@/components/custom-report/js/chart-variable";
 
-import { getcomponentinfo, getreportcomponentinfo } from "@/api";
+import {
+  getcomponentinfo,
+  getreportcomponentinfo,
+  updatestructureinfo
+} from "@/api";
 
 const _methods = { post, get };
 
@@ -140,23 +144,13 @@ export default {
   mixins: [colStyle],
   data() {
     return {
-      alignType: [
-        { title: "居中对齐", label: "center", value: "center" },
-        { title: "左对齐", label: "left", value: "flex-start" },
-        { title: "右对齐", label: "right", value: "flex-end" },
-        { title: "两侧留白", label: "around", value: "space-around" },
-        { title: "两侧对齐", label: "between", value: "space-between" }
-      ],
-      isEditPath: false,
-      editBtnTop: 0,
       isLoading: true,
+      isEditPath: false,
+      editBtnTop: 30,
       showQueryContainer: false,
       loadingExport: true,
       componentDatas: [],
-      layoutData: {
-        title: "",
-        children: []
-      },
+      layoutData: {},
       queryData: {},
       apiList: {},
       flatData: [],
@@ -177,17 +171,13 @@ export default {
   },
   methods: {
     handleSaveLayout() {
-      let previewData = JSON.parse(
-        window.localStorage.getItem("drag-report-data")
-      );
       let { reportUnionKey } = this.$route.query;
-      previewData.structureUnitList = previewData.children;
+      let previewData = resolveStorage("drag-report-data");
+      previewData.children = previewData.children;
       let data = { ...previewData, reportUnionKey };
       updatestructureinfo(data).then(res => {
-        if (res.status === 200) {
-          this.$msg("0_保存成功");
-          this.isEditPath = false;
-        }
+        this.$msg("0_保存成功");
+        this.isEditPath = false;
       });
     },
     handleQueryData(queryData) {
@@ -289,38 +279,38 @@ export default {
     },
 
     renderReport() {
-      let { reportUnionKey } = this.$route.query;
-      this.queryData = this.resolveQueryData();
+      return new Promise((resolve, reject) => {
+        let { reportUnionKey } = this.$route.query;
+        this.queryData = this.resolveQueryData();
 
-      let promises = [
-        getcomponentinfo(),
-        getreportcomponentinfo({ reportUnionKey })
-      ];
+        let promises = [
+          getcomponentinfo(),
+          getreportcomponentinfo({ reportUnionKey })
+        ];
 
-      this.isEditPath =
-        window.localStorage.getItem("drag-report-data:isEdit") === "true";
+        this.isEditPath = resolveStorage("drag-report-data:isEdit");
 
-      Promise.all(promises).then(ress => {
-        this.componentDatas = ress[0].data || [];
-        let layoutData = ress[1].data || {};
-        if (this.isEditPath) {
-          layoutData = JSON.parse(
-            window.localStorage.getItem("drag-report-data")
-          );
-        }
-        this.layoutData = this.resolveReportData(layoutData);
-        this.dealRequests();
+        Promise.all(promises).then(ress => {
+          let [componentDatas = [], layoutData = {}] = ress;
+          this.componentDatas = componentDatas;
+          if (this.isEditPath) layoutData = resolveStorage("drag-report-data");
+          this.layoutData = this.resolveReportData(layoutData);
+          this.dealRequests();
+          resolve(1);
+        });
       });
     },
     addListener() {
       this.$$listeners = { scroll: null };
       this.$$listeners.scroll = debounce(this.handleListenerScroll, 10);
-      document
-        .querySelector("#app")
-        .addEventListener("scroll", this.$$listeners.scroll);
+      window.addEventListener("scroll", this.$$listeners.scroll);
     },
     handleListenerScroll(e) {
-      this.editBtnTop = document.querySelector("#app").scrollTop;
+      let scrollTop =
+        document.documentElement.scrollTop ||
+        window.pageYOffset ||
+        document.body.scrollTop;
+      this.editBtnTop = scrollTop + 30;
     },
     handleSwitchColor(type) {
       let color = colors[type];
@@ -339,15 +329,14 @@ export default {
   },
   mounted() {
     let that = this;
-    this.renderReport();
     this.addListener();
-    setTimeout(() => {
+    this.renderReport().then(() => {
       this.getChartComponents();
       this.loadingExport = false;
-    }, 1000);
-    window.onbeforeunload = function() {
-      if (that.isEditPath) return "编辑的页面布局尚未保存，确定离开？";
-    };
+      // window.onbeforeunload = function() {
+      //   if (that.isEditPath) return "编辑的页面布局尚未保存，确定离开？";
+      // };
+    });
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.$$listeners.scroll);

@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-03-06 14:39:11
- * @LastEditTime: 2019-04-29 16:02:41
+ * @LastEditTime: 2019-04-30 11:30:12
  * @Description:
  *  数据为何要解构再变为一个 obj，因为需要知道该接口所接收的数据
  *  若有默认参数则可以直接加入 default: 'default'
@@ -43,4 +43,12 @@ export function delstructureinfo({ reportUnionKey }) {
  */
 export function getreportcomponentinfo({ reportUnionKey }) {
   return get('/getreportcomponentinfo', { reportUnionKey })
+}
+
+/**
+ * 更新一条布局信息
+ * @param {object} layoutData
+ */
+export function updatestructureinfo(layoutData) {
+  return post('/updatestructureinfo', layoutData)
 }
