@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-04-30 17:13:08
+ * @LastEditTime: 2019-04-30 17:18:39
  * @Description: preview 页面
  -->
 <template>
@@ -75,13 +75,11 @@
     />
 
     <transition name="slide-fade">
-      <div v-show="showQueryContainer" id="editor"></div>
-
-      <!-- <default-select-query
+      <default-select-query
         v-show="showQueryContainer"
         @click-outside="showQueryContainer = false"
         @select-query-done="handleQueryData"
-      />-->
+      />
     </transition>
     <div v-if="!loadingExport" class="color-bar">
       <el-button
@@ -93,6 +91,17 @@
         icon="el-icon-refresh"
         circle
       />
+    </div>
+
+    <div id="editor">
+      <p>Hello World!</p>
+      <p>
+        Some initial
+        <strong>bold</strong> text
+      </p>
+      <p>
+        <br>
+      </p>
     </div>
   </div>
 </template>
@@ -111,8 +120,6 @@ import defaultSelectQuery from "@/components/custom-report/default-select-query"
 import customReports from "./index";
 
 import Quill from "quill";
-
-console.log(Quill);
 
 import {
   defaultColor,
@@ -342,10 +349,10 @@ export default {
     }
   },
   mounted() {
-    let that = this;
     var quill = new Quill("#editor", {
       theme: "snow"
     });
+    let that = this;
     this.addListener();
     this.renderReport().then(() => {
       this.getChartComponents();
