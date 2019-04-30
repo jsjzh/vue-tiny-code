@@ -20,6 +20,18 @@
       @include ps-r;
       flex-wrap: nowrap;
       margin: 2rem 0;
+      .btn-box {
+        position: absolute;
+        right: 0;
+        &.add-title-btn-box {
+          top: 0;
+          transform: translate(50%, -50%);
+        }
+        &.add-message-btn-box {
+          bottom: 0;
+          transform: translate(50%, 50%);
+        }
+      }
       .layout-col {
         @include default-flex;
         @include default-background-img;

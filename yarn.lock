@@ -2425,6 +2425,11 @@ clone@^1.0.2:
   resolved "http://registry.npm.taobao.org/clone/download/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
 
+clone@^2.1.1:
+  version "2.1.2"
+  resolved "https://registry.npm.taobao.org/clone/download/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
+  integrity sha1-G39Ln1kfHo+DZwQBYANFoCiHQ18=
+
 coa@^2.0.2:
   version "2.0.2"
   resolved "http://registry.npm.taobao.org/coa/download/coa-2.0.2.tgz#43f6c21151b4ef2bf57187db0d73de229e3e7ec3"
@@ -3428,6 +3433,11 @@ event-pubsub@4.3.0:
   resolved "http://registry.npm.taobao.org/event-pubsub/download/event-pubsub-4.3.0.tgz#f68d816bc29f1ec02c539dc58c8dd40ce72cb36e"
   integrity sha1-9o2Ba8KfHsAsU53FjI3UDOcss24=
 
+eventemitter3@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.npm.taobao.org/eventemitter3/download/eventemitter3-2.0.3.tgz#b5e1079b59fb5e1ba2771c0a993be060a58c99ba"
+  integrity sha1-teEHm1n7XhuidxwKmTvgYKWMmbo=
+
 eventemitter3@^3.0.0:
   version "3.1.0"
   resolved "http://registry.npm.taobao.org/eventemitter3/download/eventemitter3-3.1.0.tgz#090b4d6cdbd645ed10bf750d4b5407942d7ba163"
@@ -3543,7 +3553,7 @@ extend-shallow@^3.0.0, extend-shallow@^3.0.2:
     assign-symbols "^1.0.0"
     is-extendable "^1.0.1"
 
-extend@~3.0.2:
+extend@^3.0.1, extend@^3.0.2, extend@~3.0.2:
   version "3.0.2"
   resolved "http://registry.npm.taobao.org/extend/download/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
   integrity sha1-+LETa0Bx+9jrFAr/hYsQGewpFfo=
@@ -3576,6 +3586,11 @@ fast-deep-equal@^2.0.1:
   version "2.0.1"
   resolved "http://registry.npm.taobao.org/fast-deep-equal/download/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
   integrity sha1-ewUhjd+WZ79/Nwv3/bLLFf3Qqkk=
+
+fast-diff@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.npm.taobao.org/fast-diff/download/fast-diff-1.1.2.tgz#4b62c42b8e03de3f848460b639079920695d0154"
+  integrity sha1-S2LEK44D3j+EhGC2OQeZIGldAVQ=
 
 fast-glob@^2.2.6:
   version "2.2.6"
@@ -5940,6 +5955,11 @@ param-case@2.1.x:
   dependencies:
     no-case "^2.2.0"
 
+parchment@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.npm.taobao.org/parchment/download/parchment-1.1.4.tgz#aeded7ab938fe921d4c34bc339ce1168bc2ffde5"
+  integrity sha1-rt7Xq5OP6SHUw0vDOc4RaLwv/eU=
+
 parse-asn1@^5.0.0:
   version "5.1.4"
   resolved "http://registry.npm.taobao.org/parse-asn1/download/parse-asn1-5.1.4.tgz#37f6628f823fbdeb2273b4d540434a22f3ef1fcc"
@@ -6596,6 +6616,27 @@ querystringify@^2.0.0:
   version "2.1.0"
   resolved "http://registry.npm.taobao.org/querystringify/download/querystringify-2.1.0.tgz#7ded8dfbf7879dcc60d0a644ac6754b283ad17ef"
   integrity sha1-fe2N+/eHncxg0KZErGdUsoOtF+8=
+
+quill-delta@^3.6.2:
+  version "3.6.3"
+  resolved "https://registry.npm.taobao.org/quill-delta/download/quill-delta-3.6.3.tgz#b19fd2b89412301c60e1ff213d8d860eac0f1032"
+  integrity sha1-sZ/SuJQSMBxg4f8hPY2GDqwPEDI=
+  dependencies:
+    deep-equal "^1.0.1"
+    extend "^3.0.2"
+    fast-diff "1.1.2"
+
+quill@^1.3.6:
+  version "1.3.6"
+  resolved "https://registry.npm.taobao.org/quill/download/quill-1.3.6.tgz#99f4de1fee85925a0d7d4163b6d8328f23317a4d"
+  integrity sha1-mfTeH+6FkloNfUFjttgyjyMxek0=
+  dependencies:
+    clone "^2.1.1"
+    deep-equal "^1.0.1"
+    eventemitter3 "^2.0.3"
+    extend "^3.0.1"
+    parchment "^1.1.4"
+    quill-delta "^3.6.2"
 
 ramda@^0.26.1:
   version "0.26.1"

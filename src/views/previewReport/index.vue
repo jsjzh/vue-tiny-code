@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-04-30 11:29:57
+ * @LastEditTime: 2019-04-30 17:13:08
  * @Description: preview 页面
  -->
 <template>
@@ -16,7 +16,21 @@
         :style="{justifyContent: row.align, height: `${row.height}px`}"
         v-for="(row, rowIndex) in layoutData.children"
         :key="rowIndex"
+        @mouseenter="row.showBtns = true"
+        @mouseleave="row.showBtns = false"
       >
+        <transition name="slide-fade" v-if="row.showBtns">
+          <div class="btn-box add-title-btn-box">
+            <el-button @click="handleAddTitle(row)" type="primary" size="mini">标题</el-button>
+          </div>
+        </transition>
+
+        <transition name="slide-fade" v-if="row.showBtns">
+          <div class="btn-box add-message-btn-box">
+            <el-button @click="handleAddMessage(row)" type="success" size="mini">评语</el-button>
+          </div>
+        </transition>
+
         <div
           class="layout-col"
           :style="previewColStyle({width: col.initCol,height: row.height}, 100, 1, 24)"
@@ -61,38 +75,21 @@
     />
 
     <transition name="slide-fade">
-      <default-select-query
+      <div v-show="showQueryContainer" id="editor"></div>
+
+      <!-- <default-select-query
         v-show="showQueryContainer"
         @click-outside="showQueryContainer = false"
         @select-query-done="handleQueryData"
-      />
+      />-->
     </transition>
     <div v-if="!loadingExport" class="color-bar">
       <el-button
-        type="primary"
-        title="switch-default-color"
-        @click="handleSwitchColor('defaultColor')"
-        icon="el-icon-refresh"
-        circle
-      />
-      <el-button
-        type="success"
-        title="switch-dark-color"
-        @click="handleSwitchColor('darkColor')"
-        icon="el-icon-refresh"
-        circle
-      />
-      <el-button
-        type="warning"
-        title="switch-shine-color"
-        @click="handleSwitchColor('shineColor')"
-        icon="el-icon-refresh"
-        circle
-      />
-      <el-button
-        type="danger"
-        title="switch-infographic-color"
-        @click="handleSwitchColor('infographicColor')"
+        v-for="(colorBtn, colorIndex) in colorBtns"
+        :key="colorIndex"
+        :type="colorBtn.type"
+        :title="`switch-${colorBtn.color}-color`"
+        @click="handleSwitchColor(`${colorBtn.color}Color`)"
         icon="el-icon-refresh"
         circle
       />
@@ -112,6 +109,10 @@ import colStyle from "@/mixins/methods/col-style";
 import defaultContainer from "@/components/custom-report/default-container";
 import defaultSelectQuery from "@/components/custom-report/default-select-query";
 import customReports from "./index";
+
+import Quill from "quill";
+
+console.log(Quill);
 
 import {
   defaultColor,
@@ -155,7 +156,13 @@ export default {
       apiList: {},
       flatData: [],
       requestList: [],
-      pageCharts: []
+      pageCharts: [],
+      colorBtns: [
+        { color: "default", type: "primary" },
+        { color: "dark", type: "success" },
+        { color: "shine", type: "warning" },
+        { color: "infographic", type: "danger" }
+      ]
     };
   },
   components: { defaultSelectQuery, defaultContainer, ...customReports },
@@ -170,6 +177,12 @@ export default {
     }
   },
   methods: {
+    handleAddTitle(row) {
+      console.log(row);
+    },
+    handleAddMessage(row) {
+      console.log(row);
+    },
     handleSaveLayout() {
       let { reportUnionKey } = this.$route.query;
       let previewData = resolveStorage("drag-report-data");
@@ -211,6 +224,7 @@ export default {
     resolveReportData(reportData) {
       reportData.children &&
         reportData.children.forEach(row => {
+          row.showBtns = false;
           row.children &&
             row.children.forEach((col, colIndex) => {
               let curr =
@@ -329,6 +343,9 @@ export default {
   },
   mounted() {
     let that = this;
+    var quill = new Quill("#editor", {
+      theme: "snow"
+    });
     this.addListener();
     this.renderReport().then(() => {
       this.getChartComponents();
