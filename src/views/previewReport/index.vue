@@ -3,49 +3,94 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-04-30 17:18:39
+ * @LastEditTime: 2019-05-05 15:45:06
  * @Description: preview 页面
  -->
 <template>
   <div class="preview-report" v-loading="isLoading">
     <div class="preview-container">
-      <div class="preview-report-title">{{layoutData.title}}</div>
-      <div class="query-infos" v-html="PAGE_queryData"></div>
+      <div class="preview-header">
+        <div class="preview-report-title">{{layoutData.title}}</div>
+        <div class="query-infos">
+          <div class="query-date-box">
+            <span>startTime: xxxx</span>
+            <span>endTime: xxxx</span>
+          </div>
+          <div class="query-target-box">
+            <span>targetName: xxxx</span>
+            <span>targetId: xxxx</span>
+          </div>
+        </div>
+      </div>
+      <!-- :style="{justifyContent: row.align, height: `${row.height}px`}" -->
       <div
         class="layout-row"
-        :style="{justifyContent: row.align, height: `${row.height}px`}"
         v-for="(row, rowIndex) in layoutData.children"
         :key="rowIndex"
-        @mouseenter="row.showBtns = true"
-        @mouseleave="row.showBtns = false"
+        @mouseenter="row.showEditBtn = true"
+        @mouseleave="row.showEditBtn = false"
       >
-        <transition name="slide-fade" v-if="row.showBtns">
-          <div class="btn-box add-title-btn-box">
-            <el-button @click="handleAddTitle(row)" type="primary" size="mini">标题</el-button>
-          </div>
-        </transition>
-
-        <transition name="slide-fade" v-if="row.showBtns">
+        <transition name="slide-fade" v-if="row.showEditBtn">
           <div class="btn-box add-message-btn-box">
-            <el-button @click="handleAddMessage(row)" type="success" size="mini">评语</el-button>
+            <el-button
+              type="primary"
+              icon="el-icon-plus"
+              title="add message"
+              circle
+              @click="handleAddMessage(row)"
+            />
           </div>
         </transition>
 
-        <div
-          class="layout-col"
-          :style="previewColStyle({width: col.initCol,height: row.height}, 100, 1, 24)"
-          v-for="(col, colIndex) in row.children"
-          :key="colIndex"
-        >
-          <default-container v-if="col.componentKey">
-            <div class="col-title" :title="`custom-report-${col.componentName}`">{{col.title}}</div>
-            <component
-              style="flex: 1"
-              :is="`custom-report-${col.componentName}`"
-              :reportData="col.reportData"
+        <transition name="slide-fade" v-if="row.editMessage">
+          <div class="btn-box add-message-btn-box">
+            <el-button
+              type="success"
+              icon="el-icon-check"
+              title="save"
+              circle
+              @click="row.editMessage = false"
             />
-          </default-container>
-          <default-container v-else>空组件</default-container>
+          </div>
+        </transition>
+
+        <div class="layout-row-title" v-if="row.title">
+          <div class="title-line"></div>
+          <div>{{row.title}}</div>
+          <div class="title-line"></div>
+        </div>
+
+        <div class="layout-row-content">
+          <div
+            class="layout-col"
+            :style="previewColStyle({width: col.initCol,height: row.height}, 100, 1, 24)"
+            v-for="(col, colIndex) in row.children"
+            :key="colIndex"
+          >
+            <default-container v-if="col.componentKey">
+              <!-- <div class="col-title" :title="`custom-report-${col.componentName}`">{{col.title}}</div> -->
+              <component
+                style="flex: 1"
+                :is="`custom-report-${col.componentName}`"
+                :reportData="col.reportData"
+              />
+            </default-container>
+            <default-container v-else>空组件</default-container>
+          </div>
+        </div>
+
+        <div class="layout-row-message">
+          <textarea
+            :ref="`row-message-${row.index}`"
+            v-if="row.editMessage"
+            v-model="row.message"
+            @blur="row.editMessage = false"
+            @keydown.enter="row.editMessage = false"
+            maxlength="300"
+            placeholder="please enter the message"
+            style="resize: none;width: 100%;height: 80px"
+          />
+          <div v-if="!row.editMessage">{{row.message}}</div>
         </div>
       </div>
     </div>
@@ -92,17 +137,6 @@
         circle
       />
     </div>
-
-    <div id="editor">
-      <p>Hello World!</p>
-      <p>
-        Some initial
-        <strong>bold</strong> text
-      </p>
-      <p>
-        <br>
-      </p>
-    </div>
   </div>
 </template>
 
@@ -118,8 +152,6 @@ import colStyle from "@/mixins/methods/col-style";
 import defaultContainer from "@/components/custom-report/default-container";
 import defaultSelectQuery from "@/components/custom-report/default-select-query";
 import customReports from "./index";
-
-import Quill from "quill";
 
 import {
   defaultColor,
@@ -176,7 +208,13 @@ export default {
   computed: {
     PAGE_queryData() {
       let str = "";
-      let { startTime, endTime, type, targetId, text } = this.queryData;
+      let {
+        startTime = 123,
+        endTime = 123,
+        type = 123,
+        targetId = 123,
+        text = 123
+      } = this.queryData;
       text && (str += `<div style="float: right">search target：${text}</div>`);
       startTime && (str += `<div>start time：${startTime}</div>`);
       endTime && (str += `<div>end time：${endTime}</div>`);
@@ -184,11 +222,12 @@ export default {
     }
   },
   methods: {
-    handleAddTitle(row) {
-      console.log(row);
-    },
     handleAddMessage(row) {
-      console.log(row);
+      row.editMessage = true;
+      this.$nextTick(() => {
+        let el = this.$refs[`row-message-${row.index}`][0];
+        el.focus();
+      });
     },
     handleSaveLayout() {
       let { reportUnionKey } = this.$route.query;
@@ -231,7 +270,9 @@ export default {
     resolveReportData(reportData) {
       reportData.children &&
         reportData.children.forEach(row => {
-          row.showBtns = false;
+          row.showEditBtn = false;
+          row.editMessage = false;
+          row.message = "";
           row.children &&
             row.children.forEach((col, colIndex) => {
               let curr =
@@ -349,9 +390,6 @@ export default {
     }
   },
   mounted() {
-    var quill = new Quill("#editor", {
-      theme: "snow"
-    });
     let that = this;
     this.addListener();
     this.renderReport().then(() => {

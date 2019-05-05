@@ -3,14 +3,14 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-03-06 15:10:59
- * @LastEditTime: 2019-03-11 16:44:26
+ * @LastEditTime: 2019-05-05 14:38:03
  * @Description: from https://github.com/linwalker/render-html-to-pdf
  */
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 
-function exportPDF(dom, title = '未命名 PDF') {
-  html2canvas(document.querySelector(dom)).then(canvas => {
+function exportPDF(dom, title = '未命名 PDF', options = {}) {
+  html2canvas(document.querySelector(dom), options).then(canvas => {
     // A4 尺寸 [595.28, 841.89]
     let contentWidth = canvas.width
     let contentHeight = canvas.height
@@ -24,7 +24,7 @@ function exportPDF(dom, title = '未命名 PDF') {
     let imgWidth = 595.28
     let imgHeight = (592.28 / contentWidth) * contentHeight
 
-    let pageData = canvas.toDataURL('image/jpeg', 1.0)
+    let pageData = canvas.toDataURL('image/jpeg', 1)
 
     let pdf = new jsPDF('', 'pt', 'a4')
 
