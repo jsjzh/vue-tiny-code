@@ -117,7 +117,7 @@ export const dragReportData = [
     children: [
       {
         align: 'flex-start',
-        title: 'union advertising',
+        title: 'email marketing',
         height: 250,
         index: 2,
         children: [{ col: 24, componentKey: 15, initCol: 24, title: '评分图' }]
@@ -134,7 +134,7 @@ export const dragReportData = [
       },
       {
         align: 'flex-start',
-        title: 'union advertising',
+        title: 'search engine',
         height: 250,
         index: 4,
         children: [

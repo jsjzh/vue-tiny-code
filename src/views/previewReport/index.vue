@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-05-05 15:45:06
+ * @LastEditTime: 2019-05-05 16:54:45
  * @Description: preview 页面
  -->
 <template>
@@ -22,7 +22,6 @@
           </div>
         </div>
       </div>
-      <!-- :style="{justifyContent: row.align, height: `${row.height}px`}" -->
       <div
         class="layout-row"
         v-for="(row, rowIndex) in layoutData.children"
@@ -60,7 +59,7 @@
           <div class="title-line"></div>
         </div>
 
-        <div class="layout-row-content">
+        <div class="layout-row-content" :style="{justifyContent: row.align}">
           <div
             class="layout-col"
             :style="previewColStyle({width: col.initCol,height: row.height}, 100, 1, 24)"
@@ -86,7 +85,6 @@
             v-model="row.message"
             @blur="row.editMessage = false"
             @keydown.enter="row.editMessage = false"
-            maxlength="300"
             placeholder="please enter the message"
             style="resize: none;width: 100%;height: 80px"
           />
@@ -126,6 +124,7 @@
         @select-query-done="handleQueryData"
       />
     </transition>
+
     <div v-if="!loadingExport" class="color-bar">
       <el-button
         v-for="(colorBtn, colorIndex) in colorBtns"
@@ -137,6 +136,8 @@
         circle
       />
     </div>
+
+    <div class="preview-paging-line"></div>
   </div>
 </template>
 
@@ -272,7 +273,8 @@ export default {
         reportData.children.forEach(row => {
           row.showEditBtn = false;
           row.editMessage = false;
-          row.message = "";
+          row.message =
+            "Coming to life as a chunk of stone, Tiny's origins are a mystery on which he continually speculates. He is a Stone Giant now, but what did he used to be? A splinter broken from a Golem's heel? A shard swept from a gargoyle-sculptor's workshop? A fragment of the Oracular Visage of Garthos? A deep curiosity drives him, and he travels the world tirelessly seeking his origins, his parentage, his people. As he roams, he gathers weight and size; the forces that weather lesser rocks, instead cause Tiny to grow and ever grow. 以一团石头的形式出现的生命体，小小不断思索他的起源，但这始终是个谜。现在的他是个石巨人，但过去是什么呢？从土傀儡的脚后跟掉落的碎片？从制造石像鬼的工房被打扫出来的碎屑？神圣预言石的表层之砂？受到强烈的好奇心驱使，他不知疲倦的环游世界，寻找着他的起源，他的出身，和他的种族。在旅途中，他变得越来越庞大，不过路上的风雨吹打掉了他身上的石头，所以他不停的吸收新的岩石，永远在长大。";
           row.children &&
             row.children.forEach((col, colIndex) => {
               let curr =
