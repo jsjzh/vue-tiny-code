@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-04-30 15:24:11
+ * @LastEditTime: 2019-05-06 10:24:37
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等，然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置，关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
  -->
 <template>
@@ -37,16 +37,27 @@
         <transition name="slide-fade">
           <div
             draggable="true"
-            v-if="row.showControllerBar"
+            v-show="row.showControllerBar"
             @dragstart="handleDragRow($event, row)"
             class="row-controller-bar"
           >
-            <div class="row-controller-bar-title-box">index: {{row.index}}</div>
-            <div class="row-controller-bar-title-box">suggest-height: {{row.height}}</div>
             <div
-              class="row-controller-bar-title-box"
-            >suggest-col: {{PAGE_layout(row.children, "initCol")}}</div>
-            <div class="row-controller-bar-title-box">real-col: {{PAGE_layout(row.children, "col")}}</div>
+              class="row-controller-bar-layout-info-box"
+              :title="`index: ${row.index} suggest-height: ${row.height} suggest-col: ${PAGE_layout(row.children, 'initCol')} real-col: ${PAGE_layout(row.children, 'col')}`"
+            >
+              <span class="row-controller-bar-layout-info">index: {{row.index}}</span>
+              <span class="row-controller-bar-layout-info">suggest-height: {{row.height}}</span>
+              <span
+                class="row-controller-bar-layout-info"
+              >suggest-col: {{PAGE_layout(row.children, "initCol")}}</span>
+              <span
+                class="row-controller-bar-layout-info"
+              >real-col: {{PAGE_layout(row.children, "col")}}</span>
+            </div>
+
+            <div class="row-controller-bar-row-title">
+              <el-input v-model="row.title" size="mini" placeholder="please enter the title"/>
+            </div>
             <div class="controller-bar-right-box">
               <span
                 class="align-type-item"
@@ -372,6 +383,7 @@ export default {
         reportUnionKey: this.dragReportData.reportUnionKey,
         children: this.dragReportData.children.map(row => {
           return {
+            title: row.title,
             align: row.align,
             height: row.height,
             index: row.index,

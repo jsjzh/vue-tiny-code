@@ -16,23 +16,33 @@
       @include default-flex;
       @include ps-r;
       flex-wrap: nowrap;
-      margin: 2rem 0;
+      margin: 2.5rem 0;
       .row-controller-bar {
+        @include default-flex;
         @include cur-all;
         @include controller-bar;
-        top: -20px;
-        .row-controller-bar-title-box {
-          @include fl;
-          @include title-margin;
+        justify-content: space-between;
+        height: 28px;
+        line-height: 28px;
+        top: -28px;
+        .row-controller-bar-layout-info-box {
+          max-width: 40%;
           @include ellipsis;
-          max-width: 20%;
+          .row-controller-bar-layout-info {
+            @include title-margin;
+            @include ellipsis;
+          }
+        }
+        .row-controller-bar-row-title {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
         }
         .controller-bar-right-box {
-          @include fr;
           .align-type-item {
             @include cur-p;
             @include title-margin;
-            display: inline-block;
             &.active {
               color: $success-color;
             }
