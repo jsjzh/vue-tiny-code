@@ -3,21 +3,24 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-18 10:49:33
- * @LastEditTime: 2019-03-07 14:07:15
+ * @LastEditTime: 2019-05-06 15:27:29
  * @Description: 用了 webpack 的动态加载加载组件，组件名要满足 custom-report-xxx.vue
  */
 
-import { hyphen2hump } from '@/utils'
+import { hyphen2hump, dir2file } from '@/utils'
 
-const customReports = require.context('@/components/custom-report', false, /custom\-report\-.+\.vue$/)
+// TODO 后续还需要改进，应该只读取 custom-report-component 目录下的组件
+const customReports = require.context('@/components/custom-report', true, /custom\-report\-.+\.vue$/)
 
 const reports = {}
 
-const requireAll = requireContext =>
-  requireContext.keys().forEach(name => {
-    const _name = hyphen2hump(name.match(/(custom\-report\-.+)\./)[1])
-    reports[_name] = requireContext(name).default
+function requireAll(requireContext) {
+  requireContext.keys().forEach(filePath => {
+    const realName = dir2file(filePath)
+    const componentName = hyphen2hump(realName.match(/(custom\-report\-.+)\.vue$/)[1])
+    reports[componentName] = requireContext(filePath).default
   })
+}
 
 requireAll(customReports)
 

@@ -71,11 +71,12 @@ Mock.mock(/report\/getCountData/, 'get', config =>
     countKey: {
       countOne: randomCount,
       countTwo: randomCount,
-      rate: randomCount,
+      rate: '@integer(-100, 100)',
       average: randomCount
     }
   })
 )
+
 Mock.mock(/report\/getRandomData/, 'get', config =>
   Mock.mock(
     randomKeyArr.map((name, index) => ({

@@ -55,11 +55,9 @@
         }
       }
       .layout-row-message {
-        width: 100%;
         color: #ee7738;
         font-size: 1.2rem;
         line-height: 24px;
-        margin: 1rem 3rem;
       }
       .layout-row-content {
         @include default-flex;

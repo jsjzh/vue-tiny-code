@@ -10,7 +10,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+html,
+body,
 #app {
   width: 100%;
   height: 100%;

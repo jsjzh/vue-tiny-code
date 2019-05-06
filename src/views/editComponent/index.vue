@@ -85,7 +85,7 @@
                 v-model="editComponentInfo[form.key]"
               >
                 <el-radio-button
-                  v-for="(radioValue, radioValueIndex) in form.radioVlaues"
+                  v-for="(radioValue, radioValueIndex) in form.radioValues"
                   :key="radioValueIndex"
                   :label="radioValue"
                 />
@@ -152,7 +152,7 @@ export default {
         {
           key: "method",
           type: "radio",
-          radioVlaues: ["get", "post"],
+          radioValues: ["get", "post"],
           tip: "接口的方法名",
           title: "方法"
         },
@@ -176,8 +176,8 @@ export default {
         {
           key: "height",
           type: "radio",
-          radioVlaues: [100, 250],
-          tip: "组件所占的高度，暂时就只有 100 和 250 两种高度",
+          radioValues: [100, 250, 400],
+          tip: "组件所占的高度",
           title: "高度"
         }
       ]

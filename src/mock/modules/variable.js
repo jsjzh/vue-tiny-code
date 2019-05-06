@@ -144,13 +144,116 @@ export const dragReportData = [
         ]
       }
     ]
+  },
+  {
+    title: 'new-report',
+    reportUnionKey: '83502436-dba6-4628-b564-c6920e2c2f15',
+    children: [
+      {
+        align: 'flex-start',
+        height: 100,
+        index: 0,
+        children: [
+          { col: 0, componentKey: null, initCol: 4, title: null },
+          { col: 0, componentKey: null, initCol: 4, title: null },
+          { col: 4, componentKey: 16, initCol: 4, title: 'daytime-score' },
+          { col: 4, componentKey: 17, initCol: 4, title: 'night-score' },
+          { col: 4, componentKey: 18, initCol: 4, title: 'total-time' },
+          { col: 4, componentKey: 19, initCol: 4, title: 'average-time' }
+        ]
+      },
+      {
+        align: 'flex-start',
+        height: 100,
+        index: 1,
+        children: [
+          { col: 4, componentKey: 20, initCol: 4, title: 'operation-score' },
+          { col: 4, componentKey: 21, initCol: 4, title: 'not-operation-score' },
+          { col: 4, componentKey: 22, initCol: 4, title: 'high-speed-score' },
+          { col: 4, componentKey: 23, initCol: 4, title: 'not-high-speed-score' },
+          { col: 4, componentKey: 24, initCol: 4, title: 'total-distance' },
+          { col: 4, componentKey: 25, initCol: 4, title: 'average-distance' }
+        ]
+      },
+      {
+        align: 'flex-start',
+        height: 100,
+        index: 2,
+        children: [
+          { col: 4, componentKey: 26, initCol: 4, title: 'total-events' },
+          { col: 4, componentKey: 27, initCol: 4, title: 'average-events' },
+          { col: 4, componentKey: 28, initCol: 4, title: 'operating-frequency' },
+          { col: 4, componentKey: 29, initCol: 4, title: 'average-number-of-operations' },
+          { col: 4, componentKey: 30, initCol: 4, title: 'maximum-speed' },
+          { col: 4, componentKey: 31, initCol: 4, title: 'average-velocity-speed' }
+        ]
+      },
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 3,
+        children: [
+          { col: 0, componentKey: null, initCol: 4, title: null },
+          { col: 0, componentKey: null, initCol: 4, title: null },
+          { col: 0, componentKey: null, initCol: 4, title: null },
+          { col: 0, componentKey: null, initCol: 4, title: null },
+          { col: 0, componentKey: null, initCol: 4, title: null },
+          { col: 0, componentKey: null, initCol: 4, title: null }
+        ]
+      },
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 4,
+        children: [
+          { col: 0, componentKey: null, initCol: 6, title: null },
+          { col: 0, componentKey: null, initCol: 6, title: null },
+          { col: 0, componentKey: null, initCol: 6, title: null },
+          { col: 0, componentKey: null, initCol: 6, title: null }
+        ]
+      },
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 5,
+        children: [
+          { col: 0, componentKey: null, initCol: 12, title: null },
+          { col: 0, componentKey: null, initCol: 12, title: null }
+        ]
+      },
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 6,
+        children: [{ col: 0, componentKey: null, initCol: 24, title: null }]
+      },
+      {
+        align: 'flex-start',
+        height: 400,
+        index: 7,
+        children: [{ col: 0, componentKey: null, initCol: 24, title: null }]
+      },
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 8,
+        children: [{ col: 0, componentKey: null, initCol: 24, title: null }]
+      },
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 9,
+        children: [{ col: 0, componentKey: null, initCol: 24, title: null }]
+      }
+    ]
   }
 ]
 
 export const reportListDatas = [
   { reportUnionKey: '17826e40-dba6-4605-b96a-9d4ae2ddcab5', type: 'day', title: '日报' },
   { reportUnionKey: '83502436-6100-4628-b564-c6920e2c2f15', type: 'month', title: '月报' },
-  { reportUnionKey: 'af84a1c6-b83e-44fd-9230-b364631d2925', type: 'year', title: '年报' }
+  { reportUnionKey: 'af84a1c6-b83e-44fd-9230-b364631d2925', type: 'year', title: '年报' },
+  { reportUnionKey: '83502436-dba6-4628-b564-c6920e2c2f15', type: 'test', title: 'new-report' }
 ]
 
 export const componentDatas = [
@@ -318,5 +421,182 @@ export const componentDatas = [
     col: 24,
     height: 250,
     previewImage: 'https://i.loli.net/2019/03/11/5c8664d70cb13.png'
+  },
+  // 新增
+  {
+    label: 'daytime-score',
+    componentKey: 16,
+    componentName: 'daytime-score',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 100,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'night-score',
+    componentKey: 17,
+    componentName: 'night-score',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 100,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'total-time',
+    componentKey: 18,
+    componentName: 'total-time',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 100,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'average-time',
+    componentKey: 19,
+    componentName: 'average-time',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 100,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'operation-score',
+    componentKey: 20,
+    componentName: 'operation-score',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 100,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'not-operation-score',
+    componentKey: 21,
+    componentName: 'not-operation-score',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 100,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'high-speed-score',
+    componentKey: 22,
+    componentName: 'high-speed-score',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 100,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'not-high-speed-score',
+    componentKey: 23,
+    componentName: 'not-high-speed-score',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 100,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'total-distance',
+    componentKey: 24,
+    componentName: 'total-distance',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 100,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'average-distance',
+    componentKey: 25,
+    componentName: 'average-distance',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 100,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'total-events',
+    componentKey: 26,
+    componentName: 'total-events',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 100,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'average-events',
+    componentKey: 27,
+    componentName: 'average-events',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 100,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'operating-frequency',
+    componentKey: 28,
+    componentName: 'operating-frequency',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 100,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'average-number-of-operations',
+    componentKey: 29,
+    componentName: 'average-number-of-operations',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 100,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'maximum-speed',
+    componentKey: 30,
+    componentName: 'maximum-speed',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 100,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'average-velocity-speed',
+    componentKey: 31,
+    componentName: 'average-velocity-speed',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 100,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
   }
 ]

@@ -41,6 +41,11 @@ export const routes = [
         component: importView('customReportList')
       },
       {
+        path: 'previewComponent',
+        name: 'previewComponent',
+        component: importView('previewComponent')
+      },
+      {
         path: 'waves',
         name: 'waves',
         component: importView('waves')

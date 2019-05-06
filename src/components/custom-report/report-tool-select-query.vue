@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-03-28 13:39:58
- * @LastEditTime: 2019-04-25 18:20:48
+ * @LastEditTime: 2019-05-06 11:50:00
  * @Description: 公用搜索条件页面
  -->
 <template>
@@ -52,7 +52,7 @@
         <div v-show="driverShow" class="ztree-item">
           <ztree :setting="driverSetting" :tree-id="driverId" ref="ztreeDriverRef"/>
         </div>
-      </div> -->
+      </div>-->
     </div>
 
     <div class="save-query-container">
@@ -64,14 +64,13 @@
 </template>
 
 <script>
-import {
-  // 车队
-  // GetTreeDepartment,
-  // 车辆
-  // GetTreeDepartmentAndVehicle,
-  // 驾驶员
-  // GetTreeDriver
-} from "@/api";
+// import // 车队
+// // GetTreeDepartment,
+// // 车辆
+// // GetTreeDepartmentAndVehicle,
+// // 驾驶员
+// // GetTreeDriver
+// "@/api";
 
 function getZtreeSetting(clickFn, options = {}) {
   return {
@@ -84,7 +83,7 @@ function getZtreeSetting(clickFn, options = {}) {
 }
 
 export default {
-  name: "default-select-query",
+  name: "report-tool-select-query",
   data() {
     let pageName = this.$options.name;
     return {
@@ -111,7 +110,7 @@ export default {
   methods: {
     handleClickZtreeContainer(e) {
       // if (e.target.className === "ztree-container") {
-        this.$emit("click-outside");
+      this.$emit("click-outside");
       // }
     },
 

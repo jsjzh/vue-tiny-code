@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2018-6-28 15:13:23
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-04-29 14:47:32
+ * @LastEditTime: 2019-05-06 15:11:56
  * @Description: 常用函数包装
  */
 import * as R from 'ramda'
@@ -237,6 +237,11 @@ export function transBodyParams(body) {
 
 export function hyphen2hump(str) {
   return str.replace(/-(\w)/g, ($0, $1) => $1.toUpperCase())
+}
+
+export function dir2file(str) {
+  // TODO 判断文件夹现在用的是 \w\/\w，欠妥
+  return str.replace(/(\w\/\w)/g, ($0, $1) => $1.replace('/', '-'))
 }
 
 export function $msg(message = '0_操作成功', callback, duration = 1500) {

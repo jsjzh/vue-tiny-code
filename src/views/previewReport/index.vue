@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-05-06 11:06:54
+ * @LastEditTime: 2019-05-06 16:38:01
  * @Description: preview 页面，该页面既可以用于导出前的预览也可以用于单独的页面展示。每行的底部可以增加一条评语信息用于评测当行内容。值得注意的是，该条评语信息并不会记录到数据库，因为当查询条件更改了之后评语信息也会不同。
  -->
 <template>
@@ -70,7 +70,7 @@
               <!-- <div class="col-title" :title="`custom-report-${col.componentName}`">{{col.title}}</div> -->
               <component
                 style="flex: 1"
-                :is="`custom-report-${col.componentName}`"
+                :is="`custom-report-component-${col.componentName}`"
                 :reportData="col.reportData"
               />
             </default-container>
@@ -78,7 +78,7 @@
           </div>
         </div>
 
-        <div class="layout-row-message">
+        <div style="width: 100%">
           <el-input
             :ref="`row-message-${row.index}`"
             v-if="row.editMessage"
@@ -88,8 +88,13 @@
             resize="none"
             :rows="6"
             @blur="row.editMessage = false"
+            style="padding: 1rem 3rem"
           />
-          <div v-if="!row.editMessage">{{row.message}}</div>
+          <div
+            style="margin: 1rem 3rem"
+            class="layout-row-message"
+            v-if="!row.editMessage && row.message"
+          >{{row.message}}</div>
         </div>
       </div>
     </div>
@@ -119,7 +124,7 @@
     />
 
     <transition name="slide-fade">
-      <default-select-query
+      <report-tool-select-query
         v-show="showQueryContainer"
         @click-outside="showQueryContainer = false"
         @select-query-done="handleQueryData"
@@ -152,7 +157,7 @@ import { deepClone, flatLayoutData, resolveStorage } from "@/utils";
 import colStyle from "@/mixins/methods/col-style";
 
 import defaultContainer from "@/components/custom-report/default-container";
-import defaultSelectQuery from "@/components/custom-report/default-select-query";
+import reportToolSelectQuery from "@/components/custom-report/report-tool-select-query";
 import customReports from "./index";
 
 import {
@@ -206,7 +211,7 @@ export default {
       ]
     };
   },
-  components: { defaultSelectQuery, defaultContainer, ...customReports },
+  components: { reportToolSelectQuery, defaultContainer, ...customReports },
   methods: {
     handleAddMessage(row) {
       row.editMessage = true;
@@ -314,6 +319,7 @@ export default {
               if (sameIndexs.findIndex(index => index === colIndex) !== -1) {
                 let key = apiList[api].keys[colIndex];
                 let _data = key ? datas[apiIndex][key] : datas[apiIndex];
+                console.log(_data);
                 this.$set(col, "reportData", _data);
               }
             });
