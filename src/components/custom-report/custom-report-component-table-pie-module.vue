@@ -3,19 +3,26 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:43:52
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-11 15:02:34
- * @Description: custom-report-bar-stack-module
+ * @LastEditTime: 2019-05-06 20:53:18
+ * @Description: custom-report-table-pie-module
  -->
 <template>
-  <default-bar-chart ref="chart" @reload="reloadChart"/>
+  <div style="display: flex">
+    <default-table style="flex: 6" :tableData="reportData" :tableOption="tableOption"/>
+    <default-pie-chart ref="chart" style="flex: 4" @reload="reloadChart"/>
+  </div>
 </template>
 
 <script>
-import defaultBarChart from "./default-bar-chart";
-import { barStackOption } from "./js/variable";
+import defaultTable from "./default-table";
+import defaultPieChart from "./default-pie-chart";
+import { tableOption, pieOption } from "./js/variable";
 
 export default {
-  name: "custom-report-bar-stack-module",
+  name: "custom-report-component-table-pie-module",
+  data() {
+    return { tableOption };
+  },
   props: {
     reportData: {
       type: Array,
@@ -32,28 +39,17 @@ export default {
       }
     }
   },
-  components: { defaultBarChart },
+  components: { defaultTable, defaultPieChart },
   methods: {
     // 开发模式下，热加载组件触发 echart 更新
     reloadChart() {
       let { chart } = this.$refs;
-      chart.setOption(barStackOption);
+      chart.setOption(pieOption);
       this.reportData.length && this.renderChart(this.reportData);
     },
     renderChart(option) {
       let { chart } = this.$refs;
-      chart.setOption({
-        radiusAxis: {
-          data: option.map(item => item.xdata)
-        },
-        series: option.map(item => ({
-          type: "bar",
-          name: item.name,
-          data: item.arrData,
-          coordinateSystem: "polar",
-          stack: "a"
-        }))
-      });
+      chart.setOption({ series: [{ data: option }] });
     }
   },
   mounted() {

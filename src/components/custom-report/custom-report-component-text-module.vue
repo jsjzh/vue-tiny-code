@@ -3,8 +3,8 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:43:52
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-11 14:01:16
- * @Description: custom-report-text-module
+ * @LastEditTime: 2019-05-06 20:53:23
+ * @Description: custom-report-component-text-module
  -->
 <template>
   <div class="text-module-container">
@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: "custom-report-text-module",
+  name: "custom-report-component-text-module",
   props: {
     reportData: {
       type: Object,

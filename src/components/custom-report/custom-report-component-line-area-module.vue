@@ -3,26 +3,19 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:43:52
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-07 22:34:03
- * @Description: custom-report-table-pie-module
+ * @LastEditTime: 2019-05-06 20:53:38
+ * @Description: custom-report-component-line-area-module
  -->
 <template>
-  <div style="display: flex">
-    <default-table style="flex: 6" :tableData="reportData" :tableOption="tableOption"/>
-    <default-pie-chart ref="chart" style="flex: 4" @reload="reloadChart"/>
-  </div>
+  <default-line-chart ref="chart" @reload="reloadChart"/>
 </template>
 
 <script>
-import defaultTable from "./default-table";
-import defaultPieChart from "./default-pie-chart";
-import { tableOption, pieOption } from "./js/variable";
+import defaultLineChart from "./default-line-chart";
+import { lineOption } from "./js/variable";
 
 export default {
-  name: "custom-report-table-pie-module",
-  data() {
-    return { tableOption };
-  },
+  name: "custom-report-component-line-area-module",
   props: {
     reportData: {
       type: Array,
@@ -39,17 +32,25 @@ export default {
       }
     }
   },
-  components: { defaultTable, defaultPieChart },
+  components: { defaultLineChart },
   methods: {
     // 开发模式下，热加载组件触发 echart 更新
     reloadChart() {
       let { chart } = this.$refs;
-      chart.setOption(pieOption);
+      chart.setOption(lineOption);
       this.reportData.length && this.renderChart(this.reportData);
     },
     renderChart(option) {
       let { chart } = this.$refs;
-      chart.setOption({ series: [{ data: option }] });
+      chart.setOption({
+        xAxis: { data: option.map(item => item.xdata) },
+        series: option.map(item => ({
+          type: "line",
+          name: item.name,
+          areaStyle: {},
+          data: item.arrData
+        }))
+      });
     }
   },
   mounted() {

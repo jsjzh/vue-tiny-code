@@ -3,19 +3,19 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:43:52
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-11 15:10:26
- * @Description: custom-report-line-area-module
+ * @LastEditTime: 2019-03-11 15:02:34
+ * @Description: custom-report-component-bar-stack-module
  -->
 <template>
-  <default-line-chart ref="chart" @reload="reloadChart"/>
+  <default-bar-chart ref="chart" @reload="reloadChart"/>
 </template>
 
 <script>
-import defaultLineChart from "./default-line-chart";
-import { lineOption } from "./js/variable";
+import defaultBarChart from "./default-bar-chart";
+import { barStackOption } from "./js/variable";
 
 export default {
-  name: "custom-report-line-area-module",
+  name: "custom-report-component-bar-stack-module",
   props: {
     reportData: {
       type: Array,
@@ -32,23 +32,26 @@ export default {
       }
     }
   },
-  components: { defaultLineChart },
+  components: { defaultBarChart },
   methods: {
     // 开发模式下，热加载组件触发 echart 更新
     reloadChart() {
       let { chart } = this.$refs;
-      chart.setOption(lineOption);
+      chart.setOption(barStackOption);
       this.reportData.length && this.renderChart(this.reportData);
     },
     renderChart(option) {
       let { chart } = this.$refs;
       chart.setOption({
-        xAxis: { data: option.map(item => item.xdata) },
+        radiusAxis: {
+          data: option.map(item => item.xdata)
+        },
         series: option.map(item => ({
-          type: "line",
+          type: "bar",
           name: item.name,
-          areaStyle: {},
-          data: item.arrData
+          data: item.arrData,
+          coordinateSystem: "polar",
+          stack: "a"
         }))
       });
     }

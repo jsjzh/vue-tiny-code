@@ -3,8 +3,8 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:43:52
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-07 22:33:27
- * @Description: custom-report-line-module
+ * @LastEditTime: 2019-05-06 20:53:34
+ * @Description: custom-report-component-line-module
  -->
 <template>
   <default-line-chart ref="chart" @reload="reloadChart"/>
@@ -15,7 +15,7 @@ import defaultLineChart from "./default-line-chart";
 import { lineOption } from "./js/variable";
 
 export default {
-  name: "custom-report-line-module",
+  name: "custom-report-component-line-module",
   props: {
     reportData: {
       type: Array,

@@ -3,8 +3,8 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:43:52
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-11 15:04:34
- * @Description: custom-report-bar-pie-module
+ * @LastEditTime: 2019-05-06 20:52:30
+ * @Description: custom-report-component-bar-pie-module
  -->
 <template>
   <div style="display: flex">
@@ -20,7 +20,7 @@ import defaultPieChart from "./default-pie-chart";
 import { barFirstOption, pieSecondOption } from "./js/variable";
 
 export default {
-  name: "custom-report-bar-pie-module",
+  name: "custom-report-component-bar-pie-module",
   props: {
     reportData: {
       type: Array,

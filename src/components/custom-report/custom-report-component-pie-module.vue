@@ -3,8 +3,8 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:43:52
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-11 15:17:52
- * @Description: custom-report-pie-module
+ * @LastEditTime: 2019-05-06 20:53:30
+ * @Description: custom-report-component-pie-module
  -->
 <template>
   <default-pie-chart ref="chart" style="flex: 1" @reload="reloadChart"/>
@@ -15,7 +15,7 @@ import defaultPieChart from "./default-pie-chart";
 import { pieOption } from "./js/variable";
 
 export default {
-  name: "custom-report-pie-module",
+  name: "custom-report-component-pie-module",
   props: {
     reportData: {
       type: Array,
