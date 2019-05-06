@@ -598,5 +598,16 @@ export const componentDatas = [
     col: 4,
     height: 100,
     previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'process-circle',
+    componentKey: 32,
+    componentName: 'process-circle',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 8,
+    height: 250,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
   }
 ]

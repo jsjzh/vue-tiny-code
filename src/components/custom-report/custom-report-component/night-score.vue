@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import threeLineText from "../layout/three-line-text";
+import threeLineText from "../component/three-line-text";
 
 export default {
   name: "custom-report-component-night-score",
