@@ -3,8 +3,8 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-05-05 16:54:45
- * @Description: preview 页面
+ * @LastEditTime: 2019-05-06 11:06:54
+ * @Description: preview 页面，该页面既可以用于导出前的预览也可以用于单独的页面展示。每行的底部可以增加一条评语信息用于评测当行内容。值得注意的是，该条评语信息并不会记录到数据库，因为当查询条件更改了之后评语信息也会不同。
  -->
 <template>
   <div class="preview-report" v-loading="isLoading">
@@ -79,14 +79,15 @@
         </div>
 
         <div class="layout-row-message">
-          <textarea
+          <el-input
             :ref="`row-message-${row.index}`"
             v-if="row.editMessage"
             v-model="row.message"
-            @blur="row.editMessage = false"
-            @keydown.enter="row.editMessage = false"
             placeholder="please enter the message"
-            style="resize: none;width: 100%;height: 80px"
+            type="textarea"
+            resize="none"
+            :rows="6"
+            @blur="row.editMessage = false"
           />
           <div v-if="!row.editMessage">{{row.message}}</div>
         </div>
@@ -206,22 +207,6 @@ export default {
     };
   },
   components: { defaultSelectQuery, defaultContainer, ...customReports },
-  computed: {
-    PAGE_queryData() {
-      let str = "";
-      let {
-        startTime = 123,
-        endTime = 123,
-        type = 123,
-        targetId = 123,
-        text = 123
-      } = this.queryData;
-      text && (str += `<div style="float: right">search target：${text}</div>`);
-      startTime && (str += `<div>start time：${startTime}</div>`);
-      endTime && (str += `<div>end time：${endTime}</div>`);
-      return str;
-    }
-  },
   methods: {
     handleAddMessage(row) {
       row.editMessage = true;
@@ -273,8 +258,7 @@ export default {
         reportData.children.forEach(row => {
           row.showEditBtn = false;
           row.editMessage = false;
-          row.message =
-            "Coming to life as a chunk of stone, Tiny's origins are a mystery on which he continually speculates. He is a Stone Giant now, but what did he used to be? A splinter broken from a Golem's heel? A shard swept from a gargoyle-sculptor's workshop? A fragment of the Oracular Visage of Garthos? A deep curiosity drives him, and he travels the world tirelessly seeking his origins, his parentage, his people. As he roams, he gathers weight and size; the forces that weather lesser rocks, instead cause Tiny to grow and ever grow. 以一团石头的形式出现的生命体，小小不断思索他的起源，但这始终是个谜。现在的他是个石巨人，但过去是什么呢？从土傀儡的脚后跟掉落的碎片？从制造石像鬼的工房被打扫出来的碎屑？神圣预言石的表层之砂？受到强烈的好奇心驱使，他不知疲倦的环游世界，寻找着他的起源，他的出身，和他的种族。在旅途中，他变得越来越庞大，不过路上的风雨吹打掉了他身上的石头，所以他不停的吸收新的岩石，永远在长大。";
+          row.message = "";
           row.children &&
             row.children.forEach((col, colIndex) => {
               let curr =

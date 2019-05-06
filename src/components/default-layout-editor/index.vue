@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-22 09:31:45
- * @LastEditTime: 2019-03-06 18:16:35
+ * @LastEditTime: 2019-05-06 10:41:49
  * @Description: 左侧添加布局的框
  -->
 <template>
@@ -11,20 +11,21 @@
     <div class="editor-box">
       <div class="editor-infos-box">
         <div class="infos">
-          <span class="limit">limit-total: 24</span>
-          <span class="real">real-total: {{PAGE_realTotal}}</span>
+          <div class="limit">limit-total: 24</div>
+          <div class="real">real-total: {{PAGE_realTotal}}</div>
         </div>
         <div class="controller-btn">
           <el-radio-group v-model="inputsHeight" @change="handleChangeColHeight" size="mini">
             <el-radio-button :label="100"/>
             <el-radio-button :label="250"/>
+            <el-radio-button :label="400"/>
           </el-radio-group>
           <i class="el-icon-more" @click="handleAverage" title="average-layout"/>
           <i class="el-icon-remove" @click="handleRemove" title="remove-layout"/>
           <i class="el-icon-circle-plus" @click="handleAdd" title="add-layout"/>
         </div>
       </div>
-      <div class="editor-infos-box suggest">4.8 的组件高度建议为 100，其他组件为 250，该比例显示最为正确</div>
+      <div class="editor-infos-box suggest">组件高度设置需参考组件基本信息，不正确的高度可能导致显示错误</div>
       <div class="editor-inputs-box">
         <div class="input-item-box" v-for="(ipt, iptIndex) in inputs" :key="iptIndex">
           <el-input
@@ -169,14 +170,14 @@ export default {
     & .editor-infos-box {
       @include default-flex;
       @include flex-full;
-      justify-content: space-between;
       &.suggest {
         color: $success-color;
       }
       & .infos {
-        @include default-flex;
-        justify-content: space-around;
-        flex: 1;
+        margin: 0 2rem;
+        & div {
+          padding: 0.2rem 0;
+        }
         & .limit {
           color: $danger-color;
         }
@@ -203,7 +204,7 @@ export default {
     @include default-flex;
     @include cur-all;
     @include flex-full;
-    height: 100px;
+    height: 150px;
     & .preview-item {
       @include default-col-style;
       @include default-col-layout;
