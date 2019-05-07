@@ -151,7 +151,7 @@ export const dragReportData = [
     children: [
       {
         align: 'flex-start',
-        height: 250,
+        height: 150,
         index: 1,
         children: [
           { col: 8, componentKey: 32, initCol: '8', title: 'table' },
