@@ -8,12 +8,13 @@
     >
       <text
         x="50%"
-        y="35%"
+        y="50%"
         text-anchor="middle"
         dominant-baseline="middle"
-        :font-size="130 / 5"
+        font-family="iconfont"
+        :font-size="130 / 2"
         :fill="realColor"
-      >{{percentage}}</text>
+      >&#xe7ee;</text>
     </base-circle>
   </div>
 </template>
