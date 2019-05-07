@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-22 09:31:45
- * @LastEditTime: 2019-05-06 10:41:49
+ * @LastEditTime: 2019-05-07 14:59:02
  * @Description: 左侧添加布局的框
  -->
 <template>
@@ -17,6 +17,7 @@
         <div class="controller-btn">
           <el-radio-group v-model="inputsHeight" @change="handleChangeColHeight" size="mini">
             <el-radio-button :label="100"/>
+            <el-radio-button :label="150"/>
             <el-radio-button :label="250"/>
             <el-radio-button :label="400"/>
           </el-radio-group>
@@ -131,11 +132,11 @@ export default {
         return;
       }
 
-      do {
+      // do {
         this.inputs.splice(this.inputs.length - 1, 1);
-      } while (24 % this.inputs.length && this.inputs.length >= 1);
+      // } while (24 % this.inputs.length && this.inputs.length >= 1);
 
-      this.handleAverage();
+      // this.handleAverage();
     },
     handleAdd() {
       if (this.inputs.length === 24) {
@@ -143,11 +144,11 @@ export default {
         return;
       }
 
-      do {
+      // do {
         this.inputs.push({ value: 0, height: this.inputsHeight });
-      } while (24 % this.inputs.length && this.inputs.length <= 24);
+      // } while (24 % this.inputs.length && this.inputs.length <= 24);
 
-      this.handleAverage();
+      // this.handleAverage();
     }
   }
 };
@@ -174,7 +175,7 @@ export default {
         color: $success-color;
       }
       & .infos {
-        margin: 0 2rem;
+        margin: 0 1rem;
         & div {
           padding: 0.2rem 0;
         }

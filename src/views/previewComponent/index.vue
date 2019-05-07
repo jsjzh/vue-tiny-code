@@ -27,7 +27,10 @@ export default {
       componentWidth: null,
       componentHeight: null,
       reportData: {
-        percentage: 10
+        countOne: 25,
+        countTwo: 25,
+        rate: 25,
+        average: 25
       }
     };
   },

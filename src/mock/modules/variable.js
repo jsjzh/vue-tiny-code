@@ -151,21 +151,20 @@ export const dragReportData = [
     children: [
       {
         align: 'flex-start',
-        height: 100,
-        index: 0,
+        height: 250,
+        index: 1,
         children: [
-          { col: 0, componentKey: null, initCol: 4, title: null },
-          { col: 0, componentKey: null, initCol: 4, title: null },
-          { col: 4, componentKey: 16, initCol: 4, title: 'daytime-score' },
-          { col: 4, componentKey: 17, initCol: 4, title: 'night-score' },
-          { col: 4, componentKey: 18, initCol: 4, title: 'total-time' },
-          { col: 4, componentKey: 19, initCol: 4, title: 'average-time' }
+          { col: 8, componentKey: 32, initCol: '8', title: 'table' },
+          { col: 4, componentKey: 16, initCol: '4', title: 'daytime-score' },
+          { col: 4, componentKey: 17, initCol: '4', title: 'night-score' },
+          { col: 4, componentKey: 18, initCol: '4', title: 'total-time' },
+          { col: 4, componentKey: 19, initCol: '4', title: 'average-time' }
         ]
       },
       {
         align: 'flex-start',
         height: 100,
-        index: 1,
+        index: 2,
         children: [
           { col: 4, componentKey: 20, initCol: 4, title: 'operation-score' },
           { col: 4, componentKey: 21, initCol: 4, title: 'not-operation-score' },
@@ -178,7 +177,7 @@ export const dragReportData = [
       {
         align: 'flex-start',
         height: 100,
-        index: 2,
+        index: 3,
         children: [
           { col: 4, componentKey: 26, initCol: 4, title: 'total-events' },
           { col: 4, componentKey: 27, initCol: 4, title: 'average-events' },
@@ -191,7 +190,7 @@ export const dragReportData = [
       {
         align: 'flex-start',
         height: 250,
-        index: 3,
+        index: 4,
         children: [
           { col: 0, componentKey: null, initCol: 4, title: null },
           { col: 0, componentKey: null, initCol: 4, title: null },
@@ -204,7 +203,7 @@ export const dragReportData = [
       {
         align: 'flex-start',
         height: 250,
-        index: 4,
+        index: 5,
         children: [
           { col: 0, componentKey: null, initCol: 6, title: null },
           { col: 0, componentKey: null, initCol: 6, title: null },
@@ -215,7 +214,7 @@ export const dragReportData = [
       {
         align: 'flex-start',
         height: 250,
-        index: 5,
+        index: 6,
         children: [
           { col: 0, componentKey: null, initCol: 12, title: null },
           { col: 0, componentKey: null, initCol: 12, title: null }
@@ -224,18 +223,12 @@ export const dragReportData = [
       {
         align: 'flex-start',
         height: 250,
-        index: 6,
-        children: [{ col: 0, componentKey: null, initCol: 24, title: null }]
-      },
-      {
-        align: 'flex-start',
-        height: 400,
         index: 7,
         children: [{ col: 0, componentKey: null, initCol: 24, title: null }]
       },
       {
         align: 'flex-start',
-        height: 250,
+        height: 400,
         index: 8,
         children: [{ col: 0, componentKey: null, initCol: 24, title: null }]
       },
@@ -243,6 +236,12 @@ export const dragReportData = [
         align: 'flex-start',
         height: 250,
         index: 9,
+        children: [{ col: 0, componentKey: null, initCol: 24, title: null }]
+      },
+      {
+        align: 'flex-start',
+        height: 250,
+        index: 10,
         children: [{ col: 0, componentKey: null, initCol: 24, title: null }]
       }
     ]
@@ -600,9 +599,9 @@ export const componentDatas = [
     previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
   },
   {
-    label: 'process-circle',
+    label: 'circle-security-rate',
     componentKey: 32,
-    componentName: 'other-circle',
+    componentName: 'other-circle-security-rate',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -612,11 +611,22 @@ export const componentDatas = [
   },
   {
     label: 'table',
-    componentKey: 32,
+    componentKey: 33,
     componentName: 'table-block',
     api: '/report/getRandomData',
     method: 'get',
     dataKey: '',
+    col: 8,
+    height: 250,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'turn-signal-control-score',
+    componentKey: 34,
+    componentName: 'other-turn-signal-control-score',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
     col: 8,
     height: 250,
     previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
