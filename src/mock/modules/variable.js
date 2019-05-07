@@ -602,7 +602,7 @@ export const componentDatas = [
   {
     label: 'process-circle',
     componentKey: 32,
-    componentName: 'other-process-circle',
+    componentName: 'other-circle',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
