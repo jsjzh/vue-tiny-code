@@ -180,7 +180,5 @@ export default class Color {
     this.output = Number(trans) === 1 ? `rgb(${r}, ${g}, ${b})` : `rgba(${r}, ${g}, ${b}, ${trans})`
 
     this.pure = `hsla(${hue}, 100%, 50%, 1)`
-
-    // console.log(this.output);
   }
 }

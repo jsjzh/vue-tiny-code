@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-05-06 16:38:01
+ * @LastEditTime: 2019-05-07 10:05:01
  * @Description: preview 页面，该页面既可以用于导出前的预览也可以用于单独的页面展示。每行的底部可以增加一条评语信息用于评测当行内容。值得注意的是，该条评语信息并不会记录到数据库，因为当查询条件更改了之后评语信息也会不同。
  -->
 <template>
@@ -69,7 +69,6 @@
             <default-container v-if="col.componentKey">
               <!-- <div class="col-title" :title="`custom-report-${col.componentName}`">{{col.title}}</div> -->
               <component
-                style="flex: 1"
                 :is="`custom-report-component-${col.componentName}`"
                 :reportData="col.reportData"
               />
@@ -319,7 +318,6 @@ export default {
               if (sameIndexs.findIndex(index => index === colIndex) !== -1) {
                 let key = apiList[api].keys[colIndex];
                 let _data = key ? datas[apiIndex][key] : datas[apiIndex];
-                console.log(_data);
                 this.$set(col, "reportData", _data);
               }
             });
@@ -374,7 +372,8 @@ export default {
       let { pageCharts } = this;
       function getCharts(root) {
         root.$children.forEach(item => {
-          if (item.$options.name.indexOf("chart") !== -1) pageCharts.push(item);
+          if (item.$options.name.indexOf("base-chart") !== -1)
+            pageCharts.push(item);
           if (item.$children.length) getCharts(item);
         });
       }

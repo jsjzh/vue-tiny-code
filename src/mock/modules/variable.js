@@ -260,7 +260,7 @@ export const componentDatas = [
   {
     label: '占位',
     componentKey: 1,
-    componentName: 'block-module',
+    componentName: 'other-block',
     api: '',
     method: 'get',
     dataKey: '',
@@ -271,7 +271,7 @@ export const componentDatas = [
   {
     label: '占位',
     componentKey: 2,
-    componentName: 'block-module',
+    componentName: 'other-block',
     api: '',
     method: 'get',
     dataKey: '',
@@ -282,7 +282,7 @@ export const componentDatas = [
   {
     label: '占位',
     componentKey: 3,
-    componentName: 'block-module',
+    componentName: 'other-block',
     api: '',
     method: 'get',
     dataKey: '',
@@ -293,7 +293,7 @@ export const componentDatas = [
   {
     label: '占位',
     componentKey: 4,
-    componentName: 'block-module',
+    componentName: 'other-block',
     api: '',
     method: 'get',
     dataKey: '',
@@ -304,7 +304,7 @@ export const componentDatas = [
   {
     label: '邮件营销',
     componentKey: 5,
-    componentName: 'text-module',
+    componentName: 'text-text',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -315,7 +315,7 @@ export const componentDatas = [
   {
     label: '联盟广告',
     componentKey: 6,
-    componentName: 'text-module',
+    componentName: 'text-text',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -326,7 +326,7 @@ export const componentDatas = [
   {
     label: '视频广告',
     componentKey: 7,
-    componentName: 'text-module',
+    componentName: 'text-text',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -337,7 +337,7 @@ export const componentDatas = [
   {
     label: '直接访问',
     componentKey: 8,
-    componentName: 'text-module',
+    componentName: 'text-text',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -348,7 +348,7 @@ export const componentDatas = [
   {
     label: '搜索引擎',
     componentKey: 9,
-    componentName: 'text-module',
+    componentName: 'text-text',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -359,7 +359,7 @@ export const componentDatas = [
   {
     label: '占位',
     componentKey: 10,
-    componentName: 'bar-stack-module',
+    componentName: 'chart-bar-stack',
     api: '/report/getRandomData',
     method: 'get',
     dataKey: '',
@@ -370,7 +370,7 @@ export const componentDatas = [
   {
     label: '分布图',
     componentKey: 11,
-    componentName: 'pie-module',
+    componentName: 'chart-pie',
     api: '/report/getRandomData',
     method: 'get',
     dataKey: '',
@@ -381,7 +381,7 @@ export const componentDatas = [
   {
     label: '时段分布图',
     componentKey: 12,
-    componentName: 'bar-pie-module',
+    componentName: 'chart-bar-pie',
     api: '/report/getRandomData',
     method: 'get',
     dataKey: '',
@@ -392,7 +392,7 @@ export const componentDatas = [
   {
     label: '趋势图',
     componentKey: 13,
-    componentName: 'line-module',
+    componentName: 'chart-line',
     api: '/report/getRandomData',
     method: 'get',
     dataKey: '',
@@ -403,7 +403,7 @@ export const componentDatas = [
   {
     label: '类型分布图',
     componentKey: 14,
-    componentName: 'table-pie-module',
+    componentName: 'group-table-pie',
     api: '/report/getRandomData',
     method: 'get',
     dataKey: '',
@@ -414,7 +414,7 @@ export const componentDatas = [
   {
     label: '评分图',
     componentKey: 15,
-    componentName: 'line-area-module',
+    componentName: 'chart-line-area',
     api: '/report/getRandomData',
     method: 'get',
     dataKey: '',
@@ -426,7 +426,7 @@ export const componentDatas = [
   {
     label: 'daytime-score',
     componentKey: 16,
-    componentName: 'daytime-score',
+    componentName: 'text-daytime-score',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -437,7 +437,7 @@ export const componentDatas = [
   {
     label: 'night-score',
     componentKey: 17,
-    componentName: 'night-score',
+    componentName: 'text-night-score',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -448,7 +448,7 @@ export const componentDatas = [
   {
     label: 'total-time',
     componentKey: 18,
-    componentName: 'total-time',
+    componentName: 'text-total-time',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -459,7 +459,7 @@ export const componentDatas = [
   {
     label: 'average-time',
     componentKey: 19,
-    componentName: 'average-time',
+    componentName: 'text-average-time',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -470,7 +470,7 @@ export const componentDatas = [
   {
     label: 'operation-score',
     componentKey: 20,
-    componentName: 'operation-score',
+    componentName: 'text-operation-score',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -481,7 +481,7 @@ export const componentDatas = [
   {
     label: 'not-operation-score',
     componentKey: 21,
-    componentName: 'not-operation-score',
+    componentName: 'text-not-operation-score',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -492,7 +492,7 @@ export const componentDatas = [
   {
     label: 'high-speed-score',
     componentKey: 22,
-    componentName: 'high-speed-score',
+    componentName: 'text-high-speed-score',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -503,7 +503,7 @@ export const componentDatas = [
   {
     label: 'not-high-speed-score',
     componentKey: 23,
-    componentName: 'not-high-speed-score',
+    componentName: 'text-not-high-speed-score',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -514,7 +514,7 @@ export const componentDatas = [
   {
     label: 'total-distance',
     componentKey: 24,
-    componentName: 'total-distance',
+    componentName: 'text-total-distance',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -525,7 +525,7 @@ export const componentDatas = [
   {
     label: 'average-distance',
     componentKey: 25,
-    componentName: 'average-distance',
+    componentName: 'text-average-distance',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -536,7 +536,7 @@ export const componentDatas = [
   {
     label: 'total-events',
     componentKey: 26,
-    componentName: 'total-events',
+    componentName: 'text-total-events',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -547,7 +547,7 @@ export const componentDatas = [
   {
     label: 'average-events',
     componentKey: 27,
-    componentName: 'average-events',
+    componentName: 'text-average-events',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -558,7 +558,7 @@ export const componentDatas = [
   {
     label: 'operating-frequency',
     componentKey: 28,
-    componentName: 'operating-frequency',
+    componentName: 'text-operating-frequency',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -569,7 +569,7 @@ export const componentDatas = [
   {
     label: 'average-number-of-operations',
     componentKey: 29,
-    componentName: 'average-number-of-operations',
+    componentName: 'text-average-number-of-operations',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -580,7 +580,7 @@ export const componentDatas = [
   {
     label: 'maximum-speed',
     componentKey: 30,
-    componentName: 'maximum-speed',
+    componentName: 'text-maximum-speed',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -591,7 +591,7 @@ export const componentDatas = [
   {
     label: 'average-velocity-speed',
     componentKey: 31,
-    componentName: 'average-velocity-speed',
+    componentName: 'text-average-velocity-speed',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
@@ -602,10 +602,21 @@ export const componentDatas = [
   {
     label: 'process-circle',
     componentKey: 32,
-    componentName: 'process-circle',
+    componentName: 'other-process-circle',
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
+    col: 8,
+    height: 250,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'table',
+    componentKey: 32,
+    componentName: 'table-block',
+    api: '/report/getRandomData',
+    method: 'get',
+    dataKey: '',
     col: 8,
     height: 250,
     previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
