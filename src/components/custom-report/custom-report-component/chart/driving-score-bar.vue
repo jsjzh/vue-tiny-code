@@ -45,8 +45,6 @@ export default {
           obj[key].push(item);
         });
       });
-      console.log(obj);
-
       chart.setOption({
         xAxis: { data: option.map(info => info.xdata) },
         series: [
