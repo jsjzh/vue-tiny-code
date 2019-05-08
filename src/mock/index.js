@@ -26,6 +26,25 @@ const randomKeyArr = [
 ]
 const randomXAxisArr = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
+const alarmType = [
+  'pedestrian collision warning',
+  'vehicle collision warning',
+  'frequently change lanes',
+  'too close for too long',
+  'continuous speed',
+  'suspected collision and rollover',
+  'intense driving'
+]
+
+const processState = [
+  'untreated',
+  'has been confirmed with the driver',
+  'Suggest stopping for a rest',
+  'Recommend speed reduction',
+  'Normal circumstances can be ignored',
+  'other'
+]
+
 /**
  * 获取某一报表详细布局信息
  */
@@ -87,3 +106,79 @@ Mock.mock(/report\/getRandomData/, 'get', config =>
     }))
   )
 )
+
+Mock.mock(/report\/getAlarmData/, 'get', config =>
+  Mock.mock(
+    alarmType.map((name, index) => ({
+      name: name,
+      value: randomCount,
+      xdata: randomXAxisArr[index],
+      arrData: new Array(7).fill(randomCount)
+    }))
+  )
+)
+
+Mock.mock(/report\/getDealData/, 'get', config =>
+  Mock.mock(
+    processState.map((name, index) => ({
+      name: name,
+      value: randomCount,
+      xdata: randomXAxisArr[index],
+      arrData: new Array(7).fill(randomCount)
+    }))
+  )
+)
+
+Mock.mock(/report\/getAlarmTimeData/, 'get', config =>
+  Mock.mock(
+    new Array(24).fill(null).map((time, index) => ({
+      xdata: index,
+      carCount: randomCount,
+      alarmCount: randomCount
+    }))
+  )
+)
+
+Mock.mock(/report\/getVehicleScoreData/, 'get', config => {
+  return Mock.mock(
+    new Array(20).fill(null).map(() => ({
+      score: randomCount,
+      plate: '沪DK@integer(1000, 9999)'
+    }))
+  )
+})
+
+Mock.mock(/report\/getDrivingScoreLineData/, 'get', config => {
+  return Mock.mock(
+    new Array(31).fill(null).map((time, index) => ({
+      xdata: index,
+      score: randomCount
+    }))
+  )
+})
+
+function getRamdomCountByNum(total = 100, num = 4) {
+  let arr = []
+  let _total = total
+  for (let index = 1; index < num; index++) {
+    arr[index - 1] = (Math.random() * total).toFixed(0)
+    total -= arr[index - 1]
+  }
+  arr[num - 1] = arr.reduce((pre, curr) => pre - curr, _total)
+  return arr
+}
+
+Mock.mock(/report\/getDrivingScoreBarData/, 'get', config => {
+  return Mock.mock(
+    new Array(31).fill(null).map((time, index) => {
+      const counts = getRamdomCountByNum(100, 4)
+      return {
+        xdata: index,
+        countOne: counts[0],
+        countTwo: counts[1],
+        countThree: counts[2],
+        countFour: counts[3]
+      }
+    })
+  )
+})

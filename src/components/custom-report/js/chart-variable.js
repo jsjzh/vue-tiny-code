@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-27 11:18:09
- * @LastEditTime: 2019-04-29 10:16:56
+ * @LastEditTime: 2019-05-08 18:23:41
  * @Description: 该文件只是为了方便管理 default-chart-option，在 variable 中会将这些变量曝露出去
  */
 export const defaultColor = [ '#ee7738', '#f59d2a', '#fcc419', '#ffe066', '#9bca63', '#b5c334', '#5e85a8', '#476480', '#34495d', '#2c3d4f' ]
@@ -12,6 +12,8 @@ export const shineColor = ['#c12e34', '#e6b600', '#0098d9', '#2b821d', '#005eaa'
 export const infographicColor = [ '#C1232B', '#27727B', '#FCCE10', '#E87C25', '#B5C334', '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD', '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0' ]
 
 export const defaultChartColors = defaultColor
+
+export const scoreColor = ['rgb(52, 184, 67)', 'rgb(51, 133, 253)', 'rgb(252, 196, 25)', 'rgb(255, 87, 87)']
 
 // 限制报表一页 A4 纸大小
 // 在预览页面选择查询条件
@@ -50,7 +52,7 @@ const lineDefaultData = [820, 932, 901, 934, 1290, 1330, 1320]
 export const defaultPieOption = {
   color: defaultChartColors,
   title: { show: false },
-  legend: { orient: 'vertical', left: '5%', top: '15%', icon: 'circle' },
+  legend: { orient: 'vertical', right: '5%', top: '15%', icon: 'circle' },
   tooltip: { confine: true, trigger: 'item', formatter: '{a} <br/>{b}: {c} ({d}%)' },
   series: [
     {
@@ -58,7 +60,7 @@ export const defaultPieOption = {
       type: 'pie',
       radius: '55%',
       minAngle: 5,
-      center: ['65%', '60%'],
+      center: ['30%', '50%'],
       itemStyle: { normal: { borderWidth: 1, borderColor: '#e5e5e5' } },
       label: { show: false },
       labelLine: { show: false },
@@ -82,7 +84,7 @@ export const defaultLineOption = {
   color: defaultChartColors,
   tooltip: { confine: true, trigger: 'axis', axisPointer: { type: 'cross' } },
   grid: { left: '5%', right: '5%', top: '10%', bottom: 0, containLabel: true },
-  xAxis: { type: 'category', boundaryGap: false, data: lineDefaultXData },
+  xAxis: { type: 'category', boundaryGap: true, data: lineDefaultXData },
   yAxis: { type: 'value' },
   series: [{ name: '未命名曲线图图', type: 'line', data: lineDefaultData, smooth: false }]
 }

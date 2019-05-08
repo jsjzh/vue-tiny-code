@@ -216,33 +216,33 @@ export const dragReportData = [
         height: 250,
         index: 6,
         children: [
-          { col: 0, componentKey: null, initCol: 12, title: null },
-          { col: 0, componentKey: null, initCol: 12, title: null }
+          { col: 12, componentKey: 44, initCol: 12, title: 'alarm-event-distribution' },
+          { col: 12, componentKey: 45, initCol: 12, title: 'event-processing-report' }
         ]
       },
       {
         align: 'flex-start',
         height: 250,
         index: 7,
-        children: [{ col: 0, componentKey: null, initCol: 24, title: null }]
+        children: [{ col: 24, componentKey: 46, initCol: 24, title: 'alarm-interval-distribution' }]
       },
       {
         align: 'flex-start',
         height: 400,
         index: 8,
-        children: [{ col: 0, componentKey: null, initCol: 24, title: null }]
+        children: [{ col: 24, componentKey: 47, initCol: 24, title: 'vehicle-score' }]
       },
       {
         align: 'flex-start',
         height: 250,
         index: 9,
-        children: [{ col: 0, componentKey: null, initCol: 24, title: null }]
+        children: [{ col: 24, componentKey: 48, initCol: 24, title: 'driving-score-line' }]
       },
       {
         align: 'flex-start',
         height: 250,
         index: 10,
-        children: [{ col: 0, componentKey: null, initCol: 24, title: null }]
+        children: [{ col: 24, componentKey: 49, initCol: 24, title: 'driving-score-bar' }]
       }
     ]
   }
@@ -727,6 +727,72 @@ export const componentDatas = [
     method: 'get',
     dataKey: 'countKey',
     col: 6,
+    height: 200,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'alarm-event-distribution',
+    componentKey: 44,
+    componentName: 'chart-alarm-event-distribution',
+    api: '/report/getAlarmData',
+    method: 'get',
+    dataKey: '',
+    col: 12,
+    height: 250,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'event-processing-report',
+    componentKey: 45,
+    componentName: 'chart-event-processing-report',
+    api: '/report/getDealData',
+    method: 'get',
+    dataKey: '',
+    col: 12,
+    height: 250,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'alarm-interval-distribution',
+    componentKey: 46,
+    componentName: 'chart-alarm-interval-distribution',
+    api: '/report/getAlarmTimeData',
+    method: 'get',
+    dataKey: '',
+    col: 24,
+    height: 250,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'vehicle-score',
+    componentKey: 47,
+    componentName: 'group-vehicle-score',
+    api: '/report/getVehicleScoreData',
+    method: 'get',
+    dataKey: '',
+    col: 24,
+    height: 400,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'driving-score-line',
+    componentKey: 48,
+    componentName: 'chart-driving-score-line',
+    api: '/report/getDrivingScoreLineData',
+    method: 'get',
+    dataKey: '',
+    col: 24,
+    height: 200,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'driving-score-bar',
+    componentKey: 49,
+    componentName: 'chart-driving-score-bar',
+    api: '/report/getDrivingScoreBarData',
+    method: 'get',
+    dataKey: '',
+    col: 24,
     height: 200,
     previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
   }

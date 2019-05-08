@@ -1,7 +1,7 @@
 <template>
   <div style="display: flex;flex: 1">
-    <base-chart-bar ref="bar-chart" style="flex: 6" @reload="reloadChart"/>
-    <base-chart-pie ref="pie-chart" style="flex: 4" @reload="reloadChart"/>
+    <base-chart-bar ref="bar-chart" style="flex: 5" @reload="reloadChart"/>
+    <base-chart-pie ref="pie-chart" style="flex: 5" @reload="reloadChart"/>
   </div>
 </template>
 

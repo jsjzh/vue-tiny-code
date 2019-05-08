@@ -26,12 +26,50 @@ export default {
     return {
       componentWidth: null,
       componentHeight: null,
-      reportData: {
-        countOne: 25,
-        countTwo: 25,
-        rate: 25,
-        average: 25
-      }
+      reportData: [
+        {
+          name: "email marketing",
+          value: 72,
+          xdata: "monday",
+          arrData: [76, 28, 92, 90, 43, 46, 29]
+        },
+        {
+          name: "union advertising",
+          value: 21,
+          xdata: "tuesday",
+          arrData: [27, 50, 71, 82, 74, 34, 79]
+        },
+        {
+          name: "search engine",
+          value: 37,
+          xdata: "wednesday",
+          arrData: [69, 87, 92, 54, 32, 31, 82]
+        },
+        {
+          name: "from video",
+          value: 44,
+          xdata: "thursday",
+          arrData: [63, 53, 92, 21, 60, 10, 61]
+        },
+        {
+          name: "pop up ads",
+          value: 44,
+          xdata: "friday",
+          arrData: [51, 100, 32, 87, 23, 29, 13]
+        },
+        {
+          name: "marketing",
+          value: 53,
+          xdata: "saturday",
+          arrData: [100, 36, 78, 55, 57, 18, 18]
+        },
+        {
+          name: "direct access",
+          value: 21,
+          xdata: "sunday",
+          arrData: [76, 45, 68, 66, 88, 36, 29]
+        }
+      ]
     };
   },
   components: { defaultContainer, ...customReports },

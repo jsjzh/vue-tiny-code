@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-27 10:20:10
- * @LastEditTime: 2019-04-29 10:19:19
+ * @LastEditTime: 2019-05-08 10:47:11
  * @Description: chart 实例默认 mixin 配置
  */
 import { defaultLineOption, defaultPieOption, defaultBarOption } from '../js/variable'
@@ -15,10 +15,15 @@ export default {
     // 同时还接受父组件传来的 option
     setOption(option) {
       this.$$chartInstance && this.$$chartInstance.setOption(option)
+      // TODO 某些情况下，页面第一次载入会不显示图表，猜想应该是 microtask 和 macrotask 的锅
+      // 后续会去看看 echarts 源码里是如何 setOption 的，暂时用延时来处理
+      setTimeout(() => {
+        this.handleResize()
+      }, 1000)
     },
     handleResize() {
       this.$nextTick(() => {
-        typeof this.$$chartInstance === 'object' && this.$$chartInstance.resize()
+        this.$$chartInstance && typeof this.$$chartInstance === 'object' && this.$$chartInstance.resize()
       })
     },
     initChart(refName) {
