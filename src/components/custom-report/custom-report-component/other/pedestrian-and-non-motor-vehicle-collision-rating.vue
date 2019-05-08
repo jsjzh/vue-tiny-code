@@ -1,12 +1,13 @@
 <template>
-  <div class="turn-signal-control-score-container">
+  <div class="pedestrian-and-non-motor-vehicle-collision-rating-container">
     <circle-icon
-      circleTitle="turn-signal-control-score"
-      iconUnicode="&#xe7ee;"
-      :iconSize="55"
+      circleTitle="pedestrian-and-non-motor-vehicle-collision-rating"
+      iconUnicode="&#xe682;"
+      :iconSize="35"
       :iconOffsetY="50"
       :percentage="reportData.countOne"
       :circleWidth="130"
+      :haveBox="true"
       :circleTip="realTip"
     />
   </div>
@@ -16,7 +17,8 @@
 import circleIcon from "../../base/circle-icon";
 
 export default {
-  name: "custom-report-component-other-turn-signal-control-score",
+  name:
+    "custom-report-component-other-pedestrian-and-non-motor-vehicle-collision-rating",
   components: { circleIcon },
   props: {
     reportData: {
@@ -39,7 +41,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.turn-signal-control-score-container {
+.pedestrian-and-non-motor-vehicle-collision-rating-container {
   flex: 1;
   display: flex;
   flex-flow: column;

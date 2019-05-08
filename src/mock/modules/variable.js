@@ -192,12 +192,12 @@ export const dragReportData = [
         height: 250,
         index: 4,
         children: [
-          { col: 0, componentKey: null, initCol: 4, title: null },
-          { col: 0, componentKey: null, initCol: 4, title: null },
-          { col: 0, componentKey: null, initCol: 4, title: null },
-          { col: 0, componentKey: null, initCol: 4, title: null },
-          { col: 0, componentKey: null, initCol: 4, title: null },
-          { col: 0, componentKey: null, initCol: 4, title: null }
+          { col: 4, componentKey: 34, initCol: 4, title: 'turn-signal-control-score' },
+          { col: 4, componentKey: 35, initCol: 4, title: 'brake-control-score' },
+          { col: 4, componentKey: 36, initCol: 4, title: 'turning-score' },
+          { col: 4, componentKey: 37, initCol: 4, title: 'accelerate-the-score' },
+          { col: 4, componentKey: 38, initCol: 4, title: 'deceleration-score' },
+          { col: 4, componentKey: 39, initCol: 4, title: 'speed-rating' }
         ]
       },
       {
@@ -205,10 +205,10 @@ export const dragReportData = [
         height: 250,
         index: 5,
         children: [
-          { col: 0, componentKey: null, initCol: 6, title: null },
-          { col: 0, componentKey: null, initCol: 6, title: null },
-          { col: 0, componentKey: null, initCol: 6, title: null },
-          { col: 0, componentKey: null, initCol: 6, title: null }
+          { col: 6, componentKey: 40, initCol: 6, title: 'rear-end-collision-rating' },
+          { col: 6, componentKey: 41, initCol: 6, title: 'lane-retention-score' },
+          { col: 6, componentKey: 42, initCol: 6, title: 'distance-control-rating' },
+          { col: 6, componentKey: 43, initCol: 6, title: 'pedestrian-and-non-motor-vehicle-collision-rating' }
         ]
       },
       {
@@ -627,8 +627,107 @@ export const componentDatas = [
     api: '/report/getCountData',
     method: 'get',
     dataKey: 'countKey',
-    col: 8,
-    height: 250,
+    col: 4,
+    height: 200,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'brake-control-score',
+    componentKey: 35,
+    componentName: 'other-brake-control-score',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 200,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'turning-score',
+    componentKey: 36,
+    componentName: 'other-turning-score',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 200,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'accelerate-the-score',
+    componentKey: 37,
+    componentName: 'other-accelerate-the-score',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 200,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'deceleration-score',
+    componentKey: 38,
+    componentName: 'other-deceleration-score',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 200,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'speed-rating',
+    componentKey: 39,
+    componentName: 'other-speed-rating',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 4,
+    height: 200,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'rear-end-collision-rating',
+    componentKey: 40,
+    componentName: 'other-rear-end-collision-rating',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 6,
+    height: 200,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'lane-retention-score',
+    componentKey: 41,
+    componentName: 'other-lane-retention-score',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 6,
+    height: 200,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'distance-control-rating',
+    componentKey: 42,
+    componentName: 'other-distance-control-rating',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 6,
+    height: 200,
+    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+  },
+  {
+    label: 'pedestrian-and-non-motor-vehicle-collision-rating',
+    componentKey: 43,
+    componentName: 'other-pedestrian-and-non-motor-vehicle-collision-rating',
+    api: '/report/getCountData',
+    method: 'get',
+    dataKey: 'countKey',
+    col: 6,
+    height: 200,
     previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
   }
 ]

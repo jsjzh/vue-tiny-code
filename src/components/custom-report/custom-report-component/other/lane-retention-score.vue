@@ -1,12 +1,13 @@
 <template>
-  <div class="turn-signal-control-score-container">
+  <div class="lane-retention-score-container">
     <circle-icon
-      circleTitle="turn-signal-control-score"
-      iconUnicode="&#xe7ee;"
-      :iconSize="55"
-      :iconOffsetY="50"
+      circleTitle="lane-retention-score"
+      iconUnicode="&#xe600;"
+      :iconSize="50"
+      :iconOffsetY="52"
       :percentage="reportData.countOne"
       :circleWidth="130"
+      :haveBox="true"
       :circleTip="realTip"
     />
   </div>
@@ -16,7 +17,7 @@
 import circleIcon from "../../base/circle-icon";
 
 export default {
-  name: "custom-report-component-other-turn-signal-control-score",
+  name: "custom-report-component-other-lane-retention-score",
   components: { circleIcon },
   props: {
     reportData: {
@@ -39,7 +40,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.turn-signal-control-score-container {
+.lane-retention-score-container {
   flex: 1;
   display: flex;
   flex-flow: column;

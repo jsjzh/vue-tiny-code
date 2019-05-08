@@ -1,10 +1,10 @@
 <template>
-  <div class="turn-signal-control-score-container">
+  <div class="turning-score-container">
     <circle-icon
-      circleTitle="turn-signal-control-score"
-      iconUnicode="&#xe7ee;"
-      :iconSize="55"
-      :iconOffsetY="50"
+      circleTitle="turning-score"
+      iconUnicode="&#xe75f;"
+      :iconSize="30"
+      :iconOffsetY="55"
       :percentage="reportData.countOne"
       :circleWidth="130"
       :circleTip="realTip"
@@ -16,7 +16,7 @@
 import circleIcon from "../../base/circle-icon";
 
 export default {
-  name: "custom-report-component-other-turn-signal-control-score",
+  name: "custom-report-component-other-turning-score",
   components: { circleIcon },
   props: {
     reportData: {
@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.turn-signal-control-score-container {
+.turning-score-container {
   flex: 1;
   display: flex;
   flex-flow: column;

@@ -5,7 +5,7 @@
         stroke-linecap="round"
         fill="none"
         stroke="#e5e9f2"
-        :stroke-width="strokeWidth"
+        :stroke-width="circleWidth / 20"
         :d="circlePath"
       ></path>
       <path
@@ -13,9 +13,21 @@
         fill="none"
         :style="perimeterPathStyle"
         :stroke="circleColor"
-        :stroke-width="strokeWidth"
+        :stroke-width="circleWidth / 20"
         :d="circlePath"
       ></path>
+    </g>
+    <g>
+      <text
+        v-if="haveBox"
+        x="50%"
+        y="63%"
+        fill="#666"
+        text-anchor="middle"
+        dominant-baseline="middle"
+        font-family="iconfont"
+        :font-size="circleWidth * 1.05"
+      >&#xe606;</text>
     </g>
     <g>
       <slot></slot>
@@ -28,14 +40,15 @@ export default {
   name: "base-circle",
   props: {
     circleWidth: { type: Number, default: 130 },
-    strokeWidth: { type: Number, default: 10 },
     circleColor: { type: String, default: "rgb(52,184,67)" },
-    percentage: { type: [Number, String], default: 10 }
+    percentage: { type: [Number, String], default: 10 },
+    haveBox: { type: Boolean, default: false }
   },
   computed: {
     radius() {
-      const { circleWidth, strokeWidth } = this;
-      return (circleWidth - strokeWidth) / 2;
+      const { circleWidth } = this;
+      if (this.haveBox) return (circleWidth - circleWidth / 20) / 2 - 15;
+      return (circleWidth - circleWidth / 20) / 2;
     },
     circlePath() {
       const { radius, circleWidth } = this;

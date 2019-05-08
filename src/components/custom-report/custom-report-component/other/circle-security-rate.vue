@@ -16,7 +16,10 @@ export default {
   components: { circleThreeText },
   props: {
     reportData: {
-      type: Object
+      type: Object,
+      default() {
+        return {};
+      }
     }
   }
 };

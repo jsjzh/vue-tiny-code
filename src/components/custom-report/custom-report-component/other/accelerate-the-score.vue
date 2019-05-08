@@ -1,10 +1,10 @@
 <template>
-  <div class="turn-signal-control-score-container">
+  <div class="accelerate-the-score-container">
     <circle-icon
-      circleTitle="turn-signal-control-score"
-      iconUnicode="&#xe7ee;"
-      :iconSize="55"
-      :iconOffsetY="50"
+      circleTitle="accelerate-the-score"
+      iconUnicode="&#xe654;"
+      :iconSize="40"
+      :iconOffsetY="53"
       :percentage="reportData.countOne"
       :circleWidth="130"
       :circleTip="realTip"
@@ -16,7 +16,7 @@
 import circleIcon from "../../base/circle-icon";
 
 export default {
-  name: "custom-report-component-other-turn-signal-control-score",
+  name: "custom-report-component-other-accelerate-the-score",
   components: { circleIcon },
   props: {
     reportData: {
@@ -33,13 +33,14 @@ export default {
       if (countOne >= 40 && countOne < 60) return "attention please";
       if (countOne >= 60 && countOne < 80) return "keep on";
       if (countOne >= 80 && countOne <= 100) return "keep on";
+      return "on data";
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.turn-signal-control-score-container {
+.accelerate-the-score-container {
   flex: 1;
   display: flex;
   flex-flow: column;

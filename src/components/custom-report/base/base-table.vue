@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:42:41
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-11 19:47:30
+ * @LastEditTime: 2019-05-08 08:27:19
  * @Description: 基础 table 组件
  -->
 <template>
@@ -38,6 +38,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

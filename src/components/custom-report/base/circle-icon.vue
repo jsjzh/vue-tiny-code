@@ -1,21 +1,24 @@
 <template>
   <div class="circle-score-process-container">
+    <div style="font-weight: 600" :style="{fontSize: circleWidth / 8 + 'px'}">{{circleTitle}}</div>
     <base-circle
       :percentage="percentage"
       :circleColor="realColor"
-      :circleWidth="130"
-      :strokeWidth="10"
+      :circleWidth="circleWidth"
+      :haveBox="haveBox"
     >
       <text
         x="50%"
-        y="50%"
+        :y="iconOffsetY + '%'"
         text-anchor="middle"
         dominant-baseline="middle"
         font-family="iconfont"
-        :font-size="130 / 2"
+        :font-size="iconSize"
         :fill="realColor"
-      >&#xe7ee;</text>
+        v-html="iconUnicode"
+      />
     </base-circle>
+    <div :style="{color:realColor}">{{circleTip}}</div>
   </div>
 </template>
 
@@ -26,7 +29,14 @@ export default {
   name: "circle-three-text",
   components: { baseCircle },
   props: {
-    percentage: { type: [String, Number], default: 10 }
+    percentage: { type: [String, Number], default: 10 },
+    iconUnicode: { type: String, required: true },
+    iconSize: { type: [String, Number], default: 60 },
+    iconOffsetY: { type: [String, Number], default: 50 },
+    circleWidth: { type: [String, Number], default: 130 },
+    circleTitle: { type: String, required: true },
+    circleTip: { type: String, default: "no data" },
+    haveBox: { type: Boolean, default: false }
   },
   computed: {
     realColor() {
@@ -44,7 +54,8 @@ export default {
 .circle-score-process-container {
   flex: 1;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  flex-flow: column;
 }
 </style>

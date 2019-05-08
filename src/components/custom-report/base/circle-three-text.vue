@@ -1,11 +1,6 @@
 <template>
   <div class="circle-score-process-container">
-    <base-circle
-      :percentage="percentage"
-      :circleColor="realColor"
-      :circleWidth="130"
-      :strokeWidth="10"
-    >
+    <base-circle :percentage="percentage" :circleColor="realColor" :circleWidth="130">
       <text
         x="50%"
         y="35%"
