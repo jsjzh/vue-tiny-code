@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2018-6-28 15:13:23
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-05-06 15:11:56
+ * @LastEditTime: 2019-05-09 16:53:11
  * @Description: 常用函数包装
  */
 import * as R from 'ramda'
@@ -120,13 +120,12 @@ export function sortByName(byArr, arr, key = 'name') {
   return rtn.concat(arr)
 }
 
-export const diffPro = R.curry(function(target, a, b) {
+export const diff = R.curry(function(target, a, b) {
   if (!target) return a - b
   return a[target] - b[target]
 })
 
-export const diff = diffPro(null)
-export const diffSort = diffPro('sort')
+export const diffIndex = diff('index')
 
 export function filterZtreeDataByType(data, type) {
   if (!Array.isArray(data)) {
@@ -259,8 +258,44 @@ export function $msg(message = '0_操作成功', callback, duration = 1500) {
   return Promise.resolve(true)
 }
 
-export function openNewWindow(url) {
+export function openNewTab(url) {
   window.open(url, '_blank')
+}
+
+export function openNewWindow(url, title, w, h) {
+  const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left
+  const dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top
+
+  const width = window.innerWidth
+    ? window.innerWidth
+    : document.documentElement.clientWidth
+    ? document.documentElement.clientWidth
+    : screen.width
+  const height = window.innerHeight
+    ? window.innerHeight
+    : document.documentElement.clientHeight
+    ? document.documentElement.clientHeight
+    : screen.height
+
+  const left = width / 2 - w / 2 + dualScreenLeft
+  const top = height / 2 - h / 2 + dualScreenTop
+  const newWindow = window.open(
+    url,
+    title,
+    'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, copyhistory=no, width=' +
+      w +
+      ', height=' +
+      h +
+      ', top=' +
+      top +
+      ', left=' +
+      left
+  )
+
+  // Puts focus on the newWindow
+  if (window.focus) {
+    newWindow.focus()
+  }
 }
 
 export function setStorage(key, value, type = 'local') {
@@ -274,3 +309,12 @@ export function resolveStorage(key, type = 'local') {
   if (value.indexOf('{') !== -1 && value.indexOf('}') !== -1) return JSON.parse(value)
   return value
 }
+
+export function mixinObjs(...objs) {
+  return Object.assign.apply(null, objs)
+}
+
+export const isSame = R.curry(function(target, a, b) {
+  if (!target) return a === b
+  return a[target] === b[target]
+})

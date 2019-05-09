@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { deepClone, openNewWindow, setStorage } from "@/utils";
+import { deepClone, openNewTab, setStorage } from "@/utils";
 
 import {
   getreportstructurelist,
@@ -127,7 +127,7 @@ export default {
         path: "/dragReport",
         query: { reportUnionKey }
       });
-      openNewWindow(href);
+      openNewTab(href);
     },
 
     handleClickPreview(reportUnionKey) {
@@ -136,7 +136,7 @@ export default {
         path: "/previewReport",
         query: { reportUnionKey }
       });
-      openNewWindow(href);
+      openNewTab(href);
     },
 
     getReportList() {

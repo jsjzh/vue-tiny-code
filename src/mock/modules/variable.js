@@ -5,13 +5,13 @@ export const dragReportData = [
     children: [
       {
         align: 'flex-start',
-        height: 250,
+        initHeight: 250,
         index: 2,
         children: [{ col: 24, componentKey: 15, initCol: 24, title: '评分图' }]
       },
       {
         align: 'flex-start',
-        height: 250,
+        initHeight: 250,
         index: 3,
         children: [
           { col: 16, componentKey: 14, initCol: 16, title: '类型分布图' },
@@ -20,7 +20,7 @@ export const dragReportData = [
       },
       {
         align: 'flex-start',
-        height: 250,
+        initHeight: 250,
         index: 4,
         children: [
           { col: 6, componentKey: 10, initCol: 6, title: '占位' },
@@ -30,13 +30,13 @@ export const dragReportData = [
       },
       {
         align: 'flex-start',
-        height: 250,
+        initHeight: 250,
         index: 2,
         children: [{ col: 24, componentKey: 15, initCol: 24, title: '评分图' }]
       },
       {
         align: 'flex-start',
-        height: 250,
+        initHeight: 250,
         index: 3,
         children: [
           { col: 16, componentKey: 14, initCol: 16, title: '类型分布图' },
@@ -45,7 +45,7 @@ export const dragReportData = [
       },
       {
         align: 'flex-start',
-        height: 250,
+        initHeight: 250,
         index: 4,
         children: [
           { col: 6, componentKey: 10, initCol: 6, title: '占位' },
@@ -55,13 +55,13 @@ export const dragReportData = [
       },
       {
         align: 'flex-start',
-        height: 250,
+        initHeight: 250,
         index: 2,
         children: [{ col: 24, componentKey: 15, initCol: 24, title: '评分图' }]
       },
       {
         align: 'flex-start',
-        height: 250,
+        initHeight: 250,
         index: 3,
         children: [
           { col: 16, componentKey: 14, initCol: 16, title: '类型分布图' },
@@ -70,7 +70,7 @@ export const dragReportData = [
       },
       {
         align: 'flex-start',
-        height: 250,
+        initHeight: 250,
         index: 4,
         children: [
           { col: 6, componentKey: 10, initCol: 6, title: '占位' },
@@ -86,14 +86,14 @@ export const dragReportData = [
     children: [
       {
         align: 'flex-start',
-        height: 250,
-        index: 2,
+        initHeight: 250,
+        index: 0,
         children: [{ col: 24, componentKey: 15, initCol: 24, title: '评分图' }]
       },
       {
         align: 'flex-start',
-        height: 250,
-        index: 3,
+        initHeight: 250,
+        index: 1,
         children: [
           { col: 16, componentKey: 14, initCol: 16, title: '类型分布图' },
           { col: 8, componentKey: 11, initCol: 8, title: '分布图' }
@@ -101,8 +101,8 @@ export const dragReportData = [
       },
       {
         align: 'flex-start',
-        height: 250,
-        index: 4,
+        initHeight: 250,
+        index: 2,
         children: [
           { col: 6, componentKey: 10, initCol: 6, title: '占位' },
           { col: 12, componentKey: 12, initCol: 12, title: '分布图' },
@@ -118,14 +118,14 @@ export const dragReportData = [
       {
         align: 'flex-start',
         title: 'email marketing',
-        height: 250,
+        initHeight: 250,
         index: 2,
         children: [{ col: 24, componentKey: 15, initCol: 24, title: '评分图' }]
       },
       {
         align: 'flex-start',
         title: 'union advertising',
-        height: 250,
+        initHeight: 250,
         index: 3,
         children: [
           { col: 16, componentKey: 14, initCol: 16, title: '类型分布图' },
@@ -135,7 +135,7 @@ export const dragReportData = [
       {
         align: 'flex-start',
         title: 'search engine',
-        height: 250,
+        initHeight: 250,
         index: 4,
         children: [
           { col: 6, componentKey: 10, initCol: 6, title: '占位' },
@@ -151,7 +151,7 @@ export const dragReportData = [
     children: [
       {
         align: 'flex-start',
-        height: 150,
+        initHeight: 150,
         index: 1,
         children: [
           { col: 8, componentKey: 32, initCol: '8', title: 'security-rate' },
@@ -163,7 +163,7 @@ export const dragReportData = [
       },
       {
         align: 'flex-start',
-        height: 100,
+        initHeight: 100,
         index: 2,
         children: [
           { col: 4, componentKey: 20, initCol: 4, title: 'operation-score' },
@@ -176,7 +176,7 @@ export const dragReportData = [
       },
       {
         align: 'flex-start',
-        height: 100,
+        initHeight: 100,
         index: 3,
         children: [
           { col: 4, componentKey: 26, initCol: 4, title: 'total-events' },
@@ -189,7 +189,7 @@ export const dragReportData = [
       },
       {
         align: 'flex-start',
-        height: 250,
+        initHeight: 250,
         index: 4,
         children: [
           { col: 4, componentKey: 34, initCol: 4, title: 'turn-signal-control-score' },
@@ -202,7 +202,7 @@ export const dragReportData = [
       },
       {
         align: 'flex-start',
-        height: 250,
+        initHeight: 250,
         index: 5,
         children: [
           { col: 6, componentKey: 40, initCol: 6, title: 'rear-end-collision-rating' },
@@ -213,7 +213,7 @@ export const dragReportData = [
       },
       {
         align: 'flex-start',
-        height: 250,
+        initHeight: 250,
         index: 6,
         children: [
           { col: 12, componentKey: 44, initCol: 12, title: 'alarm-event-distribution' },
@@ -222,25 +222,25 @@ export const dragReportData = [
       },
       {
         align: 'flex-start',
-        height: 250,
+        initHeight: 250,
         index: 7,
         children: [{ col: 24, componentKey: 46, initCol: 24, title: 'alarm-interval-distribution' }]
       },
       {
         align: 'flex-start',
-        height: 400,
+        initHeight: 400,
         index: 8,
         children: [{ col: 24, componentKey: 47, initCol: 24, title: 'vehicle-score' }]
       },
       {
         align: 'flex-start',
-        height: 250,
+        initHeight: 250,
         index: 9,
         children: [{ col: 24, componentKey: 48, initCol: 24, title: 'driving-score-line' }]
       },
       {
         align: 'flex-start',
-        height: 250,
+        initHeight: 250,
         index: 10,
         children: [{ col: 24, componentKey: 49, initCol: 24, title: 'driving-score-bar' }]
       }

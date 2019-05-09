@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-05-09 09:19:25
+ * @LastEditTime: 2019-05-09 14:30:02
  * @Description: preview 页面，该页面既可以用于导出前的预览也可以用于单独的页面展示。每行的底部可以增加一条评语信息用于评测当行内容。值得注意的是，该条评语信息并不会记录到数据库，因为当查询条件更改了之后评语信息也会不同。
  -->
 <template>
@@ -62,7 +62,7 @@
         <div class="layout-row-content" :style="{justifyContent: row.align}">
           <div
             class="layout-col"
-            :style="previewColStyle({width: col.initCol,height: row.height}, 100, 1, 24)"
+            :style="previewColStyle({width: col.initCol,height: row.initHeight}, 100, 1, 24)"
             v-for="(col, colIndex) in row.children"
             :key="colIndex"
           >
