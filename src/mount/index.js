@@ -10,3 +10,6 @@ Vue.prototype.$customLoading = customLoading.service
 
 Vue.use(ElementUI)
 Vue.use(customLoading)
+
+import teIcon from '@/components/te-icon'
+Vue.component('te-icon', teIcon)

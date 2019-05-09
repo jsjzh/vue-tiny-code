@@ -2,7 +2,7 @@
   <div class="lane-retention-score-container">
     <circle-icon
       circleTitle="lane-retention-score"
-      iconUnicode="&#xe600;"
+      iconName="icontubiaozhizuomoban"
       :iconSize="50"
       :iconOffsetY="52"
       :percentage="reportData.countOne"

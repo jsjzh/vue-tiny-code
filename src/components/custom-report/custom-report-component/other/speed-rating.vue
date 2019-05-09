@@ -2,7 +2,7 @@
   <div class="speed-rating-container">
     <circle-icon
       circleTitle="speed-rating"
-      iconUnicode="SLI"
+      iconText="SLI"
       :iconSize="32"
       :iconOffsetY="52"
       :percentage="reportData.countOne"

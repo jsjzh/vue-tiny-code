@@ -1,38 +1,32 @@
 <template>
-  <svg :width="circleWidth" :height="circleWidth" :viewBox="`0 0 ${circleWidth} ${circleWidth}`">
-    <g>
-      <path
-        stroke-linecap="round"
-        fill="none"
-        stroke="#e5e9f2"
-        :stroke-width="circleWidth / 20"
-        :d="circlePath"
-      ></path>
-      <path
-        stroke-linecap="round"
-        fill="none"
-        :style="perimeterPathStyle"
-        :stroke="circleColor"
-        :stroke-width="circleWidth / 20"
-        :d="circlePath"
-      ></path>
-    </g>
-    <g>
-      <text
-        v-if="haveBox"
-        x="50%"
-        y="63%"
-        fill="#666"
-        text-anchor="middle"
-        dominant-baseline="middle"
-        font-family="iconfont"
-        :font-size="circleWidth * 1.05"
-      >&#xe606;</text>
-    </g>
-    <g>
-      <slot></slot>
-    </g>
-  </svg>
+  <div class="ps-r">
+    <svg :width="circleWidth" :height="circleWidth" :viewBox="`0 0 ${circleWidth} ${circleWidth}`">
+      <g>
+        <path
+          stroke-linecap="round"
+          fill="none"
+          stroke="#e5e9f2"
+          :stroke-width="circleWidth / 20"
+          :d="circlePath"
+        ></path>
+        <path
+          stroke-linecap="round"
+          fill="none"
+          :style="perimeterPathStyle"
+          :stroke="circleColor"
+          :stroke-width="circleWidth / 20"
+          :d="circlePath"
+        ></path>
+      </g>
+      <slot name="svg"></slot>
+    </svg>
+    <div v-if="haveBox" class="ps-a ps-center">
+      <te-icon :style="{fontSize: circleWidth * 1.05 + 'px'}" iconName="iconweibiaoti-"/>
+    </div>
+    <div class="ps-a ps-center">
+      <slot name="span"/>
+    </div>
+  </div>
 </template>
 
 <script>

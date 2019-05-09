@@ -1,29 +1,31 @@
 <template>
   <div class="circle-score-process-container">
     <base-circle :percentage="percentage" :circleColor="realColor" :circleWidth="130">
-      <text
-        x="50%"
-        y="35%"
-        text-anchor="middle"
-        dominant-baseline="middle"
-        :font-size="130 / 5"
-        :fill="realColor"
-      >{{percentage}}</text>
-      <text
-        x="50%"
-        y="56%"
-        text-anchor="middle"
-        dominant-baseline="middle"
-        :font-size="130 / 8"
-      >{{circleTitle}}</text>
-      <text
-        x="50%"
-        y="75%"
-        text-anchor="middle"
-        dominant-baseline="middle"
-        :font-size="130 / 10"
-        :fill="realRateColor"
-      >{{realRate}}</text>
+      <template v-slot:svg>
+        <text
+          x="50%"
+          y="35%"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          :font-size="130 / 5"
+          :fill="realColor"
+        >{{percentage}}</text>
+        <text
+          x="50%"
+          y="56%"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          :font-size="130 / 8"
+        >{{circleTitle}}</text>
+        <text
+          x="50%"
+          y="75%"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          :font-size="130 / 10"
+          :fill="realRateColor"
+        >{{realRate}}</text>
+      </template>
     </base-circle>
   </div>
 </template>

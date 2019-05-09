@@ -2,7 +2,7 @@
   <div class="accelerate-the-score-container">
     <circle-icon
       circleTitle="accelerate-the-score"
-      iconUnicode="&#xe654;"
+      iconName="iconjiasu"
       :iconSize="40"
       :iconOffsetY="53"
       :percentage="reportData.countOne"

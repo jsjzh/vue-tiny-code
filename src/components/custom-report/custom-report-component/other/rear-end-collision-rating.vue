@@ -2,7 +2,7 @@
   <div class="rear-end-collision-rating-container">
     <circle-icon
       circleTitle="rear-end-collision-rating"
-      iconUnicode="&#xe603;"
+      iconName="iconche"
       :iconSize="25"
       :iconOffsetY="51"
       :percentage="reportData.countOne"

@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-25 17:34:43
- * @LastEditTime: 2019-05-08 18:23:11
+ * @LastEditTime: 2019-05-09 08:26:39
  * @Description:
  *  组件公用变量
  *  该处不设置 data 相关内容，只设置一些特殊的 chart 样式
@@ -95,6 +95,7 @@ export const drivingScoreLineOption = {
 }
 
 export const drivingScoreBarOption = {
+  toolbox: { show: false },
   yAxis: { type: 'value', axisLine: { show: false }, splitLine: { show: false } },
   xAxis: { axisLine: { show: false }, splitLine: { show: false } },
   legend: { show: false }

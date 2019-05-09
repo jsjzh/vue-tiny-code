@@ -154,7 +154,7 @@ export const dragReportData = [
         height: 150,
         index: 1,
         children: [
-          { col: 8, componentKey: 32, initCol: '8', title: 'table' },
+          { col: 8, componentKey: 32, initCol: '8', title: 'security-rate' },
           { col: 4, componentKey: 16, initCol: '4', title: 'daytime-score' },
           { col: 4, componentKey: 17, initCol: '4', title: 'night-score' },
           { col: 4, componentKey: 18, initCol: '4', title: 'total-time' },
@@ -431,7 +431,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/09/5cd390375d997.png'
   },
   {
     label: 'night-score',
@@ -442,7 +442,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/09/5cd390a7eae64.png'
   },
   {
     label: 'total-time',
@@ -453,7 +453,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/09/5cd390f2deab2.png'
   },
   {
     label: 'average-time',
@@ -464,7 +464,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/09/5cd3949d4e837.png'
   },
   {
     label: 'operation-score',
@@ -607,7 +607,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 8,
     height: 250,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/09/5cd3915d6d651.png'
   },
   {
     label: 'table',

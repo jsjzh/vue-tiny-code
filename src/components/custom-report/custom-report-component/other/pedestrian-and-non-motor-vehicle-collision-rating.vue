@@ -2,7 +2,7 @@
   <div class="pedestrian-and-non-motor-vehicle-collision-rating-container">
     <circle-icon
       circleTitle="pedestrian-and-non-motor-vehicle-collision-rating"
-      iconUnicode="&#xe682;"
+      iconName="iconhangren_"
       :iconSize="35"
       :iconOffsetY="50"
       :percentage="reportData.countOne"

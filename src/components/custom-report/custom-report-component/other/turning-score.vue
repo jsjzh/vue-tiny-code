@@ -2,7 +2,7 @@
   <div class="turning-score-container">
     <circle-icon
       circleTitle="turning-score"
-      iconUnicode="&#xe75f;"
+      iconName="iconShape"
       :iconSize="30"
       :iconOffsetY="55"
       :percentage="reportData.countOne"

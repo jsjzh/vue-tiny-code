@@ -2,7 +2,7 @@
   <div class="deceleration-score-container">
     <circle-icon
       circleTitle="deceleration-score"
-      iconUnicode="&#xe6c7;"
+      iconName="iconjijiansu"
       :iconSize="35"
       :iconOffsetY="52"
       :percentage="reportData.countOne"

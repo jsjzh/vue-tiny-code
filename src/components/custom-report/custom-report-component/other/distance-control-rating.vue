@@ -2,7 +2,7 @@
   <div class="distance-control-rating-container">
     <circle-icon
       circleTitle="distance-control-rating"
-      iconUnicode="&#xe605;"
+      iconName="iconche1"
       :iconSize="40"
       :iconOffsetY="53"
       :percentage="reportData.countOne"

@@ -2,7 +2,7 @@
   <div class="turn-signal-control-score-container">
     <circle-icon
       circleTitle="turn-signal-control-score"
-      iconUnicode="&#xe7ee;"
+      iconName="iconzhuanxiangdeng"
       :iconSize="55"
       :iconOffsetY="50"
       :percentage="reportData.countOne"

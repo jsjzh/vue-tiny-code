@@ -2,7 +2,7 @@
   <div class="brake-control-score-container">
     <circle-icon
       circleTitle="brake-control-score"
-      iconUnicode="&#xe639;"
+      iconName="iconchache"
       :iconSize="45"
       :iconOffsetY="55"
       :percentage="reportData.countOne"

@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-27 11:18:09
- * @LastEditTime: 2019-05-08 18:23:41
+ * @LastEditTime: 2019-05-09 08:40:57
  * @Description: 该文件只是为了方便管理 default-chart-option，在 variable 中会将这些变量曝露出去
  */
 export const defaultColor = [ '#ee7738', '#f59d2a', '#fcc419', '#ffe066', '#9bca63', '#b5c334', '#5e85a8', '#476480', '#34495d', '#2c3d4f' ]
@@ -14,12 +14,6 @@ export const infographicColor = [ '#C1232B', '#27727B', '#FCCE10', '#E87C25', '#
 export const defaultChartColors = defaultColor
 
 export const scoreColor = ['rgb(52, 184, 67)', 'rgb(51, 133, 253)', 'rgb(252, 196, 25)', 'rgb(255, 87, 87)']
-
-// 限制报表一页 A4 纸大小
-// 在预览页面选择查询条件
-// 想办法动态切换图表颜色
-// 编辑页面保存问题
-// 点击新建直接打开新建的编辑页面
 
 /**
  * color 颜色系
