@@ -4,7 +4,6 @@
       circleTitle="pedestrian-and-non-motor-vehicle-collision-rating"
       iconName="iconhangren_"
       :iconSize="35"
-      :iconOffsetY="50"
       :percentage="reportData.countOne"
       :circleWidth="130"
       :haveBox="true"

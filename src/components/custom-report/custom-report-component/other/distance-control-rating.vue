@@ -4,7 +4,6 @@
       circleTitle="distance-control-rating"
       iconName="iconche1"
       :iconSize="40"
-      :iconOffsetY="53"
       :percentage="reportData.countOne"
       :circleWidth="130"
       :haveBox="true"

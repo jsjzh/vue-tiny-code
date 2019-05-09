@@ -4,7 +4,6 @@
       circleTitle="turn-signal-control-score"
       iconName="iconzhuanxiangdeng"
       :iconSize="55"
-      :iconOffsetY="50"
       :percentage="reportData.countOne"
       :circleWidth="130"
       :circleTip="realTip"

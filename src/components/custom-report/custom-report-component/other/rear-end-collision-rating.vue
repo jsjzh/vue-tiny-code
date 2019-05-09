@@ -4,7 +4,6 @@
       circleTitle="rear-end-collision-rating"
       iconName="iconche"
       :iconSize="25"
-      :iconOffsetY="51"
       :percentage="reportData.countOne"
       :circleWidth="130"
       :haveBox="true"

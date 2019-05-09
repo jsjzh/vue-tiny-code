@@ -4,7 +4,6 @@
       circleTitle="brake-control-score"
       iconName="iconchache"
       :iconSize="45"
-      :iconOffsetY="55"
       :percentage="reportData.countOne"
       :circleWidth="130"
       :circleTip="realTip"

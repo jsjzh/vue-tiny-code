@@ -4,7 +4,6 @@
       circleTitle="lane-retention-score"
       iconName="icontubiaozhizuomoban"
       :iconSize="50"
-      :iconOffsetY="52"
       :percentage="reportData.countOne"
       :circleWidth="130"
       :haveBox="true"

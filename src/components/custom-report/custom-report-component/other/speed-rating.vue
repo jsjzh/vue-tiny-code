@@ -4,7 +4,6 @@
       circleTitle="speed-rating"
       iconText="SLI"
       :iconSize="32"
-      :iconOffsetY="52"
       :percentage="reportData.countOne"
       :circleWidth="130"
       :circleTip="realTip"

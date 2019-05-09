@@ -26,7 +26,6 @@ export default {
     percentage: { type: [String, Number], default: 10 },
 
     iconSize: { type: [String, Number], default: 60 },
-    iconOffsetY: { type: [String, Number], default: 50 },
     iconName: { type: String },
     iconText: { type: String },
 

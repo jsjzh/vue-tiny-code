@@ -4,7 +4,6 @@
       circleTitle="accelerate-the-score"
       iconName="iconjiasu"
       :iconSize="40"
-      :iconOffsetY="53"
       :percentage="reportData.countOne"
       :circleWidth="130"
       :circleTip="realTip"

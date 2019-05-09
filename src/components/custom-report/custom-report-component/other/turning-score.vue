@@ -4,7 +4,6 @@
       circleTitle="turning-score"
       iconName="iconShape"
       :iconSize="30"
-      :iconOffsetY="55"
       :percentage="reportData.countOne"
       :circleWidth="130"
       :circleTip="realTip"

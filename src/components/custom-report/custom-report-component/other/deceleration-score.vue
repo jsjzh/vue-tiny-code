@@ -4,7 +4,6 @@
       circleTitle="deceleration-score"
       iconName="iconjijiansu"
       :iconSize="35"
-      :iconOffsetY="52"
       :percentage="reportData.countOne"
       :circleWidth="130"
       :circleTip="realTip"
