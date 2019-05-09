@@ -3,32 +3,32 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-05-09 16:59:04
+ * @LastEditTime: 2019-05-09 18:19:53
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等，然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置，关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
  -->
 <template>
-  <div v-loading="isLoading" class="drag-report-main-container">
-    <div class="drag-report-title">
+  <div v-loading="isLoading" class="ps-r report-container">
+    <div class="flex flex-center mr-center report-title">
       <span
         v-if="!showTitleEditer"
         @click="handleEditTitle"
       >{{dragReportData.title || 'pleace enter the report name'}}</span>
       <el-input
         v-if="showTitleEditer"
+        class="report-title-input"
         ref="titleInput"
-        style="width: 500px"
         v-model="dragReportData.title"
         @keyup.enter.native="showTitleEditer = false"
         @blur="showTitleEditer = false"
         placeholder="please enter the report name"
       />
     </div>
-    <div class="drag-report-container">
+    <div class="mr-center report">
       <div
-        class="layout-row-box"
+        class="ps-r flex flex-center flex-nowrap layout-row"
         v-for="(row, rowIndex) in dragReportData.children"
         :key="rowIndex"
-        :style="{justifyContent: row.align, height: `${row.initHeight}px`}"
+        :style="rowStyle(row)"
         @drop="handleDropRow($event, row)"
         @dragover="handleDragOver($event, row)"
         @mouseenter="row.showControllerBar = true"
@@ -37,46 +37,41 @@
         <transition name="slide-fade">
           <div
             draggable="true"
-            v-if="row.showControllerBar"
+            v-show="row.showControllerBar"
             @dragstart="handleDragRow($event, row)"
-            class="row-controller-bar"
+            class="flex flex-center cur-all w100 ps-a border-r5 row-controller-bar"
           >
-            <div
-              class="row-controller-bar-layout-info-box"
-              :title="`index: ${row.index} init-height: ${row.initHeight} init-col: ${PAGE_layout(row.children, 'initCol')} real-col: ${PAGE_layout(row.children, 'col')}`"
-            >
-              <span class="row-controller-bar-layout-info">index: {{row.index}}</span>
-              <span class="row-controller-bar-layout-info">init-height: {{row.initHeight}}</span>
-              <span
-                class="row-controller-bar-layout-info"
-              >init-col: {{PAGE_layout(row.children, "initCol")}}</span>
-              <span
-                class="row-controller-bar-layout-info"
-              >real-col: {{PAGE_layout(row.children, "col")}}</span>
+            <div class="ellipsis bar-info-box" :title="PAGE_layoutSuggest(row)">
+              <span class="bar-layout-info">index: {{row.index}}</span>
+              <span class="bar-layout-info">init-height: {{row.initHeight}}</span>
+              <span class="bar-layout-info">init-col: {{PAGE_layout(row.children, "initCol")}}</span>
+              <span class="bar-layout-info">real-col: {{PAGE_layout(row.children, "col")}}</span>
             </div>
 
-            <div class="row-controller-bar-row-title">
+            <div class="ps-a ps-center">
               <el-input v-model="row.title" size="mini" placeholder="please enter the row title"/>
             </div>
-            <div class="controller-bar-right-box">
+            <div class="bar-btn-box">
               <span
-                class="align-type-item"
-                :title="align.title"
-                :class="{active: row.align  === align.value}"
-                :key="alignIndex"
+                class="cur-p align-type-item"
                 v-for="(align, alignIndex) in alignType"
+                :title="align.title"
+                :class="{'color-success': row.align  === align.value}"
+                :key="alignIndex"
                 @click="row.align = align.value"
               >{{align.label}}</span>
-              <span class="align-type-item remove-item" @click="handleRemoveRow($event, row)">remove</span>
+              <span
+                class="align-type-item color-danger"
+                @click="handleRemoveRow($event, row)"
+              >remove</span>
             </div>
           </div>
         </transition>
-
-        <!-- 这里的 height 有点问题，到底是应该用 row 的 height 还是 col 的 height -->
         <div
-          class="layout-col-box"
+          class="flex flex-center ps-r border-r5 layout-col-box"
+          :class="{'cur-all': !!col.previewImage}"
           v-for="(col, colIndex) in row.children"
-          :style="previewColStyle({width: col.initCol, height: row.initHeight}, 100, 1, 24, {backgroundImage: col.previewImage ? `url(${col.previewImage})` : null, cursor: col.previewImage ? 'all-scroll' : null})"
+          :style="previewColStyle({width: col.initCol, height: row.initHeight}, 100, 1, 24, {backgroundImage: col.previewImage ? `url(${col.previewImage})` : null})"
           :key="colIndex"
           :draggable="col.previewImage ? true : false"
           @mouseenter="col.previewImage ? col.showChildrenControllerBar = true : null"
@@ -86,9 +81,12 @@
           @dragover="handleDragOver($event, col)"
         >
           <transition name="slide-fade">
-            <div class="col-controller-bar" v-if="col.showChildrenControllerBar">
-              <span class="col-controller-bar-title-box" style="float: left">{{col.title}}</span>
-              <span class="col-controller-bar-title-box remove-item" @click="resetCol(col)">remove</span>
+            <div
+              class="ps-a border-r5 w100 t0 flex flex-center col-controller-bar"
+              v-show="col.showChildrenControllerBar"
+            >
+              <span class="ellipsis bar-title-box">{{col.title}}</span>
+              <span class="bar-title-box cur-p color-danger" @click="resetCol(col)">remove</span>
             </div>
           </transition>
         </div>
@@ -96,40 +94,40 @@
     </div>
 
     <i
-      class="el-icon-plus add-row-icon ps-icon-btn"
+      class="cur-p ps-a t0 el-icon-plus add-row-icon ps-icon-btn"
       title="add row"
-      :style="{top: `${addContainerTop}px`}"
-      v-if="!addRow.show"
+      :style="floatBox"
+      v-show="!addRow.show"
       @click="addRow.show = true"
     />
 
     <i
-      class="el-icon-plus add-col-icon ps-icon-btn"
+      class="cur-p ps-a t0 el-icon-plus add-col-icon ps-icon-btn"
       title="add col"
-      :style="{top: `${addContainerTop}px`}"
-      v-if="!addCol.show"
+      :style="floatBox"
+      v-show="!addCol.show"
       @click="addCol.show = true"
     />
 
     <i
-      class="el-icon-d-arrow-right preview-icon ps-icon-btn"
-      title="preview"
-      :style="{top: `${addContainerTop}px`}"
-      v-if="!addCol.show"
+      class="cur-p ps-a t0 el-icon-d-arrow-right preview-icon ps-icon-btn"
+      title="open preview"
+      :style="floatBox"
+      v-show="!addCol.show"
       @click="handleToPreviewPage"
     />
 
     <transition name="slide-fade">
       <div
-        class="drag-report-add-box drag-report-add-row-box"
-        :style="{top: `${addContainerTop}px`}"
+        class="flex flex-center ps-a t0 l0 drag-report-add-box"
+        :style="floatBox"
         v-show="addRow.show"
         @mouseenter="addRow.showControllerBar = true"
         @mouseleave="addRow.showControllerBar = false"
       >
         <transition name="slide-fade">
-          <div class="title-box" v-if="addRow.showControllerBar">
-            <i class="el-icon-close" @click="addRow.show = false"/>
+          <div class="ps-a w100 t0 border-r5 text-r title-box" v-show="addRow.showControllerBar">
+            <i class="cur-p el-icon-close" @click="addRow.show = false"/>
           </div>
         </transition>
 
@@ -142,14 +140,14 @@
 
     <transition name="slide-fade">
       <div
-        class="drag-report-add-box drag-report-add-col-box"
-        :style="{top: `${addContainerTop}px`}"
+        class="flex flex-center ps-a t0 r0 drag-report-add-box"
+        :style="floatBox"
         v-show="addCol.show"
         @mouseenter="addCol.showControllerBar = true"
         @mouseleave="addCol.showControllerBar = false"
       >
         <transition name="slide-fade">
-          <div class="title-box" v-if="addCol.showControllerBar">
+          <div class="ps-a w100 t0 border-r5 text-l title-box" v-show="addCol.showControllerBar">
             <i class="el-icon-close" @click="addCol.show = false"/>
           </div>
         </transition>
@@ -228,6 +226,11 @@ export default {
         showControllerBar: false
       }
     };
+  },
+  computed: {
+    floatBox() {
+      return { top: `${this.addContainerTop}px` };
+    }
   },
   methods: {
     // edit row functions
@@ -352,6 +355,17 @@ export default {
       this.setCol(init, col);
     },
     // other function
+    rowStyle(row) {
+      return { justifyContent: row.align, height: `${row.initHeight}px` };
+    },
+    PAGE_layoutSuggest(row) {
+      return `index: ${row.index} init-height: ${
+        row.initHeight
+      } init-col: ${this.PAGE_layout(
+        row.children,
+        "initCol"
+      )} real-col: ${this.PAGE_layout(row.children, "col")}`;
+    },
     PAGE_layout(cols, key) {
       return cols.map(item => (item[key] ? item[key] : 0)).join(":");
     },

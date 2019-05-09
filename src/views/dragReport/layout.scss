@@ -1,75 +1,52 @@
-@import '~@/styles/variable.scss';
-
-.drag-report-main-container {
-  @include ps-r;
-  .drag-report-title {
-    @include default-flex;
+.report-container {
+  .report-title {
     width: 1000px;
-    margin: 0 auto;
     height: 80px;
     font-size: 3rem;
+    .report-title-input {
+      width: 500px;
+    }
   }
-  .drag-report-container {
+
+  .report {
     width: 1200px;
-    margin: 0 auto;
-    .layout-row-box {
-      @include default-flex;
-      @include ps-r;
-      flex-wrap: nowrap;
+    .layout-row {
       margin: 2.5rem 0;
       .row-controller-bar {
-        @include default-flex;
-        @include cur-all;
-        @include controller-bar;
+        background-color: #cccccc;
+        color: black;
         justify-content: space-between;
         height: 28px;
         line-height: 28px;
         top: -28px;
-        .row-controller-bar-layout-info-box {
+        .bar-info-box {
           max-width: 40%;
-          @include ellipsis;
-          .row-controller-bar-layout-info {
-            @include title-margin;
-            @include ellipsis;
+          .bar-layout-info {
+            margin: 0 0.5rem;
           }
         }
-        .row-controller-bar-row-title {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
-        .controller-bar-right-box {
+        .bar-btn-box {
           .align-type-item {
-            @include cur-p;
-            @include title-margin;
-            &.active {
-              color: $success-color;
-            }
-          }
-          .remove-item {
-            color: $danger-color;
+            margin: 0 0.5rem;
           }
         }
       }
+
       .layout-col-box {
-        @include default-flex;
-        @include default-background-img;
-        @include ps-r;
-        @include default-col-style;
-        @include default-col-layout;
+        background-size: 100%;
+        background-position: center center;
+        border: 1px dashed #cccccc;
+        margin: 0 0.1rem;
         .col-controller-bar {
-          @include controller-bar;
+          height: 20px;
+          line-height: 20px;
+          background-color: #cccccc;
+          color: black;
           top: 0;
-          .col-controller-bar-title-box {
-            @include fr;
-            @include cur-p;
-            @include title-margin;
-            @include ellipsis;
+          justify-content: space-between;
+          .bar-title-box {
+            margin: 0 0.5rem;
             max-width: 35%;
-            &.remove-item {
-              color: $danger-color;
-            }
           }
         }
       }
@@ -77,46 +54,22 @@
   }
 
   .drag-report-add-box {
-    @include default-flex;
-    @include side-controller-box;
-    background-color: $defaultControllerBoxBackground;
+    top: 0;
+    height: 800px;
+    width: 450px;
+    overflow: hidden;
+    background-color: white;
     justify-content: flex-start;
     flex-wrap: wrap;
     flex-flow: column;
+    box-shadow: 0px 0px 5px #9e9e9e;
     .title-box {
-      @include controller-bar;
-      top: 0;
-      background-color: transparent;
-      @include btn-icon;
-      .el-icon-close {
-        @include cur-p;
-      }
-    }
-  }
-
-  .drag-report-add-row-box {
-    @include boxShadow;
-    left: 0;
-    .title-box {
-      text-align: right;
-      right: 0;
-    }
-  }
-  .drag-report-add-col-box {
-    @include boxShadowReversal;
-    right: 0;
-    .title-box {
-      text-align: left;
-      left: 0;
+      font-size: 1.8rem;
     }
   }
 
   .ps-icon-btn {
-    @include cur-p;
-    @include ps-a;
-    @include btn-icon;
-    top: 0;
-    transition: all 0.5s;
+    transition: top 0.5s;
     font-size: 2.5rem;
     &.add-row-icon {
       left: 10%;

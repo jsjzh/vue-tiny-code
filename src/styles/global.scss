@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-28 11:41:17
- * @LastEditTime: 2019-05-09 10:24:53
+ * @LastEditTime: 2019-05-09 18:22:15
  * @Description: 全局样式
  */
 @import './variable.scss';
@@ -40,10 +40,107 @@ html {
   transform: translate(-50%, -50%);
 }
 
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.mr-center {
+  margin: 0 auto;
+}
+
 .w100 {
   width: 100%;
 }
 
 .h100 {
   height: 100%;
+}
+
+.border-r5 {
+  border-radius: 5px;
+}
+
+.cur-p {
+  cursor: pointer;
+}
+
+.color-success {
+  color: #4caf50;
+}
+
+.color-danger {
+  color: #f44336;
+}
+
+.cur-all {
+  cursor: all-scroll;
+}
+
+.t0 {
+  top: 0;
+}
+
+.r0 {
+  right: 0;
+}
+
+.b0 {
+  bottom: 0;
+}
+
+.l0 {
+  left: 0;
+}
+
+.fr {
+  float: right;
+}
+
+.fl {
+  float: left;
+}
+
+.text-r {
+  text-align: right;
+}
+
+.text-l {
+  text-align: left;
+}
+
+.text-c {
+  text-align: center;
+}
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@keyframes transIcon {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes transIconReversal {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
 }

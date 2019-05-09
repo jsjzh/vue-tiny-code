@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2018-6-28 15:13:23
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-05-09 16:53:11
+ * @LastEditTime: 2019-05-09 17:05:36
  * @Description: 常用函数包装
  */
 import * as R from 'ramda'
@@ -282,17 +282,9 @@ export function openNewWindow(url, title, w, h) {
   const newWindow = window.open(
     url,
     title,
-    'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, copyhistory=no, width=' +
-      w +
-      ', height=' +
-      h +
-      ', top=' +
-      top +
-      ', left=' +
-      left
+    `toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=${w},height=${h},top=${top},left=${left}`
   )
 
-  // Puts focus on the newWindow
   if (window.focus) {
     newWindow.focus()
   }
