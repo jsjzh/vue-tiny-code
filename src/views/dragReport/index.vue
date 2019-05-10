@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-05-10 14:59:30
+ * @LastEditTime: 2019-05-10 17:54:32
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等，然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置，关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
  -->
 <template>
@@ -54,9 +54,9 @@
             <div class="bar-btn-box">
               <span
                 class="cur-p align-type-item"
-                v-for="(align, alignIndex) in alignType"
-                :title="align.title"
                 :class="{'color-success': row.align  === align.value}"
+                :title="align.title"
+                v-for="(align, alignIndex) in alignType"
                 :key="alignIndex"
                 @click="row.align = align.value"
               >{{align.label}}</span>
@@ -94,7 +94,7 @@
     </div>
 
     <i
-      class="cur-p ps-a t0 el-icon-plus add-row-icon ps-icon-btn"
+      class="cur-p ps-a t0 ps-icon-btn el-icon-plus add-row-icon"
       title="add row"
       :style="floatBox"
       v-show="!addRow.show"
@@ -102,7 +102,7 @@
     />
 
     <i
-      class="cur-p ps-a t0 el-icon-plus add-col-icon ps-icon-btn"
+      class="cur-p ps-a t0 ps-icon-btn el-icon-plus add-col-icon"
       title="add col"
       :style="floatBox"
       v-show="!addCol.show"
@@ -110,7 +110,7 @@
     />
 
     <i
-      class="cur-p ps-a t0 el-icon-d-arrow-right preview-icon ps-icon-btn"
+      class="cur-p ps-a t0 ps-icon-btn el-icon-d-arrow-right preview-icon"
       title="open preview"
       :style="floatBox"
       v-show="!addCol.show"
