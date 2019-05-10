@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-05-10 15:53:52
+ * @LastEditTime: 2019-05-10 16:39:38
  * @Description: preview 页面，该页面既可以用于导出前的预览也可以用于单独的页面展示。每行的底部可以增加一条评语信息用于评测当行内容。值得注意的是，该条评语信息并不会记录到数据库，因为当查询条件更改了之后评语信息也会不同。
  -->
 <template>
@@ -230,7 +230,7 @@ export default {
       Object.keys(queryData).forEach(key => {
         this.$set(this.queryData, key, queryData[key]);
       });
-      this.dealRequests();
+      this.getRequestsData();
     },
     handleExport() {
       this.loadingExport = true;
@@ -245,10 +245,8 @@ export default {
       return { startTime, endTime, type, targetId, text };
     },
     dealRequests() {
-      let flatLayoutData = flatLayout(this.layoutData);
-      // console.log(flatLayoutData);
-      let apiList = {};
-      let requestList = [];
+      this.$$noObserverData.flatLayoutData = flatLayout(this.layoutData);
+      let { apiList, flatLayoutData } = this.$$noObserverData;
       for (let index = 0; index < flatLayoutData.length; index++) {
         const item = flatLayoutData[index];
         const api = item.api;
@@ -266,15 +264,16 @@ export default {
         apiList[api].method = item.method;
       }
 
-      requestList = Object.keys(apiList).map(api => {
+      this.$$noObserverData.requestList = Object.keys(apiList).map(api => {
         const item = apiList[api];
         let method = item.method ? _methods[item.method] : noop;
         return method(api);
       });
 
-      this.getRequestsData(flatLayoutData, apiList, requestList);
+      this.getRequestsData();
     },
-    getRequestsData(flatLayoutData, apiList, requestList) {
+    getRequestsData() {
+      let { apiList, requestList, flatLayoutData } = this.$$noObserverData;
       this.isLoading = true;
       Promise.all(requestList.map(request => request(this.queryData)))
         .then(datas => {
@@ -284,7 +283,6 @@ export default {
               if (sameIndexs.findIndex(index => index === colIndex) !== -1) {
                 let key = apiList[api].keys[colIndex];
                 let _data = key ? datas[apiIndex][key] : datas[apiIndex];
-                // console.log(JSON.stringify(_data));
                 this.$set(col, "reportData", _data);
               }
             });
@@ -346,23 +344,20 @@ export default {
       getCharts(this);
       let color = colors[type];
       charts.forEach(item => item.setOption({ color }));
-      // function foo(pre, curr) {
-      //   if (curr.$children.length) {
-      //     return [pre, ...foo(curr)]
-      //   }
-      //   if (curr.$options.name.indexOf("base-chart") !== -1) {
-      //     return []
-      //   }
-      // }
-
-      // let demo = root.$children.reduce(foo, []);
-
-      // console.log(demo);
+    },
+    // 该处的数据前缀都为 _ 或 $，根由 vue 的文档，以 _ 或 $ 开头的属性不会被代理
+    setNoObserverData() {
+      this.$$noObserverData = {
+        apiList: {},
+        flatLayoutData: [],
+        requestList: []
+      };
     }
   },
   mounted() {
     let that = this;
     this.addListener();
+    this.setNoObserverData();
     this.renderReport().then(() => {
       // 为了防止在页面加载好就显示导出按钮
       this.loadingExport = false;
