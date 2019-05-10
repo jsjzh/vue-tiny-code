@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-05-10 17:28:32
+ * @LastEditTime: 2019-05-10 17:44:45
  * @Description: preview 页面，该页面既可以用于导出前的预览也可以用于单独的页面展示。每行的底部可以增加一条评语信息用于评测当行内容。值得注意的是，该条评语信息并不会记录到数据库，因为当查询条件更改了之后评语信息也会不同。
  -->
 <template>
@@ -227,11 +227,14 @@ export default {
     handleSaveLayout() {
       let { reportUnionKey } = this.$route.query;
       let previewData = resolveStorage("drag-report-data");
-      previewData.children = previewData.children;
       let data = { ...previewData, reportUnionKey };
       updatestructureinfo(data).then(res => {
-        this.$msg("0_保存成功");
-        this.isEditPath = false;
+        if (res.code === 200) {
+          this.$msg("0_保存成功");
+          this.isEditPath = false;
+        } else {
+          this.$msg("1_保存错误");
+        }
       });
     },
     handleQueryData(queryData) {
@@ -304,16 +307,15 @@ export default {
           }, 1000);
         });
     },
-    // 在这里查询出布局，如果 isEditPath 为 true，则代表是从编辑页面跳转过来的
-    // 这个时候布局还未保存到数据库（因为保存到数据库之前要先预览布局）
-    // 遂直接从 localStroage 获取，若 isEditPath 为 false 布局从数据库获取
     renderReport() {
       return new Promise((resolve, reject) => {
         let { reportUnionKey } = this.$route.query;
         this.queryData = this.resolveQueryData();
         this.isEditPath = resolveStorage("drag-report-data:isEdit");
         let promises = [getcomponentinfo()];
-
+        // 在这里查询出布局，如果 isEditPath 为 true，则代表是从编辑页面跳转过来的
+        // 这个时候布局还未保存到数据库（因为保存到数据库之前要先预览布局）
+        // 遂直接从 localStroage 获取，若 isEditPath 为 false 布局从数据库获取
         if (!this.isEditPath)
           promises.push(getreportcomponentinfo({ reportUnionKey }));
 
@@ -352,8 +354,7 @@ export default {
         });
       }
       getCharts(this);
-      let color = colors[type];
-      charts.forEach(item => item.setOption({ color }));
+      charts.forEach(item => item.setOption({ color: colors[type] }));
     },
     // 该处的数据前缀都为 _ 或 $，根由 vue 的文档，以 _ 或 $ 开头的属性不会被代理
     setNoObserverData() {
@@ -371,13 +372,17 @@ export default {
     this.renderReport().then(() => {
       // 为了防止在页面加载好就显示导出按钮
       this.loadingExport = false;
-      // window.onbeforeunload = function() {
-      //   if (that.isEditPath) return "编辑的页面布局尚未保存，确定离开？";
-      // };
+      window.onbeforeunload = function() {
+        if (that.isEditPath) return "编辑的页面布局尚未保存，确定离开？";
+      };
     });
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.$$listeners.scroll);
+    Object.keys(this.$$noObserverData).forEach(key => {
+      this.$$noObserverData[key] = null;
+    });
+    this.$$noObserverData = null;
     window.onbeforeunload = null;
   }
 };
