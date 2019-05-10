@@ -2,7 +2,7 @@ const Mock = require('mockjs')
 import { transUrlParams, transBodyParams } from '@/utils'
 import { componentDatas, dragReportData, reportListDatas } from './modules/variable'
 
-import * as R from 'ramda'
+// import * as R from 'ramda'
 
 let $$id = 0
 
