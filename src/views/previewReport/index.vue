@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-05-09 14:30:02
+ * @LastEditTime: 2019-05-10 15:53:52
  * @Description: preview 页面，该页面既可以用于导出前的预览也可以用于单独的页面展示。每行的底部可以增加一条评语信息用于评测当行内容。值得注意的是，该条评语信息并不会记录到数据库，因为当查询条件更改了之后评语信息也会不同。
  -->
 <template>
@@ -67,8 +67,8 @@
             :key="colIndex"
           >
             <default-container v-if="col.componentKey">
-              <!-- <div class="col-title" :title="`custom-report-${col.componentName}`">{{col.title}}</div> -->
               <component
+                :title="col.componentName"
                 :is="`custom-report-component-${col.componentName}`"
                 :reportData="col.reportData"
               />
@@ -151,7 +151,8 @@ import { post, get } from "@/api/service";
 import { debounce } from "lodash";
 
 import exportPDF from "@/utils/exportPDF";
-import { deepClone, flatLayoutData, resolveStorage } from "@/utils";
+import { deepClone, flatLayout, resolveStorage, noop } from "@/utils";
+import { PreviewDataToLayoutData } from "@/utils/dragReport";
 
 import colStyle from "@/mixins/methods/col-style";
 
@@ -172,8 +173,6 @@ import {
   updatestructureinfo
 } from "@/api";
 
-const _methods = { post, get };
-
 const colors = {
   defaultColor,
   darkColor,
@@ -181,9 +180,7 @@ const colors = {
   infographicColor
 };
 
-const noop = function() {
-  return function() {};
-};
+const _methods = { post, get };
 
 export default {
   name: "previewReport",
@@ -192,16 +189,14 @@ export default {
     return {
       isLoading: true,
       isEditPath: false,
-      editBtnTop: 30,
       showQueryContainer: false,
       loadingExport: true,
-      componentDatas: [],
-      layoutData: {},
+      editBtnTop: 30,
+      layoutData: {
+        title: "",
+        children: []
+      },
       queryData: {},
-      apiList: {},
-      flatData: [],
-      requestList: [],
-      pageCharts: [],
       colorBtns: [
         { color: "default", type: "primary" },
         { color: "dark", type: "success" },
@@ -235,9 +230,8 @@ export default {
       Object.keys(queryData).forEach(key => {
         this.$set(this.queryData, key, queryData[key]);
       });
-      this.getRequestsData();
+      this.dealRequests();
     },
-
     handleExport() {
       this.loadingExport = true;
       exportPDF(".preview-report", this.layoutData.title);
@@ -245,44 +239,18 @@ export default {
         this.loadingExport = false;
       }, 3000);
     },
-
+    // 统一处理查询条件
     resolveQueryData() {
       let { startTime, endTime, type, targetId, text } = this.$route.query;
-      return {
-        startTime,
-        endTime,
-        type,
-        targetId,
-        text
-      };
+      return { startTime, endTime, type, targetId, text };
     },
-
-    resolveReportData(reportData) {
-      reportData.children &&
-        reportData.children.forEach(row => {
-          row.showEditBtn = false;
-          row.editMessage = false;
-          row.message = "";
-          row.children &&
-            row.children.forEach((col, colIndex) => {
-              let curr =
-                this.componentDatas.find(
-                  component => component.componentKey === col.componentKey
-                ) || {};
-              this.$set(row.children, colIndex, {
-                ...col,
-                ...curr
-              });
-            });
-        });
-      return reportData;
-    },
-
     dealRequests() {
-      this.flatData = flatLayoutData(this.layoutData);
-      let { flatData, apiList } = this;
-      for (let index = 0; index < flatData.length; index++) {
-        const item = flatData[index];
+      let flatLayoutData = flatLayout(this.layoutData);
+      // console.log(flatLayoutData);
+      let apiList = {};
+      let requestList = [];
+      for (let index = 0; index < flatLayoutData.length; index++) {
+        const item = flatLayoutData[index];
         const api = item.api;
         if (!api) continue;
         if (api in apiList) {
@@ -298,23 +266,21 @@ export default {
         apiList[api].method = item.method;
       }
 
-      this.requestList = Object.keys(apiList).map(api => {
+      requestList = Object.keys(apiList).map(api => {
         const item = apiList[api];
         let method = item.method ? _methods[item.method] : noop;
         return method(api);
       });
 
-      this.getRequestsData();
+      this.getRequestsData(flatLayoutData, apiList, requestList);
     },
-
-    getRequestsData() {
-      let { flatData, apiList } = this;
+    getRequestsData(flatLayoutData, apiList, requestList) {
       this.isLoading = true;
-      Promise.all(this.requestList.map(request => request(this.queryData)))
+      Promise.all(requestList.map(request => request(this.queryData)))
         .then(datas => {
           Object.keys(apiList).forEach((api, apiIndex) => {
             let sameIndexs = apiList[api].sameIndexs;
-            flatData.forEach((col, colIndex) => {
+            flatLayoutData.forEach((col, colIndex) => {
               if (sameIndexs.findIndex(index => index === colIndex) !== -1) {
                 let key = apiList[api].keys[colIndex];
                 let _data = key ? datas[apiIndex][key] : datas[apiIndex];
@@ -330,26 +296,29 @@ export default {
           }, 1000);
         });
     },
-
+    // 在这里查询出布局，如果 isEditPath 为 true，则代表是从编辑页面跳转过来的
+    // 这个时候布局还未保存到数据库（因为保存到数据库之前要先预览布局）
+    // 遂直接从 localStroage 获取，若 isEditPath 为 false 布局从数据库获取
     renderReport() {
       return new Promise((resolve, reject) => {
         let { reportUnionKey } = this.$route.query;
         this.queryData = this.resolveQueryData();
-
-        let promises = [
-          getcomponentinfo(),
-          getreportcomponentinfo({ reportUnionKey })
-        ];
-
         this.isEditPath = resolveStorage("drag-report-data:isEdit");
+        let promises = [getcomponentinfo()];
+
+        if (!this.isEditPath)
+          promises.push(getreportcomponentinfo({ reportUnionKey }));
 
         Promise.all(promises).then(ress => {
           let [componentDatas = [], layoutData = {}] = ress;
-          this.componentDatas = componentDatas;
           if (this.isEditPath) layoutData = resolveStorage("drag-report-data");
-          this.layoutData = this.resolveReportData(layoutData);
+          this.layoutData = PreviewDataToLayoutData(
+            layoutData,
+            componentDatas,
+            { showEditBtn: false, editMessage: false, message: "" }
+          );
           this.dealRequests();
-          resolve(1);
+          resolve();
         });
       });
     },
@@ -366,26 +335,36 @@ export default {
       this.editBtnTop = scrollTop + 30;
     },
     handleSwitchColor(type) {
-      let color = colors[type];
-      this.pageCharts.forEach(item => item.setOption({ color }));
-    },
-    getChartComponents() {
-      let { pageCharts } = this;
+      const charts = [];
       function getCharts(root) {
         root.$children.forEach(item => {
           if (item.$options.name.indexOf("base-chart") !== -1)
-            pageCharts.push(item);
+            charts.push(item);
           if (item.$children.length) getCharts(item);
         });
       }
       getCharts(this);
+      let color = colors[type];
+      charts.forEach(item => item.setOption({ color }));
+      // function foo(pre, curr) {
+      //   if (curr.$children.length) {
+      //     return [pre, ...foo(curr)]
+      //   }
+      //   if (curr.$options.name.indexOf("base-chart") !== -1) {
+      //     return []
+      //   }
+      // }
+
+      // let demo = root.$children.reduce(foo, []);
+
+      // console.log(demo);
     }
   },
   mounted() {
     let that = this;
     this.addListener();
     this.renderReport().then(() => {
-      this.getChartComponents();
+      // 为了防止在页面加载好就显示导出按钮
       this.loadingExport = false;
       // window.onbeforeunload = function() {
       //   if (that.isEditPath) return "编辑的页面布局尚未保存，确定离开？";

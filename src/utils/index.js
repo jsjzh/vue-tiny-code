@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2018-6-28 15:13:23
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-05-09 17:05:36
+ * @LastEditTime: 2019-05-10 15:45:03
  * @Description: 常用函数包装
  */
 import * as R from 'ramda'
@@ -158,7 +158,7 @@ export function flatZtreeData(data, key = 'children') {
   }, [])
 }
 
-export function flatLayoutData(data, key = 'children') {
+export function flatLayout(data, key = 'children') {
   if (!Array.isArray(data)) {
     data = [data]
   }
@@ -167,7 +167,7 @@ export function flatLayoutData(data, key = 'children') {
     if (!curr[key]) {
       return [...pre, curr]
     } else {
-      return [...pre, ...flatLayoutData(curr[key])]
+      return [...pre, ...flatLayout(curr[key])]
     }
   }, [])
 }
@@ -310,3 +310,7 @@ export const isSame = R.curry(function(target, a, b) {
   if (!target) return a === b
   return a[target] === b[target]
 })
+
+export function noop() {
+  return function() {}
+}

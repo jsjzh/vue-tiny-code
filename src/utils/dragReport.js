@@ -33,7 +33,7 @@ export function getInitRow(row) {
 }
 
 export function resetIndex(row, index) {
-  row.index = index
+  row.index = index + 1
 }
 
 export function PreviewDataToLayoutData(layoutData, componentDatas, rowMixin = {}, colMixin = {}) {

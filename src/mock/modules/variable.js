@@ -157,8 +157,8 @@ export const dragReportData = [
           { col: 8, componentKey: 32, initCol: '8', title: 'security-rate' },
           { col: 4, componentKey: 16, initCol: '4', title: 'daytime-score' },
           { col: 4, componentKey: 17, initCol: '4', title: 'night-score' },
-          { col: 4, componentKey: 18, initCol: '4', title: 'total-time' },
-          { col: 4, componentKey: 19, initCol: '4', title: 'average-time' }
+          { col: 4, componentKey: 20, initCol: '4', title: 'operation-score' },
+          { col: 4, componentKey: 21, initCol: '4', title: 'not-operation-score' }
         ]
       },
       {
@@ -166,8 +166,8 @@ export const dragReportData = [
         initHeight: 100,
         index: 2,
         children: [
-          { col: 4, componentKey: 20, initCol: 4, title: 'operation-score' },
-          { col: 4, componentKey: 21, initCol: 4, title: 'not-operation-score' },
+          { col: 4, componentKey: 18, initCol: 4, title: 'total-time' },
+          { col: 4, componentKey: 19, initCol: 4, title: 'average-time' },
           { col: 4, componentKey: 22, initCol: 4, title: 'high-speed-score' },
           { col: 4, componentKey: 23, initCol: 4, title: 'not-high-speed-score' },
           { col: 4, componentKey: 24, initCol: 4, title: 'total-distance' },
@@ -188,8 +188,9 @@ export const dragReportData = [
         ]
       },
       {
+        title: 'dimension-score',
         align: 'flex-start',
-        initHeight: 250,
+        initHeight: 220,
         index: 4,
         children: [
           { col: 4, componentKey: 34, initCol: 4, title: 'turn-signal-control-score' },
@@ -212,6 +213,7 @@ export const dragReportData = [
         ]
       },
       {
+        title: 'alarm-events',
         align: 'flex-start',
         initHeight: 250,
         index: 6,
@@ -221,18 +223,21 @@ export const dragReportData = [
         ]
       },
       {
+        title: 'alarm-event-time-distribution',
         align: 'flex-start',
         initHeight: 250,
         index: 7,
         children: [{ col: 24, componentKey: 46, initCol: 24, title: 'alarm-interval-distribution' }]
       },
       {
+        title: 'vehicle-score',
         align: 'flex-start',
         initHeight: 400,
         index: 8,
         children: [{ col: 24, componentKey: 47, initCol: 24, title: 'vehicle-score' }]
       },
       {
+        title: 'driving-score',
         align: 'flex-start',
         initHeight: 250,
         index: 9,
@@ -431,7 +436,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/05/09/5cd390375d997.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd51dd3823ae.png'
   },
   {
     label: 'night-score',
@@ -442,7 +447,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/05/09/5cd390a7eae64.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd51dd386873.png'
   },
   {
     label: 'total-time',
@@ -453,7 +458,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/05/09/5cd390f2deab2.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd51dd3849a5.png'
   },
   {
     label: 'average-time',
@@ -464,7 +469,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/05/09/5cd3949d4e837.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd51dd380000.png'
   },
   {
     label: 'operation-score',
@@ -475,7 +480,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd5175635c0d.png'
   },
   {
     label: 'not-operation-score',
@@ -486,7 +491,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd51798aba81.png'
   },
   {
     label: 'high-speed-score',
@@ -497,7 +502,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd517c9c461a.png'
   },
   {
     label: 'not-high-speed-score',
@@ -508,7 +513,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd517c9c9fe4.png'
   },
   {
     label: 'total-distance',
@@ -519,7 +524,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd517c9c82d4.png'
   },
   {
     label: 'average-distance',
@@ -530,7 +535,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd517c9c62a9.png'
   },
   {
     label: 'total-events',
@@ -541,7 +546,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd518c3abed0.png'
   },
   {
     label: 'average-events',
@@ -552,7 +557,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd518c3a7bda.png'
   },
   {
     label: 'operating-frequency',
@@ -563,7 +568,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd518c3a9b58.png'
   },
   {
     label: 'average-number-of-operations',
@@ -574,7 +579,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd528454320a.png'
   },
   {
     label: 'maximum-speed',
@@ -585,7 +590,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd528455478c.png'
   },
   {
     label: 'average-velocity-speed',
@@ -596,7 +601,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd5284556301.png'
   },
   {
     label: 'circle-security-rate',
@@ -607,7 +612,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 8,
     height: 250,
-    previewImage: 'https://i.loli.net/2019/05/09/5cd3915d6d651.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd528454141d.png'
   },
   {
     label: 'table',
@@ -629,7 +634,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 200,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd51943551e5.png'
   },
   {
     label: 'brake-control-score',
@@ -640,7 +645,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 200,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd51943559a5.png'
   },
   {
     label: 'turning-score',
@@ -651,7 +656,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 200,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd5194367823.png'
   },
   {
     label: 'accelerate-the-score',
@@ -662,7 +667,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 200,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd51943683c7.png'
   },
   {
     label: 'deceleration-score',
@@ -673,7 +678,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 200,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd5194368a35.png'
   },
   {
     label: 'speed-rating',
@@ -684,7 +689,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 4,
     height: 200,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd5194369044.png'
   },
   {
     label: 'rear-end-collision-rating',
@@ -695,7 +700,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 6,
     height: 200,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd519b14126c.png'
   },
   {
     label: 'lane-retention-score',
@@ -706,7 +711,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 6,
     height: 200,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd519b15f19d.png'
   },
   {
     label: 'distance-control-rating',
@@ -717,7 +722,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 6,
     height: 200,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd519b15e362.png'
   },
   {
     label: 'pedestrian-and-non-motor-vehicle-collision-rating',
@@ -728,7 +733,7 @@ export const componentDatas = [
     dataKey: 'countKey',
     col: 6,
     height: 200,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd519b153466.png'
   },
   {
     label: 'alarm-event-distribution',
@@ -739,7 +744,7 @@ export const componentDatas = [
     dataKey: '',
     col: 12,
     height: 250,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd51a093a109.png'
   },
   {
     label: 'event-processing-report',
@@ -750,7 +755,7 @@ export const componentDatas = [
     dataKey: '',
     col: 12,
     height: 250,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd51a093c3c2.png'
   },
   {
     label: 'alarm-interval-distribution',
@@ -761,7 +766,7 @@ export const componentDatas = [
     dataKey: '',
     col: 24,
     height: 250,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd51a2c38573.png'
   },
   {
     label: 'vehicle-score',
@@ -772,7 +777,7 @@ export const componentDatas = [
     dataKey: '',
     col: 24,
     height: 400,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd51a2ce44f9.png'
   },
   {
     label: 'driving-score-line',
@@ -783,7 +788,7 @@ export const componentDatas = [
     dataKey: '',
     col: 24,
     height: 200,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd51a2cf3c9d.png'
   },
   {
     label: 'driving-score-bar',
@@ -794,6 +799,6 @@ export const componentDatas = [
     dataKey: '',
     col: 24,
     height: 200,
-    previewImage: 'https://i.loli.net/2019/03/11/5c8663be3a93d.png'
+    previewImage: 'https://i.loli.net/2019/05/10/5cd51a2cd71f4.png'
   }
 ]

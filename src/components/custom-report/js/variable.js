@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-25 17:34:43
- * @LastEditTime: 2019-05-09 08:26:39
+ * @LastEditTime: 2019-05-10 15:02:41
  * @Description:
  *  组件公用变量
  *  该处不设置 data 相关内容，只设置一些特殊的 chart 样式
@@ -46,6 +46,8 @@ export const pieOption = { series: [{ name: '饼图随机数据' }] }
 export const pieSecondOption = { series: [{ name: '饼图2随机数据', center: ['23%', '50%'] }] }
 
 export const lineOption = { series: [{ name: '折线图随机数据' }] }
+
+export const lineAreaOptions = { xAxis: { boundaryGap: false } }
 
 export const alarmEventDistributionPieOption = {
   title: { text: 'alarm-event-distribution', left: '5%', top: '2%', show: true },

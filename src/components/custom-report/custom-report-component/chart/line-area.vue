@@ -4,7 +4,7 @@
 
 <script>
 import baseChartLine from "../../base/base-chart-line";
-import { lineOption } from "../../js/variable";
+import { lineAreaOptions } from "../../js/variable";
 
 export default {
   name: "custom-report-component-chart-line-area",
@@ -29,7 +29,7 @@ export default {
     // 开发模式下，热加载组件触发 echart 更新
     reloadChart() {
       let { chart } = this.$refs;
-      chart.setOption(lineOption);
+      chart.setOption(lineAreaOptions);
       this.reportData.length && this.renderChart(this.reportData);
     },
     renderChart(option) {
