@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-28 11:41:17
- * @LastEditTime: 2019-05-09 18:22:15
+ * @LastEditTime: 2019-05-10 16:55:22
  * @Description: 全局样式
  */
 @import './variable.scss';
@@ -51,6 +51,9 @@ html {
 
 .flex-nowrap {
   flex-wrap: nowrap;
+}
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
 .mr-center {

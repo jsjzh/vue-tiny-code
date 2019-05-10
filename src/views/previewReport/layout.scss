@@ -1,54 +1,32 @@
-@import '~@/styles/variable.scss';
-
 .preview-report {
-  @include ps-r;
   overflow: hidden;
-
-  .preview-header {
-    margin: 1rem 0;
-    border-bottom: 1px solid rgb(229, 231, 233);
-    padding-bottom: 1rem;
-    .preview-report-title {
-      text-align: center;
-      font-size: 3rem;
-    }
-    .query-infos {
-      @include default-flex;
-      justify-content: space-around;
-      margin-top: 1rem;
-      .query-date-box {
-        flex: 1;
-        @include default-flex;
-        justify-content: space-around;
-      }
-      .query-target-box {
-        flex: 1;
-        @include default-flex;
-        justify-content: space-around;
-      }
-    }
-  }
-
   .preview-container {
     width: 1200px;
-    margin: 0 auto;
+    .preview-header {
+      margin: 1rem 0;
+      border-bottom: 1px solid #e6e6e6;
+      padding-bottom: 1rem;
+      .preview-report-title {
+        font-size: 3rem;
+      }
+      .query-infos {
+        justify-content: space-around;
+        margin-top: 1rem;
+        .query-box {
+          flex: 1;
+          justify-content: space-around;
+        }
+      }
+    }
     .layout-row {
-      @include default-flex;
-      @include ps-r;
-      @include default-col-radius;
-      border: 1px solid rgb(229, 231, 233);
-      background-color: white;
-      flex-wrap: wrap;
+      border: 1px solid #e6e6e6;
       margin: 1rem 0;
       .layout-row-title {
-        @include default-flex;
-        width: 100%;
-        text-align: center;
         color: #ee7738;
         font-size: 1.5rem;
         margin: 0.5rem 0;
         .title-line {
-          background-color: rgb(229, 231, 233);
+          background-color: #e6e6e6;
           width: 20%;
           margin: 0 2rem;
           height: 1px;
@@ -59,26 +37,11 @@
         font-size: 1.2rem;
         line-height: 24px;
       }
-      .layout-row-content {
-        @include default-flex;
-        width: 100%;
-      }
-      // margin: 2rem 0;
       .add-message-btn-box {
         right: 0;
         bottom: 0;
         position: absolute;
         transform: translateX(100%);
-      }
-      .layout-col {
-        @include default-flex;
-        @include ps-r;
-        // @include default-col-style;
-        @include default-col-layout;
-        .col-title {
-          width: 100%;
-          font-weight: 600;
-        }
       }
     }
   }
@@ -90,51 +53,26 @@
     top: 1863px;
     background-color: red;
   }
-}
 
-.preview-report-report-ps-icon-btn {
-  @include cur-p;
-  @include ps-a;
-  @include btn-icon;
-  top: 0;
-  right: 10%;
-  font-size: 2.5rem;
-  transition: all 0.5s;
-}
+  .ps-icon {
+    font-size: 2.5rem;
+    transition: top 0.5s;
+    &.export-icon {
+      right: 10%;
+    }
+    &.query-icon {
+      left: 10%;
+    }
+    &.save-icon {
+      left: 15%;
+    }
+  }
 
-.preview-report-query-data-icon-btn {
-  @include cur-p;
-  @include ps-a;
-  @include btn-icon;
-  top: 0;
-  left: 10%;
-  font-size: 2.5rem;
-  transition: all 0.5s;
-}
-
-.preview-report-report-save-icon-btn {
-  @include cur-p;
-  @include ps-a;
-  @include btn-icon;
-  top: 0;
-  left: 15%;
-  font-size: 2.5rem;
-  transition: all 0.5s;
-}
-
-.color-bar-ctr {
-  @include ps-a;
-  top: 5%;
-  right: 0;
-}
-
-.color-bar {
-  @include ps-a;
-  top: 5%;
-  right: -6.5%;
-  transition: all 0.5s;
-}
-
-.color-bar:hover {
-  right: 1%;
+  .color-bar {
+    right: -6.5%;
+    transition: all 0.5s;
+    &:hover {
+      right: 1%;
+    }
+  }
 }

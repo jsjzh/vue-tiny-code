@@ -3,27 +3,27 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-15 13:34:50
- * @LastEditTime: 2019-05-10 16:39:38
+ * @LastEditTime: 2019-05-10 17:28:32
  * @Description: preview 页面，该页面既可以用于导出前的预览也可以用于单独的页面展示。每行的底部可以增加一条评语信息用于评测当行内容。值得注意的是，该条评语信息并不会记录到数据库，因为当查询条件更改了之后评语信息也会不同。
  -->
 <template>
-  <div class="preview-report" v-loading="isLoading">
-    <div class="preview-container">
+  <div class="ps-r preview-report" v-loading="isLoading">
+    <div class="mr-center preview-container">
       <div class="preview-header">
-        <div class="preview-report-title">{{layoutData.title}}</div>
-        <div class="query-infos">
-          <div class="query-date-box">
+        <div class="text-c preview-report-title">{{layoutData.title}}</div>
+        <div class="flex flex-center query-infos">
+          <div class="flex flex-center query-box">
             <span>startTime: xxxx</span>
             <span>endTime: xxxx</span>
           </div>
-          <div class="query-target-box">
+          <div class="flex flex-center query-box">
             <span>targetName: xxxx</span>
             <span>targetId: xxxx</span>
           </div>
         </div>
       </div>
       <div
-        class="layout-row"
+        class="ps-r flex flex-center border-r5 flex-wrap layout-row"
         v-for="(row, rowIndex) in layoutData.children"
         :key="rowIndex"
         @mouseenter="row.showEditBtn = true"
@@ -53,15 +53,15 @@
           </div>
         </transition>
 
-        <div class="layout-row-title" v-if="row.title">
-          <div class="title-line"></div>
+        <div class="flex flex-center w100 text-c layout-row-title" v-if="row.title">
+          <div class="title-line"/>
           <div>{{row.title}}</div>
-          <div class="title-line"></div>
+          <div class="title-line"/>
         </div>
 
-        <div class="layout-row-content" :style="{justifyContent: row.align}">
+        <div class="flex flex-center w100" :style="rowStyle(row)">
           <div
-            class="layout-col"
+            class="ps-r flex flex-center"
             :style="previewColStyle({width: col.initCol,height: row.initHeight}, 100, 1, 24)"
             v-for="(col, colIndex) in row.children"
             :key="colIndex"
@@ -73,7 +73,9 @@
                 :reportData="col.reportData"
               />
             </default-container>
-            <default-container v-else>空组件</default-container>
+            <default-container v-else>
+              <default-container>空组件</default-container>
+            </default-container>
           </div>
         </div>
 
@@ -100,24 +102,24 @@
 
     <i
       v-if="!loadingExport"
-      class="el-icon-download preview-report-report-ps-icon-btn"
-      :style="{top: `${editBtnTop}px`}"
+      class="cur-p ps-a t0 ps-icon el-icon-download export-icon"
+      :style="floatBox"
       title="export-pdf"
       @click="handleExport"
     />
 
     <i
-      class="el-icon-document preview-report-report-save-icon-btn"
-      title="save layout"
-      :style="{top: `${editBtnTop}px`}"
       v-if="!loadingExport && isEditPath"
+      class="cur-p ps-a t0 ps-icon el-icon-document save-icon"
+      :style="floatBox"
+      title="save layout"
       @click="handleSaveLayout"
     />
 
     <i
       v-if="!loadingExport"
-      class="el-icon-setting preview-report-query-data-icon-btn"
-      :style="{top: `${editBtnTop}px`}"
+      class="cur-p ps-a t0 ps-icon el-icon-setting query-icon"
+      :style="floatBox"
       title="edit-query"
       @click="showQueryContainer = true"
     />
@@ -130,7 +132,7 @@
       />
     </transition>
 
-    <div v-if="!loadingExport" class="color-bar">
+    <div v-if="!loadingExport" :style="floatBox" class="ps-a t0 color-bar">
       <el-button
         v-for="(colorBtn, colorIndex) in colorBtns"
         :key="colorIndex"
@@ -142,7 +144,7 @@
       />
     </div>
 
-    <!-- <div class="preview-paging-line"></div> -->
+    <!-- <div class="preview-paging-line"/> -->
   </div>
 </template>
 
@@ -185,6 +187,7 @@ const _methods = { post, get };
 export default {
   name: "previewReport",
   mixins: [colStyle],
+  components: { reportToolSelectQuery, defaultContainer, ...customReports },
   data() {
     return {
       isLoading: true,
@@ -205,8 +208,15 @@ export default {
       ]
     };
   },
-  components: { reportToolSelectQuery, defaultContainer, ...customReports },
+  computed: {
+    floatBox() {
+      return { top: `${this.editBtnTop}px` };
+    }
+  },
   methods: {
+    rowStyle(row) {
+      return { justifyContent: row.align, height: `${row.initHeight}px` };
+    },
     handleAddMessage(row) {
       row.editMessage = true;
       this.$nextTick(() => {
