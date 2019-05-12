@@ -3,9 +3,10 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-27 10:20:10
- * @LastEditTime: 2019-05-08 10:47:11
+ * @LastEditTime: 2019-05-12 11:16:18
  * @Description: chart 实例默认 mixin 配置
  */
+import { debounce } from 'lodash'
 import { defaultLineOption, defaultPieOption, defaultBarOption } from '../js/variable'
 
 const chartOptions = { defaultLineOption, defaultPieOption, defaultBarOption }
@@ -31,15 +32,13 @@ export default {
       this.$$chartInstance = this.$echarts.init(chartDom)
     },
     addResizeListener() {
-      this.$$events.resize = _.debounce(this.handleResize, 200, true)
+      this.$$events.resize = debounce(this.handleResize, 200, true)
       window.addEventListener('resize', this.$$events.resize)
     }
   },
   mounted() {
     this.$$chartInstance = null
-    this.$$events = {
-      resize: null
-    }
+    this.$$events = { resize: null }
 
     this.initChart(this.$options.name)
     this.setOption(chartOptions[this.optionName])

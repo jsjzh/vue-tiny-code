@@ -3,11 +3,11 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:42:41
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-03-07 21:51:30
+ * @LastEditTime: 2019-05-12 11:10:18
  * @Description: 所有组件都要引用该框架组件
  -->
 <template>
-  <div class="default-container">
+  <div class="w100 h100 flex default-container">
     <slot></slot>
   </div>
 </template>
@@ -18,12 +18,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style>
 .default-container {
-  width: 100%;
-  height: 100%;
   padding: 0.6rem;
-  display: flex;
-  flex-flow: column;
 }
 </style>
