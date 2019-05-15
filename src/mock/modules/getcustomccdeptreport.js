@@ -25,16 +25,16 @@ const baseParams = [
 ]
 
 const dimensionScores = [
-  { prop: 'cornering', title: '转弯评分', tips: '' },
-  { prop: 'acc', title: '加速评分', tips: '' },
-  { prop: 'slow', title: '减速评分', tips: '' },
-  { prop: 'sli', title: '速度评分', tips: '' },
-  { prop: 'fcw', title: '追尾碰撞评分', tips: '' },
-  { prop: 'lane', title: '车道保持评分', tips: '' },
-  { prop: 'hmw', title: '车距控制评分', tips: '' },
-  { prop: 'pcw', title: '行人和非机动碰撞评分', tips: '' },
-  { prop: 'turn_ctrl', title: '转向灯控制评分', tips: '' },
-  { prop: 'break_ctrl', title: '刹车控制评分', tips: '' }
+  { prop: 'cornering', title: '转弯评分', tips: '继续保持 or 危险请注意' },
+  { prop: 'acc', title: '加速评分', tips: '继续保持 or 危险请注意' },
+  { prop: 'slow', title: '减速评分', tips: '继续保持 or 危险请注意' },
+  { prop: 'sli', title: '速度评分', tips: '继续保持 or 危险请注意' },
+  { prop: 'fcw', title: '追尾碰撞评分', tips: '继续保持 or 危险请注意' },
+  { prop: 'lane', title: '车道保持评分', tips: '继续保持 or 危险请注意' },
+  { prop: 'hmw', title: '车距控制评分', tips: '继续保持 or 危险请注意' },
+  { prop: 'pcw', title: '行人和非机动碰撞评分', tips: '继续保持 or 危险请注意' },
+  { prop: 'turn_ctrl', title: '转向灯控制评分', tips: '继续保持 or 危险请注意' },
+  { prop: 'break_ctrl', title: '刹车控制评分', tips: '继续保持 or 危险请注意' }
 ]
 
 const eventInfos = [
@@ -53,50 +53,50 @@ const eventInfos = [
   'other'
 ]
 
-Mock.mock(/report\/getcustomccdeptreport/, 'post', config => {
-  const baseParamData = {}
-  baseParams.forEach(baseParam => {
-    baseParamData[baseParam.prop] = {
-      name: baseParam.title,
-      value: randomCount,
-      trend: '@integer(-1, 1)',
-      rate: randomCount
-    }
-  })
-  const dimensionScoreData = {}
-  dimensionScores.forEach(dimensionScore => {
-    dimensionScoreData[dimensionScore.prop] = {
-      name: dimensionScore.title,
-      score: '@integer(0, 10)',
-      tips: '继续保持 or 危险请注意'
-    }
-  })
-  const eventInfoData = {}
-  eventInfos.forEach(eventInfo => {
-    eventInfoData[eventInfo] = randomCount
-  })
-  const eventHourListData = new Array(24).fill(null).map((value, index) => ({
-    hour: index,
-    vehicle_count: randomCount,
-    event_count: randomCount,
-    operation_count: randomCount
-  }))
-
-  const vehicleScoreData = {
-    excellent: randomCount,
-    good: randomCount,
-    normal: randomCount,
-    bad: randomCount,
-    ranking_top_10: new Array(10).fill(null).map((value, index) => ({
-      score: randomCount,
-      plate_no: '沪DK@integer(1000, 9999)'
-    })),
-    ranking_tail_10: new Array(10).fill(null).map((value, index) => ({
-      score: randomCount,
-      plate_no: '沪DK@integer(1000, 9999)'
-    }))
+const baseParamData = {}
+baseParams.forEach(baseParam => {
+  baseParamData[baseParam.prop] = {
+    name: baseParam.title,
+    value: randomCount,
+    trend: '@integer(-1, 1)',
+    rate: randomCount
   }
+})
+const dimensionScoreData = {}
+dimensionScores.forEach(dimensionScore => {
+  dimensionScoreData[dimensionScore.prop] = {
+    name: dimensionScore.title,
+    score: '@integer(0, 10)',
+    tips: dimensionScore.tips
+  }
+})
+const eventInfoData = {}
+eventInfos.forEach(eventInfo => {
+  eventInfoData[eventInfo] = randomCount
+})
+const eventHourListData = new Array(24).fill(null).map((value, index) => ({
+  hour: index,
+  vehicle_count: randomCount,
+  event_count: randomCount,
+  operation_count: randomCount
+}))
 
+const vehicleScoreData = {
+  excellent: randomCount,
+  good: randomCount,
+  normal: randomCount,
+  bad: randomCount,
+  ranking_top_10: new Array(10).fill(null).map((value, index) => ({
+    score: randomCount,
+    plate_no: '沪DK@integer(1000, 9999)'
+  })),
+  ranking_tail_10: new Array(10).fill(null).map((value, index) => ({
+    score: randomCount,
+    plate_no: '沪DK@integer(1000, 9999)'
+  }))
+}
+
+Mock.mock(/report\/getcustomccdeptreport/, 'post', config => {
   const driveScoreListData = new Array(31).fill(null).map((value, index) => {
     const counts = getRamdomCountByNum(100, 4)
     return {
