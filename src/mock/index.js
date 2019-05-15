@@ -1,8 +1,8 @@
-const Mock = require('mockjs')
-import { transUrlParams, transBodyParams } from '@/utils'
-import { componentDatas, dragReportData, reportListDatas } from './modules/variable'
+window.$$XMLHttpRequest = window.XMLHttpRequest
 
-// import * as R from 'ramda'
+const Mock = require('mockjs')
+import { transUrlParams, transBodyParams, getRamdomCountByNum } from '@/utils'
+import { componentDatas, dragReportData, reportListDatas } from './modules/variable'
 
 let $$id = 0
 
@@ -13,6 +13,8 @@ let _reportListDatas = reportListDatas
 Mock.setup({
   timeout: 200
 })
+
+import './modules/getcustomccdeptreport'
 
 const randomCount = '@integer(10, 100)'
 const randomKeyArr = [
@@ -156,17 +158,6 @@ Mock.mock(/report\/getDrivingScoreLineData/, 'get', config => {
     }))
   )
 })
-
-function getRamdomCountByNum(total = 100, num = 4) {
-  let arr = []
-  let _total = total
-  for (let index = 1; index < num; index++) {
-    arr[index - 1] = (Math.random() * total).toFixed(0)
-    total -= arr[index - 1]
-  }
-  arr[num - 1] = arr.reduce((pre, curr) => pre - curr, _total)
-  return arr
-}
 
 Mock.mock(/report\/getDrivingScoreBarData/, 'get', config => {
   return Mock.mock(

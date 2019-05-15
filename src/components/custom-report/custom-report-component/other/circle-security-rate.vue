@@ -1,10 +1,6 @@
 <template>
-  <div class="circle-security-rate-container">
-    <circle-three-text
-      circleTitle="security-rate"
-      :percentage="reportData.countOne"
-      :rate="reportData.rate"
-    />
+  <div class="w100 flex flex-center">
+    <circle-three-text circleTitle="安全评分" :percentage="reportData.value" :rate="realRate"/>
   </div>
 </template>
 
@@ -21,15 +17,13 @@ export default {
         return {};
       }
     }
+  },
+  computed: {
+    realRate() {
+      return this.reportData.trend > 0
+        ? +this.reportData.rate
+        : -this.reportData.rate;
+    }
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.circle-security-rate-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>

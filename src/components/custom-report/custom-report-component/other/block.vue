@@ -1,7 +1,7 @@
 <template>
-  <div class="block-container" style="flex-flow: column">
-    <p style="flex: 1;display: flex; align-items: center">(ﾟдﾟ≡ﾟдﾟ)</p>
-    <p style="flex: 1;display: flex; align-items: center">空欸~</p>
+  <div class="flex flex-center flex-col">
+    <p class="flex-1 flex flex-align-center">(ﾟдﾟ≡ﾟдﾟ)</p>
+    <p class="flex-1 flex flex-align-center">空欸~</p>
   </div>
 </template>
 
@@ -18,8 +18,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-@import "../../css/index.scss";
-</style>
-

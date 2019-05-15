@@ -35,10 +35,10 @@ export default {
     renderCharts(option) {
       let { chart } = this.$refs;
       chart.setOption({
-        xAxis: { data: option.map(info => info.xdata) },
+        xAxis: { data: option.map(info => info.hour) },
         series: [
-          { data: option.map(info => info.carCount) },
-          { data: option.map(info => info.alarmCount) }
+          { data: option.map(info => info.vehicle_count) },
+          { data: option.map(info => info.operation_count) }
         ]
       });
     }

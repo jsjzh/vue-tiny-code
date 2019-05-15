@@ -1,6 +1,6 @@
 <template>
-  <div style="display: flex;flex: 1">
-    <base-table style="flex: 1" :tableData="reportData" :tableOption="tableOption"/>
+  <div class="flex flex-1">
+    <base-table class="flex-1" :tableData="reportData" :tableOption="tableOption"/>
   </div>
 </template>
 
@@ -24,8 +24,3 @@ export default {
   components: { baseTable }
 };
 </script>
-
-<style lang="scss" scoped>
-@import "../../css/index.scss";
-</style>
-

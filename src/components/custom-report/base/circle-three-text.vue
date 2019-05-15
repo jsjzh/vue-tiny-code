@@ -1,5 +1,5 @@
 <template>
-  <div class="circle-score-process-container">
+  <div class="flex-1 flex flex-center">
     <base-circle :percentage="percentage" :circleColor="realColor" :circleWidth="130">
       <template v-slot:svg>
         <text
@@ -64,12 +64,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.circle-score-process-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>

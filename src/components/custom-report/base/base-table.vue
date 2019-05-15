@@ -3,17 +3,11 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-18 10:42:41
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-05-08 17:13:25
+ * @LastEditTime: 2019-05-14 11:28:02
  * @Description: 基础 table 组件
  -->
 <template>
-  <el-table
-    size="mini"
-    style="width: 100%;border: 1px solid #f5f5f5"
-    height="100%"
-    :stripe="true"
-    :data="tableData"
-  >
+  <el-table size="mini" style="width: 100%" height="100%" :stripe="true" :data="tableData">
     <el-table-column
       header-align="center"
       align="center"

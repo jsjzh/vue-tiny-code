@@ -69,3 +69,24 @@ export function layoutDataToPreviewData(layoutData) {
     })
   }
 }
+
+/**
+ *
+ * @param {Object} transObj
+ * @param {Array} transArray
+ */
+export function transObjFromArray(transObj, transArray) {
+  return transArray.reduce((pre, curr) => {
+    if (curr.prop in transObj) {
+      return [
+        ...pre,
+        {
+          name: curr.name,
+          value: transObj[curr.prop]
+        }
+      ]
+    } else {
+      return pre
+    }
+  }, [])
+}

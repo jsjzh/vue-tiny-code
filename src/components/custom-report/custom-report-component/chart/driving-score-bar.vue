@@ -1,5 +1,5 @@
 <template>
-  <base-chart-bar ref="chart" style="flex: 1" @reload="reloadChart"/>
+  <base-chart-bar class="flex-1" ref="chart" @reload="reloadChart"/>
 </template>
 
 <script>
@@ -46,35 +46,35 @@ export default {
         });
       });
       chart.setOption({
-        xAxis: { data: option.map(info => info.xdata) },
+        xAxis: { data: option.map(info => info.date) },
         series: [
           {
             name: null,
             type: "bar",
             stack: "score",
             barWidth: "101%",
-            data: obj.countOne,
+            data: obj.bad,
             itemStyle: { color: scoreColor[3] }
           },
           {
             name: null,
             type: "bar",
             stack: "score",
-            data: obj.countTwo,
+            data: obj.normal,
             itemStyle: { color: scoreColor[2] }
           },
           {
             name: null,
             type: "bar",
             stack: "score",
-            data: obj.countThree,
+            data: obj.good,
             itemStyle: { color: scoreColor[1] }
           },
           {
             name: null,
             type: "bar",
             stack: "score",
-            data: obj.countFour,
+            data: obj.excellent,
             itemStyle: { color: scoreColor[0] }
           }
         ]
@@ -86,8 +86,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-@import "../../css/index.scss";
-</style>
-

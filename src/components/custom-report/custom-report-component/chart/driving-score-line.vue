@@ -1,6 +1,6 @@
 
 <template>
-  <base-chart-line ref="chart" style="flex: 1" @reload="reloadChart"/>
+  <base-chart-line class="flex-1" ref="chart" @reload="reloadChart"/>
 </template>
 
 <script>
@@ -36,7 +36,7 @@ export default {
     renderLineChart(option) {
       let { chart } = this.$refs;
       chart.setOption({
-        xAxis: { data: option.map(item => item.xdata) },
+        xAxis: { data: option.map(item => item.date) },
         series: [{ data: option.map(item => item.score) }]
       });
     }
@@ -46,8 +46,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-@import "../../css/index.scss";
-</style>
-

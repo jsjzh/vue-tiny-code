@@ -1,5 +1,5 @@
 <template>
-  <div class="ps-r">
+  <div class="ps-r" :style="{width: `${circleWidth}px`, height: `${circleWidth}px`}">
     <svg :width="circleWidth" :height="circleWidth" :viewBox="`0 0 ${circleWidth} ${circleWidth}`">
       <g>
         <path

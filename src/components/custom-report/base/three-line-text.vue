@@ -1,16 +1,15 @@
 <template>
-  <div class="three-line-text-container">
-    <div>{{blockTitle}}</div>
-    <div>
-      <span style="color: #ee7738;font-size: 1.2rem">{{count | filterCount}}</span>
+  <div class="flex flex-col three-line-text-container">
+    <div class="flex-1 flex flex-align-center flex-just-start">{{blockTitle}}</div>
+    <div class="flex-1 flex flex-align-center flex-just-start">
+      <span style="color: #ee7738;font-size: 2rem">{{count}}</span>
       &nbsp;{{unit}}
     </div>
-    <div v-html="PAGE_rate"/>
+    <div class="flex-1 flex flex-align-center flex-just-start" v-html="PAGE_rate"/>
   </div>
 </template>
 
 <script>
-// TODO 可以引入 parse5 用来处理 html 标签，现在暂时用字符串拼接的方法
 export default {
   name: "three-line-text",
   props: {
@@ -29,40 +28,23 @@ export default {
     unit: {
       type: String,
       default: "please set the unit"
+    },
+    trend: {
+      type: Number,
+      default: 1
     }
   },
   computed: {
     PAGE_rate() {
       let { rate } = this;
-      if (rate === 0)
-        return `<span style="color: gray"> — ${Math.abs(rate)} %</span>`;
+      if (this.trend < 0) rate = -rate;
       if (rate > 0)
-        return `<span style="color: red"> ↑ ${Math.abs(rate)} %</span>`;
-      if (rate < 0)
-        return `<span style="color: green"> ↓ ${Math.abs(rate)} %</span>`;
-    }
-  },
-  filters: {
-    filterCount(value) {
-      return value;
-    },
-    filterRate(value) {
-      return value;
+        return `<span style="color: red"> ↑ ${Math.abs(+rate)} %</span>`;
+      else if (rate < 0)
+        return `<span style="color: green"> ↓ ${Math.abs(+rate)} %</span>`;
+      else return `<span style="color: gray"> — ${0} %</span>`;
     }
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.three-line-text-container {
-  display: flex;
-  flex-flow: column;
-  & div {
-    flex: 1;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  }
-}
-</style>
 

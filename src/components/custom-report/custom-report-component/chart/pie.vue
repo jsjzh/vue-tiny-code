@@ -1,5 +1,5 @@
 <template>
-  <base-chart-pie ref="chart" style="flex: 1" @reload="reloadChart"/>
+  <base-chart-pie class="flex-1" ref="chart" @reload="reloadChart"/>
 </template>
 
 <script>
@@ -42,8 +42,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-@import "../../css/index.scss";
-</style>
-

@@ -1,10 +1,11 @@
 <template>
   <three-line-text
     style="flex: 1"
-    :block-title="title"
-    :count="reportData.countOne"
+    :unit="mixinData.unit"
+    :block-title="reportData.name"
+    :count="reportData.value"
     :rate="reportData.rate"
-    :unit="unit"
+    :trend="reportData.trend"
   />
 </template>
 
@@ -12,7 +13,7 @@
 import threeLineText from "../../base/three-line-text";
 
 export default {
-  name: "custom-report-component-text-high-speed-score",
+  name: "custom-report-component-text-three-line-text",
   components: { threeLineText },
   props: {
     reportData: {
@@ -20,15 +21,13 @@ export default {
       default() {
         return {};
       }
+    },
+    mixinData: {
+      type: Object,
+      default() {
+        return {};
+      }
     }
-  },
-  data() {
-    return {
-      title: "high-speed-score",
-      unit: "分",
-      count: null,
-      rate: null
-    };
   }
 };
 </script>

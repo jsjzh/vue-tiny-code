@@ -3,41 +3,41 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-03-28 13:39:58
- * @LastEditTime: 2019-05-06 11:50:00
+ * @LastEditTime: 2019-05-15 15:37:26
  * @Description: 公用搜索条件页面
  -->
 <template>
   <div class="query-container" v-loading="isLoading" @click="handleClickZtreeContainer">
-    <div class="select-time-container">
+    <!-- <div class="select-time-container">
       <div>
-        <span>startTime&nbsp;&nbsp;&nbsp;</span>
+        <span>start_time&nbsp;&nbsp;&nbsp;</span>
         <el-date-picker
-          value-format="yyyy-MM-dd HH:mm:ss"
-          v-model="queryData.startTime"
+          value-format="timestamp"
+          v-model="queryData.start_time"
           type="datetime"
-          placeholder="startTime"
+          placeholder="start_time"
         />
       </div>
 
       <div>
-        <span>endTime&nbsp;&nbsp;&nbsp;</span>
+        <span>end_time&nbsp;&nbsp;&nbsp;</span>
         <el-date-picker
-          value-format="yyyy-MM-dd HH:mm:ss"
-          v-model="queryData.endTime"
+          value-format="timestamp"
+          v-model="queryData.end_time"
           type="datetime"
-          placeholder="endTime"
+          placeholder="end_time"
         />
       </div>
-    </div>
+    </div>-->
 
-    <div class="select-ztree-container">
+    <!-- <div class="select-ztree-container">
       <div class="switch-ztree-container">
         <el-button type="primary" @click="handleShowDepartment">select motorcade</el-button>
         <el-button type="primary" @click="handleShowDepartmentAndVehicle">select vehicle</el-button>
         <el-button type="primary" @click="handleShowDriver">select driver</el-button>
       </div>
 
-      <!-- <div class="ztree-container">
+      <div class="ztree-container">
         <div v-show="departmentShow" class="ztree-item">
           <ztree :setting="departmentSetting" :tree-id="departmentId" ref="ztreeDepartmentRef"/>
         </div>
@@ -52,25 +52,26 @@
         <div v-show="driverShow" class="ztree-item">
           <ztree :setting="driverSetting" :tree-id="driverId" ref="ztreeDriverRef"/>
         </div>
-      </div>-->
-    </div>
+      </div>
+    </div>-->
 
-    <div class="save-query-container">
+    <div class="search-query-container">
       <div>
-        <el-button type="primary" @click="handleChangeQueryData">save</el-button>
+        <el-button type="primary" @click="handleChangeQueryData">search</el-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import // 车队
-// // GetTreeDepartment,
-// // 车辆
-// // GetTreeDepartmentAndVehicle,
-// // 驾驶员
-// // GetTreeDriver
-// "@/api";
+// import {
+//   // 车队
+//   GetTreeDepartment,
+//   // 车辆
+//   GetTreeDepartmentAndVehicle,
+//   // 驾驶员
+//   GetTreeDriver
+// } from "@/axios/api";
 
 function getZtreeSetting(clickFn, options = {}) {
   return {
@@ -85,10 +86,10 @@ function getZtreeSetting(clickFn, options = {}) {
 export default {
   name: "report-tool-select-query",
   data() {
-    let pageName = this.$options.name;
+    let { name: pageName } = this.$options;
     return {
       /* ************* ztree树设置 ************* */
-      isLoading: true,
+      isLoading: false,
       queryData: {},
       departmentSetting: getZtreeSetting(this.handleClickZtreeNode),
       departmentAndVehicleSetting: getZtreeSetting(this.handleClickZtreeNode),
@@ -109,9 +110,9 @@ export default {
   },
   methods: {
     handleClickZtreeContainer(e) {
-      // if (e.target.className === "ztree-container") {
-      this.$emit("click-outside");
-      // }
+      if (e.target.className === "ztree-container") {
+        this.$emit("click-outside");
+      }
     },
 
     handleChangeQueryData() {
@@ -137,9 +138,9 @@ export default {
     },
 
     handleClickZtreeNode(jqEvent, id, node) {
-      let { type, id: targetId, name, text } = node;
+      let { type, id: target_id, name, text } = node;
       this.queryData.type = type;
-      this.queryData.targetId = targetId;
+      this.queryData.target_id = target_id;
       this.queryData.text = name || text;
     },
 
@@ -230,7 +231,7 @@ export default {
       }
     }
   }
-  .save-query-container {
+  .search-query-container {
     position: absolute;
     bottom: 5%;
     right: 5%;

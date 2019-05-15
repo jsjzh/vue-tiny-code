@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-28 11:41:17
- * @LastEditTime: 2019-05-10 16:55:22
+ * @LastEditTime: 2019-05-14 11:45:36
  * @Description: 全局样式
  */
 @import './variable.scss';
@@ -44,6 +44,22 @@ html {
   display: flex;
 }
 
+.flex-1 {
+  flex: 1;
+}
+
+.flex-col {
+  flex-flow: column;
+}
+
+.flex-just-start {
+  justify-content: flex-start;
+}
+
+.flex-align-center {
+  align-items: center;
+}
+
 .flex-center {
   justify-content: center;
   align-items: center;
@@ -52,6 +68,7 @@ html {
 .flex-nowrap {
   flex-wrap: nowrap;
 }
+
 .flex-wrap {
   flex-wrap: wrap;
 }

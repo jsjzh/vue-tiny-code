@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2018-6-28 15:13:23
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-05-10 15:45:03
+ * @LastEditTime: 2019-05-15 16:17:36
  * @Description: 常用函数包装
  */
 import * as R from 'ramda'
@@ -313,4 +313,15 @@ export const isSame = R.curry(function(target, a, b) {
 
 export function noop() {
   return function() {}
+}
+
+export function getRamdomCountByNum(total = 100, num = 4) {
+  let arr = []
+  let _total = total
+  for (let index = 1; index < num; index++) {
+    arr[index - 1] = (Math.random() * total).toFixed(0)
+    total -= arr[index - 1]
+  }
+  arr[num - 1] = arr.reduce((pre, curr) => pre - curr, _total)
+  return arr
 }

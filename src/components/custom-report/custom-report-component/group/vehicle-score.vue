@@ -1,15 +1,15 @@
 <template>
-  <div style="display: flex;flex: 1">
+  <div class="flex flex-1">
     <base-table
       style="flex: 3;margin-right: 20px"
       indexTitle="排名"
-      :tableData="topTen"
+      :tableData="reportData.ranking_top_10"
       :tableOption="vehicleScoreTableOneOption"
     />
     <base-table
       style="flex: 3"
       indexTitle="排名"
-      :tableData="lastTen"
+      :tableData="reportData.ranking_tail_10"
       :tableOption="vehicleScoreTableTwoOption"
     />
     <base-chart-pie ref="chart" style="flex: 2" @reload="reloadChart"/>
@@ -31,16 +31,14 @@ export default {
   data() {
     return {
       vehicleScoreTableOneOption,
-      vehicleScoreTableTwoOption,
-      topTen: [],
-      lastTen: []
+      vehicleScoreTableTwoOption
     };
   },
   props: {
     reportData: {
-      type: Array,
+      type: Object,
       default() {
-        return [];
+        return {};
       }
     }
   },
@@ -48,7 +46,6 @@ export default {
     reportData: {
       handler(newVal, oldVal) {
         // 父组件数据更新触发 echart 更新
-        this.renderTable(newVal);
         this.renderChart(newVal);
       }
     }
@@ -59,66 +56,42 @@ export default {
     reloadChart() {
       let { chart } = this.$refs;
       chart.setOption(vehicleScorePieOption);
-      this.reportData.length && this.renderChart(this.reportData);
+      this.reportData && this.renderChart(this.reportData);
     },
     renderChart(option) {
       let { chart } = this.$refs;
-
       chart.setOption({
         series: [
           {
             data: [
               {
-                name: "0 <= score < 40",
+                name: "40 分以下",
                 itemStyle: { color: scoreColor[3] },
-                value: option.filter(info => 0 <= info.score && info.score < 40)
-                  .length
+                value: option.bad
               },
               {
-                name: "40 <= score < 60",
+                name: "40 分 - 60 分",
                 itemStyle: { color: scoreColor[2] },
-                value: option.filter(
-                  info => 40 <= info.score && info.score < 60
-                ).length
+                value: option.normal
               },
               {
-                name: "60 <= score < 80",
+                name: "60 分 - 80 分",
                 itemStyle: { color: scoreColor[1] },
-                value: option.filter(
-                  info => 60 <= info.score && info.score < 80
-                ).length
+                value: option.good
               },
               {
-                name: "80 <= score < 100",
+                name: "80 分 - 100 分",
                 itemStyle: { color: scoreColor[0] },
-                value: option.filter(
-                  info => 80 <= info.score && info.score < 100
-                ).length
+                value: option.excellent
               }
             ]
           }
         ]
       });
-    },
-    renderTable(data) {
-      this.topTen = data
-        .slice()
-        .sort((a, b) => -(a.score - b.score))
-        .slice(0, 10);
-      this.lastTen = data
-        .slice()
-        .sort((a, b) => a.score - b.score)
-        .slice(0, 10);
     }
   },
   mounted() {
-    this.renderTable(this.reportData);
     this.reloadChart();
   }
 };
 </script>
-
-<style lang="scss" scoped>
-@import "../../css/index.scss";
-</style>
-

@@ -1,5 +1,5 @@
 <template>
-  <base-chart-line ref="chart" style="flex: 1" @reload="reloadChart"/>
+  <base-chart-line class="flex-1" ref="chart" @reload="reloadChart"/>
 </template>
 
 <script>
@@ -45,8 +45,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-@import "../../css/index.scss";
-</style>
-

@@ -1,5 +1,5 @@
 <template>
-  <div class="circle-score-process-container">
+  <div class="flex flex-1 flex-align-center flex-col" style="justify-content: space-around">
     <div style="font-weight: 600" :style="{fontSize: circleWidth / 8 + 'px'}">{{circleTitle}}</div>
     <base-circle
       :percentage="percentage"
@@ -30,7 +30,7 @@ export default {
     iconText: { type: String },
 
     circleWidth: { type: [String, Number], default: 130 },
-    circleTitle: { type: String, required: true },
+    circleTitle: { type: String, default: "title" },
     circleTip: { type: String, default: "no data" },
     haveBox: { type: Boolean, default: false }
   },
@@ -48,13 +48,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.circle-score-process-container {
-  flex: 1;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-flow: column;
-}
-</style>
