@@ -21,7 +21,7 @@ export default {
       paths: [
         { to: "/", title: "首页" },
         { to: "/customReportList", title: "拖拽报表 --- 报表列表" },
-        { to: "/editComponent", title: "拖拽报表 --- 编辑组件" },
+        // { to: "/editComponent", title: "拖拽报表 --- 编辑组件" },
         { to: "/palette", title: "仿 Chrome 调色板" },
         { to: "/waves", title: "水波纹" },
         { to: "/dragDialog", title: "elementDialog 可拖拽" },
