@@ -3,23 +3,70 @@
  * @Email: kimimi_king@163.com
  * @LastEditors: jsjzh
  * @Date: 2019-02-13 14:50:02
- * @LastEditTime: 2019-03-06 18:17:03
- * @Description: 组件列表头部的展示框集
+ * @LastEditTime: 2019-05-16 17:10:03
+ * @Description: 自定义表格的组件选择组件
  -->
 <template>
-  <div class="default-framework-container">
-    <div class="select-col-box">
-      <div class="box-row" v-for="(row, rowIndex) in box" :key="rowIndex">
-        <div
-          class="col-item"
-          :class="{ active: col.active }"
-          :style="previewColStyle({ width: col.placeholderCol, height: col.height }, 100, 1)"
-          v-for="(col, colIndex) in row.col"
-          :key="colIndex"
-          @click="handleClickBoxCol(col)"
-        >{{col.placeholderCol}}</div>
-      </div>
+  <div class="w100 h100 default-framework-container">
+    <div class="w100 search-container">
+      <el-form ref="form" size="mini" :model="queryData" label-width="80px">
+        <el-form-item label="组件规格:">
+          <el-col :span="11">
+            <el-select
+              v-model="queryData.height"
+              @change="handleChangeHeight"
+              size="mini"
+              clearable
+              placeholder="组件高度"
+            >
+              <el-option
+                v-for="(item, itemIndex) in options.heightOptions"
+                :key="itemIndex"
+                :value="item"
+              />
+            </el-select>
+          </el-col>
+          <el-col class="text-c" :span="2">+</el-col>
+          <el-col :span="11">
+            <el-select
+              v-model="queryData.col"
+              size="mini"
+              no-data-text="请先选择左侧的组件高度"
+              clearable
+              placeholder="组件宽度"
+            >
+              <el-option
+                v-for="(item, itemIndex) in options.colOptions"
+                :key="itemIndex"
+                :value="item"
+              />
+            </el-select>
+          </el-col>
+        </el-form-item>
+
+        <el-form-item label="组件名称:">
+          <el-input
+            clearable
+            v-model="queryData.label"
+            @keyup.enter.native="handleClickSearchComponent"
+          />
+        </el-form-item>
+        <!-- <el-form-item label="组件类型:">
+          <el-select v-model="queryData.type" size="mini" clearable placeholder="组件类型">
+            <el-option v-for="item in options.typeOptions" :key="item" :value="item"/>
+          </el-select>
+        </el-form-item>-->
+        <el-form-item class="text-r">
+          <el-button
+            type="primary"
+            size="mini"
+            icon="el-icon-search"
+            @click="handleClickSearchComponent"
+          >搜索组件</el-button>
+        </el-form-item>
+      </el-form>
     </div>
+
     <div class="components-container">
       <div
         class="components-row"
@@ -27,20 +74,17 @@
         :key="componentIndex"
       >
         <div class="components-infos-box">
-          <div>height: {{component.height}}</div>
-          <div>col: {{component.col}}</div>
+          <div>{{component.label}}</div>
+          <div>height: {{component.height}} col: {{component.col}}</div>
         </div>
         <div class="preview-box">
           <div
             class="preview"
             draggable="true"
-            :style="previewColStyle({ width: component.col, height: component.height }, 100, 3, 24,{backgroundImage: component.previewImage ? `url(${component.previewImage})` : null})"
+            :style="previewColStyle({ width: component.col, height: component.height },{backgroundImage: component.previewImage ? `url(${component.previewImage})` : null})"
             @dragstart="handleDragCol($event, component)"
             @dragend="hanDragColEnd($event, component)"
           />
-        </div>
-        <div class="components-controller-bar">
-          <el-input size="mini" :placeholder="component.label" v-model="component.title"/>
         </div>
       </div>
     </div>
@@ -49,7 +93,12 @@
 
 <script>
 import colStyle from "@/mixins/methods/col-style";
-import { mixinData } from "@/utils";
+import {
+  mapPropAndSortAndDup,
+  filterPropEquals,
+  isIndexOf
+} from "@/utils/ramdaUtil";
+import * as R from "ramda";
 
 import { getcomponentinfo } from "@/api";
 
@@ -58,79 +107,58 @@ export default {
   mixins: [colStyle],
   data() {
     return {
-      box: [
-        {
-          col: [
-            { active: false, height: 30, placeholderCol: 4.8 },
-            { active: false, height: 30, placeholderCol: 4.8 },
-            { active: false, height: 30, placeholderCol: 4.8 },
-            { active: false, height: 30, placeholderCol: 4.8 },
-            { active: false, height: 30, placeholderCol: 4.8 }
-          ]
-        },
-        {
-          col: [
-            { active: false, height: 50, placeholderCol: 16 },
-            { active: false, height: 50, placeholderCol: 8 }
-          ]
-        },
-        {
-          col: [
-            { active: false, height: 50, placeholderCol: 12 },
-            { active: false, height: 50, placeholderCol: 12 }
-          ]
-        },
-        {
-          col: [
-            { active: false, height: 50, placeholderCol: 8 },
-            { active: false, height: 50, placeholderCol: 8 },
-            { active: false, height: 50, placeholderCol: 8 }
-          ]
-        },
-        { col: [{ active: false, height: 50, placeholderCol: 24 }] }
-      ],
       initComponentDatas: [],
-      componentDatas: []
+      componentDatas: [],
+      queryData: {
+        label: null,
+        height: null,
+        col: null,
+        type: null
+      },
+      options: {
+        heightOptions: [],
+        colOptions: [],
+        typeOptions: []
+      }
     };
   },
   methods: {
     handleDragCol(event, col) {
-      col.title = col.title || col.label;
+      col.title = col.label;
       this.$emit("drag-col-start", event, col);
     },
     hanDragColEnd(event, col) {
       this.$emit("drag-col-end", event, col);
     },
-    handleChangeSelectComponent(event, component) {
-      let previewImage = component.types.find(
-        type => type.value === component.selectValue
-      ).previewImage;
-      if (previewImage) {
-        component.previewImage = previewImage;
-      }
+    handleChangeHeight(height) {
+      let { options, queryData } = this;
+      queryData.col = null;
+      options.colOptions = R.compose(
+        mapPropAndSortAndDup("col"),
+        filterPropEquals("height", height)
+      )(this.initComponentDatas);
     },
-    handleClickComType(col) {
-      this.componentDatas = this.initComponentDatas.filter(
-        item => item.col === col.placeholderCol
+    handleClickSearchComponent() {
+      let { queryData } = this;
+      this.componentDatas = Object.keys(queryData).reduce(
+        (pre, curr) =>
+          queryData[curr]
+            ? pre.filter(component =>
+                isIndexOf(curr, ["label"])
+                  ? isIndexOf(queryData[curr], component[curr])
+                  : R.equals(component[curr], queryData[curr])
+              )
+            : pre,
+        this.initComponentDatas
       );
-    },
-    handleClickBoxCol(col) {
-      this.box.forEach(row => {
-        row.col.forEach(col => {
-          col.active = false;
-        });
-      });
-      col.active = true;
-      this.handleClickComType(col);
     }
   },
   mounted() {
-    let data = { title: "" };
     getcomponentinfo().then(res => {
-      this.componentDatas = res.map(component => mixinData(component, data));
-      this.initComponentDatas = res.map(component =>
-        mixinData(component, data)
-      );
+      let { options } = this;
+      this.componentDatas = res;
+      this.initComponentDatas = res;
+      options.heightOptions = mapPropAndSortAndDup("height", res);
     });
   }
 };
@@ -144,30 +172,8 @@ export default {
   flex-wrap: wrap;
   flex-flow: column;
   height: 100%;
-  padding: 2rem 1rem;
-
-  .select-col-box {
-    @include default-flex;
-    @include flex-full;
-    flex-wrap: wrap;
-    padding: 1rem 6rem;
-    .box-row {
-      @include default-flex;
-      @include flex-full;
-      margin: 0.5rem 0;
-      .col-item {
-        @include default-col-style;
-        @include default-col-layout;
-        @include cur-p;
-        &.active {
-          @include default-col-border;
-          border-color: $active-color-1;
-          color: $active-color-1;
-        }
-      }
-    }
-  }
-
+  padding: 1rem;
+  padding-top: 2rem;
   .components-container {
     @include default-flex;
     width: 100%;
@@ -182,11 +188,13 @@ export default {
       @include default-flex;
       @include default-col-radius;
       @include boxShadow;
+      align-items: flex-start;
       flex-flow: wrap;
-      padding: 1rem;
+      padding: 0 1rem;
       width: 100%;
       min-height: 200px;
       margin: 1rem 0;
+      background-color: #f5f5f5;
       & .components-infos-box {
         width: 100%;
       }
@@ -198,9 +206,6 @@ export default {
           @include default-background-img;
         }
       }
-    }
-    & .components-controller-bar {
-      flex: 1;
     }
   }
 }

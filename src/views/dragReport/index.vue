@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2019-02-02 15:47:44
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-05-10 17:54:32
+ * @LastEditTime: 2019-05-16 17:10:03
  * @Description: 拖动布局排版，更改原先的想法，首先，需要一些固定布局（12:12）（8:8:8）（6:6:6:6）等等，然后拖动组件进行内容填充，对于该位置已经有组件的地方，可以选择取代或者交换两者位置，关键就在于，要有一些固定的布局排版，然后填充组件，可拖拽的部件为组件；行（parent），layout 的布局不可以更改
  -->
 <template>
@@ -71,7 +71,7 @@
           class="flex flex-center ps-r border-r5 layout-col-box"
           :class="{'cur-all': !!col.previewImage}"
           v-for="(col, colIndex) in row.children"
-          :style="previewColStyle({width: col.initCol, height: row.initHeight}, 100, 1, 24, {backgroundImage: col.previewImage ? `url(${col.previewImage})` : null})"
+          :style="previewColStyle({width: col.initCol, height: row.initHeight, baseHeight: 1}, {backgroundImage: col.previewImage ? `url(${col.previewImage})` : null})"
           :key="colIndex"
           :draggable="col.previewImage ? true : false"
           @mouseenter="col.previewImage ? col.showChildrenControllerBar = true : null"
@@ -152,10 +152,11 @@
           </div>
         </transition>
 
-        <default-framework
+        <default-framework @drag-col-start="handleDragNewCol"/>
+        <!-- <default-framework
           v-clickoutside="handleClickoutside(addCol)"
           @drag-col-start="handleDragNewCol"
-        />
+        />-->
       </div>
     </transition>
   </div>
@@ -222,7 +223,7 @@ export default {
         showControllerBar: false
       },
       addCol: {
-        show: false,
+        show: true,
         showControllerBar: false
       }
     };

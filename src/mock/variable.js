@@ -603,7 +603,7 @@ export const componentDatas = [
     dataKey: 'data.base_param.avg_operate',
     col: 4,
     height: 100,
-    previewImage: 'https://i.loli.net/2019/05/10/5cd528454320a.png'
+    previewImage: 'http://chuantu.xyz/t6/702/1557974107x1709417317.png'
   },
   {
     label: '最高车速',

@@ -34,7 +34,7 @@
           </div>
           <div
             class="component-item"
-            :style="previewColStyle({ width: component.col, height: component.height }, 100, 3, 24,{backgroundImage: component.previewImage ? `url(${component.previewImage})` : null})"
+            :style="previewColStyle({ width: component.col, height: component.height },{backgroundImage: component.previewImage ? `url(${component.previewImage})` : null})"
           />
         </div>
       </div>
@@ -43,7 +43,7 @@
       <div class="preview-container">
         <div
           class="preview-item"
-          :style="previewColStyle({ width: editComponentInfo.col, height: editComponentInfo.height }, 100, 1, 24,{backgroundImage: editComponentInfo.previewImage ? `url(${editComponentInfo.previewImage})` : null, width: `${editComponentInfo.col *50}px`})"
+          :style="previewColStyle({ width: editComponentInfo.col, height: editComponentInfo.height, baseHeight: 1 }, {backgroundImage: editComponentInfo.previewImage ? `url(${editComponentInfo.previewImage})` : null, width: `${editComponentInfo.col *50}px`})"
         />
       </div>
       <div class="edit-container">

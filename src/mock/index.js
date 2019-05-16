@@ -2,7 +2,7 @@ window.$$XMLHttpRequest = window.XMLHttpRequest
 
 const Mock = require('mockjs')
 import { transUrlParams, transBodyParams, getRamdomCountByNum } from '@/utils'
-import { componentDatas, dragReportData, reportListDatas } from './modules/variable'
+import { componentDatas, dragReportData, reportListDatas } from './variable'
 
 let $$id = 0
 

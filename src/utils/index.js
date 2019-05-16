@@ -3,7 +3,7 @@
  * @Email: kimimi_king@163.com
  * @Date: 2018-6-28 15:13:23
  * @LastEditors: jsjzh
- * @LastEditTime: 2019-05-15 16:17:36
+ * @LastEditTime: 2019-05-16 16:40:34
  * @Description: 常用函数包装
  */
 import * as R from 'ramda'
@@ -324,4 +324,8 @@ export function getRamdomCountByNum(total = 100, num = 4) {
   }
   arr[num - 1] = arr.reduce((pre, curr) => pre - curr, _total)
   return arr
+}
+
+export function reDup(array) {
+  return Array.from(new Set(array))
 }
