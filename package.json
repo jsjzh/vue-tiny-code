@@ -14,7 +14,7 @@
     "element-ui": "^2.5.4",
     "html2canvas": "^1.0.0-alpha.12",
     "jspdf": "^1.5.3",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "mockjs": "^1.0.1-beta3",
     "moment": "^2.24.0",
     "ramda": "^0.26.1",
